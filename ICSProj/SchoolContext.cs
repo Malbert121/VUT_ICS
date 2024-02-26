@@ -4,26 +4,26 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
-// Definice tříd
+// Classes definition
 public class User
 {
-    public int UserId { get; set; }
-    public string Jmeno { get; set; }
-    public string Prijmeni { get; set; }
-    public string FotografieURL { get; set; }
-    public string Role { get; set; }
+    public int userId { get; set; }
+    public string firstName { get; set; }
+    public string lastName { get; set; }
+    public string fotoURL { get; set; }
+    public string role { get; set; }
 }
 
 public class Student : User
 {
-    public ICollection<Predmet> Predmety { get; set; } = new List<Predmet>();
-    public ICollection<Aktivita> Aktivity { get; set; } = new List<Aktivita>();
+    public ICollection<Subject> subjects { get; set; } = new List<Subject>();
+    public ICollection<Activity> activities { get; set; } = new List<Activity>();
 }
 
 public class Teacher : User
 {
-    public ICollection<Predmet> Predmety { get; set; } = new List<Predmet>();
-    public ICollection<Aktivita> Aktivity { get; set; } = new List<Aktivita>();
+    public ICollection<Subject> subjects { get; set; } = new List<Subject>();
+    public ICollection<Activity> activities { get; set; } = new List<Activity>();
 }
 
 public class Administrator : User
@@ -32,49 +32,49 @@ public class Administrator : User
 }
 
 
-public class Aktivita
+public class Activity
 {
-    public int AktivitaId { get; set; }
-    public string Nazev { get; set; }
-    public DateTime Zacatek { get; set; }
-    public DateTime Konec { get; set; }
-    public string Mistnost { get; set; }
-    public string TypTagAktivity { get; set; }
-    public string Popis { get; set; }
-    public int PredmetId { get; set; }
-    public Predmet Predmet { get; set; }
-    public ICollection<Hodnoceni> Hodnoceni { get; set; } = new List<Hodnoceni>();
-    public ICollection<Student> Studenti { get; set; } = new List<Student>(); // Добавленный список студентов
+    public int activityId { get; set; }
+    public string name { get; set; }
+    public DateTime start { get; set; }
+    public DateTime end { get; set; }
+    public string room { get; set; }
+    public string activityTypeTag { get; set; }
+    public string description { get; set; }
+    public int subjectId { get; set; }
+    public Subject subject { get; set; }
+    public ICollection<Rating> rating { get; set; } = new List<Rating>();
+    public ICollection<Student> students { get; set; } = new List<Student>(); // added student List
 }
 
 
-public class Predmet
+public class Subject
 {
-    public int PredmetId { get; set; }
-    public string Nazev { get; set; }
-    public string Zkratka { get; set; }
-    public ICollection<Aktivita> Aktivity { get; set; } = new List<Aktivita>();
-    public ICollection<Student> Studenti { get; set; } = new List<Student>();
+    public int subjectId { get; set; }
+    public string name { get; set; }
+    public string abbreviation { get; set; }
+    public ICollection<Activity> aktivity { get; set; } = new List<Activity>();
+    public ICollection<Student> students { get; set; } = new List<Student>();
 }
 
-public class Hodnoceni
+public class Rating
 {
-    public int HodnoceniId { get; set; }
-    public int Body { get; set; }
-    public string Poznamka { get; set; }
-    public int AktivitaId { get; set; }
-    public Aktivita Aktivita { get; set; }
-    public int StudentId { get; set; }
-    public Student Student { get; set; }
+    public int ratingId { get; set; }
+    public int body { get; set; }
+    public string note { get; set; }
+    public int activityId { get; set; }
+    public Activity Activity { get; set; }
+    public int studentId { get; set; }
+    public Student student { get; set; }
 }
 
 // DbContext
 public class SchoolContext : DbContext
 {
     public DbSet<User> Users { get; set; }
-    public DbSet<Aktivita> Aktivity { get; set; }
-    public DbSet<Predmet> Predmety { get; set; }
-    public DbSet<Hodnoceni> Hodnoceni { get; set; }
+    public DbSet<Activity> Activities { get; set; }
+    public DbSet<Subject> Subjects { get; set; }
+    public DbSet<Rating> Rating { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -90,22 +90,22 @@ public class SchoolContext : DbContext
         modelBuilder.Entity<User>().ToTable("Users");
 
         modelBuilder.Entity<User>()
-            .HasDiscriminator<string>("Role")
+            .HasDiscriminator<string>("role")
             .HasValue<Student>("Student")
             .HasValue<Teacher>("Teacher")
             .HasValue<Administrator>("Administrator");
 
-        // Настройка многие-ко-многим между Predmet и Student
-        modelBuilder.Entity<Predmet>()
-            .HasMany(p => p.Studenti)
-            .WithMany(s => s.Predmety)
-            .UsingEntity(j => j.ToTable("StudentPredmet"));
+        // Many-to-many between Subject and Student
+        modelBuilder.Entity<Subject>()
+            .HasMany(p => p.students)
+            .WithMany(s => s.subjects)
+            .UsingEntity(j => j.ToTable("StudentSubject"));
 
-        // Настройка многие-ко-многим между Aktivita и Student
-        modelBuilder.Entity<Aktivita>()
-            .HasMany(a => a.Studenti)
-            .WithMany(s => s.Aktivity)
-            .UsingEntity(j => j.ToTable("StudentAktivita"));
+        // Many-to-many between Activity and Student
+        modelBuilder.Entity<Activity>()
+            .HasMany(a => a.students)
+            .WithMany(s => s.activities)
+            .UsingEntity(j => j.ToTable("StudentActivity"));
     }
 
 }
