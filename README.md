@@ -9,7 +9,11 @@ TODO: Guide users through getting your code up and running on their own system. 
 4.	API references
 
 # Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+Make build - type in CL "dotnet build"
+Make migrations: first create migrations - "dotnet ef migrations add InitialCreate"
+After changing or crating smth in DB you need to update:
+type "dotnet ef database update"
+Finally write "dotnet run"
 
 # Contribute
 TODO: Explain how other users and developers can contribute to make your code better. 
