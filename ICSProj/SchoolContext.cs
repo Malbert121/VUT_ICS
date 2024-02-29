@@ -5,76 +5,61 @@ using System;
 using System.Collections.Generic;
 
 // Classes definition
-public class User
+
+
+public class StudentEntity
 {
-    public int userId { get; set; }
-    public string firstName { get; set; }
-    public string lastName { get; set; }
-    public string fotoURL { get; set; }
-    public string role { get; set; }
+    public int studentId { get; set; }
+    public string firstName { get; set; } = string.Empty;
+    public string lastName { get; set; } = string.Empty;
+    public string fotoURL { get; set; } = string.Empty;
+    public ICollection<SubjectEntity> subjects { get; set; } = new List<SubjectEntity>();
+    //public ICollection<Activity> activities { get; set; } = new List<Activity>();
 }
 
-public class Student : User
-{
-    public ICollection<Subject> subjects { get; set; } = new List<Subject>();
-    public ICollection<Activity> activities { get; set; } = new List<Activity>();
-}
-
-public class Teacher : User
-{
-    public ICollection<Subject> subjects { get; set; } = new List<Subject>();
-    public ICollection<Activity> activities { get; set; } = new List<Activity>();
-}
-
-public class Administrator : User
-{
-    // All other cases
-}
-
-
-public class Activity
-{
+public class ActivityEntity
+{ 
     public int activityId { get; set; }
-    public string name { get; set; }
+    public string name { get; set; } = string.Empty;
     public DateTime start { get; set; }
     public DateTime end { get; set; }
-    public string room { get; set; }
-    public string activityTypeTag { get; set; }
-    public string description { get; set; }
+    public string room { get; set; } = string.Empty;
+    public string activityTypeTag { get; set; } = string.Empty;
+    public string description { get; set; } = string.Empty;
     public int subjectId { get; set; }
-    public Subject subject { get; set; }
-    public ICollection<Rating> rating { get; set; } = new List<Rating>();
-    public ICollection<Student> students { get; set; } = new List<Student>(); // added student List
+    public SubjectEntity? subject { get; set; }
+    public RatingEntity? rating { get; set; } 
+    
 }
 
 
-public class Subject
+public class SubjectEntity
 {
     public int subjectId { get; set; }
-    public string name { get; set; }
-    public string abbreviation { get; set; }
-    public ICollection<Activity> aktivity { get; set; } = new List<Activity>();
-    public ICollection<Student> students { get; set; } = new List<Student>();
+    public string name { get; set; } = string.Empty;
+    public string abbreviation { get; set; } = string.Empty;
+    public ICollection<ActivityEntity> activity { get; set; } = new List<ActivityEntity>();
+    public ICollection<StudentEntity> students { get; set; } = new List<StudentEntity>();
 }
 
-public class Rating
+public class RatingEntity
 {
     public int ratingId { get; set; }
     public int body { get; set; }
-    public string note { get; set; }
+    public string note { get; set; } = string.Empty;
     public int activityId { get; set; }
-    public Activity Activity { get; set; }
+    public ActivityEntity? activity { get; set; }
     public int studentId { get; set; }
-    public Student student { get; set; }
+    public StudentEntity? student { get; set; }
 }
 
 // DbContext
 public class SchoolContext : DbContext
 {
-    public DbSet<User> Users { get; set; }
-    public DbSet<Activity> Activities { get; set; }
-    public DbSet<Subject> Subjects { get; set; }
-    public DbSet<Rating> Rating { get; set; }
+    public DbSet<StudentEntity> Students { get; set; }
+    public DbSet<ActivityEntity> Activities { get; set; }
+    public DbSet<SubjectEntity> Subjects { get; set; }
+    public DbSet<RatingEntity> Rating { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -87,25 +72,44 @@ public class SchoolContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         
-        modelBuilder.Entity<User>().ToTable("Users");
-
-        modelBuilder.Entity<User>()
-            .HasDiscriminator<string>("role")
-            .HasValue<Student>("Student")
-            .HasValue<Teacher>("Teacher")
-            .HasValue<Administrator>("Administrator");
+        modelBuilder.Entity<ActivityEntity>()
+            .HasKey(a => a.activityId);
+        modelBuilder.Entity<RatingEntity>()
+            .HasKey(a => a.ratingId);
+        modelBuilder.Entity<StudentEntity>()
+            .HasKey(a => a.studentId);
+        modelBuilder.Entity<SubjectEntity>()
+            .HasKey(a => a.subjectId);
+        
+        //modelBuilder.Entity<User>().ToTable("Users");
 
         // Many-to-many between Subject and Student
-        modelBuilder.Entity<Subject>()
+        modelBuilder.Entity<SubjectEntity>()
             .HasMany(p => p.students)
             .WithMany(s => s.subjects)
             .UsingEntity(j => j.ToTable("StudentSubject"));
+        
+        //One to many between subject and activities
+        modelBuilder.Entity<SubjectEntity>()
+            .HasMany(s => s.activity)
+            .WithOne(a => a.subject)
+            .HasForeignKey(a => a.subjectId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        //one to one between activity and rating
+        modelBuilder.Entity<ActivityEntity>()
+            .HasOne(a => a.rating)
+            .WithOne(r => r.activity)
+            .HasForeignKey<RatingEntity>(r => r.activityId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        //one sided connection from rating to one student
+        modelBuilder.Entity<RatingEntity>()
+            .HasOne(r => r.student)
+            .WithMany()
+            .HasForeignKey(r => r.studentId);
 
-        // Many-to-many between Activity and Student
-        modelBuilder.Entity<Activity>()
-            .HasMany(a => a.students)
-            .WithMany(s => s.activities)
-            .UsingEntity(j => j.ToTable("StudentActivity"));
+        
     }
 
 }
