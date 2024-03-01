@@ -45,7 +45,7 @@ public class SubjectEntity
 public class RatingEntity
 {
     public int ratingId { get; set; }
-    public int body { get; set; }
+    public int points { get; set; }
     public string note { get; set; } = string.Empty;
     public int activityId { get; set; }
     public ActivityEntity? activity { get; set; }
