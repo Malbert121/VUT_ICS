@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICS.App", "ICS.App.csproj", "{AE5087E3-7EF4-4EAE-B07D-44CB3D972559}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICS.App", "ICS\ICS.App.csproj", "{AE5087E3-7EF4-4EAE-B07D-44CB3D972559}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICS.DAL", "..\ICS.DAL\ICS.DAL.csproj", "{DBCD0BE1-A656-4E8B-91A8-3852F505ADFA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICS.DAL", "ICS.DAL\ICS.DAL.csproj", "{DBCD0BE1-A656-4E8B-91A8-3852F505ADFA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICS.DAL.Tests", "..\ICS.DAL.Tests\ICS.DAL.Tests.csproj", "{6DE8F82B-417E-4030-B7F1-84E6EAB5EF02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICS.DAL.Tests", "ICS.DAL.Tests\ICS.DAL.Tests.csproj", "{6DE8F82B-417E-4030-B7F1-84E6EAB5EF02}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
