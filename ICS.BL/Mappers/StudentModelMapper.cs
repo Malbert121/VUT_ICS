@@ -1,6 +1,5 @@
 ﻿using ICS.DAL;
 
-
 namespace ICS.BL.Mappers
 {
     public class StudentModelMapper : ModelMapperBase<StudentEntity, StudentListModel, StudentDetailModel>, IStudentModelMapper
@@ -26,7 +25,7 @@ namespace ICS.BL.Mappers
                 firstName = entity.firstName,
                 lastName = entity.lastName,
                 fotoURL = entity.fotoURL,
-                subjects = new SubjectModelMapper().MapToListModel(entity.subjects)
+                subjects = new SubjectModelMapper().MapToListModel(entity.subjects).ToObservableCollection()
             };
 
         public override StudentEntity MapToEntity(StudentDetailModel model)
@@ -38,7 +37,7 @@ namespace ICS.BL.Mappers
                 firstName = model.firstName,
                 lastName = model.lastName,
                 fotoURL = model.fotoURL,
-                subjects = SubjectModelMapper.MapToListModel(model.subjects)
+                subjects = model.subjects
                     .Select(SubjectModelMapper.MapToEntity)
                     .ToList()
             };

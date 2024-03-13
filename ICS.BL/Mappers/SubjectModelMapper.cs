@@ -24,8 +24,8 @@ namespace ICS.BL.Mappers
                 subjectId = entity.subjectId,
                 name = entity.name,
                 abbreviation = entity.abbreviation,
-                activity = new ActivityModelMapper().MapToListModel(entity.activity),
-                students = new StudentModelMapper().MapToListModel(entity.students)
+                activity = new ActivityModelMapper().MapToListModel(entity.activity).ToObservableCollection(),
+                students = new StudentModelMapper().MapToListModel(entity.students).ToObservableCollection()
             };
 
         public override SubjectEntity MapToEntity(SubjectDetailModel model)
@@ -36,10 +36,10 @@ namespace ICS.BL.Mappers
                 subjectId = model.subjectId,
                 name = model.name,
                 abbreviation = model.abbreviation,
-                activity = ActivityModelMapper.MapToListModel(model.activity)
+                activity = model.activity
                     .Select(ActivityModelMapper.MapToEntity)
-                    .ToList(),
-                students = StudentModelMapper.MapToListModel(model.subjects)
+                    .ToList(), 
+                students = model.students
                     .Select(StudentModelMapper.MapToEntity)
                     .ToList()
             };
