@@ -10,7 +10,6 @@ namespace ICS.BL.Mappers
             : new SubjectListModel
             {
                 Id = entity.Id,
-                subjectId = entity.subjectId,
                 name = entity.name,
                 abbreviation = entity.abbreviation
             };
@@ -21,7 +20,6 @@ namespace ICS.BL.Mappers
             : new SubjectDetailModel
             {
                 Id = entity.Id,
-                subjectId = entity.subjectId,
                 name = entity.name,
                 abbreviation = entity.abbreviation,
                 activity = new ActivityModelMapper().MapToListModel(entity.activity).ToObservableCollection(),
@@ -33,7 +31,6 @@ namespace ICS.BL.Mappers
             return new SubjectEntity
             {
                 Id = model.Id,
-                subjectId = model.subjectId,
                 name = model.name,
                 abbreviation = model.abbreviation,
                 activity = model.activity

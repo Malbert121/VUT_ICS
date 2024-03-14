@@ -5,7 +5,6 @@ namespace ICS.DAL.Mappers
     {
         public void MapToExistingEntity(SubjectEntity existingEntity, SubjectEntity newEntity)
         {
-            existingEntity.subjectId = newEntity.subjectId;
             existingEntity.name = newEntity.name;
             existingEntity.abbreviation = newEntity.abbreviation;
 

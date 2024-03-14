@@ -13,12 +13,7 @@ public class DbContextSubjectTests
         using (var context = new SchoolContext())
         {
             // Arrange
-            entity = new SubjectEntity
-            {
-                Id = Guid.Empty,
-                name = "Database Systems",
-                abbreviation = "IDS"
-            };
+            entity = SubjectEntityHelper.CreateRandomSubject();
 
             // Act
             context.Subjects.Add(entity);
@@ -28,9 +23,9 @@ public class DbContextSubjectTests
         // Assert
         using (var context = new SchoolContext())
         {
-            var subject = await context.Subjects.SingleAsync(i => i.subjectId == entity.subjectId);
+            var subject = await context.Subjects.SingleAsync(i => i.Id == entity.Id);
             Assert.NotNull(subject);
-            Assert.Equal(entity.subjectId, subject.subjectId);
+            Assert.Equal(entity.Id, subject.Id);
         }
     }
 
@@ -41,28 +36,18 @@ public class DbContextSubjectTests
         using (var context = new SchoolContext())
         {
             // Arrange
-            entity = new SubjectEntity
-            {
-                Id = Guid.Empty,
-                name = "Computer Communications and Networks",
-                abbreviation = "IPK"
-            };
-
+            entity = SubjectEntityHelper.CreateRandomSubject();
             context.Subjects.Add(entity);
-            context.SaveChanges();
-        }
 
-        // Act
-        using (var context = new SchoolContext())
-        {
-            context.Subjects.Remove(await context.Subjects.FindAsync(entity.subjectId));
-            await context.SaveChangesAsync();
+            // Act
+            context.Subjects.Remove(entity);
+            context.SaveChanges();
         }
 
         // Assert
         using (var context = new SchoolContext())
         {
-            Assert.False(await context.Subjects.AnyAsync(i => i.subjectId == entity.subjectId));
+            Assert.False(await context.Subjects.AnyAsync(i => i.Id == entity.Id));
         }
     }
 
@@ -73,34 +58,18 @@ public class DbContextSubjectTests
         using (var context = new SchoolContext())
         {
             // Arrange
-            entity = new SubjectEntity
-            {
-                Id = Guid.Empty,
-                name = "Computer Communications and Networks",
-                abbreviation = "IPK"
-            };
-
+            entity = SubjectEntityHelper.CreateRandomSubject();
             context.Subjects.Add(entity);
-            context.SaveChanges();
-        }
 
-        // Act
-        using (var context = new SchoolContext())
-        {
-            var subject = await context.Subjects.SingleAsync(i => i.subjectId == entity.subjectId);
-            if (subject != null)
-            {
-                subject.name = "Computer Communications";
-                await context.SaveChangesAsync();
-            }
+            // Act
+            entity.name = "Computer Communications";
+            context.SaveChanges();
         }
 
         // Assert
         using (var context = new SchoolContext())
         {
-            var subject = await context.Subjects.SingleAsync(i => i.subjectId == entity.subjectId);
-            Assert.NotNull(subject);
-            Assert.Equal(entity.subjectId, subject.subjectId);
+            var subject = await context.Subjects.SingleAsync(i => i.Id == entity.Id);
             Assert.Equal("Computer Communications", subject.name);
         }
     }
@@ -108,33 +77,28 @@ public class DbContextSubjectTests
     [Fact]
     public async Task AddNew_StudentToSubject_Persisted()
     {
-
-        int studentId;
-        int subjectId;
+        StudentEntity student;
+        SubjectEntity subject;
         // Arrange
         using (var context = new SchoolContext())
         {
-            var student = new StudentEntity { Id = Guid.Empty, firstName = "Peter", lastName = "Adams", fotoURL = "http://www.example.com/index.html" };
-            var subject = new SubjectEntity { Id = Guid.Empty, name = "Computer Communications and Networks", abbreviation = "IPK" };
+            student = StudentEntityHelper.CreateRandomStudent();
+            subject = SubjectEntityHelper.CreateRandomSubject();
 
             context.Subjects.Add(subject);
-            context.SaveChanges();
 
             //Act
             subject.students.Add(student);
             context.SaveChanges();
-
-            studentId = student.studentId;
-            subjectId = subject.subjectId;
         }
 
         // Assert
         using (var context = new SchoolContext())
         {
-            var subject = await context.Subjects.Include(i => i.students).SingleAsync(i => i.subjectId == subjectId);
-            var student = await context.Students.FindAsync(studentId);
-            Assert.True(subject.students.Contains(student));
-            Assert.True(student.subjects.Contains(subject));
+            var actualSubject = await context.Subjects.Include(i => i.students).SingleAsync(i => i.Id == subject.Id);
+            var actualStudent = await context.Students.SingleAsync(i => i.Id == student.Id);
+            Assert.True(actualSubject.students.Contains(actualStudent));
+            Assert.True(actualStudent.subjects.Contains(actualSubject));
         }
     }
 
@@ -142,31 +106,27 @@ public class DbContextSubjectTests
     public async Task AddNew_ActivityToSubject_Persisted()
     {
         // Arrange
-        int activityId;
-        int subjectId;
+        ActivityEntity activity;
+        SubjectEntity subject;
         using (var context = new SchoolContext())
         {
-            var subject = new SubjectEntity { Id = Guid.Empty, name = "Computer Communications and Networks", abbreviation = "IPK" };
-
+            subject = SubjectEntityHelper.CreateRandomSubject();
             context.Subjects.Add(subject);
-            context.SaveChanges();
-            subjectId = subject.subjectId;
 
-            var activity = new ActivityEntity { Id = Guid.Empty, name = "Seminar", subject = subject, subjectId = subjectId, room = "D105", activityTypeTag = "S", description = "Fundamentals seminar" };
+            activity = ActivityEntityHelper.CreateRandomActivity(subject);
 
             // Act
             subject.activity.Add(activity);
             context.SaveChanges();
-            activityId = activity.activityId;
 
         }
 
         // Assert
         using (var context = new SchoolContext())
         {
-            var subject = await context.Subjects.Include(i => i.activity).SingleAsync(i => i.subjectId == subjectId);
-            var activity = await context.Activities.FindAsync(activityId);
-            Assert.True(subject.activity.Contains(activity));
+            var actualSubject = await context.Subjects.Include(i => i.activity).SingleAsync(i => i.Id == subject.Id);
+            var actualActivity = await context.Activities.SingleAsync(i => i.Id == activity.Id);
+            Assert.True(actualSubject.activity.Contains(actualActivity));
         }
     }
 
@@ -174,29 +134,19 @@ public class DbContextSubjectTests
     public async Task Delete_ActivityFromSubject_Persisted()
     {
         // Arrange
-        int activityId;
-        int subjectId;
+        ActivityEntity activity;
+        SubjectEntity subject;
         using (var context = new SchoolContext())
         {
-            var subject = new SubjectEntity { Id = Guid.Empty, name = "Computer Communications and Networks", abbreviation = "IPK" };
-
+            subject = SubjectEntityHelper.CreateRandomSubject();
             context.Subjects.Add(subject);
-            context.SaveChanges();
-            subjectId = subject.subjectId;
 
-            var activity = new ActivityEntity { Id = Guid.Empty, name = "Seminar", subject = subject, subjectId = subjectId, room = "D105", activityTypeTag = "S", description = "Fundamentals seminar" };
+            activity = ActivityEntityHelper.CreateRandomActivity(subject);
 
             subject.activity.Add(activity);
             context.SaveChanges();
-            activityId = activity.activityId;
-        }
 
-        // Act
-        using (var context = new SchoolContext())
-        {
-            var activity = await context.Activities.FindAsync(activityId);
-            var subject = await context.Subjects.FindAsync(subjectId);
-
+            // Act
             subject.activity.Remove(activity);
             context.SaveChanges();
 
@@ -205,9 +155,9 @@ public class DbContextSubjectTests
         // Assert
         using (var context = new SchoolContext())
         {
-            var subject = await context.Subjects.Include(i => i.activity).SingleAsync(i => i.subjectId == subjectId);
-            Assert.False(await context.Activities.AnyAsync(i => i.activityId == activityId));
-            Assert.False(subject.activity.Any(a => a.activityId == activityId));
+            var actualSubject = await context.Subjects.Include(i => i.activity).SingleAsync(i => i.Id == subject.Id);
+            Assert.False(await context.Activities.AnyAsync(i => i.Id == activity.Id));
+            Assert.False(subject.activity.Any(a => a.Id == activity.Id));
 
         }
     }
@@ -215,14 +165,13 @@ public class DbContextSubjectTests
     [Fact]
     public async Task GetAll_Students_OfASubject()
     {
-        SubjectEntity subject;
         using (var context = new SchoolContext())
         {
             // Arrange
-            subject = new SubjectEntity { Id = Guid.Empty, name = "Computer Communications and Networks", abbreviation = "IPK" };
-            var student1 = new StudentEntity { Id = Guid.Empty, firstName = "Peter", lastName = "Adams", fotoURL = "http://www.example.com/index.html" };
-            var student2 = new StudentEntity { Id = Guid.Empty, firstName = "Damir", lastName = "Matveev", fotoURL = "http://www.example.com/index.html" };
-            var student3 = new StudentEntity { Id = Guid.Empty, firstName = "Svetlana", lastName = "Eliseeva", fotoURL = "http://www.example.com/index.html" };
+            var subject = SubjectEntityHelper.CreateRandomSubject();
+            var student1 = StudentEntityHelper.CreateRandomStudent();
+            var student2 = StudentEntityHelper.CreateRandomStudent();
+            var student3 = StudentEntityHelper.CreateRandomStudent();
 
             context.Subjects.Add(subject);
             subject.students.Add(student1);
@@ -230,20 +179,16 @@ public class DbContextSubjectTests
 
             context.Students.Add(student2);
             context.SaveChanges();
-        }
 
-        using (var context = new SchoolContext())
-        {
             // Act
-            var subjectToGetStudents = await context.Subjects.Include(i => i.students).FirstOrDefaultAsync(i => i.subjectId == subject.subjectId);
-            var studentsOfSubject = subjectToGetStudents.students.ToList();
+            var studentsOfSubject = subject.students.ToList();
 
             // Assert
             Assert.Equal(2, studentsOfSubject.Count);
 
             foreach (var student in studentsOfSubject)
             {
-                Assert.True(student.subjects.Contains(subjectToGetStudents));
+                Assert.True(student.subjects.Contains(subject));
             }
 
         }
@@ -252,15 +197,14 @@ public class DbContextSubjectTests
     [Fact]
     public async Task GetAll_Activities_OfASubject()
     {
-        SubjectEntity subject1;
         using (var context = new SchoolContext())
         {
             // Arrange
-            subject1 = new SubjectEntity { Id = Guid.Empty, name = "Computer Communications and Networks", abbreviation = "IPK" };
-            var subject2 = new SubjectEntity { Id = Guid.Empty, name = "Database Systems", abbreviation = "IDS" };
-            var activity1 = new ActivityEntity { Id = Guid.Empty, name = "Seminar", subject = subject1, subjectId = subject1.subjectId, room = "D0207", activityTypeTag = "S", description = "Fundamentals seminar" };
-            var activity2 = new ActivityEntity { Id = Guid.Empty, name = "Lecture", subject = subject1, subjectId = subject1.subjectId, room = "D105", activityTypeTag = "L", description = "3h lecture" };
-            var activity3 = new ActivityEntity { Id = Guid.Empty, name = "Seminar", subject = subject2, subjectId = subject2.subjectId, room = "D0206", activityTypeTag = "S", description = "Fundamentals seminar" };
+            var subject1 = SubjectEntityHelper.CreateRandomSubject();
+            var subject2 = SubjectEntityHelper.CreateRandomSubject();
+            var activity1 = ActivityEntityHelper.CreateRandomActivity(subject1);
+            var activity2 = ActivityEntityHelper.CreateRandomActivity(subject1);
+            var activity3 = ActivityEntityHelper.CreateRandomActivity(subject2);
 
             context.Subjects.Add(subject1);
             context.Subjects.Add(subject2);
@@ -270,20 +214,16 @@ public class DbContextSubjectTests
             subject2.activity.Add(activity3);
 
             context.SaveChanges();
-        }
 
-        using (var context = new SchoolContext())
-        {
             // Act
-            var subjectToGetActivities = await context.Subjects.Include(i => i.activity).FirstOrDefaultAsync(i => i.subjectId == subject1.subjectId);
-            var activitiesOfSubject = subjectToGetActivities.activity.ToList();
+            var activitiesOfSubject = subject1.activity.ToList();
 
             // Assert
             Assert.Equal(2, activitiesOfSubject.Count);
 
             foreach (var activity in activitiesOfSubject)
             {
-                Assert.Equal(activity.subjectId, subjectToGetActivities.subjectId);
+                Assert.Equal(activity.subjectId, subject1.subjectId);
             }
 
         }
@@ -292,13 +232,13 @@ public class DbContextSubjectTests
     [Fact]
     public async Task Delete_StudentFromSubject_Persisted()
     {
-        int studentId;
-        int subjectId;
+        StudentEntity student;
+        SubjectEntity subject;
         using (var context = new SchoolContext())
         {
             // Arrange
-            var student = new StudentEntity { Id = Guid.Empty, firstName = "Peter", lastName = "Adams", fotoURL = "http://www.example.com/index.html" };
-            var subject = new SubjectEntity { Id = Guid.Empty, name = "Computer Communications and Networks", abbreviation = "IPK" };
+            student = StudentEntityHelper.CreateRandomStudent();
+            subject = SubjectEntityHelper.CreateRandomSubject();
 
             context.Subjects.Add(subject);
             subject.students.Add(student);
@@ -307,16 +247,13 @@ public class DbContextSubjectTests
             //Act
             subject.students.Remove(student);
             await context.SaveChangesAsync();
-
-            studentId = student.studentId;
-            subjectId = subject.subjectId;
         }
 
         // Assert
         using (var context = new SchoolContext())
         {
-            var student = await context.Students.Include(i => i.subjects).SingleAsync(i => i.studentId == studentId);
-            var subject = await context.Subjects.Include(i => i.students).SingleAsync(i => i.subjectId == subjectId); ;
+            var actualStudent = await context.Students.Include(i => i.subjects).SingleAsync(i => i.Id == student.Id);
+            var actualSubject = await context.Subjects.Include(i => i.students).SingleAsync(i => i.Id == subject.Id); ;
             Assert.False(student.subjects.Contains(subject));
             Assert.False(subject.students.Contains(student));
         }

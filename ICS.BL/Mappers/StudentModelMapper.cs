@@ -10,7 +10,6 @@ namespace ICS.BL.Mappers
             : new StudentListModel 
             {
                 Id = entity.Id,
-                studentId = entity.studentId,
                 firstName = entity.firstName, 
                 lastName = entity.lastName
             };
@@ -21,7 +20,6 @@ namespace ICS.BL.Mappers
             : new StudentDetailModel
             {
                 Id = entity.Id,
-                studentId = entity.studentId,
                 firstName = entity.firstName,
                 lastName = entity.lastName,
                 fotoURL = entity.fotoURL,
@@ -33,7 +31,6 @@ namespace ICS.BL.Mappers
             return new StudentEntity
             {
                 Id = model.Id,
-                studentId = model.studentId,
                 firstName = model.firstName,
                 lastName = model.lastName,
                 fotoURL = model.fotoURL,

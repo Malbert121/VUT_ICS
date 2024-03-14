@@ -5,7 +5,6 @@ namespace ICS.DAL.Mappers
     {
         public void MapToExistingEntity(StudentEntity existingEntity, StudentEntity newEntity)
         {
-            existingEntity.studentId = newEntity.studentId;
             existingEntity.firstName = newEntity.firstName;
             existingEntity.lastName = newEntity.lastName;
             existingEntity.fotoURL = newEntity.fotoURL;
