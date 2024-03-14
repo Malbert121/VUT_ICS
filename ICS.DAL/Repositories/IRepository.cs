@@ -1,4 +1,4 @@
-using CookBook.DAL.Entities;
+using ICS.DAL.Entities;
 
 namespace ICS.DAL.Repositories;
 
