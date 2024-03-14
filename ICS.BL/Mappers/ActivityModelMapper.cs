@@ -27,7 +27,7 @@ namespace ICS.BL.Mappers
                 ActivityTypeTag = entity.activityTypeTag,
                 Description = entity.description,
                 SubjectId = entity.subjectId,
-                Subject = entity.subject
+                Subject = entity.subject,
                 Rating = entity.rating
             };
 
@@ -43,7 +43,7 @@ namespace ICS.BL.Mappers
                 activityTypeTag = model.ActivityTypeTag,
                 description = model.Description,
                 subjectId = model.SubjectId,
-                subject = model.Subject
+                subject = model.Subject,
                 rating = model.Rating
             };
         }

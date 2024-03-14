@@ -1,6 +1,6 @@
 ﻿
 
-namespace ICS.DAL
+namespace ICS.DAL.Entities
 {
     public class StudentEntity : IEntity
     {

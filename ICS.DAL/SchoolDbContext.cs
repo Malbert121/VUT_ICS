@@ -5,9 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using ICS.DAL.Entities;
+
 namespace ICS.DAL
 {
-    public class SchoolContext : DbContext
+    public class SchoolContext(DbContextOptions contextOptions, bool seedDemoData = false) : DbContext(contextOptions)
     {
         public DbSet<StudentEntity> Students { get; set; }
         public DbSet<ActivityEntity> Activities { get; set; }

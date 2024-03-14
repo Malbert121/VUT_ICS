@@ -2,10 +2,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ICS.DAL.Factories;
 
-public class DbContextSqLiteFactory : IDbContextFactory<CookBookDbContext>
+public class DbContextSqLiteFactory : IDbContextFactory<SchoolContext>
 {
     private readonly bool _seedTestingData;
-    private readonly DbContextOptionsBuilder<CookBookDbContext> _contextOptionsBuilder = new();
+    private readonly DbContextOptionsBuilder<SchoolContext> _contextOptionsBuilder = new();
 
     public DbContextSqLiteFactory(string databaseName, bool seedTestingData = false)
     {
@@ -14,5 +14,5 @@ public class DbContextSqLiteFactory : IDbContextFactory<CookBookDbContext>
         _contextOptionsBuilder.UseSqlite($"Data Source={databaseName};Cache=Shared");
     }
 
-    public CookBookDbContext CreateDbContext() => new(_contextOptionsBuilder.Options, _seedTestingData);
+    public SchoolContext CreateDbContext() => new(_contextOptionsBuilder.Options, _seedTestingData);
 }

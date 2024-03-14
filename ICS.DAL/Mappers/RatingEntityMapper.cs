@@ -1,4 +1,6 @@
-﻿namespace ICS.DAL.Mappers
+﻿using ICS.DAL.Entities;
+
+namespace ICS.DAL.Mappers
 {
     public class RatingEntityMapper : IEntityMapper<RatingEntity>
     {

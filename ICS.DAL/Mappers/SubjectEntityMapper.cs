@@ -1,4 +1,5 @@
-﻿
+﻿using ICS.DAL.Entities;
+
 namespace ICS.DAL.Mappers
 {
     public class SubjectEntityMapper : IEntityMapper<SubjectEntity>
