@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ICS.DAL.UnitOfWork;
 
-public sealed record UnitOfWork(DbContext dbContext) : IUnitOfWork
+public sealed class UnitOfWork(DbContext dbContext) : IUnitOfWork
 {
     private readonly DbContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
