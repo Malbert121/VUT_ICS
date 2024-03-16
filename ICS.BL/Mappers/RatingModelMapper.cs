@@ -1,4 +1,5 @@
-﻿using ICS.DAL;
+﻿using ICS.BL.Models;
+using ICS.DAL.Entities;
 
 namespace ICS.BL.Mappers
 {
@@ -10,7 +11,7 @@ namespace ICS.BL.Mappers
             : new RatingListModel
             {
                 Id = entity.Id,
-                Points = entity.points,
+                points = entity.points,
  
             };
 
@@ -20,12 +21,12 @@ namespace ICS.BL.Mappers
             : new RatingDetailModel
             {
                 Id = entity.Id,
-                Points = entity.points,
-                Note = entity.note,
-                ActivityId = entity.activityId,
-                Activity = entity.activity,
-                StudentId = entity.studentId,
-                Student = entity.student
+                points = entity.points,
+                note = entity.note,
+                activityId = entity.activityId,
+                activity = entity.activity,
+                studentId = entity.studentId,
+                student = entity.student
                 
             };
 
@@ -34,12 +35,12 @@ namespace ICS.BL.Mappers
             return new RatingEntity
             {
                 Id = model.Id,
-                points = model.Points,
-                note = model.Note,
-                activityId = model.ActivityId,
-                activity = model.Activity,
-                studentId = model.StudentId,
-                student = model.Student
+                points = model.points,
+                note = model.note,
+                activityId = model.activityId,
+                activity = model.activity,
+                studentId = model.studentId,
+                student = model.student
             };
         }
 

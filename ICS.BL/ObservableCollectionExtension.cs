@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace ICS.BL.Mappers
+namespace ICS.BL
 {
     public static class ObservableCollectionExtension
     {
