@@ -1,6 +1,7 @@
-﻿using ICS.DAL;
+﻿using ICS.BL.Models;
+using ICS.DAL.Entities;
 
-namespace ICS.BL
+namespace ICS.BL.Facade.Interface
 {
     public interface IFacade<TEntity, TListModel, TDetailModel>
         where TEntity : class, IEntity

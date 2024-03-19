@@ -1,4 +1,6 @@
-﻿namespace ICS.DAL
+﻿using ICS.DAL.Entities;
+
+namespace ICS.DAL
 {
     public class SubjectEntityHelper
     {

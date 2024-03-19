@@ -1,4 +1,5 @@
 ﻿using ICS.DAL.Entities;
+using ICS.BL.Models;
 
 namespace ICS.BL.Mappers
 {

@@ -10,7 +10,7 @@ namespace ICS.DAL.Entities
         public int activityId { get; set; }
         public ActivityEntity? activity { get; set; }
         public int studentId { get; set; }
-        public StudentEntity? student { get; set; }
+        public required StudentEntity? student { get; set; }
 
         public required Guid Id { get; set; }
     }

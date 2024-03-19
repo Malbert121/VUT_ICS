@@ -1,6 +1,8 @@
-﻿namespace ICS.BL.Mappers
+﻿
+
+namespace ICS.BL.Mappers
 {
-    public interface IModelMapper<TEntity, TListModel, TDetailModel>
+    public interface IModelMapper<TEntity, out TListModel, TDetailModel>
     {
         TListModel MapToListModel(TEntity? entity);
         TDetailModel MapToDetailModel(TEntity? entity);

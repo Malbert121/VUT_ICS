@@ -1,15 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 using ICS.DAL.Entities;
 
-namespace ICS.DAL
+namespace ICS.DAL.Context
 {
-    public class SchoolContext(DbContextOptions contextOptions, bool seedDemoData = false) : DbContext(contextOptions)
+    public class SchoolContext(DbContextOptions contextOptions, bool seedDemoData = false) :  DbContext(contextOptions)
     {
         public DbSet<StudentEntity> Students { get; set; }
         public DbSet<ActivityEntity> Activities { get; set; }

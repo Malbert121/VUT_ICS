@@ -1,4 +1,6 @@
-﻿namespace ICS.BL.Mappers
+﻿using ICS.BL.Mappers;
+
+namespace ICS.BL.Mappers
 {
     public abstract class ModelMapperBase<TEntity, TListModel, TDetailModel> : IModelMapper<TEntity, TListModel, TDetailModel>
     {

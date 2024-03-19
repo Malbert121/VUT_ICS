@@ -6,7 +6,8 @@ using System.Data;
 using Xunit.Abstractions;
 using Microsoft.EntityFrameworkCore.Internal;
 using ICS.DAL;
-
+using ICS.DAL.Context;
+using ICS.DAL.Entities;
 
 
 namespace ICS.DAL.Tests

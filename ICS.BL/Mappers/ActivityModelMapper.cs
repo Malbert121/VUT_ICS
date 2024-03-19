@@ -1,4 +1,6 @@
-using ICS.DAL;
+using ICS.BL.Mappers;
+using ICS.BL.Models;
+using ICS.DAL.Entities;
 
 namespace ICS.BL.Mappers
 {
@@ -10,8 +12,8 @@ namespace ICS.BL.Mappers
             : new ActivityListModel
             {
                 Id = entity.Id,
-                Name = entity.name,
-                Start = entity.start
+                name = entity.name,
+                start = entity.start
             };
 
         public override ActivityDetailModel MapToDetailModel(ActivityEntity? entity)
@@ -20,15 +22,15 @@ namespace ICS.BL.Mappers
             : new ActivityDetailModel
             {
                 Id = entity.Id,
-                Name = entity.name,
-                Start = entity.start,
-                End = entity.end,
-                Room = entity.room,
-                ActivityTypeTag = entity.activityTypeTag,
-                Description = entity.description,
-                SubjectId = entity.subjectId,
-                Subject = entity.subject,
-                Rating = entity.rating
+                name = entity.name,
+                start = entity.start,
+                end = entity.end,
+                room = entity.room,
+                activityTypeTag = entity.activityTypeTag,
+                description = entity.description,
+                subjectId = entity.subjectId,
+                subject = entity.subject,
+                rating = entity.rating
             };
 
         public override ActivityEntity MapToEntity(ActivityDetailModel model)
@@ -36,15 +38,15 @@ namespace ICS.BL.Mappers
             return new ActivityEntity
             {
                 Id = model.Id,
-                name = model.Name,
-                start = model.Start,
-                end = model.End,
-                room = model.Room,
-                activityTypeTag = model.ActivityTypeTag,
-                description = model.Description,
-                subjectId = model.SubjectId,
-                subject = model.Subject,
-                rating = model.Rating
+                name = model.name,
+                start = model.start,
+                end = model.end,
+                room = model.room,
+                activityTypeTag = model.activityTypeTag,
+                description = model.description,
+                subjectId = model.subjectId,
+                subject = model.subject,
+                rating = model.rating
             };
         }
 

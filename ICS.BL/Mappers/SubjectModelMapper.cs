@@ -1,8 +1,10 @@
-﻿using ICS.DAL;
+﻿using ICS.BL.Models;
+using ICS.DAL;
+using ICS.DAL.Entities;
 
 namespace ICS.BL.Mappers
 {
-    public class SubjectModelMapper : ModelMapperBase<SubjectEntity, SubjectListModel, SubjectDetailModel>, ISubjectModelMapper
+    public class SubjectModelMapper (ActivityModelMapper activityModelMapper, StudentModelMapper studentModelMapper) : ModelMapperBase<SubjectEntity, SubjectListModel, SubjectDetailModel>, ISubjectModelMapper
     {
         public override SubjectListModel MapToListModel(SubjectEntity? entity)
              => entity is null
@@ -22,8 +24,8 @@ namespace ICS.BL.Mappers
                 Id = entity.Id,
                 name = entity.name,
                 abbreviation = entity.abbreviation,
-                activity = new ActivityModelMapper().MapToListModel(entity.activity).ToObservableCollection(),
-                students = new StudentModelMapper().MapToListModel(entity.students).ToObservableCollection()
+                activity = activityModelMapper.MapToListModel(entity.activity).ToObservableCollection(),
+                students = studentModelMapper.MapToListModel(entity.students).ToObservableCollection()
             };
 
         public override SubjectEntity MapToEntity(SubjectDetailModel model)
@@ -33,12 +35,6 @@ namespace ICS.BL.Mappers
                 Id = model.Id,
                 name = model.name,
                 abbreviation = model.abbreviation,
-                activity = model.activity
-                    .Select(ActivityModelMapper.MapToEntity)
-                    .ToList(), 
-                students = model.students
-                    .Select(StudentModelMapper.MapToEntity)
-                    .ToList()
             };
         }
 
