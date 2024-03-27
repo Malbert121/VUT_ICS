@@ -14,7 +14,7 @@ namespace ICS.DAL
                 Id = Guid.NewGuid(),
                 name = $"name{counter}",
                 subject = subject,
-                subjectId = subject.Id, //TODO: fix
+                subjectId = subject.Id,
                 room = $"room{counter}",
                 activityTypeTag = $"tag{counter}",
                 description = "Default"
