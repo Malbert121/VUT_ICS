@@ -18,7 +18,7 @@ namespace ICS.DAL.Tests
         public async Task AddNew_Student_Persisted()
         {
             StudentEntity entity;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 // Arrange
                 entity = StudentEntityHelper.CreateRandomStudent();
@@ -29,7 +29,7 @@ namespace ICS.DAL.Tests
             }
 
             // Assert
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 var student = await context.Students.SingleAsync(i => i.Id == entity.Id);
                 Assert.NotNull(student);
@@ -41,7 +41,7 @@ namespace ICS.DAL.Tests
         public async Task Delete_Student_Persisted()
         {
             StudentEntity entity;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 // Arrange
                 entity = StudentEntityHelper.CreateRandomStudent();
@@ -53,7 +53,7 @@ namespace ICS.DAL.Tests
             }
 
             // Assert
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 Assert.False(await context.Students.AnyAsync(i => i.Id == entity.Id));
             }
@@ -63,7 +63,7 @@ namespace ICS.DAL.Tests
         public async Task Update_Student_Persisted()
         {
             StudentEntity entity;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 // Arrange
                 entity = StudentEntityHelper.CreateRandomStudent();
@@ -75,7 +75,7 @@ namespace ICS.DAL.Tests
             }
 
             // Assert
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 var student = await context.Students.SingleAsync(i => i.Id == entity.Id);
                 Assert.Equal("Weasley", student.lastName);
@@ -87,7 +87,7 @@ namespace ICS.DAL.Tests
         {
             StudentEntity student;
             SubjectEntity subject;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 // Arrange
                 student = StudentEntityHelper.CreateRandomStudent();
@@ -101,7 +101,7 @@ namespace ICS.DAL.Tests
             }
 
             // Assert
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 var actualStudent = await context.Students.Include(i => i.subjects).SingleAsync(i => i.Id == student.Id);
                 var actualSubject = await context.Subjects.SingleAsync(i => i.Id == subject.Id);
@@ -113,7 +113,7 @@ namespace ICS.DAL.Tests
         [Fact]
         public async Task GetAll_Students_HaveSubject()
         {
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 // Arrange
                 var student1 = StudentEntityHelper.CreateRandomStudent();
@@ -149,7 +149,7 @@ namespace ICS.DAL.Tests
         {
             StudentEntity student;
             SubjectEntity subject;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 // Arrange
                 student = StudentEntityHelper.CreateRandomStudent();
@@ -165,7 +165,7 @@ namespace ICS.DAL.Tests
             }
 
             // Assert
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 var actualStudent = await context.Students.Include(i => i.subjects).SingleAsync(i => i.Id == student.Id);
                 var actualSubject = await context.Subjects.Include(i => i.students).SingleAsync(i => i.Id == subject.Id); ;
@@ -176,8 +176,8 @@ namespace ICS.DAL.Tests
 
         [Fact]
         public async Task GetAll_Activities_OfAStudent()
-        {   
-            using (var context = new SchoolContext())
+        {
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 // Arrange
                 var student = StudentEntityHelper.CreateRandomStudent();
@@ -207,7 +207,7 @@ namespace ICS.DAL.Tests
         [Fact]
         public async Task GetAll_Subjects_OfAStudent()
         {
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 // Arrange
                 var student = StudentEntityHelper.CreateRandomStudent();

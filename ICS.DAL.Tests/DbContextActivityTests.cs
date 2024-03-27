@@ -19,7 +19,7 @@ namespace DAL_Tests
         {
             ActivityEntity entity;
             SubjectEntity subject;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 subject = new SubjectEntity
                 {
@@ -46,9 +46,9 @@ namespace DAL_Tests
             }
 
             // Assert
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
-                var new_activity = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var new_activity = await context.Activities.SingleAsync(i => i.Id == entity.activityId);
                 Assert.NotNull(new_activity);
                 Assert.Equal(entity.activityId, new_activity.activityId);
             }
@@ -59,7 +59,7 @@ namespace DAL_Tests
         {
             ActivityEntity entity;
             SubjectEntity subject;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
 
                 subject = new SubjectEntity
@@ -87,7 +87,7 @@ namespace DAL_Tests
 
                 // Assert
 
-                var new_activity = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var new_activity = await context.Activities.SingleAsync(i => i.activityId == entity.Id);
                 Assert.NotNull(new_activity);
                 Assert.Equal(entity.activityId, new_activity.activityId);
                 context.Activities.Remove(new_activity);
@@ -102,7 +102,7 @@ namespace DAL_Tests
         {
             ActivityEntity entity;
             SubjectEntity subject;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
 
                 subject = new SubjectEntity
@@ -146,7 +146,7 @@ namespace DAL_Tests
             ActivityEntity entity;
             SubjectEntity subject;
             StudentEntity student;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 subject = new SubjectEntity
                 {
@@ -203,7 +203,7 @@ namespace DAL_Tests
             ActivityEntity entity;
             SubjectEntity subject;
             StudentEntity student;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 subject = new SubjectEntity
                 {
@@ -268,7 +268,7 @@ namespace DAL_Tests
             ActivityEntity entity;
             SubjectEntity subject;
             StudentEntity student;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
 
                 subject = new SubjectEntity
@@ -331,7 +331,7 @@ namespace DAL_Tests
         {
             ActivityEntity entity;
             SubjectEntity subject;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
 
                 subject = new SubjectEntity
@@ -378,7 +378,7 @@ namespace DAL_Tests
             ActivityEntity entity;
             SubjectEntity subject;
             StudentEntity student;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 subject = new SubjectEntity
                 {
@@ -436,7 +436,7 @@ namespace DAL_Tests
         {
             ActivityEntity first_activity, second_activity;
             SubjectEntity subject;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 subject = new SubjectEntity
                 {
@@ -487,7 +487,7 @@ namespace DAL_Tests
         {
             ActivityEntity entity;
             SubjectEntity subject;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
 
                 subject = new SubjectEntity
@@ -532,7 +532,7 @@ namespace DAL_Tests
         {
             ActivityEntity first_activity, second_activity;
             SubjectEntity subject;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
 
                 subject = new SubjectEntity
@@ -596,7 +596,7 @@ namespace DAL_Tests
             ActivityEntity entity;
             SubjectEntity subject;
             StudentEntity student;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
 
                 subject = new SubjectEntity
@@ -660,7 +660,7 @@ namespace DAL_Tests
         {
             ActivityEntity entity;
             SubjectEntity subject;
-            using (var context = new SchoolContext())
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
 
                 subject = new SubjectEntity

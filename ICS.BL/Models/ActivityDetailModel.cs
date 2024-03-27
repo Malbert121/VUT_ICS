@@ -11,10 +11,9 @@ public record ActivityDetailModel : ModelBase
     public string room { get; set; } = string.Empty;
     public string activityTypeTag { get; set; } = string.Empty;
     public string description { get; set; } = string.Empty;
-    public int subjectId { get; set; }
+    public Guid subjectId { get; set; }
     public SubjectEntity? subject { get; set; }
-    public RatingEntity? rating { get; set; }
-    public ObservableCollection<StudentListModel> ratings { get; set; } = new ();
+    public ObservableCollection<RatingListModel> ratings { get; init; } = new ();
     public static ActivityDetailModel Empty => new()
     {
         Id = Guid.Empty,
@@ -23,7 +22,7 @@ public record ActivityDetailModel : ModelBase
         end = DateTime.MinValue,
         room = string.Empty,
         activityTypeTag = string.Empty,
-        subjectId = 0,
+        subjectId = Guid.Empty,
         description = string.Empty
     };
 }        

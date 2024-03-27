@@ -3,7 +3,6 @@ namespace ICS.DAL.Entities
 {
     public class SubjectEntity : IEntity
     {
-        public int subjectId { get; set; }
         public string name { get; set; } = string.Empty;
         public string abbreviation { get; set; } = string.Empty;
         public ICollection<ActivityEntity> activity { get; set; } = new List<ActivityEntity>();

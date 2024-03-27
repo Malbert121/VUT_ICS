@@ -6,13 +6,15 @@ namespace ICS.BL.Mappers
     public class RatingModelMapper : ModelMapperBase<RatingEntity, RatingListModel, RatingDetailModel>, IRatingModelMapper
     {
         public override RatingListModel MapToListModel(RatingEntity? entity)
-             => entity is null
+             => entity?.student is null
             ? RatingListModel.Empty
             : new RatingListModel
             {
                 Id = entity.Id,
                 points = entity.points,
- 
+                studentId = entity.studentId,
+                activityId = entity.activityId,
+                student = entity.student
             };
 
         public override RatingDetailModel MapToDetailModel(RatingEntity? entity)

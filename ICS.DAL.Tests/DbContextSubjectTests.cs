@@ -12,7 +12,7 @@ public class DbContextSubjectTests
     public async Task AddNew_Subject_Persisted()
     {
         SubjectEntity entity;
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             // Arrange
             entity = SubjectEntityHelper.CreateRandomSubject();
@@ -23,7 +23,7 @@ public class DbContextSubjectTests
         }
 
         // Assert
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             var subject = await context.Subjects.SingleAsync(i => i.Id == entity.Id);
             Assert.NotNull(subject);
@@ -35,7 +35,7 @@ public class DbContextSubjectTests
     public async Task Delete_Subject_Persisted()
     {
         SubjectEntity entity;
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             // Arrange
             entity = SubjectEntityHelper.CreateRandomSubject();
@@ -47,7 +47,7 @@ public class DbContextSubjectTests
         }
 
         // Assert
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             Assert.False(await context.Subjects.AnyAsync(i => i.Id == entity.Id));
         }
@@ -57,7 +57,7 @@ public class DbContextSubjectTests
     public async Task Update_Subject_Persisted()
     {
         SubjectEntity entity;
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             // Arrange
             entity = SubjectEntityHelper.CreateRandomSubject();
@@ -69,7 +69,7 @@ public class DbContextSubjectTests
         }
 
         // Assert
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             var subject = await context.Subjects.SingleAsync(i => i.Id == entity.Id);
             Assert.Equal("Computer Communications", subject.name);
@@ -82,7 +82,7 @@ public class DbContextSubjectTests
         StudentEntity student;
         SubjectEntity subject;
         // Arrange
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             student = StudentEntityHelper.CreateRandomStudent();
             subject = SubjectEntityHelper.CreateRandomSubject();
@@ -95,7 +95,7 @@ public class DbContextSubjectTests
         }
 
         // Assert
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             var actualSubject = await context.Subjects.Include(i => i.students).SingleAsync(i => i.Id == subject.Id);
             var actualStudent = await context.Students.SingleAsync(i => i.Id == student.Id);
@@ -110,7 +110,7 @@ public class DbContextSubjectTests
         // Arrange
         ActivityEntity activity;
         SubjectEntity subject;
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             subject = SubjectEntityHelper.CreateRandomSubject();
             context.Subjects.Add(subject);
@@ -124,7 +124,7 @@ public class DbContextSubjectTests
         }
 
         // Assert
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             var actualSubject = await context.Subjects.Include(i => i.activity).SingleAsync(i => i.Id == subject.Id);
             var actualActivity = await context.Activities.SingleAsync(i => i.Id == activity.Id);
@@ -138,7 +138,7 @@ public class DbContextSubjectTests
         // Arrange
         ActivityEntity activity;
         SubjectEntity subject;
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             subject = SubjectEntityHelper.CreateRandomSubject();
             context.Subjects.Add(subject);
@@ -155,7 +155,7 @@ public class DbContextSubjectTests
         }
 
         // Assert
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             var actualSubject = await context.Subjects.Include(i => i.activity).SingleAsync(i => i.Id == subject.Id);
             Assert.False(await context.Activities.AnyAsync(i => i.Id == activity.Id));
@@ -167,7 +167,7 @@ public class DbContextSubjectTests
     [Fact]
     public async Task GetAll_Students_OfASubject()
     {
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             // Arrange
             var subject = SubjectEntityHelper.CreateRandomSubject();
@@ -199,7 +199,7 @@ public class DbContextSubjectTests
     [Fact]
     public async Task GetAll_Activities_OfASubject()
     {
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             // Arrange
             var subject1 = SubjectEntityHelper.CreateRandomSubject();
@@ -225,7 +225,7 @@ public class DbContextSubjectTests
 
             foreach (var activity in activitiesOfSubject)
             {
-                Assert.Equal(activity.subjectId, subject1.subjectId);
+                Assert.Equal(activity.subjectId, subject1.Id);
             }
 
         }
@@ -236,7 +236,7 @@ public class DbContextSubjectTests
     {
         StudentEntity student;
         SubjectEntity subject;
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             // Arrange
             student = StudentEntityHelper.CreateRandomStudent();
@@ -252,7 +252,7 @@ public class DbContextSubjectTests
         }
 
         // Assert
-        using (var context = new SchoolContext())
+        using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
         {
             var actualStudent = await context.Students.Include(i => i.subjects).SingleAsync(i => i.Id == student.Id);
             var actualSubject = await context.Subjects.Include(i => i.students).SingleAsync(i => i.Id == subject.Id); ;
