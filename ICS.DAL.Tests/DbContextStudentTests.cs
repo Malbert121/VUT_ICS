@@ -176,7 +176,7 @@ namespace ICS.DAL.Tests
 
         [Fact]
         public async Task GetAll_Activities_OfAStudent()
-        {   
+        {
             using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 // Arrange
@@ -193,7 +193,7 @@ namespace ICS.DAL.Tests
                 subject1.activity.Add(activity1);
                 subject1.activity.Add(activity2);
                 subject2.activity.Add(activity3);
-                await context.SaveChangesAsync();
+                context.SaveChanges();
 
                 // Act
                 var activitiesOfAStudent = student.subjects.SelectMany(i => i.activity).ToList();
@@ -219,7 +219,7 @@ namespace ICS.DAL.Tests
                 student.subjects.Add(subject1);
                 student.subjects.Add(subject2);
                 context.Subjects.Add(subject3);
-                await context.SaveChangesAsync();
+                context.SaveChanges();
 
                 // Act
                 var subjectsOfStudent = student.subjects.ToList();

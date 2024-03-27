@@ -48,9 +48,9 @@ namespace DAL_Tests
             // Assert
             using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
-                var new_activity = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var new_activity = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.NotNull(new_activity);
-                Assert.Equal(entity.activityId, new_activity.activityId);
+                Assert.Equal(entity.Id, new_activity.Id);
             }
         }
 
@@ -87,12 +87,12 @@ namespace DAL_Tests
 
                 // Assert
 
-                var new_activity = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var new_activity = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.NotNull(new_activity);
-                Assert.Equal(entity.activityId, new_activity.activityId);
+                Assert.Equal(entity.Id, new_activity.Id);
                 context.Activities.Remove(new_activity);
                 context.SaveChanges();
-                var deleted_activity = await context.Activities.SingleOrDefaultAsync(i => i.activityId == entity.activityId);
+                var deleted_activity = await context.Activities.SingleOrDefaultAsync(i => i.Id == entity.Id);
                 Assert.Null(deleted_activity);
             }
         }
@@ -130,12 +130,12 @@ namespace DAL_Tests
 
                 // Assert
 
-                var new_activity = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var new_activity = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.NotNull(new_activity);
-                Assert.Equal(entity.activityId, new_activity.activityId);
+                Assert.Equal(entity.Id, new_activity.Id);
                 new_activity.name = "Seminar";
                 context.SaveChanges();
-                var updated_activity = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var updated_activity = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.Equal("Seminar", updated_activity.name);
             }
         }
@@ -187,9 +187,9 @@ namespace DAL_Tests
 
                 // Assert
 
-                var new_activity = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var new_activity = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.NotNull(new_activity);
-                Assert.Equal(entity.activityId, new_activity.activityId);
+                Assert.Equal(entity.Id, new_activity.Id);
                 var new_rating = await context.Rating.SingleAsync(i => i.ratingId == entity.rating.ratingId);
                 Assert.NotNull(new_rating);
                 Assert.Equal(entity.rating.points, new_rating.points);
@@ -244,9 +244,9 @@ namespace DAL_Tests
                 context.Subjects.Add(subject);
                 context.SaveChanges();
 
-                var new_activity = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var new_activity = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.NotNull(new_activity);
-                Assert.Equal(entity.activityId, new_activity.activityId);
+                Assert.Equal(entity.Id, new_activity.Id);
                 var new_rating = await context.Rating.SingleAsync(i => i.ratingId == entity.rating.ratingId);
                 Assert.NotNull(new_rating);
                 Assert.Equal(entity.rating.ratingId, new_rating.ratingId);
@@ -255,7 +255,7 @@ namespace DAL_Tests
 
                 context.Rating.Remove(new_rating);
                 context.SaveChanges();
-                var activity_without_rating = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var activity_without_rating = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.NotNull(activity_without_rating);
                 var deleted_rating = await context.Rating.SingleOrDefaultAsync(i => i.ratingId == rating.ratingId);
                 Assert.Null(deleted_rating);
@@ -310,9 +310,9 @@ namespace DAL_Tests
                 context.Subjects.Add(subject);
                 context.SaveChanges();
 
-                var new_activity = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var new_activity = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.NotNull(new_activity);
-                Assert.Equal(entity.activityId, new_activity.activityId);
+                Assert.Equal(entity.Id, new_activity.Id);
                 var new_rating = await context.Rating.SingleAsync(i => i.ratingId == entity.rating.ratingId);
                 Assert.NotNull(new_rating);
                 Assert.Equal(entity.rating.ratingId, new_rating.ratingId);
@@ -360,9 +360,9 @@ namespace DAL_Tests
 
                 // Assert
 
-                var new_activity = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var new_activity = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.NotNull(new_activity);
-                Assert.Equal(entity.activityId, new_activity.activityId);
+                Assert.Equal(entity.Id, new_activity.Id);
                 Assert.Equal(entity.name, new_activity.name);
                 Assert.Equal(entity.start, new_activity.start);
                 Assert.Equal(entity.end, new_activity.end);
@@ -419,9 +419,9 @@ namespace DAL_Tests
                 context.Subjects.Add(subject);
                 context.SaveChanges();
 
-                var new_activity = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var new_activity = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.NotNull(new_activity);
-                Assert.Equal(entity.activityId, new_activity.activityId);
+                Assert.Equal(entity.Id, new_activity.Id);
                 var new_rating = await context.Rating.SingleAsync(i => i.ratingId == entity.rating.ratingId);
                 Assert.NotNull(new_rating);
                 Assert.Equal(entity.rating.ratingId, new_rating.ratingId);
@@ -471,14 +471,14 @@ namespace DAL_Tests
                 // Act
                 context.Subjects.Add(subject);
                 context.SaveChanges();
-                var activity_to_delete = await context.Activities.SingleAsync(i => i.activityId == first_activity.activityId);
+                var activity_to_delete = await context.Activities.SingleAsync(i => i.Id == first_activity.Id);
                 context.Activities.Remove(activity_to_delete);
                 context.SaveChanges();
-                var deleted_activity = await context.Activities.SingleOrDefaultAsync(i => i.activityId == first_activity.activityId);
+                var deleted_activity = await context.Activities.SingleOrDefaultAsync(i => i.Id == first_activity.Id);
                 Assert.Null(deleted_activity);
-                var remainig_activity = await context.Activities.SingleAsync(i => i.activityId == second_activity.activityId);
+                var remainig_activity = await context.Activities.SingleAsync(i => i.Id == second_activity.Id);
                 Assert.NotNull(remainig_activity);
-                Assert.Equal(second_activity.activityId, remainig_activity.activityId);
+                Assert.Equal(second_activity.Id, remainig_activity.Id);
             }
         }
 
@@ -515,14 +515,14 @@ namespace DAL_Tests
 
                 // Assert
 
-                var new_activity = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var new_activity = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.NotNull(new_activity);
-                Assert.Equal(entity.activityId, new_activity.activityId);
+                Assert.Equal(entity.Id, new_activity.Id);
                 context.Activities.Remove(new_activity);
                 context.SaveChanges();
-                var deleted_activity = await context.Activities.SingleOrDefaultAsync(i => i.activityId == entity.activityId);
+                var deleted_activity = await context.Activities.SingleOrDefaultAsync(i => i.Id == entity.Id);
                 Assert.Null(deleted_activity);
-                var subject_without_activity = await context.Subjects.SingleAsync(i => i.subjectId == subject.subjectId);
+                var subject_without_activity = await context.Subjects.SingleAsync(i => i.Id == subject.Id);
                 Assert.Empty(subject_without_activity.activity);
             }
         }
@@ -569,21 +569,21 @@ namespace DAL_Tests
                 // Act
                 context.Subjects.Add(subject);
                 context.SaveChanges();
-                var subject_to_delete = await context.Subjects.SingleAsync(i => i.subjectId == subject.subjectId);
+                var subject_to_delete = await context.Subjects.SingleAsync(i => i.Id == subject.Id);
                 Assert.NotNull(subject_to_delete);
-                var second_activity_was_added = await context.Activities.SingleAsync(i => i.activityId == second_activity.activityId);
+                var second_activity_was_added = await context.Activities.SingleAsync(i => i.Id == second_activity.Id);
                 Assert.NotNull(second_activity_was_added);
-                var first_activity_was_added = await context.Activities.SingleAsync(i => i.activityId == first_activity.activityId);
+                var first_activity_was_added = await context.Activities.SingleAsync(i => i.Id == first_activity.Id;         
                 Assert.NotNull(first_activity_was_added);
 
                 context.Subjects.Remove(subject_to_delete);
                 context.SaveChanges();
 
-                var deleted_subject = await context.Subjects.SingleOrDefaultAsync(i => i.subjectId == subject.subjectId);
+                var deleted_subject = await context.Subjects.SingleOrDefaultAsync(i => i.Id == subject.Id);
                 Assert.Null(deleted_subject);
-                var is_first_activity_deleted = await context.Activities.SingleOrDefaultAsync(i => i.activityId == first_activity.activityId);
+                var is_first_activity_deleted = await context.Activities.SingleOrDefaultAsync(i => i.Id == first_activity.Id);
                 Assert.Null(is_first_activity_deleted);
-                var is_second_activity_deleted = await context.Activities.SingleOrDefaultAsync(i => i.activityId == second_activity.activityId);
+                var is_second_activity_deleted = await context.Activities.SingleOrDefaultAsync(i => i.Id == second_activity.Id);
                 Assert.Null(is_second_activity_deleted);
             }
         }
@@ -638,10 +638,10 @@ namespace DAL_Tests
                 context.Subjects.Add(subject);
                 context.SaveChanges();
 
-                var is_activity_added = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var is_activity_added = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.NotNull(is_activity_added);
-                Assert.Equal(entity.activityId, is_activity_added.activityId);
-                var is_rating_added = await context.Rating.SingleAsync(i => i.ratingId == entity.rating.ratingId);
+                Assert.Equal(entity.Id, is_activity_added.Id);
+                var is_rating_added = await context.Rating.SingleAsync(i => i.Id == entity.rating.ratingId);
                 Assert.NotNull(is_rating_added);
                 Assert.Equal(entity.rating.ratingId, is_rating_added.ratingId);
 
@@ -650,7 +650,7 @@ namespace DAL_Tests
 
                 var deleted_rating = await context.Rating.SingleOrDefaultAsync(i => i.ratingId == rating.ratingId);
                 Assert.Null(deleted_rating);
-                var activity_without_rating = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var activity_without_rating = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.Null(activity_without_rating.rating);
             }
         }
@@ -685,19 +685,19 @@ namespace DAL_Tests
                 context.Subjects.Add(subject);
                 context.SaveChanges();
 
-                var is_activity_added = await context.Activities.SingleAsync(i => i.activityId == entity.activityId);
+                var is_activity_added = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.NotNull(is_activity_added);
-                Assert.Equal(entity.activityId, is_activity_added.activityId);
-                var subject_with_activity = await context.Subjects.SingleAsync(i => i.subjectId == subject.subjectId);
+                Assert.Equal(entity.Id, is_activity_added.Id);
+                var subject_with_activity = await context.Subjects.SingleAsync(i => i.Id == subject.Id);
                 Assert.NotEmpty(subject_with_activity.activity);
-                Assert.Equal(subject_with_activity.subjectId, subject.subjectId);
+                Assert.Equal(subject_with_activity.Id, subject.Id);
 
                 subject_with_activity.activity.Remove(is_activity_added);
                 context.SaveChanges();
 
-                var deleted_activity = await context.Activities.SingleOrDefaultAsync(i => i.activityId == entity.activityId);
+                var deleted_activity = await context.Activities.SingleOrDefaultAsync(i => i.Id == entity.Id);
                 Assert.Null(deleted_activity);
-                var subject_without_activity = await context.Subjects.SingleAsync(i => i.subjectId == subject.subjectId);
+                var subject_without_activity = await context.Subjects.SingleAsync(i => i.Id == subject.Id);
                 Assert.Empty(subject_without_activity.activity);
             }
         }

@@ -1,10 +1,10 @@
-using ICS.BL.Mappers;
+using ICS.BL;
 using ICS.BL.Models;
 using ICS.DAL.Entities;
 
 namespace ICS.BL.Mappers
 {
-    public class ActivityModelMapper : ModelMapperBase<ActivityEntity, ActivityListModel, ActivityDetailModel>, IActivityModelMapper
+    public class ActivityModelMapper(RatingModelMapper ratingModelMapper) : ModelMapperBase<ActivityEntity, ActivityListModel, ActivityDetailModel>, IActivityModelMapper
     {
         public override ActivityListModel MapToListModel(ActivityEntity? entity)
              => entity is null
@@ -13,7 +13,9 @@ namespace ICS.BL.Mappers
             {
                 Id = entity.Id,
                 name = entity.name,
-                start = entity.start
+                start = entity.start,
+                end = entity.end,
+                room = entity.room
             };
 
         public override ActivityDetailModel MapToDetailModel(ActivityEntity? entity)
@@ -30,7 +32,7 @@ namespace ICS.BL.Mappers
                 description = entity.description,
                 subjectId = entity.subjectId,
                 subject = entity.subject,
-                rating = entity.rating
+                ratings = ratingModelMapper.MapToListModel(entity.ratings).ToObservableCollection()
             };
 
         public override ActivityEntity MapToEntity(ActivityDetailModel model)
@@ -46,7 +48,7 @@ namespace ICS.BL.Mappers
                 description = model.description,
                 subjectId = model.subjectId,
                 subject = model.subject,
-                rating = model.rating
+                
             };
         }
 

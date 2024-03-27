@@ -16,9 +16,9 @@ namespace ICS.DAL
                 points = random.Next(0, 101),
                 note = $"note{counter}",
                 activity = activity,
-                activityId = activity?.activityId ?? 0, //TODO: fix
+                activityId = activity.Id, 
                 student = student,
-                studentId = student?.studentId ?? 0 //TODO: fix
+                studentId = student.Id
             };
         }
     }

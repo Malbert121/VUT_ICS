@@ -225,7 +225,7 @@ public class DbContextSubjectTests
 
             foreach (var activity in activitiesOfSubject)
             {
-                Assert.Equal(activity.subjectId, subject1.subjectId);
+                Assert.Equal(activity.subjectId, subject1.Id);
             }
 
         }

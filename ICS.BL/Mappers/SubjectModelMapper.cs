@@ -4,7 +4,7 @@ using ICS.DAL.Entities;
 
 namespace ICS.BL.Mappers
 {
-    public class SubjectModelMapper (ActivityModelMapper activityModelMapper, StudentModelMapper studentModelMapper) : ModelMapperBase<SubjectEntity, SubjectListModel, SubjectDetailModel>, ISubjectModelMapper
+    public class SubjectModelMapper (IActivityModelMapper activityModelMapper, IStudentModelMapper studentModelMapper) : ModelMapperBase<SubjectEntity, SubjectListModel, SubjectDetailModel>, ISubjectModelMapper
     {
         public override SubjectListModel MapToListModel(SubjectEntity? entity)
              => entity is null
