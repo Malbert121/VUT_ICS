@@ -180,7 +180,7 @@ public class DbContextSubjectTests
             subject.students.Add(student3);
 
             context.Students.Add(student2);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             // Act
             var studentsOfSubject = subject.students.ToList();
@@ -215,7 +215,7 @@ public class DbContextSubjectTests
             subject1.activity.Add(activity2);
             subject2.activity.Add(activity3);
 
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             // Act
             var activitiesOfSubject = subject1.activity.ToList();
