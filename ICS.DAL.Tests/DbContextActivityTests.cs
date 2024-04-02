@@ -1,12 +1,11 @@
-﻿using ICS.DAL;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Xunit;
 using Microsoft.Extensions.Options;
 using System.Data;
 using Xunit.Abstractions;
 using Microsoft.EntityFrameworkCore.Internal;
-using System.Diagnostics;
+using ICS.DAL;
 using ICS.DAL.Context;
 using ICS.DAL.Entities;
 
@@ -140,7 +139,7 @@ namespace DAL_Tests
                 Assert.Equal(200, actualRating.points);
             }
         }
-        /*
+        
         [Fact]
         public async Task GetAll_Ratings_OfActivity()
         {
@@ -148,6 +147,7 @@ namespace DAL_Tests
             ActivityEntity activity;
             StudentEntity student;
             SubjectEntity subject;
+            var retingsOfActivity = new List<RatingEntity>();
             using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 // Arrange
@@ -164,7 +164,7 @@ namespace DAL_Tests
                 context.SaveChanges();
 
                 // Act
-                var retingsOfActivity = activity.ratings.SelectMany(i => i.ratings).ToList();
+                retingsOfActivity = subject.activity.SelectMany(i => i.ratings).ToList();
             }
 
 
@@ -182,6 +182,7 @@ namespace DAL_Tests
             RatingEntity rating1, rating2;
             ActivityEntity activity;
             SubjectEntity subject;
+            var studentsOfActivity = new List<StudentEntity>();
             using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 // Arrange
@@ -200,7 +201,7 @@ namespace DAL_Tests
                 context.SaveChanges();
 
                 // Act
-                var studentsOfActivity = activity.ratings.SelectMany(i => i.student).ToList();
+                studentsOfActivity = subject.activity.SelectMany(i => i.ratings).Select(i => i.student).ToList();
             }
 
             // Assert
@@ -217,6 +218,7 @@ namespace DAL_Tests
             ActivityEntity activity1, activity2;
             StudentEntity student;
             SubjectEntity subject;
+            var ratingsOfStudent = new List<RatingEntity>();
             using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
             {
                 // Arrange
@@ -224,8 +226,8 @@ namespace DAL_Tests
                 student = StudentEntityHelper.CreateRandomStudent();
                 activity1 = ActivityEntityHelper.CreateRandomActivity(subject);
                 activity2 = ActivityEntityHelper.CreateRandomActivity(subject);
-                rating1 = RatingEntityHelper.CreateRandomRating(subject, student);
-                rating2 = RatingEntityHelper.CreateRandomRating(subject, student);
+                rating1 = RatingEntityHelper.CreateRandomRating(activity1, student);
+                rating2 = RatingEntityHelper.CreateRandomRating(activity2, student);
                 context.Subjects.Add(subject);
                 subject.students.Add(student);
                 subject.activity.Add(activity1);
@@ -235,7 +237,7 @@ namespace DAL_Tests
                 context.SaveChanges();
 
                 // Act
-                var ratingsOfStudent = student.subjects.SelectMany(i => i.activity).SelectMany(i => i.ratings).ToList();
+                ratingsOfStudent = student.subjects.SelectMany(i => i.activity).SelectMany(i => i.ratings).ToList();
             }
 
             // Assert
@@ -243,7 +245,7 @@ namespace DAL_Tests
             {
                 Assert.Equal(2, ratingsOfStudent.Count);
             }
-        }*/
+        }
 
         [Fact]
         public async Task Delete_ActivityWithRating_Persisted()
