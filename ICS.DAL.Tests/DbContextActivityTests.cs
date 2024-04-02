@@ -209,6 +209,115 @@ namespace DAL_Tests
                 Assert.Equal(2, studentsOfActivity.Count);
             }
         }
+
+        [Fact]
+        public async Task GetAll_Rating_OfStudent()
+        {
+            RatingEntity rating1, rating2;
+            ActivityEntity activity1, activity2;
+            StudentEntity student;
+            SubjectEntity subject;
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            {
+                // Arrange
+                subject = SubjectEntityHelper.CreateRandomSubject();
+                student = StudentEntityHelper.CreateRandomStudent();
+                activity1 = ActivityEntityHelper.CreateRandomActivity(subject);
+                activity2 = ActivityEntityHelper.CreateRandomActivity(subject);
+                rating1 = RatingEntityHelper.CreateRandomRating(subject, student);
+                rating2 = RatingEntityHelper.CreateRandomRating(subject, student);
+                context.Subjects.Add(subject);
+                subject.students.Add(student);
+                subject.activity.Add(activity1);
+                subject.activity.Add(activity2);
+                activity1.rating.Add(rating1);
+                activity2.rating.Add(rating2);
+                context.SaveChanges();
+
+                // Act
+                var ratingsOfStudent = student.subjects.SelectMany(i => i.activity).SelectMany(i => i.rating).ToList();
+            }
+
+            // Assert
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            {
+                Assert.Equal(2, ratingsOfStudent.Count);
+            }
+        }
+
+        [Fact]
+        public async Task Delete_ActivityWithRating_Persisted()
+        {
+            RatingEntity rating1, rating2;
+            ActivityEntity activity;
+            StudentEntity student;
+            SubjectEntity subject;
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            {
+                // Arrange
+                subject = SubjectEntityHelper.CreateRandomSubject();
+                activity = ActivityEntityHelper.CreateRandomActivity(subject);
+                student = StudentEntityHelper.CreateRandomStudent();
+                rating1 = RatingEntityHelper.CreateRandomRating(subject, student);
+                rating2 = RatingEntityHelper.CreateRandomRating(subject, student);
+                context.Subjects.Add(subject);
+                subject.students.Add(student);
+                subject.activity.Add(activity);
+                activity.rating.Add(rating1);
+                activity.rating.Add(rating2);
+                context.SaveChanges();
+
+                // Act
+                context.Activities.Remove(activity);
+                context.SaveChanges();
+            }
+
+            // Assert
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            {
+                var actualActivity = await context.Activities.SingleOrDefaultAsync(i => i.Id == activity.Id);
+                var ratingcount = await context.Rating.CountAsync();
+                Assert.Equal(0, ratingcount);
+                Assert.Null(actualActivity);
+            }
+        }
+
+        [Fact]
+        public async Task Delete_StudentWithRating_Persisted()
+        {
+            RatingEntity rating1, rating2;
+            ActivityEntity activity;
+            StudentEntity student;
+            SubjectEntity subject;
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            {
+                // Arrange
+                subject = SubjectEntityHelper.CreateRandomSubject();
+                activity = ActivityEntityHelper.CreateRandomActivity(subject);
+                student = StudentEntityHelper.CreateRandomStudent();
+                rating1 = RatingEntityHelper.CreateRandomRating(subject, student);
+                rating2 = RatingEntityHelper.CreateRandomRating(subject, student);
+                context.Subjects.Add(subject);
+                subject.students.Add(student);
+                subject.activity.Add(activity);
+                activity.rating.Add(rating1);
+                activity.rating.Add(rating2);
+                context.SaveChanges();
+
+                // Act
+                context.Student.Remove(student);
+                context.SaveChanges();
+            }
+
+            // Assert
+            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            {
+                var actualStudent = await context.Student.SingleOrDefaultAsync(i => i.Id == student.Id);
+                var ratingcount = await context.Rating.CountAsync();
+                Assert.Equal(0, ratingcount);
+                Assert.Null(actualStudent);
+            }
+        }
          
     }
 }
