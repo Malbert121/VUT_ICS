@@ -72,7 +72,7 @@ namespace DAL_Tests
                 Assert.NotNull(actualRating);
             }
         }
-
+        //Test for deleting rating from activity
         [Fact]
         public async Task Delete_RatingFromActivity_Persisted()
         {
