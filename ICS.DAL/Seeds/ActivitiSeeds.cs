@@ -1,8 +1,17 @@
 ﻿using System;
 using ICS.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ICS.DAL.Seeds
 {
+    public static class ActivitySeedExtensions
+    {
+        public static void Seed(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ActivityEntity>().HasData(ActivitySeeds.potionActivity);
+        }
+    }
+
     public class ActivitySeeds
     {
         public static ActivityEntity potionActivity = new ActivityEntity //there is no Id of subject
@@ -23,11 +32,6 @@ namespace ICS.DAL.Seeds
             potionActivity.ratings.Add(RatingSeeds.rating2);
         }
 
-
-        public static void Seed(this ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ActivityEntity>().HasData(potionActivity);
-        }
     }
 }
 

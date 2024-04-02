@@ -1,8 +1,18 @@
 ﻿using System;
 using ICS.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ICS.DAL.Seeds
 {
+    public static class StudentSeedExtensions
+    {
+        public static void Seed(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<StudentEntity>().HasData(StudentSeeds.student1, StudentSeeds.student2);
+        }
+    }
+
+
     public static class StudentSeeds
     {
         public static readonly StudentEntity student1 = new StudentEntity
@@ -11,7 +21,7 @@ namespace ICS.DAL.Seeds
             firstName = "Harry",
             lastName = "Potter",
             fotoURL = "http://www.example.com/index.html"
-        }
+        };
 
 
         public static readonly StudentEntity student2 = new StudentEntity
@@ -20,19 +30,13 @@ namespace ICS.DAL.Seeds
             firstName = "Hermione",
             lastName = "Granger",
             fotoURL = "http://www.example.com/index.html"
-        }
+        };
 
         static StudentSeeds()
         {
             student1.subjects.Add(SubjectSeeds.potions);
             student2.subjects.Add(SubjectSeeds.potions);
         }
-
-        public static void Seed(this ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<StudentEntity>().HasData(student1, student2);
-        }
-
 
     }
 }

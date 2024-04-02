@@ -1,8 +1,18 @@
 ﻿using System;
 using ICS.DAL.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ICS.DAL.Seeds
 {
+    public static class RatingSeedExtensions
+    {
+        public static void Seed(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<RatingEntity>().HasData(RatingSeeds.rating1);
+            modelBuilder.Entity<RatingEntity>().HasData(RatingSeeds.rating2);
+        }
+    }
+
     public class RatingSeeds
     {
         public static RatingEntity rating1 = new RatingEntity
@@ -22,12 +32,6 @@ namespace ICS.DAL.Seeds
             activity = ActivitySeeds.potionActivity,
             student = StudentSeeds.student2
         };
-
-        public static void Seed(this ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<RatingEntity>().HasData(rating1);
-            modelBuilder.Entity<RatingEntity>().HasData(rating2);
-        }
     }
 }
 
