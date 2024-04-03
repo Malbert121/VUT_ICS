@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 using ICS.DAL.Entities;
 
@@ -29,13 +24,13 @@ namespace ICS.DAL.Context
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ActivityEntity>()
-                .HasKey(a => a.activityId);
+                .HasKey(a => a.Id);
             modelBuilder.Entity<RatingEntity>()
-                .HasKey(a => a.ratingId);
+                .HasKey(a => a.Id);
             modelBuilder.Entity<StudentEntity>()
-                .HasKey(a => a.studentId);
+                .HasKey(a => a.Id);
             modelBuilder.Entity<SubjectEntity>()
-                .HasKey(a => a.subjectId);
+                .HasKey(a => a.Id);
 
 
             // Many-to-many between Subject and Student
@@ -53,16 +48,17 @@ namespace ICS.DAL.Context
 
             //one to one between activity and rating
             modelBuilder.Entity<ActivityEntity>()
-                .HasOne(a => a.rating)
+                .HasMany(a => a.ratings)
                 .WithOne(r => r.activity)
-                .HasForeignKey<RatingEntity>(r => r.activityId)
+                .HasForeignKey(r => r.activityId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             //one sided connection from rating to one student
             modelBuilder.Entity<RatingEntity>()
                 .HasOne(r => r.student)
                 .WithMany()
-                .HasForeignKey(r => r.studentId);
+                .HasForeignKey(r => r.studentId)
+                .OnDelete(DeleteBehavior.Cascade);
 
 
         }
