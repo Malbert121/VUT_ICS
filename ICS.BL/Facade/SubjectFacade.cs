@@ -1,32 +1,20 @@
-namespace ICS.BL.Facades;
-
-public class SubjectFacade(
-    IUnitOfWorkFactory unitOfWorkFactory,
-    SubjectModelMapper modelMapper)
-    :
-        FacadeBase<SubjectEntity, SubjectListModel, SubjectDetailModel, SubjectEntityMapper>(
-            unitOfWorkFactory, modelMapper), ISubjectFacade
-
+using ICS.BL.Facade.Interface;
+using ICS.BL.Mappers;
+using ICS.BL.Models;
+using ICS.DAL.Entities;
+using ICS.DAL.Mappers;
+using ICS.DAL.UnitOfWork;
+namespace ICS.BL.Facade
 {
-    public async Task<SubjectDetailModel> SaveSubjectWithActivitiesAsync(SubjectDetailModel model)
+    public class SubjectFacade(
+        IUnitOfWorkFactory unitOfWorkFactory,
+        ISubjectModelMapper modelMapper)
+        : FacadeBase<SubjectEntity, SubjectListModel, SubjectDetailModel, SubjectEntityMapper>(unitOfWorkFactory, modelMapper),
+            ISubjectFacade
     {
-        GuardCollectionsAreNotSet(model);
-
-        using IUnitOfWork uow = UnitOfWorkFactory.Create();
-        var subjectEntity = ModelMapper.MapToEntity(model);
-        
-
-        if (await uow.GetRepository<SubjectEntity, SubjectEntityMapper>().ExistsAsync(subjectEntity))
-        {
-            subjectEntity = await uow.GetRepository<SubjectEntity, SubjectEntityMapper>().UpdateAsync(subjectEntity);
-        }
-        else
-        {
-            subjectEntity = uow.GetRepository<SubjectEntity, SubjectEntityMapper>().Insert(subjectEntity);
-        }
-        
-        await uow.CommitAsync();
-
-        return ModelMapper.MapToDetailModel(subjectEntity);
+        protected override string IncludesActivityNavigationPathDetail =>
+            $"{nameof(SubjectEntity.activity)}.{nameof(ActivityEntity.Id)}";
+        protected override string IncludesStudentNavigationPathDetail =>
+            $"{nameof(SubjectEntity.students)}.{nameof(StudentEntity.Id)}";
     }
 }
