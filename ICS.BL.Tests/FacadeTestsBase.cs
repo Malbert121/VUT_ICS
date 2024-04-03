@@ -19,7 +19,7 @@ public class FacadeTestsBase : IAsyncLifetime
         XUnitTestOutputConverter converter = new(output);
         Console.SetOut(converter);
 
-        DbContextFactory = new DbContextTestingFactory(seedTestingData: true);
+        DbContextFactory = new DbContextSqLiteTestingFactory(seedTestingData: true);
 
         RatingModelMapper = new RatingModelMapper();
         ActivityModelMapper = new ActivityModelMapper(RatingModelMapper);
