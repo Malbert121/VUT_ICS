@@ -13,7 +13,9 @@ namespace ICS.Common.Tests2.Seeds
             points = 0,
             note = string.Empty,
             activity = ActivitySeeds.EmptyActivity,
-            student = StudentSeeds.Harry
+            activityId = ActivitySeeds.EmptyActivity.Id,
+            student = StudentSeeds.Harry,
+            studentId = StudentSeeds.Harry.Id
         };
 
         public static readonly RatingEntity Rating1 = new RatingEntity
@@ -22,7 +24,9 @@ namespace ICS.Common.Tests2.Seeds
             points = 4,
             note = "Average",
             activity = ActivitySeeds.PotionsActivity,
-            student = StudentSeeds.Harry
+            activityId = ActivitySeeds.PotionsActivity.Id,
+            student = StudentSeeds.Harry,
+            studentId = StudentSeeds.Harry.Id
         };
 
         public static readonly RatingEntity Rating2 = new RatingEntity
@@ -31,7 +35,9 @@ namespace ICS.Common.Tests2.Seeds
             points = 5,
             note = "Good",
             activity = ActivitySeeds.PotionsActivity,
-            student = StudentSeeds.Hermione
+            activityId = ActivitySeeds.PotionsActivity.Id,
+            student = StudentSeeds.Hermione,
+            studentId = StudentSeeds.Hermione.Id
         };
 
         public static readonly RatingEntity RatingUpdate = new RatingEntity
@@ -40,7 +46,9 @@ namespace ICS.Common.Tests2.Seeds
             points = 5,
             note = "Good",
             activity = ActivitySeeds.PotionsActivity,
-            student = StudentSeeds.Hermione
+            activityId = ActivitySeeds.PotionsActivity.Id,
+            student = StudentSeeds.Hermione,
+            studentId = StudentSeeds.Hermione.Id
         };
 
         public static readonly RatingEntity RatingDelete = new RatingEntity
@@ -49,12 +57,14 @@ namespace ICS.Common.Tests2.Seeds
             points = 5,
             note = "Good",
             activity = ActivitySeeds.PotionsActivity,
-            student = StudentSeeds.Hermione
+            activityId = ActivitySeeds.PotionsActivity.Id,
+            student = StudentSeeds.Hermione,
+            studentId = StudentSeeds.Hermione.Id
         };
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<RatingEntity>().HasData(Rating1 with {activity = null!, student = null!},
+            modelBuilder.Entity<RatingEntity>().HasData(Rating1 with {activity = null!, student = null! },
                                                         Rating2 with {activity = null!, student = null! }, 
                                                         RatingUpdate with {activity = null!, student = null! }, 
                                                         RatingDelete with {activity = null!, student = null! });
