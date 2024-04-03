@@ -19,7 +19,8 @@ namespace DAL_Tests
         {
             ActivityEntity entity;
             SubjectEntity subject;
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            var options = DbContextOptionsConfigurer.ConfigureInMemoryOptions();
+            using (var context = new SchoolContext(options))
             {
                 // Arrange
                 subject = SubjectEntityHelper.CreateRandomSubject();
@@ -34,7 +35,7 @@ namespace DAL_Tests
             }
 
             // Assert
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            using (var context = new SchoolContext(options))
             {
                 var actualActivity = await context.Activities.SingleAsync(i => i.Id == entity.Id);
                 Assert.Equal("Exam", actualActivity.name);
@@ -48,7 +49,8 @@ namespace DAL_Tests
             ActivityEntity activity;
             StudentEntity student;
             SubjectEntity subject;
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            var options = DbContextOptionsConfigurer.ConfigureInMemoryOptions();
+            using (var context = new SchoolContext(options))
             {
                 // Arrange
                 subject = SubjectEntityHelper.CreateRandomSubject();
@@ -64,7 +66,7 @@ namespace DAL_Tests
             }
 
             // Assert
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            using (var context = new SchoolContext(options))
             {
                 var actualActivity = await context.Activities.Include(i => i.ratings).SingleAsync(i => i.Id == activity.Id);
                 var actualRating = await context.Rating.SingleAsync(i => i.Id == entity.Id);
@@ -80,7 +82,8 @@ namespace DAL_Tests
             ActivityEntity activity;
             StudentEntity student;
             SubjectEntity subject;
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            var options = DbContextOptionsConfigurer.ConfigureInMemoryOptions();
+            using (var context = new SchoolContext(options))
             {
                 // Arrange
                 subject = SubjectEntityHelper.CreateRandomSubject();
@@ -98,7 +101,7 @@ namespace DAL_Tests
             }
 
             // Assert
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            using (var context = new SchoolContext(options))
             {
                 var actualActivity = await context.Activities.Include(i => i.ratings).SingleAsync(i => i.Id == activity.Id);
                 var actualRating = await context.Rating.SingleOrDefaultAsync(i => i.Id == entity.Id);
@@ -115,7 +118,8 @@ namespace DAL_Tests
             ActivityEntity activity;
             StudentEntity student;
             SubjectEntity subject;
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            var options = DbContextOptionsConfigurer.ConfigureInMemoryOptions();
+            using (var context = new SchoolContext(options))
             {
                 // Arrange
                 subject = SubjectEntityHelper.CreateRandomSubject();
@@ -134,7 +138,7 @@ namespace DAL_Tests
             }
 
             // Assert
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            using (var context = new SchoolContext(options))
             {
                 var actualRating = await context.Rating.SingleAsync(i => i.Id == entity.Id);
                 Assert.Equal(200, actualRating.points);
@@ -149,7 +153,8 @@ namespace DAL_Tests
             StudentEntity student;
             SubjectEntity subject;
             var retingsOfActivity = new List<RatingEntity>();
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            var options = DbContextOptionsConfigurer.ConfigureInMemoryOptions();
+            using (var context = new SchoolContext(options))
             {
                 // Arrange
                 subject = SubjectEntityHelper.CreateRandomSubject();
@@ -170,7 +175,7 @@ namespace DAL_Tests
 
 
             // Assert
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            using (var context = new SchoolContext(options))
             {
                 Assert.Equal(2, retingsOfActivity.Count);
             }
@@ -184,7 +189,8 @@ namespace DAL_Tests
             ActivityEntity activity;
             SubjectEntity subject;
             var studentsOfActivity = new List<StudentEntity>();
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            var options = DbContextOptionsConfigurer.ConfigureInMemoryOptions();
+            using (var context = new SchoolContext(options))
             {
                 // Arrange
                 subject = SubjectEntityHelper.CreateRandomSubject();
@@ -206,7 +212,7 @@ namespace DAL_Tests
             }
 
             // Assert
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            using (var context = new SchoolContext(options))
             {
                 Assert.Equal(2, studentsOfActivity.Count);
             }
@@ -220,7 +226,8 @@ namespace DAL_Tests
             StudentEntity student;
             SubjectEntity subject;
             var ratingsOfStudent = new List<RatingEntity>();
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            var options = DbContextOptionsConfigurer.ConfigureInMemoryOptions();
+            using (var context = new SchoolContext(options))
             {
                 // Arrange
                 subject = SubjectEntityHelper.CreateRandomSubject();
@@ -242,7 +249,7 @@ namespace DAL_Tests
             }
 
             // Assert
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            using (var context = new SchoolContext(options))
             {
                 Assert.Equal(2, ratingsOfStudent.Count);
             }
@@ -255,7 +262,8 @@ namespace DAL_Tests
             ActivityEntity activity;
             StudentEntity student;
             SubjectEntity subject;
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            var options = DbContextOptionsConfigurer.ConfigureInMemoryOptions();
+            using (var context = new SchoolContext(options))
             {
                 // Arrange
                 subject = SubjectEntityHelper.CreateRandomSubject();
@@ -276,7 +284,7 @@ namespace DAL_Tests
             }
 
             // Assert
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            using (var context = new SchoolContext(options))
             {
                 var actualActivity = await context.Activities.SingleOrDefaultAsync(i => i.Id == activity.Id);
                 var ratingcount = await context.Rating.CountAsync();
@@ -292,7 +300,8 @@ namespace DAL_Tests
             ActivityEntity activity;
             StudentEntity student;
             SubjectEntity subject;
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            var options = DbContextOptionsConfigurer.ConfigureInMemoryOptions();
+            using (var context = new SchoolContext(options))
             {
                 // Arrange
                 subject = SubjectEntityHelper.CreateRandomSubject();
@@ -313,7 +322,7 @@ namespace DAL_Tests
             }
 
             // Assert
-            using (var context = new SchoolContext(new DbContextOptions<SchoolContext>()))
+            using (var context = new SchoolContext(options))
             {
                 var actualStudent = await context.Students.SingleOrDefaultAsync(i => i.Id == student.Id);
                 var ratingcount = await context.Rating.CountAsync();

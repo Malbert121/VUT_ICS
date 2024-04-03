@@ -1,7 +1,28 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ICS.DAL.Context;
+using Microsoft.EntityFrameworkCore;
 
 
 using ICS.DAL.Entities;
+
+public static class DbContextOptionsConfigurer
+{
+    public static DbContextOptions<SchoolContext> ConfigureInMemoryOptions()
+    {
+        var builder = new DbContextOptionsBuilder<SchoolContext>();
+        builder.UseInMemoryDatabase("TestDatabase");
+        builder.LogTo(Console.WriteLine);
+        return builder.Options;
+    }
+
+    public static DbContextOptions<SchoolContext> ConfigureSqliteOptions()
+    {
+        var builder = new DbContextOptionsBuilder<SchoolContext>();
+        builder.UseSqlite(@"Data Source=SchoolApp.db;");
+        builder.LogTo(Console.WriteLine);
+        return builder.Options;
+    }
+}
+
 
 namespace ICS.DAL.Context
 {
@@ -12,12 +33,13 @@ namespace ICS.DAL.Context
         public DbSet<SubjectEntity> Subjects { get; set; }
         public DbSet<RatingEntity> Rating { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseInMemoryDatabase("TestDatabase");
-            optionsBuilder.LogTo(Console.WriteLine);
-
-        }
+        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        // {
+        //     //optionsBuilder.UseSqlite(@"Data Source=SchoolApp.db;");
+        //     //optionsBuilder.UseInMemoryDatabase("TestDatabase");
+        //     optionsBuilder.EnableSensitiveDataLogging();
+        //
+        // }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -46,7 +68,7 @@ namespace ICS.DAL.Context
                 .HasForeignKey(a => a.subjectId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            //one to one between activity and rating
+            //many to one between activity and rating
             modelBuilder.Entity<ActivityEntity>()
                 .HasMany(a => a.ratings)
                 .WithOne(r => r.activity)
