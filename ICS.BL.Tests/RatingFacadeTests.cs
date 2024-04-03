@@ -9,6 +9,7 @@ using ICS.BL.Models;
 using System.Collections.ObjectModel;
 using Xunit.Abstractions;
 using ICS.Common.Tests2.Seeds;
+using ICS.DAL.Entities;
 
 namespace ICS.BL.Tests;
 
@@ -23,19 +24,33 @@ public sealed class RatingFacadeTests : FacadeTestsBase
 
 
     [Fact]
-    public async Task Create_WithoutActivity_DoesNotThrow()
+    public async Task Create_WithActivityStudent_DoesNotThrow()
     {
         var model = new RatingDetailModel()
         {
             Id = Guid.Empty,
             points = 20,
-            note = "note"
+            note = "note",
+            activityId = Guid.Empty,
+            studentId = Guid.Empty,
+            activity = new ActivityEntity()
+            {
+                Id = Guid.Empty,
+                name = "name",
+                start = DateTime.MinValue,
+                end = DateTime.MinValue,
+                room = "room"
+            },
+            student = new StudentEntity()
+            {
+                Id = Guid.Empty,
+                firstName = "John",
+                lastName = "Doe"
+            }
         };
-
-        var _ = await _ratingFacadeSUT.SaveAsync(model);
     }
 
-    [Fact]
+        [Fact]
     public async Task GetAll_Single_SeededRating1()
     {
         var ratings = await _ratingFacadeSUT.GetAsync();

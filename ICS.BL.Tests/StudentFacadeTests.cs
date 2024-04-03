@@ -8,6 +8,7 @@ using ICS.BL.Facade;
 using ICS.BL.Models;
 using System.Collections.ObjectModel;
 using Xunit.Abstractions;
+using ICS.Common.Tests2.Seeds;
 
 namespace ICS.BL.Tests;
 
@@ -41,6 +42,31 @@ public sealed class StudentFacadeTests : FacadeTestsBase
             }
         };
 
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _studentFacadeSUT.SaveAsync(model));
+    }
+
+    [Fact]
+    public async Task Create_WithExistingSubject_Throws()
+    {
+        //Arrange
+        var model = new StudentDetailModel()
+        {
+            Id = Guid.Empty,
+            firstName = "Barak",
+            lastName = "Obama",
+            fotoURL = "http://www.example.com/index.html",
+            subjects = new ObservableCollection<SubjectListModel>()
+            {
+                new ()
+                {
+                    Id = SubjectSeeds.SubjectWithNoStudent.Id,
+                    name = SubjectSeeds.SubjectWithNoStudent.name,
+                    abbreviation = SubjectSeeds.SubjectWithNoStudent.abbreviation
+                }
+            },
+        };
+
+        //Act && Assert
         await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _studentFacadeSUT.SaveAsync(model));
     }
 }
