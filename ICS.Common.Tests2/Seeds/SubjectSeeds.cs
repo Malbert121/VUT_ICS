@@ -9,7 +9,7 @@ namespace ICS.Common.Tests2.Seeds
     {
         public static SubjectEntity EmptySubject = new SubjectEntity
         {
-            Id = Guid.Empty,
+            Id = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56239"),
             name = string.Empty,
             abbreviation = string.Empty,
         };
@@ -69,7 +69,7 @@ namespace ICS.Common.Tests2.Seeds
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SubjectEntity>().HasData(potions, SubjectWithNoStudent, SubjectWithOneStudent, SubjectWithTwoStudents, SubjectUpdate, SubjectDelete);
+            modelBuilder.Entity<SubjectEntity>().HasData(potions, EmptySubject, SubjectWithNoStudent with { students = Array.Empty<StudentEntity>() }, SubjectWithOneStudent with { students = Array.Empty<StudentEntity>() }, SubjectWithTwoStudents with { students = Array.Empty<StudentEntity>() }, SubjectUpdate with { students = Array.Empty<StudentEntity>() }, SubjectDelete with { students = Array.Empty<StudentEntity>() });
         }
 
     }

@@ -54,7 +54,10 @@ namespace ICS.Common.Tests2.Seeds
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<RatingEntity>().HasData(Rating1, Rating2, RatingUpdate, RatingDelete);
+            modelBuilder.Entity<RatingEntity>().HasData(Rating1 with {activity = null!, student = null!},
+                                                        Rating2 with {activity = null!, student = null! }, 
+                                                        RatingUpdate with {activity = null!, student = null! }, 
+                                                        RatingDelete with {activity = null!, student = null! });
         }
     }
 }

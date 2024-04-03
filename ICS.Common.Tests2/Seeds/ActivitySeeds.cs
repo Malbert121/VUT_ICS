@@ -16,6 +16,7 @@ namespace ICS.Common.Tests2.Seeds
             room = string.Empty,
             activityTypeTag = string.Empty,
             description = string.Empty,
+            subjectId = SubjectSeeds.potions.Id,
             subject = SubjectSeeds.EmptySubject,
             ratings = Array.Empty<RatingEntity>()
         };
@@ -29,6 +30,7 @@ namespace ICS.Common.Tests2.Seeds
             room = "A03",
             activityTypeTag = "POT",
             description = "Brewing a potion",
+            subjectId = SubjectSeeds.potions.Id,
             subject = SubjectSeeds.potions
 
         };
@@ -42,6 +44,7 @@ namespace ICS.Common.Tests2.Seeds
             room = "A03",
             activityTypeTag = "POT",
             description = "Brewing a potion",
+            subjectId = SubjectSeeds.potions.Id,
             subject = SubjectSeeds.potions,
             ratings = Array.Empty<RatingEntity>()
         };
@@ -55,6 +58,7 @@ namespace ICS.Common.Tests2.Seeds
             room = "A03",
             activityTypeTag = "POT",
             description = "Brewing a potion",
+            subjectId = SubjectSeeds.potions.Id,
             subject = SubjectSeeds.potions,
             ratings = new List<RatingEntity> { RatingSeeds.Rating1 }
         };
@@ -68,6 +72,7 @@ namespace ICS.Common.Tests2.Seeds
             room = "A03",
             activityTypeTag = "POT",
             description = "Brewing a potion",
+            subjectId = SubjectSeeds.potions.Id,
             subject = SubjectSeeds.potions,
             ratings = new List<RatingEntity> { RatingSeeds.Rating1, RatingSeeds.Rating2 }
         };
@@ -81,6 +86,7 @@ namespace ICS.Common.Tests2.Seeds
             room = "A03",
             activityTypeTag = "POT",
             description = "Brewing a potion",
+            subjectId = SubjectSeeds.potions.Id,
             subject = SubjectSeeds.potions,
             ratings = Array.Empty<RatingEntity>()
         };
@@ -94,6 +100,7 @@ namespace ICS.Common.Tests2.Seeds
             room = "A03",
             activityTypeTag = "POT",
             description = "Brewing a potion",
+            subjectId = SubjectSeeds.potions.Id,
             subject = SubjectSeeds.potions,
             ratings = Array.Empty<RatingEntity>()
         };
@@ -107,7 +114,8 @@ namespace ICS.Common.Tests2.Seeds
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ActivityEntity>().HasData(PotionsActivity, ActivityWithNoRatings, ActivityWithOneRating, ActivityWithTwoRatings, ActivityUpdate, ActivityDelete);
+            modelBuilder.Entity<ActivityEntity>().HasData(PotionsActivity with { subject = null!, ratings = Array.Empty<RatingEntity>() },
+                ActivityWithNoRatings with { subject = null!, ratings = Array.Empty<RatingEntity>()}, ActivityWithOneRating with { subject = null!, ratings = Array.Empty<RatingEntity>() }, ActivityWithTwoRatings with { subject = null!, ratings = Array.Empty<RatingEntity>() }, ActivityUpdate with { subject = null!, ratings = Array.Empty<RatingEntity>() }, ActivityDelete with { subject = null! });
         }
     }
 }

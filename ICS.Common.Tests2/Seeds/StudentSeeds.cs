@@ -12,7 +12,7 @@ namespace ICS.Common.Tests2.Seeds
             Id = Guid.Empty,
             firstName = string.Empty,
             lastName = string.Empty,
-            fotoURL = string.Empty
+            fotoURL = string.Empty,
         };
 
         public static readonly StudentEntity Harry = new StudentEntity
@@ -74,7 +74,7 @@ namespace ICS.Common.Tests2.Seeds
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<StudentEntity>().HasData(Harry, Hermione, StudentWithNoSubjects, StudentWithSubjects, StudentUpdate, StudentDelete);
+            modelBuilder.Entity<StudentEntity>().HasData(Harry, Hermione, StudentWithNoSubjects with {subjects = Array.Empty<SubjectEntity>() }, StudentWithSubjects with { subjects = Array.Empty<SubjectEntity>() }, StudentUpdate with { subjects = Array.Empty<SubjectEntity>() }, StudentDelete with { subjects = Array.Empty<SubjectEntity>() });
         }
     }
 }
