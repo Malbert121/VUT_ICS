@@ -50,14 +50,15 @@ namespace ICS.DAL.Context
             modelBuilder.Entity<ActivityEntity>()
                 .HasMany(a => a.ratings)
                 .WithOne(r => r.activity)
-                .HasForeignKey(r => r.activity.Id)
+                .HasForeignKey(r => r.activityId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             //one sided connection from rating to one student
             modelBuilder.Entity<RatingEntity>()
                 .HasOne(r => r.student)
                 .WithMany()
-                .HasForeignKey(r => r.student.Id);
+                .HasForeignKey(r => r.studentId)
+                .OnDelete(DeleteBehavior.Cascade);
 
 
         }

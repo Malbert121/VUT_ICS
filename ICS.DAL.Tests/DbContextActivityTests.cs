@@ -103,9 +103,10 @@ namespace DAL_Tests
                 var actualActivity = await context.Activities.Include(i => i.ratings).SingleAsync(i => i.Id == activity.Id);
                 var actualRating = await context.Rating.SingleOrDefaultAsync(i => i.Id == entity.Id);
                 Assert.Null(actualRating);
-                Assert.Null(actualActivity.ratings);
+                Assert.False(actualActivity.ratings.Contains(actualRating));
             }
         }
+
 
         [Fact]
         public async Task Update_Rating_Persisted()

@@ -22,7 +22,7 @@ public sealed class StudentFacadeTests : FacadeTestsBase
 
 
     [Fact]
-    public async Task Create_WithNonExistingItem_DoesNotThrow()
+    public async Task Create_WithNonExistingSubject_DoesNotThrow()
     {
         var model = new StudentDetailModel()
         {
