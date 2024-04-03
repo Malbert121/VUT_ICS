@@ -10,7 +10,7 @@ public class DbContextSqLiteTestingFactory(bool seedTestingData = false)
 {
     public SchoolContext CreateDbContext()
     {
-        var options = DbContextOptionsConfigurer.ConfigureInMemoryOptions();
+        var options = DbContextOptionsConfigurer.ConfigureSqliteOptions();
 
         return new SchoolTestingContext(options, seedTestingData);
     }
