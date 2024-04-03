@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 
 using ICS.DAL.Entities;
+using ICS.DAL.Seeds;
 
 public static class DbContextOptionsConfigurer
 {
@@ -82,7 +83,13 @@ namespace ICS.DAL.Context
                 .HasForeignKey(r => r.studentId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-
+            if (seedDemoData)
+            {
+                ActivitySeeds.Seed(modelBuilder);
+                RatingSeeds.Seed(modelBuilder);
+                StudentSeeds.Seed(modelBuilder);
+                SubjectSeeds.Seed(modelBuilder);
+            }
         }
 
     }

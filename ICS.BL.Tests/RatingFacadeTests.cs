@@ -57,4 +57,17 @@ public sealed class RatingFacadeTests : FacadeTestsBase
         var rating = ratings.Single(i => i.Id == RatingSeeds.Rating1.Id);
         DeepAssert.Equal(RatingModelMapper.MapToListModel(RatingSeeds.Rating1), rating);
     }
+
+    [Fact]
+    public async Task GetById_FromSeeded_EqualsSeeded()
+    {
+        //Arrange
+        var detailModel = RatingModelMapper.MapToDetailModel(RatingSeeds.Rating1);
+
+        //Act
+        var returnedModel = await _ratingFacadeSUT.GetAsync(detailModel.Id);
+
+        //Assert
+        DeepAssert.Equal(detailModel, returnedModel);
+    }
 }

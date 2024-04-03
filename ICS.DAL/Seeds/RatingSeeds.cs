@@ -36,6 +36,11 @@ namespace ICS.DAL.Seeds
             student = StudentSeeds.student2,
             studentId = StudentSeeds.student2.Id
         };
+
+        public static void Seed(ModelBuilder modelBuilder)
+        {
+            RatingSeedExtensions.Seed(modelBuilder);
+        }
     }
 }
 

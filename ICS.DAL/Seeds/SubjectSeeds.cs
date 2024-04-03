@@ -27,8 +27,10 @@ namespace ICS.DAL.Seeds
             potions.students.Add(StudentSeeds.student1);
             potions.students.Add(StudentSeeds.student2);
         }
+
+        public static void Seed(ModelBuilder modelBuilder)
+        {
+            SubjectSeedExtensions.Seed(modelBuilder);
+        }
     }
 }
-
-
-

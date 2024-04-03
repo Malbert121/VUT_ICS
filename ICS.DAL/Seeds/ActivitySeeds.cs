@@ -33,6 +33,10 @@ namespace ICS.DAL.Seeds
             potionActivity.ratings.Add(RatingSeeds.rating2);
         }
 
+        public static void Seed(ModelBuilder modelBuilder)
+        {
+            ActivitySeedExtensions.Seed(modelBuilder);
+        }
     }
 }
 
