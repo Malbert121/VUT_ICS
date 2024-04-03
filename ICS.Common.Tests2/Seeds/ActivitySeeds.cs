@@ -33,11 +33,70 @@ namespace ICS.Common.Tests2.Seeds
 
         };
 
-        public static readonly ActivityEntity ActivityWithNoRatings = PotionsActivity with { Id = Guid.Parse("5F6A8D0C-9B3E-4FD7-BD4A-1C9F20E6BDA7"), ratings = Array.Empty<RatingEntity>() };
-        public static readonly ActivityEntity ActivityWithOneRating = PotionsActivity with { Id = Guid.Parse("E7F9E9C6-D29A-4B16-9D8C-9B21C5B78C4F"), ratings = new List<RatingEntity>() };
-        public static readonly ActivityEntity ActivityWithTwoRatings = PotionsActivity with { Id = Guid.Parse("2A6BFC68-1BC0-40F9-BF0D-16AF3B7E9B86"), ratings = new List<RatingEntity>() };
-        public static readonly ActivityEntity ActivityUpdate = PotionsActivity with { Id = Guid.Parse("7D5DE8AB-3E62-4F17-BE1D-0FC2A892B5F3"), ratings = Array.Empty<RatingEntity>() };
-        public static readonly ActivityEntity ActivityDelete = PotionsActivity with { Id = Guid.Parse("C8D6A2E3-1DE4-4375-BFD1-86B3A1E8FC29"), ratings = Array.Empty<RatingEntity>() };
+        public static readonly ActivityEntity ActivityWithNoRatings = new ActivityEntity
+        {
+            Id = Guid.Parse("5F6A8D0C-9B3E-4FD7-BD4A-1C9F20E6BDA7"),
+            name = "Potions lecture",
+            start = new DateTime(2021, 10, 10, 10, 0, 0),
+            end = new DateTime(2021, 10, 10, 12, 0, 0),
+            room = "A03",
+            activityTypeTag = "POT",
+            description = "Brewing a potion",
+            subject = SubjectSeeds.potions,
+            ratings = Array.Empty<RatingEntity>()
+        };
+
+        public static readonly ActivityEntity ActivityWithOneRating = new ActivityEntity
+        {
+            Id = Guid.Parse("E7F9E9C6-D29A-4B16-9D8C-9B21C5B78C4F"),
+            name = "Potions lecture",
+            start = new DateTime(2021, 10, 10, 10, 0, 0),
+            end = new DateTime(2021, 10, 10, 12, 0, 0),
+            room = "A03",
+            activityTypeTag = "POT",
+            description = "Brewing a potion",
+            subject = SubjectSeeds.potions,
+            ratings = new List<RatingEntity> { RatingSeeds.Rating1 }
+        };
+
+        public static readonly ActivityEntity ActivityWithTwoRatings = new ActivityEntity
+        {
+            Id = Guid.Parse("2A6BFC68-1BC0-40F9-BF0D-16AF3B7E9B86"),
+            name = "Potions lecture",
+            start = new DateTime(2021, 10, 10, 10, 0, 0),
+            end = new DateTime(2021, 10, 10, 12, 0, 0),
+            room = "A03",
+            activityTypeTag = "POT",
+            description = "Brewing a potion",
+            subject = SubjectSeeds.potions,
+            ratings = new List<RatingEntity> { RatingSeeds.Rating1, RatingSeeds.Rating2 }
+        };
+
+        public static readonly ActivityEntity ActivityUpdate = new ActivityEntity
+        {
+            Id = Guid.Parse("7D5DE8AB-3E62-4F17-BE1D-0FC2A892B5F3"),
+            name = "Potions lecture",
+            start = new DateTime(2021, 10, 10, 10, 0, 0),
+            end = new DateTime(2021, 10, 10, 12, 0, 0),
+            room = "A03",
+            activityTypeTag = "POT",
+            description = "Brewing a potion",
+            subject = SubjectSeeds.potions,
+            ratings = Array.Empty<RatingEntity>()
+        };
+
+        public static readonly ActivityEntity ActivityDelete = new ActivityEntity
+        {
+            Id = Guid.Parse("D3D3D3D3-3D3D-3D3D-3D3D-3D3D3D3D3D3D"),
+            name = "Potions lecture",
+            start = new DateTime(2021, 10, 10, 10, 0, 0),
+            end = new DateTime(2021, 10, 10, 12, 0, 0),
+            room = "A03",
+            activityTypeTag = "POT",
+            description = "Brewing a potion",
+            subject = SubjectSeeds.potions,
+            ratings = Array.Empty<RatingEntity>()
+        };
 
         static ActivitySeeds()
         {
