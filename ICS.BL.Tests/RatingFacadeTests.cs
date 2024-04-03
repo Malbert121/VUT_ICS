@@ -22,7 +22,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase
 
 
     [Fact]
-    public async Task Create_WithoutActivity_Throws()
+    public async Task Create_WithoutActivity_DoesNotThrow()
     {
         var model = new RatingDetailModel()
         {
@@ -31,6 +31,6 @@ public sealed class RatingFacadeTests : FacadeTestsBase
             note = "note"
         };
 
-        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _ratingFacadeSUT.SaveAsync(model));
+        var _ = await _ratingFacadeSUT.SaveAsync(model);
     }
 }

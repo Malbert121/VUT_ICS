@@ -2,7 +2,7 @@
 
 namespace ICS.DAL.Entities
 {
-    public class StudentEntity : IEntity
+    public record StudentEntity : IEntity
     {
         public string firstName { get; set; } = string.Empty;
         public string lastName { get; set; } = string.Empty;

@@ -2,7 +2,7 @@
 
 namespace ICS.DAL.Entities
 {
-    public class ActivityEntity : IEntity
+    public record ActivityEntity : IEntity
     {
         public string name { get; set; } = string.Empty;
         public DateTime start { get; set; }
