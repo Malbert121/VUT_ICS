@@ -21,7 +21,9 @@ namespace ICS.DAL.Seeds
             points = 5,
             note = "Good job",
             activity = ActivitySeeds.potionActivity,
-            student = StudentSeeds.student1
+            activityId = ActivitySeeds.potionActivity.Id,
+            student = StudentSeeds.student1,
+            studentId = StudentSeeds.student1.Id
         };
 
         public static RatingEntity rating2 = new RatingEntity
@@ -30,7 +32,9 @@ namespace ICS.DAL.Seeds
             points = 4,
             note = "Good job",
             activity = ActivitySeeds.potionActivity,
-            student = StudentSeeds.student2
+            activityId = ActivitySeeds.potionActivity.Id,
+            student = StudentSeeds.student2,
+            studentId = StudentSeeds.student2.Id
         };
     }
 }

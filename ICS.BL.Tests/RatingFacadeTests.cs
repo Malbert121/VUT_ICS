@@ -8,6 +8,7 @@ using ICS.BL.Facade;
 using ICS.BL.Models;
 using System.Collections.ObjectModel;
 using Xunit.Abstractions;
+using ICS.Common.Tests2.Seeds;
 
 namespace ICS.BL.Tests;
 
@@ -32,5 +33,13 @@ public sealed class RatingFacadeTests : FacadeTestsBase
         };
 
         var _ = await _ratingFacadeSUT.SaveAsync(model);
+    }
+
+    [Fact]
+    public async Task GetAll_Single_SeededRating1()
+    {
+        var ratings = await _ratingFacadeSUT.GetAsync();
+        var rating = ratings.Single(i => i.Id == RatingSeeds.Rating1.Id);
+        DeepAssert.Equal(RatingModelMapper.MapToListModel(RatingSeeds.Rating1), rating);
     }
 }

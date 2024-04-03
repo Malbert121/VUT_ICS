@@ -23,7 +23,8 @@ namespace ICS.DAL.Seeds
             room = "A03",
             activityTypeTag = "POT",
             description = "Brewing a potion",
-            subject = SubjectSeeds.potions
+            subject = SubjectSeeds.potions,
+            subjectId = SubjectSeeds.potions.Id
         };
 
         static ActivitySeeds()
