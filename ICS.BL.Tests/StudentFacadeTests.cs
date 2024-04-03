@@ -22,7 +22,7 @@ public sealed class StudentFacadeTests : FacadeTestsBase
 
 
     [Fact]
-    public async Task Create_WithNonExistingSubject_DoesNotThrow()
+    public async Task Create_WithNonExistingSubject_Throws()
     {
         var model = new StudentDetailModel()
         {
@@ -41,6 +41,6 @@ public sealed class StudentFacadeTests : FacadeTestsBase
             }
         };
 
-        var _ = await _studentFacadeSUT.SaveAsync(model);
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _studentFacadeSUT.SaveAsync(model));
     }
 }

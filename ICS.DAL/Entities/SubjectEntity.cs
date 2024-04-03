@@ -1,7 +1,7 @@
 ﻿
 namespace ICS.DAL.Entities
 {
-    public class SubjectEntity : IEntity
+    public record SubjectEntity : IEntity
     {
         public string name { get; set; } = string.Empty;
         public string abbreviation { get; set; } = string.Empty;

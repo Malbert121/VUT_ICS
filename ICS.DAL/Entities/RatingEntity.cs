@@ -2,7 +2,7 @@
 
 namespace ICS.DAL.Entities
 {
-    public class RatingEntity : IEntity
+    public record RatingEntity : IEntity
     {
         public int points { get; set; }
         public string note { get; set; } = string.Empty;
