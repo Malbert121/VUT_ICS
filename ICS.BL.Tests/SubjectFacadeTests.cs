@@ -7,17 +7,37 @@ using ICS.BL.Facade.Interface;
 using ICS.BL.Facade;
 using ICS.BL.Models;
 using System.Collections.ObjectModel;
+using ICS.DAL.Context;
+using Microsoft.EntityFrameworkCore.Storage;
 using Xunit.Abstractions;
 
 namespace ICS.BL.Tests;
 
-public sealed class SubjectFacadeTests : FacadeTestsBase
+[Collection("SQLite Tests")]
+public sealed class SubjectFacadeTests : FacadeTestsBase, IAsyncLifetime
 {
     private readonly ISubjectFacade _subjectFacadeSUT;
+    private SchoolContext _context;
+    private IDbContextTransaction _transaction;
 
     public SubjectFacadeTests(ITestOutputHelper output) : base(output)
     {
         _subjectFacadeSUT = new SubjectFacade(UnitOfWorkFactory, SubjectModelMapper);
+    }
+    
+    public async Task InitializeAsync()
+    {
+        // Инициализация контекста и начало транзакции
+        var options = DbContextOptionsConfigurer.ConfigureSqliteOptions(); 
+        _context = new SchoolContext(options); // Укажите параметры для вашего контекста
+        _transaction = await _context.Database.BeginTransactionAsync();
+    }
+    
+    public async Task DisposeAsync()
+    {
+        await _transaction.RollbackAsync();
+        await _transaction.DisposeAsync();
+        await _context.DisposeAsync();
     }
 
 

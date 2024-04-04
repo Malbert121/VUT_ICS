@@ -9,17 +9,38 @@ using ICS.BL.Models;
 using System.Collections.ObjectModel;
 using Xunit.Abstractions;
 using ICS.Common.Tests2.Seeds;
+using ICS.DAL.Context;
 using ICS.DAL.Entities;
+using ICS.DAL.Mappers;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace ICS.BL.Tests;
 
-public sealed class RatingFacadeTests : FacadeTestsBase
+[Collection("SQLite Tests")]
+public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
 {
     private readonly IRatingFacade _ratingFacadeSUT;
+    private SchoolContext _context;
+    private IDbContextTransaction _transaction;
 
     public RatingFacadeTests(ITestOutputHelper output) : base(output)
     {
         _ratingFacadeSUT = new RatingFacade(UnitOfWorkFactory, RatingModelMapper);
+    }
+    
+    public async Task InitializeAsync()
+    {
+        var options = DbContextOptionsConfigurer.ConfigureSqliteOptions(); 
+        _context = new SchoolContext(options); 
+        await _context.Database.EnsureCreatedAsync();
+        _transaction = await _context.Database.BeginTransactionAsync();
+    }
+    
+    public async Task DisposeAsync()
+    {
+        await _transaction.RollbackAsync();
+        await _transaction.DisposeAsync();
+        await _context.DisposeAsync();
     }
 
 
@@ -49,10 +70,29 @@ public sealed class RatingFacadeTests : FacadeTestsBase
             }
         };
     }
+    public async Task AddTestDataAsync()
+    {
+        var ratingEntity = new RatingEntity
+        {
+            Id = Guid.NewGuid(), 
+            points = 20, 
+            note = "note",
+            activityId = Guid.NewGuid(), 
+            studentId = Guid.NewGuid(),
+            student = new StudentEntity
+            {
+                Id = Guid.NewGuid(),
+            }
+        };
+
+        _context.Rating.Add(ratingEntity);
+        await _context.SaveChangesAsync();
+    }
 
         [Fact]
     public async Task GetAll_Single_SeededRating1()
     {
+        await AddTestDataAsync();
         //Act
         var ratings = await _ratingFacadeSUT.GetAsync();
         var rating = ratings.Single(i => i.Id == RatingSeeds.Rating1.Id);
