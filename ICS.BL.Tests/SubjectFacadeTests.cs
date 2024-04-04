@@ -17,7 +17,7 @@ namespace ICS.BL.Tests;
 public sealed class SubjectFacadeTests : FacadeTestsBase, IAsyncLifetime
 {
     private readonly ISubjectFacade _subjectFacadeSUT;
-    private SchoolContext _context;
+    private SchoolTestingContext _context;
     private IDbContextTransaction _transaction;
 
     public SubjectFacadeTests(ITestOutputHelper output) : base(output)
@@ -28,8 +28,9 @@ public sealed class SubjectFacadeTests : FacadeTestsBase, IAsyncLifetime
     public async Task InitializeAsync()
     {
         // Инициализация контекста и начало транзакции
-        var options = DbContextOptionsConfigurer.ConfigureSqliteOptions(); 
-        _context = new SchoolContext(options); // Укажите параметры для вашего контекста
+        var options = DbContextOptionsConfigurer.ConfigureSqliteOptions();
+        _context = new SchoolTestingContext(options, true);
+        await _context.Database.EnsureCreatedAsync();
         _transaction = await _context.Database.BeginTransactionAsync();
     }
     

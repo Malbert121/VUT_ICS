@@ -11,6 +11,7 @@ using ICS.DAL.Context;
 using Xunit.Abstractions;
 using ICS.DAL.Entities;
 using Microsoft.EntityFrameworkCore.Storage;
+using ICS.Common.Tests2.Seeds;
 
 namespace ICS.BL.Tests;
 
@@ -18,7 +19,7 @@ namespace ICS.BL.Tests;
 public sealed class ActivityFacadeTests : FacadeTestsBase, IAsyncLifetime
 {
     private readonly IActivityFacade _activityFacadeSUT;
-    private SchoolContext _context;
+    private SchoolTestingContext _context;
     private IDbContextTransaction _transaction;
 
     public ActivityFacadeTests(ITestOutputHelper output) : base(output)
@@ -29,8 +30,9 @@ public sealed class ActivityFacadeTests : FacadeTestsBase, IAsyncLifetime
     public async Task InitializeAsync()
     {
         // Инициализация контекста и начало транзакции
-        var options = DbContextOptionsConfigurer.ConfigureSqliteOptions(); 
-        _context = new SchoolContext(options); // Укажите параметры для вашего контекста
+        var options = DbContextOptionsConfigurer.ConfigureSqliteOptions();
+        _context = new SchoolTestingContext(options, true);
+        await _context.Database.EnsureCreatedAsync();
         _transaction = await _context.Database.BeginTransactionAsync();
     }
     
@@ -68,5 +70,18 @@ public sealed class ActivityFacadeTests : FacadeTestsBase, IAsyncLifetime
         };
 
         await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _activityFacadeSUT.SaveAsync(model));
+    }
+
+    [Fact]
+    public async Task GetAll_FromSeeded_ContainsSeeded()
+    {
+        //Arrange
+        var listModel = ActivityModelMapper.MapToListModel(ActivitySeeds.PotionsActivity);
+
+        //Act
+        var returnedModel = await _activityFacadeSUT.GetAsync();
+
+        //Assert
+        Assert.Contains(listModel, returnedModel);
     }
 }
