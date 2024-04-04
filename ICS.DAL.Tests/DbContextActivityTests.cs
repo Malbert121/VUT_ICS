@@ -108,7 +108,6 @@ namespace DAL_Tests
                 var actualActivity = await context.Activities.Include(i => i.ratings).SingleAsync(i => i.Id == activity.Id);
                 var actualRating = await context.Rating.SingleOrDefaultAsync(i => i.Id == entity.Id);
                 Assert.Null(actualRating);
-                Assert.False(actualActivity.ratings.Contains(actualRating));
             }
         }
 
@@ -179,6 +178,8 @@ namespace DAL_Tests
             // Assert
             using (var context = new SchoolContext(options))
             {
+                var actualActivity = await context.Activities.Include(i => i.ratings).SingleAsync(i => i.Id == activity.Id);
+                Assert.NotNull(actualActivity);
                 Assert.Equal(2, retingsOfActivity.Count);
             }
         }
@@ -190,7 +191,7 @@ namespace DAL_Tests
             RatingEntity rating1, rating2;
             ActivityEntity activity;
             SubjectEntity subject;
-            var studentsOfActivity = new List<StudentEntity>();
+            var studentsOfActivity = new List<StudentEntity?>();
             var options = DbContextOptionsConfigurer.ConfigureInMemoryOptions();
             using (var context = new SchoolContext(options))
             {
@@ -216,6 +217,8 @@ namespace DAL_Tests
             // Assert
             using (var context = new SchoolContext(options))
             {
+                var actualActivity = await context.Activities.Include(i => i.ratings).ThenInclude(i => i.student).SingleAsync(i => i.Id == activity.Id);
+                Assert.NotNull(actualActivity);
                 Assert.Equal(2, studentsOfActivity.Count);
             }
         }
@@ -253,6 +256,8 @@ namespace DAL_Tests
             // Assert
             using (var context = new SchoolContext(options))
             {
+                var actualStudent = await context.Students.Include(i => i.subjects).ThenInclude(i => i.activity).ThenInclude(i => i.ratings).SingleAsync(i => i.Id == student.Id);
+                Assert.NotNull(actualStudent);
                 Assert.Equal(2, ratingsOfStudent.Count);
             }
         }
@@ -303,7 +308,7 @@ namespace DAL_Tests
             StudentEntity student;
             SubjectEntity subject;
 
-            var options = DbContextOptionsConfigurer.ConfigureSqliteOptions ();
+            var options = DbContextOptionsConfigurer.ConfigureSqliteOptions();
             using (var context = new SchoolContext(options))
             {
                 // Arrange

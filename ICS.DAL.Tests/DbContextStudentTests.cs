@@ -183,29 +183,42 @@ namespace ICS.DAL.Tests
         [Fact]
         public async Task GetAll_Activities_OfAStudent()
         {
+            var activitiesOfAStudent = new List<ActivityEntity>();
+            StudentEntity student;
+            SubjectEntity subject1;
+            SubjectEntity subject2;
+            ActivityEntity activity1;
+            ActivityEntity activity2;
+            ActivityEntity activity3;
+
             var options = DbContextOptionsConfigurer.ConfigureInMemoryOptions();
             using (var context = new SchoolContext(options))
             {
                 // Arrange
-                var student = StudentEntityHelper.CreateRandomStudent();
-                var subject1 = SubjectEntityHelper.CreateRandomSubject();
-                var subject2 = SubjectEntityHelper.CreateRandomSubject();
+                student = StudentEntityHelper.CreateRandomStudent();
+                subject1 = SubjectEntityHelper.CreateRandomSubject();
+                subject2 = SubjectEntityHelper.CreateRandomSubject();
                 context.Students.Add(student);
                 student.subjects.Add(subject1);
                 student.subjects.Add(subject2);
 
-                var activity1 = ActivityEntityHelper.CreateRandomActivity(subject1);
-                var activity2 = ActivityEntityHelper.CreateRandomActivity(subject1);
-                var activity3 = ActivityEntityHelper.CreateRandomActivity(subject2);
+                activity1 = ActivityEntityHelper.CreateRandomActivity(subject1);
+                activity2 = ActivityEntityHelper.CreateRandomActivity(subject1);
+                activity3 = ActivityEntityHelper.CreateRandomActivity(subject2);
                 subject1.activity.Add(activity1);
                 subject1.activity.Add(activity2);
                 subject2.activity.Add(activity3);
                 context.SaveChanges();
 
                 // Act
-                var activitiesOfAStudent = student.subjects.SelectMany(i => i.activity).ToList();
+                activitiesOfAStudent = student.subjects.SelectMany(i => i.activity).ToList();
+            }
 
+            using (var context = new SchoolContext(options))
+            {
                 // Assert
+                var studentFromDb = await context.Students.Include(i => i.subjects).ThenInclude(i => i.activity).SingleAsync(i => i.Id == student.Id);
+                Assert.Equal(student.Id, studentFromDb.Id);
                 Assert.Equal(3, activitiesOfAStudent.Count);
 
             }
@@ -214,14 +227,20 @@ namespace ICS.DAL.Tests
         [Fact]
         public async Task GetAll_Subjects_OfAStudent()
         {
+            StudentEntity student;
+            SubjectEntity subject1;
+            SubjectEntity subject2;
+            SubjectEntity subject3;
+            var subjectsOfStudent = new List<SubjectEntity>();
+
             var options = DbContextOptionsConfigurer.ConfigureInMemoryOptions();
             using (var context = new SchoolContext(options))
             {
                 // Arrange
-                var student = StudentEntityHelper.CreateRandomStudent();
-                var subject1 = SubjectEntityHelper.CreateRandomSubject();
-                var subject2 = SubjectEntityHelper.CreateRandomSubject();
-                var subject3 = SubjectEntityHelper.CreateRandomSubject();
+                student = StudentEntityHelper.CreateRandomStudent();
+                subject1 = SubjectEntityHelper.CreateRandomSubject();
+                subject2 = SubjectEntityHelper.CreateRandomSubject();
+                subject3 = SubjectEntityHelper.CreateRandomSubject();
 
                 context.Students.Add(student);
                 student.subjects.Add(subject1);
@@ -230,17 +249,22 @@ namespace ICS.DAL.Tests
                 context.SaveChanges();
 
                 // Act
-                var subjectsOfStudent = student.subjects.ToList();
+                subjectsOfStudent = student.subjects.ToList();
+            }
 
+            using (var context = new SchoolContext(options))
+            {
                 // Assert
+                var studentFromDb = await context.Students.Include(i => i.subjects).SingleAsync(i => i.Id == student.Id);
+                Assert.Equal(student.Id, studentFromDb.Id);
                 Assert.Equal(2, subjectsOfStudent.Count);
 
                 foreach (var subject in subjectsOfStudent)
                 {
                     Assert.True(subject.students.Contains(student));
                 }
-
             }
+                
         }
     }
 }
