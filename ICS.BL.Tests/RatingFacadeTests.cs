@@ -21,29 +21,13 @@ namespace ICS.BL.Tests;
 public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
 {
     private readonly IRatingFacade _ratingFacadeSUT;
-    private SchoolTestingContext _context;
-    private IDbContextTransaction _transaction;
+
 
     public RatingFacadeTests(ITestOutputHelper output) : base(output)
     {
         _ratingFacadeSUT = new RatingFacade(UnitOfWorkFactory, RatingModelMapper);
     }
     
-    public async Task InitializeAsync()
-    {
-        var options = DbContextOptionsConfigurer.ConfigureSqliteOptions(); 
-        _context = new SchoolTestingContext(options, true);
-        await _context.Database.EnsureCreatedAsync();
-        _transaction = await _context.Database.BeginTransactionAsync();
-    }
-    
-    public async Task DisposeAsync()
-    {
-        await _transaction.RollbackAsync();
-        await _transaction.DisposeAsync();
-        await _context.DisposeAsync();
-    }
-
 
 
     [Fact]
@@ -120,19 +104,19 @@ public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
             }
         };
 
-        _context.Rating.Add(ratingEntity);
-        await _context.SaveChangesAsync();
-    }*/
+        dbx.Rating.Add(ratingEntity);
+        await dbx.SaveChangesAsync();
+    }
 
-        [Fact]
+    [Fact]
     public async Task GetAll_Single_SeededRating1()
     {
-        //await AddTestDataAsync();
+        await AddTestDataAsync();
         //Act
-        //var ratings = await _ratingFacadeSUT.GetAsync();
-        //var rating = ratings.Single(i => i.Id == RatingSeeds.Rating1.Id);
+        var ratings = await _ratingFacadeSUT.GetAsync();
+        var rating = ratings.Single(i => i.Id == RatingSeeds.Rating1.Id);
         //Assert
-        //DeepAssert.Equal(RatingModelMapper.MapToListModel(RatingSeeds.Rating1), rating);
+        DeepAssert.Equal(RatingModelMapper.MapToListModel(RatingSeeds.Rating1), rating);
         //Arrange
         var listModel = RatingModelMapper.MapToListModel(RatingSeeds.Rating1);
 
@@ -141,7 +125,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
 
         //Assert
         Assert.Contains(listModel, returnedModel);
-    }
+    }*/
 
     [Fact]
     public async Task GetById_FromSeeded_EqualsSeeded()

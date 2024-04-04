@@ -17,29 +17,14 @@ namespace ICS.BL.Tests;
 public sealed class SubjectFacadeTests : FacadeTestsBase, IAsyncLifetime
 {
     private readonly ISubjectFacade _subjectFacadeSUT;
-    private SchoolTestingContext _context;
-    private IDbContextTransaction _transaction;
+
 
     public SubjectFacadeTests(ITestOutputHelper output) : base(output)
     {
         _subjectFacadeSUT = new SubjectFacade(UnitOfWorkFactory, SubjectModelMapper);
     }
     
-    public async Task InitializeAsync()
-    {
-        // Инициализация контекста и начало транзакции
-        var options = DbContextOptionsConfigurer.ConfigureSqliteOptions();
-        _context = new SchoolTestingContext(options, true);
-        await _context.Database.EnsureCreatedAsync();
-        _transaction = await _context.Database.BeginTransactionAsync();
-    }
-    
-    public async Task DisposeAsync()
-    {
-        await _transaction.RollbackAsync();
-        await _transaction.DisposeAsync();
-        await _context.DisposeAsync();
-    }
+
 
 
     [Fact]

@@ -15,8 +15,6 @@ namespace ICS.DAL.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    studentId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     firstName = table.Column<string>(type: "TEXT", nullable: false),
                     lastName = table.Column<string>(type: "TEXT", nullable: false),
@@ -24,47 +22,43 @@ namespace ICS.DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Students", x => x.studentId);
+                    table.PrimaryKey("PK_Students", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Subjects",
                 columns: table => new
                 {
-                    subjectId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     name = table.Column<string>(type: "TEXT", nullable: false),
-                    abbreviation = table.Column<string>(type: "TEXT", nullable: false),
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false)
+                    abbreviation = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subjects", x => x.subjectId);
+                    table.PrimaryKey("PK_Subjects", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Activities",
                 columns: table => new
                 {
-                    activityId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     name = table.Column<string>(type: "TEXT", nullable: false),
                     start = table.Column<DateTime>(type: "TEXT", nullable: false),
                     end = table.Column<DateTime>(type: "TEXT", nullable: false),
                     room = table.Column<string>(type: "TEXT", nullable: false),
                     activityTypeTag = table.Column<string>(type: "TEXT", nullable: false),
                     description = table.Column<string>(type: "TEXT", nullable: false),
-                    subjectId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false)
+                    subjectId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Activities", x => x.activityId);
+                    table.PrimaryKey("PK_Activities", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Activities_Subjects_subjectId",
                         column: x => x.subjectId,
                         principalTable: "Subjects",
-                        principalColumn: "subjectId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -72,23 +66,23 @@ namespace ICS.DAL.Migrations
                 name: "StudentSubject",
                 columns: table => new
                 {
-                    studentsstudentId = table.Column<int>(type: "INTEGER", nullable: false),
-                    subjectssubjectId = table.Column<int>(type: "INTEGER", nullable: false)
+                    studentsId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    subjectsId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentSubject", x => new { x.studentsstudentId, x.subjectssubjectId });
+                    table.PrimaryKey("PK_StudentSubject", x => new { x.studentsId, x.subjectsId });
                     table.ForeignKey(
-                        name: "FK_StudentSubject_Students_studentsstudentId",
-                        column: x => x.studentsstudentId,
+                        name: "FK_StudentSubject_Students_studentsId",
+                        column: x => x.studentsId,
                         principalTable: "Students",
-                        principalColumn: "studentId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StudentSubject_Subjects_subjectssubjectId",
-                        column: x => x.subjectssubjectId,
+                        name: "FK_StudentSubject_Subjects_subjectsId",
+                        column: x => x.subjectsId,
                         principalTable: "Subjects",
-                        principalColumn: "subjectId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -96,28 +90,26 @@ namespace ICS.DAL.Migrations
                 name: "Rating",
                 columns: table => new
                 {
-                    ratingId = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     points = table.Column<int>(type: "INTEGER", nullable: false),
                     note = table.Column<string>(type: "TEXT", nullable: false),
-                    activityId = table.Column<int>(type: "INTEGER", nullable: false),
-                    studentId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false)
+                    activityId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    studentId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rating", x => x.ratingId);
+                    table.PrimaryKey("PK_Rating", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Rating_Activities_activityId",
                         column: x => x.activityId,
                         principalTable: "Activities",
-                        principalColumn: "activityId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Rating_Students_studentId",
                         column: x => x.studentId,
                         principalTable: "Students",
-                        principalColumn: "studentId",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -129,8 +121,7 @@ namespace ICS.DAL.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Rating_activityId",
                 table: "Rating",
-                column: "activityId",
-                unique: true);
+                column: "activityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rating_studentId",
@@ -138,9 +129,9 @@ namespace ICS.DAL.Migrations
                 column: "studentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentSubject_subjectssubjectId",
+                name: "IX_StudentSubject_subjectsId",
                 table: "StudentSubject",
-                column: "subjectssubjectId");
+                column: "subjectsId");
         }
 
         /// <inheritdoc />
