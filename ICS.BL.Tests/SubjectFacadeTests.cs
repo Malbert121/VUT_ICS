@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using ICS.DAL.Context;
 using Microsoft.EntityFrameworkCore.Storage;
 using Xunit.Abstractions;
+using ICS.Common.Tests2.Seeds;
 
 namespace ICS.BL.Tests;
 
@@ -47,5 +48,18 @@ public sealed class SubjectFacadeTests : FacadeTestsBase, IAsyncLifetime
         };
 
         await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _subjectFacadeSUT.SaveAsync(model));
+    }
+
+    [Fact]
+    public async Task GetAll_FromSeeded_ContainsSeeded()
+    {
+        //Arrange
+        var listModel = SubjectModelMapper.MapToListModel(SubjectSeeds.potions);
+
+        //Act
+        var returnedModel = await _subjectFacadeSUT.GetAsync();
+
+        //Assert
+        Assert.Contains(listModel, returnedModel);
     }
 }

@@ -74,4 +74,17 @@ public sealed class StudentFacadeTests : FacadeTestsBase, IAsyncLifetime
         //Act && Assert
         await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _studentFacadeSUT.SaveAsync(model));
     }
+
+    [Fact]
+    public async Task GetAll_FromSeeded_ContainsSeeded()
+    {
+        //Arrange
+        var listModel = StudentModelMapper.MapToListModel(StudentSeeds.Harry);
+
+        //Act
+        var returnedModel = await _studentFacadeSUT.GetAsync();
+
+        //Assert
+        Assert.Contains(listModel, returnedModel);
+    }
 }

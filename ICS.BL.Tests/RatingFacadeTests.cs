@@ -29,7 +29,6 @@ public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
     }
     
 
-
     [Fact]
     public async Task Create_WithActivityStudent_DoesNotThrow()
     {
