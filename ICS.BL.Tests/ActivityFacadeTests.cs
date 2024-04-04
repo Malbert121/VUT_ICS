@@ -19,14 +19,14 @@ namespace ICS.BL.Tests;
 public sealed class ActivityFacadeTests : FacadeTestsBase, IAsyncLifetime
 {
     private readonly IActivityFacade _activityFacadeSUT;
-    private SchoolTestingContext _context;
-    private IDbContextTransaction _transaction;
+   // private SchoolTestingContext _context;
+   // private IDbContextTransaction _transaction;
 
     public ActivityFacadeTests(ITestOutputHelper output) : base(output)
     {
         _activityFacadeSUT = new ActivityFacade(UnitOfWorkFactory, ActivityModelMapper);
     }
-    
+    /*
     public async Task InitializeAsync()
     {
         // Инициализация контекста и начало транзакции
@@ -41,7 +41,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase, IAsyncLifetime
         await _transaction.RollbackAsync();
         await _transaction.DisposeAsync();
         await _context.DisposeAsync();
-    }
+    }*/
 
 
     [Fact]

@@ -21,14 +21,14 @@ namespace ICS.BL.Tests;
 public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
 {
     private readonly IRatingFacade _ratingFacadeSUT;
-    private SchoolTestingContext _context;
-    private IDbContextTransaction _transaction;
+    //private SchoolTestingContext _context;
+    //private IDbContextTransaction _transaction;
 
     public RatingFacadeTests(ITestOutputHelper output) : base(output)
     {
         _ratingFacadeSUT = new RatingFacade(UnitOfWorkFactory, RatingModelMapper);
     }
-    
+    /*
     public async Task InitializeAsync()
     {
         var options = DbContextOptionsConfigurer.ConfigureSqliteOptions(); 
@@ -43,7 +43,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
         await _transaction.DisposeAsync();
         await _context.DisposeAsync();
     }
-
+    */
 
 
     [Fact]
@@ -85,49 +85,9 @@ public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
         var _ = await _ratingFacadeSUT.SaveAsync(model);
     }
 
-    /*
-    public async Task AddTestDataAsync()
-    {
-        var ratingEntity = new RatingEntity
-        {
-            Id = Guid.Empty,
-            points = 20,
-            note = "note",
-            activityId = Guid.Empty,
-            studentId = Guid.Empty,
-            activity = new ActivityEntity()
-            {
-                Id = Guid.Empty,
-                name = "name",
-                start = DateTime.MinValue,
-                end = DateTime.MinValue,
-                room = "room",
-                subjectId = Guid.Empty,
-                subject = new SubjectEntity()
-                {
-                    Id = Guid.NewGuid(),
-                    name = "Database Systems",
-                    abbreviation = "IDS"
-                }
-            },
-            student = new StudentEntity()
-            {
-                Id = Guid.Empty,
-                firstName = "John",
-                lastName = "Doe",
-                fotoURL = "http://www.example.com/index.html",
-                subjects = new List<SubjectEntity>()
-            }
-        };
-
-        _context.Rating.Add(ratingEntity);
-        await _context.SaveChangesAsync();
-    }*/
-
         [Fact]
     public async Task GetAll_Single_SeededRating1()
     {
-        //await AddTestDataAsync();
         //Act
         //var ratings = await _ratingFacadeSUT.GetAsync();
         //var rating = ratings.Single(i => i.Id == RatingSeeds.Rating1.Id);

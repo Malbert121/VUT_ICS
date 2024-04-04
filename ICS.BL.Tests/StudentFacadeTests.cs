@@ -18,14 +18,14 @@ namespace ICS.BL.Tests;
 public sealed class StudentFacadeTests : FacadeTestsBase, IAsyncLifetime
 {
     private readonly IStudentFacade _studentFacadeSUT;
-    private SchoolTestingContext _context;
-    private IDbContextTransaction _transaction;
+    //private SchoolTestingContext _context;
+    //private IDbContextTransaction _transaction;
 
     public StudentFacadeTests(ITestOutputHelper output) : base(output)
     {
         _studentFacadeSUT = new StudentFacade(UnitOfWorkFactory, StudentModelMapper);
     }
-    
+    /*
     public async Task InitializeAsync()
     {
         // Инициализация контекста и начало транзакции
@@ -40,7 +40,7 @@ public sealed class StudentFacadeTests : FacadeTestsBase, IAsyncLifetime
         await _transaction.RollbackAsync();
         await _transaction.DisposeAsync();
         await _context.DisposeAsync();
-    }
+    }*/
 
 
     [Fact]
@@ -89,5 +89,18 @@ public sealed class StudentFacadeTests : FacadeTestsBase, IAsyncLifetime
 
         //Act && Assert
         await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _studentFacadeSUT.SaveAsync(model));
+    }
+
+    [Fact]
+    public async Task GetAll_FromSeeded_ContainsSeeded()
+    {
+        //Arrange
+        var listModel = StudentModelMapper.MapToListModel(StudentSeeds.Harry);
+
+        //Act
+        var returnedModel = await _studentFacadeSUT.GetAsync();
+
+        //Assert
+        Assert.Contains(listModel, returnedModel);
     }
 }

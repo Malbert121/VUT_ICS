@@ -9,7 +9,9 @@ namespace ICS.DAL.Mappers
             existingEntity.points = newEntity.points;
             existingEntity.note = newEntity.note;
             existingEntity.studentId = newEntity.studentId;
-             
+            existingEntity.activityId = newEntity.activityId;
+            existingEntity.student = newEntity.student;
+
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using ICS.DAL.Context;
 using Microsoft.EntityFrameworkCore.Storage;
 using Xunit.Abstractions;
+using ICS.Common.Tests2.Seeds;
 
 namespace ICS.BL.Tests;
 
@@ -17,14 +18,14 @@ namespace ICS.BL.Tests;
 public sealed class SubjectFacadeTests : FacadeTestsBase, IAsyncLifetime
 {
     private readonly ISubjectFacade _subjectFacadeSUT;
-    private SchoolTestingContext _context;
-    private IDbContextTransaction _transaction;
+    //private SchoolTestingContext _context;
+    //private IDbContextTransaction _transaction;
 
     public SubjectFacadeTests(ITestOutputHelper output) : base(output)
     {
         _subjectFacadeSUT = new SubjectFacade(UnitOfWorkFactory, SubjectModelMapper);
     }
-    
+    /*
     public async Task InitializeAsync()
     {
         // Инициализация контекста и начало транзакции
@@ -39,7 +40,7 @@ public sealed class SubjectFacadeTests : FacadeTestsBase, IAsyncLifetime
         await _transaction.RollbackAsync();
         await _transaction.DisposeAsync();
         await _context.DisposeAsync();
-    }
+    }*/
 
 
     [Fact]
@@ -62,5 +63,18 @@ public sealed class SubjectFacadeTests : FacadeTestsBase, IAsyncLifetime
         };
 
         await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _subjectFacadeSUT.SaveAsync(model));
+    }
+
+    [Fact]
+    public async Task GetAll_FromSeeded_ContainsSeeded()
+    {
+        //Arrange
+        var listModel = SubjectModelMapper.MapToListModel(SubjectSeeds.potions);
+
+        //Act
+        var returnedModel = await _subjectFacadeSUT.GetAsync();
+
+        //Assert
+        Assert.Contains(listModel, returnedModel);
     }
 }
