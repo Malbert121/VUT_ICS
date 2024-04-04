@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore.Internal;
 using ICS.DAL;
 using ICS.DAL.Context;
 using ICS.DAL.Entities;
+using Microsoft.Data.Sqlite;
+using System.IO;
 
 namespace DAL_Tests
 {
@@ -74,7 +76,7 @@ namespace DAL_Tests
                 Assert.NotNull(actualRating);
             }
         }
-        //Test for deleting rating from activity
+
         [Fact]
         public async Task Delete_RatingFromActivity_Persisted()
         {
@@ -300,7 +302,8 @@ namespace DAL_Tests
             ActivityEntity activity;
             StudentEntity student;
             SubjectEntity subject;
-            var options = DbContextOptionsConfigurer.ConfigureInMemoryOptions();
+
+            var options = DbContextOptionsConfigurer.ConfigureSqliteOptions ();
             using (var context = new SchoolContext(options))
             {
                 // Arrange
@@ -329,8 +332,48 @@ namespace DAL_Tests
                 Assert.Equal(0, ratingcount);
                 Assert.Null(actualStudent);
             }
+                
         }
-         
+
+        [Fact]
+        public async Task Delete_SubjectWithActivityAndRating_Persisted()
+        {
+            RatingEntity rating1, rating2;
+            ActivityEntity activity;
+            StudentEntity student;
+            SubjectEntity subject;
+
+            var options = DbContextOptionsConfigurer.ConfigureSqliteOptions();
+            using (var context = new SchoolContext(options))
+            {
+                // Arrange
+                subject = SubjectEntityHelper.CreateRandomSubject();
+                activity = ActivityEntityHelper.CreateRandomActivity(subject);
+                student = StudentEntityHelper.CreateRandomStudent();
+                rating1 = RatingEntityHelper.CreateRandomRating(activity, student);
+                rating2 = RatingEntityHelper.CreateRandomRating(activity, student);
+                context.Subjects.Add(subject);
+                subject.students.Add(student);
+                subject.activity.Add(activity);
+                activity.ratings.Add(rating1);
+                activity.ratings.Add(rating2);
+                context.SaveChanges();
+
+                // Act
+                context.Subjects.Remove(subject);
+                context.SaveChanges();
+            }
+
+            // Assert
+            using (var context = new SchoolContext(options))
+            {
+                var actualSubject = await context.Subjects.SingleOrDefaultAsync(i => i.Id == subject.Id);
+                var ratingcount = await context.Rating.CountAsync();
+                Assert.Equal(0, ratingcount);
+                Assert.Null(actualSubject);
+            }
+        }
+
     }
 }
 
