@@ -29,8 +29,8 @@ namespace ICS.DAL.Seeds
 
         static ActivitySeeds()
         {
-            potionActivity.ratings.Add(RatingSeeds.rating1);
-            potionActivity.ratings.Add(RatingSeeds.rating2);
+            potionActivity.ratings.Add(RatingSeeds.Rating1);
+            potionActivity.ratings.Add(RatingSeeds.Rating2);
         }
 
         public static void Seed(ModelBuilder modelBuilder)

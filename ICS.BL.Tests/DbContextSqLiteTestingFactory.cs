@@ -3,7 +3,7 @@ using ICS.DAL;
 using ICS.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace CookBook.Common.Tests.Factories;
+namespace ICS.BL.Tests;
 
 public class DbContextSqLiteTestingFactory(bool seedTestingData = false)
     : IDbContextFactory<SchoolContext>

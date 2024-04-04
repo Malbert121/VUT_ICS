@@ -53,8 +53,10 @@ public sealed class RatingFacadeTests : FacadeTestsBase
         [Fact]
     public async Task GetAll_Single_SeededRating1()
     {
+        //Act
         var ratings = await _ratingFacadeSUT.GetAsync();
         var rating = ratings.Single(i => i.Id == RatingSeeds.Rating1.Id);
+        //Assert
         DeepAssert.Equal(RatingModelMapper.MapToListModel(RatingSeeds.Rating1), rating);
     }
 
@@ -63,11 +65,27 @@ public sealed class RatingFacadeTests : FacadeTestsBase
     {
         //Arrange
         var detailModel = RatingModelMapper.MapToDetailModel(RatingSeeds.Rating1);
-
         //Act
         var returnedModel = await _ratingFacadeSUT.GetAsync(detailModel.Id);
-
         //Assert
         DeepAssert.Equal(detailModel, returnedModel);
     }
+
+    [Fact]
+    public async Task GetById_SeededRating2()
+    {
+        //Act
+        var rating = await _ratingFacadeSUT.GetAsync(RatingSeeds.Rating2.Id);
+        //Assert
+        DeepAssert.Equal(RatingModelMapper.MapToDetailModel(RatingSeeds.Rating2), rating);
+    }
+
+    [Fact]
+    public async Task GetById_NonExistent()
+    {
+        var rating = await _ratingFacadeSUT.GetAsync(RatingSeeds.EmptyEntity.Id);
+
+        Assert.Null(rating);
+    }
+
 }
