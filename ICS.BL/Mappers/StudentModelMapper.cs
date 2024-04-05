@@ -1,6 +1,7 @@
 ﻿using ICS.BL;
 using ICS.BL.Models;
 using ICS.DAL.Entities;
+using System.Collections.ObjectModel;
 
 
 namespace ICS.BL.Mappers
@@ -18,16 +19,32 @@ namespace ICS.BL.Mappers
             };
 
         public override StudentDetailModel MapToDetailModel(StudentEntity? entity)
-            => entity is null
-            ? StudentDetailModel.Empty
-            : new StudentDetailModel
+        {
+            if (entity is null)
+                return StudentDetailModel.Empty;
+
+            var detailModel = new StudentDetailModel
             {
                 Id = entity.Id,
                 firstName = entity.firstName,
                 lastName = entity.lastName,
-                fotoURL = entity.fotoURL,
-                subjects = subjectModelMapper.MapToListModel(entity.subjects).ToObservableCollection()
+                fotoURL = entity.fotoURL
             };
+
+            if (subjectModelMapper != null)
+            {              
+                detailModel.subjects = subjectModelMapper.MapToListModel(entity.subjects).ToObservableCollection();
+            }
+            else
+            {               
+                detailModel.subjects = new ObservableCollection<SubjectListModel>();
+            }
+
+            return detailModel;
+        }
+
+
+
 
         public override StudentEntity MapToEntity(StudentDetailModel model)
         {
