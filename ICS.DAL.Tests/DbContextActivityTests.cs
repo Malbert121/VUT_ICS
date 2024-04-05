@@ -311,6 +311,8 @@ namespace DAL_Tests
             var options = DbContextOptionsConfigurer.ConfigureSqliteOptions();
             using (var context = new SchoolContext(options))
             {
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
                 // Arrange
                 subject = SubjectEntityHelper.CreateRandomSubject();
                 activity = ActivityEntityHelper.CreateRandomActivity(subject);
@@ -334,8 +336,11 @@ namespace DAL_Tests
             {
                 var actualStudent = await context.Students.SingleOrDefaultAsync(i => i.Id == student.Id);
                 var ratingcount = await context.Rating.CountAsync();
+                var activitycount = await context.Activities.CountAsync();
+                Assert.Equal(1,activitycount);
                 Assert.Equal(0, ratingcount);
                 Assert.Null(actualStudent);
+                context.Database.EnsureDeleted();
             }
                 
         }
@@ -351,6 +356,9 @@ namespace DAL_Tests
             var options = DbContextOptionsConfigurer.ConfigureSqliteOptions();
             using (var context = new SchoolContext(options))
             {
+
+                context.Database.EnsureDeleted();
+                context.Database.EnsureCreated();
                 // Arrange
                 subject = SubjectEntityHelper.CreateRandomSubject();
                 activity = ActivityEntityHelper.CreateRandomActivity(subject);
@@ -376,6 +384,7 @@ namespace DAL_Tests
                 var ratingcount = await context.Rating.CountAsync();
                 Assert.Equal(0, ratingcount);
                 Assert.Null(actualSubject);
+                context.Database.EnsureDeleted();
             }
         }
 
