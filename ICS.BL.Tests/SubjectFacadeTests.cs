@@ -8,7 +8,8 @@ using ICS.BL.Facade;
 using ICS.BL.Models;
 using System.Collections.ObjectModel;
 using ICS.DAL.Context;
-using ICS.DAL.Seeds;
+using ICS.Common.Tests2.Seeds;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 using Xunit.Abstractions;
 
@@ -134,11 +135,11 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
             {
                 new ActivityListModel
                 {
-                    Id = ActivitySeeds.potionActivity.Id,
-                    name = ActivitySeeds.potionActivity.name,
-                    start = ActivitySeeds.potionActivity.start,
-                    end = ActivitySeeds.potionActivity.end,
-                    room = ActivitySeeds.potionActivity.room,
+                    Id = ActivitySeeds.PotionsActivity.Id,
+                    name = ActivitySeeds.PotionsActivity.name,
+                    start = ActivitySeeds.PotionsActivity.start,
+                    end = ActivitySeeds.PotionsActivity.end,
+                    room = ActivitySeeds.PotionsActivity.room,
                 }
             }
         };
@@ -158,9 +159,9 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
             {
                 new StudentListModel
                 {
-                    Id = StudentSeeds.student1.Id,
-                    firstName = StudentSeeds.student1.firstName,
-                    lastName = StudentSeeds.student1.lastName,
+                    Id = StudentSeeds.Harry.Id,
+                    firstName = StudentSeeds.Harry.firstName,
+                    lastName = StudentSeeds.Harry.lastName,
                 }
             }
         };
@@ -182,6 +183,36 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     }
     
     [Fact]
+    public async Task GetAll_FromSeeded_ContainsSeeded()
+    {
+        //Arrange
+        var listModel = SubjectModelMapper.MapToListModel(SubjectSeeds.SubjectWithTwoStudents);
+    
+        //Act
+        var returnedModel = await _subjectFacadeSUT.GetAsync();
+    
+        //Assert
+        Assert.Contains(listModel, returnedModel);
+    }
+    
+    [Fact]
+    public async Task Update_WithoutStudent_EqualsUpdated()
+    {
+        //Arrange
+        var model = SubjectModelMapper.MapToDetailModel(SubjectSeeds.SubjectWithNoStudent);
+        model.name = "IMA5";
+        model.abbreviation = "Machine Learning prerequisites";
+        model.students = new ObservableCollection<StudentListModel>();
+
+        //Act
+        var returnedModel = await _subjectFacadeSUT.SaveAsync(model);
+
+        //Assert
+        FixStudentIds(model, returnedModel);
+        DeepAssert.Equal(model, returnedModel);
+    }
+    
+    [Fact]
     public async Task Update_ExistingSubject_UpdatesSuccessfully()
     {
         // Arrange
@@ -199,6 +230,7 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
         DeepAssert.Equal(createdSubject, updatedSubject);
     }
     
+    
     [Fact]
     public async Task Update_FromSeeded_DoesNotThrou()
     {
@@ -210,12 +242,41 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
         await _subjectFacadeSUT.SaveAsync(model);
     }
     
+    
+    [Fact]
+    public async Task Update_RemoveStudents_EqualsUpdated()
+    {
+        //Arrange
+        var model = SubjectModelMapper.MapToDetailModel(SubjectSeeds.SubjectWithTwoStudents);
+        model.students = new ObservableCollection<StudentListModel>();
+
+        //Act
+        var returnedModel = await _subjectFacadeSUT.SaveAsync(model);
+
+        //Assert
+        FixStudentIds(model, returnedModel);
+        DeepAssert.Equal(model, returnedModel);
+    }
+    
+    
     [Fact]
     public async Task DeleteById_FromSeeded_DoesNotThrow()
     {
         //Arrange & Act & Assert
         await _subjectFacadeSUT.DeleteAsync(SubjectSeeds.potions.Id);
     }
+    
+    [Fact]
+    public async Task Delete_NonExisting_Throws()
+    {
+        //Arrange
+        var model = SubjectModelMapper.MapToDetailModel(SubjectSeeds.SubjectDelete);
+        model.Id = Guid.NewGuid();
+
+        //Act & Assert
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _subjectFacadeSUT.DeleteAsync(model.Id));
+    }
+
     
     
     private static void FixActivityIds(SubjectDetailModel expectedModel, SubjectDetailModel returnedModel)
@@ -258,8 +319,4 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
             }
         }
     }
-
-
-
-
 }
