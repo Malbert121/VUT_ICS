@@ -18,8 +18,7 @@ namespace ICS.BL.Facade
         : FacadeBase<ActivityEntity, ActivityListModel, ActivityDetailModel, ActivityEntityMapper>(
             unitOfWorkFactory, modelMapper), IActivityFacade
     {
-        protected override string IncludesRatingNavigationPathDetail =>
-            $"{nameof(ActivityEntity.ratings)}.{nameof(RatingEntity.student)}";
+
     }
 
     

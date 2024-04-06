@@ -165,7 +165,7 @@ public class DbContextSubjectTests
         {
             var actualSubject = await context.Subjects.Include(i => i.activity).SingleAsync(i => i.Id == subject.Id);
             Assert.False(await context.Activities.AnyAsync(i => i.Id == activity.Id));
-            Assert.False(subject.activity.Any(a => a.Id == activity.Id));
+            Assert.DoesNotContain(subject.activity, a => a.Id == activity.Id);
 
         }
     }

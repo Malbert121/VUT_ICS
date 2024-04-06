@@ -22,4 +22,14 @@
 	  <Folder Include="Migrations\" />
 	</ItemGroup>
 
+
+	<ItemGroup>
+	  <EditorConfigFiles Remove="C:\Users\gdvma\Desktop\review 2\ics-2024-xpopov10\ICS.DAL\.editorconfig" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <None Include="C:\Users\gdvma\Desktop\review 2\ics-2024-xpopov10\ICS.DAL\.editorconfig" />
+	</ItemGroup>
+
 </Project>

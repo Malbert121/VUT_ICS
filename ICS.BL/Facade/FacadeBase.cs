@@ -30,9 +30,8 @@ namespace ICS.BL.Facade
         protected readonly IUnitOfWorkFactory UnitOfWorkFactory = unitOfWorkFactory;
 
         protected virtual string IncludesStudentNavigationPathDetail => string.Empty;
-        protected virtual string IncludesActivityNavigationPathDetail => string.Empty;
         protected virtual string IncludesSubjectNavigationPathDetail => string.Empty;
-        protected virtual string IncludesRatingNavigationPathDetail => string.Empty;
+
 
         public async Task DeleteAsync(Guid id)
         {
@@ -58,17 +57,9 @@ namespace ICS.BL.Facade
             {
                 query = query.Include(IncludesStudentNavigationPathDetail);
             }
-            if (string.IsNullOrWhiteSpace(IncludesActivityNavigationPathDetail) is false)
-            {
-                query = query.Include(IncludesActivityNavigationPathDetail);
-            }
             if (string.IsNullOrWhiteSpace(IncludesSubjectNavigationPathDetail) is false)
             {
                 query = query.Include(IncludesSubjectNavigationPathDetail);
-            }
-            if (string.IsNullOrWhiteSpace(IncludesRatingNavigationPathDetail) is false)
-            {
-                query = query.Include(IncludesRatingNavigationPathDetail);
             }
 
             TEntity? entity = await query.SingleOrDefaultAsync(e => e.Id == id);

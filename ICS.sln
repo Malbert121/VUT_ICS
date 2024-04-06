@@ -13,7 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICS.BL", "ICS.BL\ICS.BL.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICS.BL.Tests", "ICS.BL.Tests\ICS.BL.Tests.csproj", "{0FEE7786-2233-426A-B8B7-94B0CD92A957}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICS.Common.Tests2", "ICS.Common.Tests2\ICS.Common.Tests2.csproj", "{0D0761C9-C4FF-43FB-9836-CDA9A751700E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ICS.Common.Tests2", "ICS.Common.Tests2\ICS.Common.Tests2.csproj", "{0D0761C9-C4FF-43FB-9836-CDA9A751700E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C4F05940-B134-49B6-882F-01BD65152EE1} = {C4F05940-B134-49B6-882F-01BD65152EE1}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

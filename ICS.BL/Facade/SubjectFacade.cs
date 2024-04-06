@@ -13,8 +13,9 @@ namespace ICS.BL.Facade
         : FacadeBase<SubjectEntity, SubjectListModel, SubjectDetailModel, SubjectEntityMapper>(unitOfWorkFactory, modelMapper),
             ISubjectFacade
     {
-        protected override string IncludesActivityNavigationPathDetail =>
-            $"{nameof(SubjectEntity.activity)}.{nameof(ActivityEntity.ratings)}";
+
+        protected override string IncludesStudentNavigationPathDetail =>
+            $"{nameof(SubjectEntity.students)}.{nameof(StudentEntity.subjects)}";
 
 
     }

@@ -10,4 +10,12 @@
     <ProjectReference Include="..\ICS.DAL\ICS.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\gdvma\Desktop\review 2\ics-2024-xpopov10\ICS.BL\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\gdvma\Desktop\review 2\ics-2024-xpopov10\ICS.BL\.editorconfig" />
+  </ItemGroup>
+
 </Project>
