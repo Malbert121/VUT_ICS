@@ -31,8 +31,8 @@ namespace ICS.Common.Tests2.Seeds
             activityTypeTag = "POT",
             description = "Brewing a potion",
             subjectId = SubjectSeeds.potions.Id,
-            subject = SubjectSeeds.potions
-
+            subject = SubjectSeeds.potions,
+            ratings = Array.Empty<RatingEntity>()
         };
 
         public static readonly ActivityEntity ActivityWithNoRatings = new ActivityEntity
@@ -102,8 +102,10 @@ namespace ICS.Common.Tests2.Seeds
             description = "Brewing a potion",
             subjectId = SubjectSeeds.potions.Id,
             subject = SubjectSeeds.potions,
-            ratings = Array.Empty<RatingEntity>()
+            ratings = new List<RatingEntity>()
         };
+
+       
 
         static ActivitySeeds()
         {
@@ -115,7 +117,11 @@ namespace ICS.Common.Tests2.Seeds
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ActivityEntity>().HasData(PotionsActivity with { subject = null!, ratings = Array.Empty<RatingEntity>() },
-                ActivityWithNoRatings with { subject = null!, ratings = Array.Empty<RatingEntity>()}, ActivityWithOneRating with { subject = null!, ratings = Array.Empty<RatingEntity>() }, ActivityWithTwoRatings with { subject = null!, ratings = Array.Empty<RatingEntity>() }, ActivityUpdate with { subject = null!, ratings = Array.Empty<RatingEntity>() }, ActivityDelete with { subject = null! });
+                ActivityWithNoRatings with { subject = null!, ratings = Array.Empty<RatingEntity>()}, 
+                ActivityWithOneRating with { subject = null!, ratings = Array.Empty<RatingEntity>() }, 
+                ActivityWithTwoRatings with { subject = null!, ratings = Array.Empty<RatingEntity>() }, 
+                ActivityUpdate with { subject = null!, ratings = Array.Empty<RatingEntity>() }, 
+                ActivityDelete with { subject = null! });
         }
     }
 }

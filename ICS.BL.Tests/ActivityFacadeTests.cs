@@ -15,7 +15,6 @@ using ICS.Common.Tests2.Seeds;
 
 namespace ICS.BL.Tests;
 
-[Collection("SQLite Tests")]
 public sealed class ActivityFacadeTests : FacadeTestsBase, IAsyncLifetime
 {
     private readonly IActivityFacade _activityFacadeSUT;
@@ -145,7 +144,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase, IAsyncLifetime
     public async Task GetById_FromSeeded_EqualsSeeded()
     {
         //Arrange
-        var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.PotionsActivity);
+        var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.ActivityWithTwoRatings);
 
         //Act
         var returnedModel = await _activityFacadeSUT.GetAsync(detailModel.Id);
@@ -183,7 +182,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase, IAsyncLifetime
     public async Task Update_Name_FromSeeded_Updated()
     {
         //Arrange
-        var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.PotionsActivity);
+        var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.ActivityUpdate);
         detailModel.name = "Changed activity name 1";
 
         //Act

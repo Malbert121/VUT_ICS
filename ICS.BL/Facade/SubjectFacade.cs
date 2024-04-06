@@ -3,6 +3,7 @@ using ICS.BL.Mappers;
 using ICS.BL.Models;
 using ICS.DAL.Entities;
 using ICS.DAL.Mappers;
+using ICS.DAL.Repositories;
 using ICS.DAL.UnitOfWork;
 namespace ICS.BL.Facade
 {
@@ -13,8 +14,8 @@ namespace ICS.BL.Facade
             ISubjectFacade
     {
         protected override string IncludesActivityNavigationPathDetail =>
-            $"{nameof(SubjectEntity.activity)}.{nameof(ActivityEntity.Id)}";
-        protected override string IncludesStudentNavigationPathDetail =>
-            $"{nameof(SubjectEntity.students)}.{nameof(StudentEntity.Id)}";
+            $"{nameof(SubjectEntity.activity)}.{nameof(ActivityEntity.ratings)}";
+
+
     }
 }

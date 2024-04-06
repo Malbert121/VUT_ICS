@@ -74,7 +74,10 @@ namespace ICS.Common.Tests2.Seeds
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<StudentEntity>().HasData(Harry, Hermione, StudentWithNoSubjects with {subjects = Array.Empty<SubjectEntity>() }, StudentWithSubjects with { subjects = Array.Empty<SubjectEntity>() }, StudentUpdate with { subjects = Array.Empty<SubjectEntity>() }, StudentDelete with { subjects = Array.Empty<SubjectEntity>() });
+            modelBuilder.Entity<StudentEntity>().HasData(Harry with { subjects = Array.Empty<SubjectEntity>() }, Hermione with { subjects = Array.Empty<SubjectEntity>() }, StudentWithNoSubjects with {subjects = Array.Empty<SubjectEntity>() }, 
+                StudentWithSubjects with { subjects = Array.Empty<SubjectEntity>() }, 
+                StudentUpdate with { subjects = Array.Empty<SubjectEntity>() }, 
+                StudentDelete with { subjects = Array.Empty<SubjectEntity>() });
         }
     }
 }

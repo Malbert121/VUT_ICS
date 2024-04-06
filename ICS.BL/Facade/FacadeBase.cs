@@ -32,6 +32,7 @@ namespace ICS.BL.Facade
         protected virtual string IncludesStudentNavigationPathDetail => string.Empty;
         protected virtual string IncludesActivityNavigationPathDetail => string.Empty;
         protected virtual string IncludesSubjectNavigationPathDetail => string.Empty;
+        protected virtual string IncludesRatingNavigationPathDetail => string.Empty;
 
         public async Task DeleteAsync(Guid id)
         {
@@ -57,13 +58,17 @@ namespace ICS.BL.Facade
             {
                 query = query.Include(IncludesStudentNavigationPathDetail);
             }
-            else if (string.IsNullOrWhiteSpace(IncludesActivityNavigationPathDetail) is false)
+            if (string.IsNullOrWhiteSpace(IncludesActivityNavigationPathDetail) is false)
             {
                 query = query.Include(IncludesActivityNavigationPathDetail);
             }
-            else if (string.IsNullOrWhiteSpace(IncludesSubjectNavigationPathDetail) is false)
+            if (string.IsNullOrWhiteSpace(IncludesSubjectNavigationPathDetail) is false)
             {
                 query = query.Include(IncludesSubjectNavigationPathDetail);
+            }
+            if (string.IsNullOrWhiteSpace(IncludesRatingNavigationPathDetail) is false)
+            {
+                query = query.Include(IncludesRatingNavigationPathDetail);
             }
 
             TEntity? entity = await query.SingleOrDefaultAsync(e => e.Id == id);
