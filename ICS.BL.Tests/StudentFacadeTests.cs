@@ -123,6 +123,7 @@ public sealed class StudentFacadeTests : FacadeTestsBase, IAsyncLifetime
         DeepAssert.Equal(detailModel, returnedModel);
     }
 
+
     [Fact]
     public async Task Update_WithoutSubject_EqualsUpdated()
     {
@@ -152,7 +153,21 @@ public sealed class StudentFacadeTests : FacadeTestsBase, IAsyncLifetime
         await _studentFacadeSUT.SaveAsync(model);
     }
 
-    
+    [Fact]
+    public async Task Update_ExistingStudent_UpdateSuccessfully()
+    {
+        //Arrange
+        var model = StudentModelMapper.MapToDetailModel(StudentSeeds.StudentUpdate);
+        model.firstName = "Updated";
+
+        //Act
+        var returnedModel = await _studentFacadeSUT.SaveAsync(model);
+
+        //Assert
+        FixIds(model, returnedModel);
+        DeepAssert.Equal(model, returnedModel);
+    }
+
 
     [Fact]
     public async Task Update_RemoveSubject_EqualsUpdated()
