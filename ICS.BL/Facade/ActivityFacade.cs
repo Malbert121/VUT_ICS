@@ -16,5 +16,11 @@ namespace ICS.BL.Facade
         IUnitOfWorkFactory unitOfWorkFactory,
         IActivityModelMapper modelMapper)
         : FacadeBase<ActivityEntity, ActivityListModel, ActivityDetailModel, ActivityEntityMapper>(
-            unitOfWorkFactory, modelMapper), IActivityFacade;
+            unitOfWorkFactory, modelMapper), IActivityFacade
+    {
+        protected override string IncludesRatingNavigationPathDetail =>
+            $"{nameof(ActivityEntity.ratings)}.{nameof(RatingEntity.student)}";
+    }
+
+    
 }
