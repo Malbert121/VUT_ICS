@@ -68,63 +68,6 @@ public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
         var _ = await _ratingFacadeSUT.SaveAsync(model);
     }
 
-    /*
-    public async Task AddTestDataAsync()
-    {
-        var ratingEntity = new RatingEntity
-        {
-            Id = Guid.Empty,
-            points = 20,
-            note = "note",
-            activityId = Guid.Empty,
-            studentId = Guid.Empty,
-            activity = new ActivityEntity()
-            {
-                Id = Guid.Empty,
-                name = "name",
-                start = DateTime.MinValue,
-                end = DateTime.MinValue,
-                room = "room",
-                subjectId = Guid.Empty,
-                subject = new SubjectEntity()
-                {
-                    Id = Guid.NewGuid(),
-                    name = "Database Systems",
-                    abbreviation = "IDS"
-                }
-            },
-            student = new StudentEntity()
-            {
-                Id = Guid.Empty,
-                firstName = "John",
-                lastName = "Doe",
-                fotoURL = "http://www.example.com/index.html",
-                subjects = new List<SubjectEntity>()
-            }
-        };
-
-        dbx.Rating.Add(ratingEntity);
-        await dbx.SaveChangesAsync();
-    }
-
-    [Fact]
-    public async Task GetAll_Single_SeededRating1()
-    {
-        await AddTestDataAsync();
-        //Act
-        var ratings = await _ratingFacadeSUT.GetAsync();
-        var rating = ratings.Single(i => i.Id == RatingSeeds.Rating1.Id);
-        //Assert
-        DeepAssert.Equal(RatingModelMapper.MapToListModel(RatingSeeds.Rating1), rating);
-        //Arrange
-        var listModel = RatingModelMapper.MapToListModel(RatingSeeds.Rating1);
-
-        //Act
-        var returnedModel = await _ratingFacadeSUT.GetAsync();
-
-        //Assert
-        Assert.Contains(listModel, returnedModel);
-    }*/
 
     [Fact]
     public async Task GetById_FromSeeded_EqualsSeeded()
