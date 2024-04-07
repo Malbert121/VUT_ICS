@@ -181,4 +181,32 @@ public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
         var ratingFromDb = await dbxAssert.Rating.SingleAsync(i => i.Id == rating.Id);
         DeepAssert.Equal(rating, RatingModelMapper.MapToDetailModel(ratingFromDb));
     }
+
+    [Fact]
+    public async Task Update_FromSeeded_DoesNotThrow()
+    {
+        //Arrange
+        var model = RatingModelMapper.MapToDetailModel(RatingSeeds.Rating1);
+
+        //Act
+        model.points = 10;
+
+        //Assert
+        await _ratingFacadeSUT.SaveAsync(model);
+    }
+
+    [Fact]
+    public async Task Update_Point_FromSeeded_Updated()
+    {
+        //Arrange
+        var detailModel = RatingModelMapper.MapToDetailModel(RatingSeeds.Rating1);
+        detailModel.points = 100;
+
+        //Act
+        await _ratingFacadeSUT.SaveAsync(detailModel);
+
+        //Assert
+        var returnedModel = await _ratingFacadeSUT.GetAsync(detailModel.Id);
+        DeepAssert.Equal(detailModel, returnedModel);
+    }
 }
