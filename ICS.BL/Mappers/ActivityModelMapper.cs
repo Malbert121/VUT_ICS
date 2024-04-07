@@ -12,10 +12,10 @@ namespace ICS.BL.Mappers
             : new ActivityListModel
             {
                 Id = entity.Id,
-                name = entity.name,
-                start = entity.start,
-                end = entity.end,
-                room = entity.room
+                name = entity.Name,
+                start = entity.Start,
+                end = entity.End,
+                room = entity.Room
             };
 
         public override ActivityDetailModel MapToDetailModel(ActivityEntity? entity)
@@ -24,15 +24,15 @@ namespace ICS.BL.Mappers
             : new ActivityDetailModel
             {
                 Id = entity.Id,
-                name = entity.name,
-                start = entity.start,
-                end = entity.end,
-                room = entity.room,
-                activityTypeTag = entity.activityTypeTag,
-                description = entity.description,
-                subjectId = entity.subjectId,
-                subject = entity.subject,
-                ratings = ratingModelMapper.MapToListModel(entity.ratings).ToObservableCollection()
+                name = entity.Name,
+                start = entity.Start,
+                end = entity.End,
+                room = entity.Room,
+                activityTypeTag = entity.ActivityTypeTag,
+                description = entity.Description,
+                subjectId = entity.SubjectId,
+                subject = entity.Subject,
+                ratings = ratingModelMapper.MapToListModel(entity.Ratings).ToObservableCollection()
             };
 
         public override ActivityEntity MapToEntity(ActivityDetailModel model)
@@ -40,14 +40,14 @@ namespace ICS.BL.Mappers
             return new ActivityEntity
             {
                 Id = model.Id,
-                name = model.name,
-                start = model.start,
-                end = model.end,
-                room = model.room,
-                activityTypeTag = model.activityTypeTag,
-                description = model.description,
-                subjectId = model.subjectId,
-                subject = model.subject,
+                Name = model.name,
+                Start = model.start,
+                End = model.end,
+                Room = model.room,
+                ActivityTypeTag = model.activityTypeTag,
+                Description = model.description,
+                SubjectId = model.subjectId,
+                Subject = model.subject,
                 
             };
         }

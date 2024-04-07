@@ -6,14 +6,14 @@ namespace ICS.DAL.Mappers
     {
         public void MapToExistingEntity(StudentEntity existingEntity, StudentEntity newEntity)
         {
-            existingEntity.firstName = newEntity.firstName;
-            existingEntity.lastName = newEntity.lastName;
-            existingEntity.fotoURL = newEntity.fotoURL;
+            existingEntity.FirstName = newEntity.FirstName;
+            existingEntity.LastName = newEntity.LastName;
+            existingEntity.FotoUrl = newEntity.FotoUrl;
 
-            existingEntity.subjects.Clear();
-            foreach (var subject in newEntity.subjects)
+            existingEntity.Subjects.Clear();
+            foreach (var subject in newEntity.Subjects)
             {
-                existingEntity.subjects.Add(subject);
+                existingEntity.Subjects.Add(subject);
             }
         }
     }

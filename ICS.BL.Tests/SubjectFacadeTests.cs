@@ -136,10 +136,10 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
                 new ActivityListModel
                 {
                     Id = ActivitySeeds.PotionsActivity.Id,
-                    name = ActivitySeeds.PotionsActivity.name,
-                    start = ActivitySeeds.PotionsActivity.start,
-                    end = ActivitySeeds.PotionsActivity.end,
-                    room = ActivitySeeds.PotionsActivity.room,
+                    name = ActivitySeeds.PotionsActivity.Name,
+                    start = ActivitySeeds.PotionsActivity.Start,
+                    end = ActivitySeeds.PotionsActivity.End,
+                    room = ActivitySeeds.PotionsActivity.Room,
                 }
             }
         };
@@ -160,8 +160,8 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
                 new StudentListModel
                 {
                     Id = StudentSeeds.Harry.Id,
-                    firstName = StudentSeeds.Harry.firstName,
-                    lastName = StudentSeeds.Harry.lastName,
+                    firstName = StudentSeeds.Harry.FirstName,
+                    lastName = StudentSeeds.Harry.LastName,
                 }
             }
         };

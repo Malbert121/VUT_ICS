@@ -18,7 +18,7 @@ public static class DbContextOptionsConfigurer
     public static DbContextOptions<SchoolContext> ConfigureSqliteOptions()
     {
         var builder = new DbContextOptionsBuilder<SchoolContext>();
-        builder.UseSqlite(@"Data Source=SchoolApp.db;");
+        builder.UseSqlite(@"Data Source=SchoolApp.db;Cache=Shared;");
         builder.LogTo(Console.WriteLine);
         return builder.Options;
     }
@@ -58,29 +58,29 @@ namespace ICS.DAL.Context
 
             // Many-to-many between Subject and Student
             modelBuilder.Entity<SubjectEntity>()
-                .HasMany(p => p.students)
-                .WithMany(s => s.subjects)
+                .HasMany(p => p.Students)
+                .WithMany(s => s.Subjects)
                 .UsingEntity(j => j.ToTable("StudentSubject"));
 
             //One to many between subject and activities
             modelBuilder.Entity<SubjectEntity>()
-                .HasMany(s => s.activity)
-                .WithOne(a => a.subject)
-                .HasForeignKey(a => a.subjectId)
+                .HasMany(s => s.Activity)
+                .WithOne(a => a.Subject)
+                .HasForeignKey(a => a.SubjectId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             //many to one between activity and rating
             modelBuilder.Entity<ActivityEntity>()
-                .HasMany(a => a.ratings)
-                .WithOne(r => r.activity)
-                .HasForeignKey(r => r.activityId)
+                .HasMany(a => a.Ratings)
+                .WithOne(r => r.Activity)
+                .HasForeignKey(r => r.ActivityId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             //one sided connection from rating to one student
             modelBuilder.Entity<RatingEntity>()
-                .HasOne(r => r.student)
+                .HasOne(r => r.Student)
                 .WithMany()
-                .HasForeignKey(r => r.studentId)
+                .HasForeignKey(r => r.StudentId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             if (seedDemoData)

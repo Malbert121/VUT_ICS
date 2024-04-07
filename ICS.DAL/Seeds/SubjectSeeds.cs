@@ -17,15 +17,15 @@ namespace ICS.DAL.Seeds
         public static SubjectEntity potions = new SubjectEntity
         {
             Id = Guid.Parse("6e6e0b29-20e6-4723-99d5-9140cbab73f4"),
-            name = "Potions",
-            abbreviation = "POT",
+            Name = "Potions",
+            Abbreviation = "POT",
         };
 
         // Add student1 and student2 to subject
         static SubjectSeeds()
         {
-            potions.students.Add(StudentSeeds.student1);
-            potions.students.Add(StudentSeeds.student2);
+            potions.Students.Add(StudentSeeds.student1);
+            potions.Students.Add(StudentSeeds.student2);
         }
 
         public static void Seed(ModelBuilder modelBuilder)

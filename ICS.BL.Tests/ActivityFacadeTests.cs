@@ -15,7 +15,8 @@ using ICS.Common.Tests2.Seeds;
 
 namespace ICS.BL.Tests;
 
-public sealed class ActivityFacadeTests : FacadeTestsBase, IAsyncLifetime
+[Collection("SQLite Tests")]
+public sealed class ActivityFacadeTests : FacadeTestsBase
 {
     private readonly IActivityFacade _activityFacadeSUT;
 
@@ -39,8 +40,8 @@ public sealed class ActivityFacadeTests : FacadeTestsBase, IAsyncLifetime
             subject = new SubjectEntity()
             {
                 Id = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f333"),
-                abbreviation = "IDS",
-                name = "Database systems"
+                Abbreviation = "IDS",
+                Name = "Database systems"
             },
             description = "description",
         };
@@ -128,8 +129,8 @@ public sealed class ActivityFacadeTests : FacadeTestsBase, IAsyncLifetime
             subject = new SubjectEntity()
             {
                 Id = Guid.Empty,
-                abbreviation = "IDS",
-                name = "Database systems"
+                Abbreviation = "IDS",
+                Name = "Database systems"
             },
             description = "description",
             ratings = new ObservableCollection<RatingListModel>()
@@ -144,7 +145,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase, IAsyncLifetime
     public async Task GetById_FromSeeded_EqualsSeeded()
     {
         //Arrange
-        var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.ActivityWithTwoRatings);
+        var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.PotionsActivity);
 
         //Act
         var returnedModel = await _activityFacadeSUT.GetAsync(detailModel.Id);
@@ -182,7 +183,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase, IAsyncLifetime
     public async Task Update_Name_FromSeeded_Updated()
     {
         //Arrange
-        var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.ActivityUpdate);
+        var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.PotionsActivity);
         detailModel.name = "Changed activity name 1";
 
         //Act

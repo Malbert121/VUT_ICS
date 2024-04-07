@@ -6,11 +6,11 @@ namespace ICS.DAL.Mappers
     {
         public void MapToExistingEntity(RatingEntity existingEntity, RatingEntity newEntity)
         {
-            existingEntity.points = newEntity.points;
-            existingEntity.note = newEntity.note;
-            existingEntity.studentId = newEntity.studentId;
-            existingEntity.activityId = newEntity.activityId;
-            existingEntity.student = newEntity.student;
+            existingEntity.Points = newEntity.Points;
+            existingEntity.Note = newEntity.Note;
+            existingEntity.StudentId = newEntity.StudentId;
+            existingEntity.ActivityId = newEntity.ActivityId;
+            existingEntity.Student = newEntity.Student;
 
         }
     }

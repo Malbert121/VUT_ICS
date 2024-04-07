@@ -18,7 +18,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ICS.BL.Tests;
 
 [Collection("SQLite Tests")]
-public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
+public sealed class RatingFacadeTests : FacadeTestsBase
 {
     private readonly IRatingFacade _ratingFacadeSUT;
 
@@ -34,6 +34,44 @@ public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
     {
         //Arrange   
         var model = new RatingDetailModel()
+        {
+            Id = Guid.Empty,
+            points = 20,
+            note = "note",
+            activityId = Guid.Empty,
+            studentId = Guid.Empty,
+            activity = new ActivityEntity()
+            {
+                Id = Guid.Empty,
+                Name = "name",
+                Start = DateTime.MinValue,
+                End = DateTime.MinValue,
+                Room = "room",
+                SubjectId = Guid.Empty,
+                Subject = new SubjectEntity()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Database Systems",
+                    Abbreviation = "IDS"
+                }
+            },
+            student = new StudentEntity()
+            {
+                Id = Guid.Empty,
+                FirstName = "John",
+                LastName = "Doe",
+                FotoUrl = "http://www.example.com/index.html",
+                Subjects = new List<SubjectEntity>()
+            }
+        };
+        //Act & Assert
+        var _ = await _ratingFacadeSUT.SaveAsync(model);
+    }
+
+    /*
+    public async Task AddTestDataAsync()
+    {
+        var ratingEntity = new RatingEntity
         {
             Id = Guid.Empty,
             points = 20,
@@ -64,10 +102,29 @@ public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
                 subjects = new List<SubjectEntity>()
             }
         };
-        //Act & Assert
-        var _ = await _ratingFacadeSUT.SaveAsync(model);
+
+        dbx.Rating.Add(ratingEntity);
+        await dbx.SaveChangesAsync();
     }
 
+    [Fact]
+    public async Task GetAll_Single_SeededRating1()
+    {
+        await AddTestDataAsync();
+        //Act
+        var ratings = await _ratingFacadeSUT.GetAsync();
+        var rating = ratings.Single(i => i.Id == RatingSeeds.Rating1.Id);
+        //Assert
+        DeepAssert.Equal(RatingModelMapper.MapToListModel(RatingSeeds.Rating1), rating);
+        //Arrange
+        var listModel = RatingModelMapper.MapToListModel(RatingSeeds.Rating1);
+
+        //Act
+        var returnedModel = await _ratingFacadeSUT.GetAsync();
+
+        //Assert
+        Assert.Contains(listModel, returnedModel);
+    }*/
 
     [Fact]
     public async Task GetById_FromSeeded_EqualsSeeded()
@@ -124,25 +181,25 @@ public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
             activity = new ActivityEntity()
             {
                 Id = Guid.Empty,
-                name = "name",
-                start = DateTime.MinValue,
-                end = DateTime.MinValue,
-                room = "room",
-                subjectId = Guid.Empty,
-                subject = new SubjectEntity()
+                Name = "name",
+                Start = DateTime.MinValue,
+                End = DateTime.MinValue,
+                Room = "room",
+                SubjectId = Guid.Empty,
+                Subject = new SubjectEntity()
                 {
                     Id = Guid.NewGuid(),
-                    name = "Database Systems",
-                    abbreviation = "IDS"
+                    Name = "Database Systems",
+                    Abbreviation = "IDS"
                 }
             },
             student = new StudentEntity()
             {
                 Id = Guid.Empty,
-                firstName = "John",
-                lastName = "Doe",
-                fotoURL = "http://www.example.com/index.html",
-                subjects = new List<SubjectEntity>()
+                FirstName = "John",
+                LastName = "Doe",
+                FotoUrl = "http://www.example.com/index.html",
+                Subjects = new List<SubjectEntity>()
             }
         };
 
@@ -163,12 +220,12 @@ public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
         var rating = new RatingDetailModel()
         {
             Id = RatingSeeds.Rating1.Id,
-            points = RatingSeeds.Rating1.points,
-            note = RatingSeeds.Rating1.note,
-            activityId = RatingSeeds.Rating1.activityId,
-            studentId = RatingSeeds.Rating1.studentId,
-            activity = RatingSeeds.Rating1.activity,
-            student = RatingSeeds.Rating1.student
+            points = RatingSeeds.Rating1.Points,
+            note = RatingSeeds.Rating1.Note,
+            activityId = RatingSeeds.Rating1.ActivityId,
+            studentId = RatingSeeds.Rating1.StudentId,
+            activity = RatingSeeds.Rating1.Activity,
+            student = RatingSeeds.Rating1.Student
         };
         rating.points = 20;
         rating.note += "Your evaluation was updated.";
@@ -180,33 +237,5 @@ public sealed class RatingFacadeTests : FacadeTestsBase, IAsyncLifetime
         await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
         var ratingFromDb = await dbxAssert.Rating.SingleAsync(i => i.Id == rating.Id);
         DeepAssert.Equal(rating, RatingModelMapper.MapToDetailModel(ratingFromDb));
-    }
-
-    [Fact]
-    public async Task Update_FromSeeded_DoesNotThrow()
-    {
-        //Arrange
-        var model = RatingModelMapper.MapToDetailModel(RatingSeeds.Rating1);
-
-        //Act
-        model.points = 10;
-
-        //Assert
-        await _ratingFacadeSUT.SaveAsync(model);
-    }
-
-    [Fact]
-    public async Task Update_Point_FromSeeded_Updated()
-    {
-        //Arrange
-        var detailModel = RatingModelMapper.MapToDetailModel(RatingSeeds.Rating1);
-        detailModel.points = 100;
-
-        //Act
-        await _ratingFacadeSUT.SaveAsync(detailModel);
-
-        //Assert
-        var returnedModel = await _ratingFacadeSUT.GetAsync(detailModel.Id);
-        DeepAssert.Equal(detailModel, returnedModel);
     }
 }

@@ -14,8 +14,8 @@ namespace ICS.BL.Mappers
             : new StudentListModel 
             {
                 Id = entity.Id,
-                firstName = entity.firstName, 
-                lastName = entity.lastName
+                firstName = entity.FirstName, 
+                lastName = entity.LastName
             };
 
         public override StudentDetailModel MapToDetailModel(StudentEntity? entity)
@@ -26,14 +26,14 @@ namespace ICS.BL.Mappers
             var detailModel = new StudentDetailModel
             {
                 Id = entity.Id,
-                firstName = entity.firstName,
-                lastName = entity.lastName,
-                fotoURL = entity.fotoURL
+                firstName = entity.FirstName,
+                lastName = entity.LastName,
+                fotoURL = entity.FotoUrl
             };
 
             if (subjectModelMapper != null)
             {              
-                detailModel.subjects = subjectModelMapper.MapToListModel(entity.subjects).ToObservableCollection();
+                detailModel.subjects = subjectModelMapper.MapToListModel(entity.Subjects).ToObservableCollection();
             }
             else
             {               
@@ -51,9 +51,9 @@ namespace ICS.BL.Mappers
             return new StudentEntity
             {
                 Id = model.Id,
-                firstName = model.firstName,
-                lastName = model.lastName,
-                fotoURL = model.fotoURL
+                FirstName = model.firstName,
+                LastName = model.lastName,
+                FotoUrl = model.fotoURL
             };
         }
 

@@ -12,12 +12,12 @@ namespace ICS.DAL
             return new ActivityEntity
             {
                 Id = Guid.NewGuid(),
-                name = $"name{counter}",
-                subject = subject,
-                subjectId = subject.Id,
-                room = $"room{counter}",
-                activityTypeTag = $"tag{counter}",
-                description = "Default"
+                Name = $"name{counter}",
+                Subject = subject,
+                SubjectId = subject.Id,
+                Room = $"room{counter}",
+                ActivityTypeTag = $"tag{counter}",
+                Description = "Default"
             };
         }
     }

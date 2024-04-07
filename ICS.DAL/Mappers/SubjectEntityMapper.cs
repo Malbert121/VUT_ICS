@@ -6,19 +6,19 @@ namespace ICS.DAL.Mappers
     {
         public void MapToExistingEntity(SubjectEntity existingEntity, SubjectEntity newEntity)
         {
-            existingEntity.name = newEntity.name;
-            existingEntity.abbreviation = newEntity.abbreviation;
+            existingEntity.Name = newEntity.Name;
+            existingEntity.Abbreviation = newEntity.Abbreviation;
 
-            existingEntity.activity.Clear();
-            foreach (var activity in newEntity.activity)
+            existingEntity.Activity.Clear();
+            foreach (var activity in newEntity.Activity)
             {
-                existingEntity.activity.Add(activity);
+                existingEntity.Activity.Add(activity);
             }
 
-            existingEntity.students.Clear();
-            foreach (var student in newEntity.students)
+            existingEntity.Students.Clear();
+            foreach (var student in newEntity.Students)
             {
-                existingEntity.students.Add(student);
+                existingEntity.Students.Add(student);
             }
         }
     }

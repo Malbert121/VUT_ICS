@@ -15,7 +15,7 @@ namespace ICS.BL.Facade
     {
 
         protected override string IncludesStudentNavigationPathDetail =>
-            $"{nameof(SubjectEntity.students)}.{nameof(StudentEntity.subjects)}";
+            $"{nameof(SubjectEntity.Students)}.{nameof(StudentEntity.Subjects)}";
 
 
     }

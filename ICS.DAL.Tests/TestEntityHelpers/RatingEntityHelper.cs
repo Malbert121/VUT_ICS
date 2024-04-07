@@ -13,12 +13,12 @@ namespace ICS.DAL
             return new RatingEntity
             {
                 Id = Guid.NewGuid(),
-                points = random.Next(0, 101),
-                note = $"note{counter}",
-                activity = activity,
-                activityId = activity.Id, 
-                student = student,
-                studentId = student.Id
+                Points = random.Next(0, 101),
+                Note = $"note{counter}",
+                Activity = activity,
+                ActivityId = activity.Id, 
+                Student = student,
+                StudentId = student.Id
             };
         }
     }

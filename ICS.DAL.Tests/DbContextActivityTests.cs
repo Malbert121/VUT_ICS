@@ -28,11 +28,11 @@ namespace DAL_Tests
                 subject = SubjectEntityHelper.CreateRandomSubject();
                 entity = ActivityEntityHelper.CreateRandomActivity(subject);
                 context.Subjects.Add(subject);
-                subject.activity.Add(entity);
+                subject.Activity.Add(entity);
                 context.SaveChanges();
 
                 // Act
-                entity.name = "Exam";
+                entity.Name = "Exam";
                 context.SaveChanges();
             }
 
@@ -40,7 +40,7 @@ namespace DAL_Tests
             using (var context = new SchoolContext(options))
             {
                 var actualActivity = await context.Activities.SingleAsync(i => i.Id == entity.Id);
-                Assert.Equal("Exam", actualActivity.name);
+                Assert.Equal("Exam", actualActivity.Name);
             }
         }
 
@@ -60,17 +60,17 @@ namespace DAL_Tests
                 student = StudentEntityHelper.CreateRandomStudent();
                 entity = RatingEntityHelper.CreateRandomRating(activity, student);
                 context.Subjects.Add(subject);
-                subject.activity.Add(activity);
+                subject.Activity.Add(activity);
 
                 // Act
-                activity.ratings.Add(entity);
+                activity.Ratings.Add(entity);
                 context.SaveChanges();
             }
 
             // Assert
             using (var context = new SchoolContext(options))
             {
-                var actualActivity = await context.Activities.Include(i => i.ratings).SingleAsync(i => i.Id == activity.Id);
+                var actualActivity = await context.Activities.Include(i => i.Ratings).SingleAsync(i => i.Id == activity.Id);
                 var actualRating = await context.Rating.SingleAsync(i => i.Id == entity.Id);
                 Assert.Equal(entity.Id, actualRating.Id);
                 Assert.NotNull(actualRating);
@@ -93,19 +93,19 @@ namespace DAL_Tests
                 student = StudentEntityHelper.CreateRandomStudent();
                 entity = RatingEntityHelper.CreateRandomRating(activity, student);
                 context.Subjects.Add(subject);
-                subject.activity.Add(activity);
-                activity.ratings.Add(entity);
+                subject.Activity.Add(activity);
+                activity.Ratings.Add(entity);
                 context.SaveChanges();
 
                 // Act
-                activity.ratings.Remove(entity);
+                activity.Ratings.Remove(entity);
                 context.SaveChanges();
             }
 
             // Assert
             using (var context = new SchoolContext(options))
             {
-                var actualActivity = await context.Activities.Include(i => i.ratings).SingleAsync(i => i.Id == activity.Id);
+                var actualActivity = await context.Activities.Include(i => i.Ratings).SingleAsync(i => i.Id == activity.Id);
                 var actualRating = await context.Rating.SingleOrDefaultAsync(i => i.Id == entity.Id);
                 Assert.Null(actualRating);
             }
@@ -128,13 +128,13 @@ namespace DAL_Tests
                 student = StudentEntityHelper.CreateRandomStudent();
                 entity = RatingEntityHelper.CreateRandomRating(activity, student);
                 context.Students.Add(student);
-                student.subjects.Add(subject);
-                subject.activity.Add(activity);
-                activity.ratings.Add(entity);
+                student.Subjects.Add(subject);
+                subject.Activity.Add(activity);
+                activity.Ratings.Add(entity);
                 context.SaveChanges();
 
                 // Act
-                entity.points = 200;
+                entity.Points = 200;
                 context.SaveChanges();
             }
 
@@ -142,7 +142,7 @@ namespace DAL_Tests
             using (var context = new SchoolContext(options))
             {
                 var actualRating = await context.Rating.SingleAsync(i => i.Id == entity.Id);
-                Assert.Equal(200, actualRating.points);
+                Assert.Equal(200, actualRating.Points);
             }
         }
         
@@ -164,21 +164,21 @@ namespace DAL_Tests
                 first_entity = RatingEntityHelper.CreateRandomRating(activity, student);
                 second_entity = RatingEntityHelper.CreateRandomRating(activity, student);
                 context.Students.Add(student);
-                student.subjects.Add(subject);
-                subject.activity.Add(activity);
-                activity.ratings.Add(first_entity);
-                activity.ratings.Add(second_entity);
+                student.Subjects.Add(subject);
+                subject.Activity.Add(activity);
+                activity.Ratings.Add(first_entity);
+                activity.Ratings.Add(second_entity);
                 context.SaveChanges();
 
                 // Act
-                retingsOfActivity = subject.activity.SelectMany(i => i.ratings).ToList();
+                retingsOfActivity = subject.Activity.SelectMany(i => i.Ratings).ToList();
             }
 
 
             // Assert
             using (var context = new SchoolContext(options))
             {
-                var actualActivity = await context.Activities.Include(i => i.ratings).SingleAsync(i => i.Id == activity.Id);
+                var actualActivity = await context.Activities.Include(i => i.Ratings).SingleAsync(i => i.Id == activity.Id);
                 Assert.NotNull(actualActivity);
                 Assert.Equal(2, retingsOfActivity.Count);
             }
@@ -203,21 +203,21 @@ namespace DAL_Tests
                 rating1 = RatingEntityHelper.CreateRandomRating(activity, student1);
                 rating2 = RatingEntityHelper.CreateRandomRating(activity, student2);
                 context.Subjects.Add(subject);
-                subject.students.Add(student1);
-                subject.students.Add(student2);
-                subject.activity.Add(activity);
-                activity.ratings.Add(rating1);
-                activity.ratings.Add(rating2);
+                subject.Students.Add(student1);
+                subject.Students.Add(student2);
+                subject.Activity.Add(activity);
+                activity.Ratings.Add(rating1);
+                activity.Ratings.Add(rating2);
                 context.SaveChanges();
 
                 // Act
-                studentsOfActivity = subject.activity.SelectMany(i => i.ratings).Select(i => i.student).ToList();
+                studentsOfActivity = subject.Activity.SelectMany(i => i.Ratings).Select(i => i.Student).ToList();
             }
 
             // Assert
             using (var context = new SchoolContext(options))
             {
-                var actualActivity = await context.Activities.Include(i => i.ratings).ThenInclude(i => i.student).SingleAsync(i => i.Id == activity.Id);
+                var actualActivity = await context.Activities.Include(i => i.Ratings).ThenInclude(i => i.Student).SingleAsync(i => i.Id == activity.Id);
                 Assert.NotNull(actualActivity);
                 Assert.Equal(2, studentsOfActivity.Count);
             }
@@ -242,21 +242,21 @@ namespace DAL_Tests
                 rating1 = RatingEntityHelper.CreateRandomRating(activity1, student);
                 rating2 = RatingEntityHelper.CreateRandomRating(activity2, student);
                 context.Subjects.Add(subject);
-                subject.students.Add(student);
-                subject.activity.Add(activity1);
-                subject.activity.Add(activity2);
-                activity1.ratings.Add(rating1);
-                activity2.ratings.Add(rating2);
+                subject.Students.Add(student);
+                subject.Activity.Add(activity1);
+                subject.Activity.Add(activity2);
+                activity1.Ratings.Add(rating1);
+                activity2.Ratings.Add(rating2);
                 context.SaveChanges();
 
                 // Act
-                ratingsOfStudent = student.subjects.SelectMany(i => i.activity).SelectMany(i => i.ratings).ToList();
+                ratingsOfStudent = student.Subjects.SelectMany(i => i.Activity).SelectMany(i => i.Ratings).ToList();
             }
 
             // Assert
             using (var context = new SchoolContext(options))
             {
-                var actualStudent = await context.Students.Include(i => i.subjects).ThenInclude(i => i.activity).ThenInclude(i => i.ratings).SingleAsync(i => i.Id == student.Id);
+                var actualStudent = await context.Students.Include(i => i.Subjects).ThenInclude(i => i.Activity).ThenInclude(i => i.Ratings).SingleAsync(i => i.Id == student.Id);
                 Assert.NotNull(actualStudent);
                 Assert.Equal(2, ratingsOfStudent.Count);
             }
@@ -279,10 +279,10 @@ namespace DAL_Tests
                 rating1 = RatingEntityHelper.CreateRandomRating(activity, student);
                 rating2 = RatingEntityHelper.CreateRandomRating(activity, student);
                 context.Subjects.Add(subject);
-                subject.students.Add(student);
-                subject.activity.Add(activity);
-                activity.ratings.Add(rating1);
-                activity.ratings.Add(rating2);
+                subject.Students.Add(student);
+                subject.Activity.Add(activity);
+                activity.Ratings.Add(rating1);
+                activity.Ratings.Add(rating2);
                 context.SaveChanges();
 
                 // Act
@@ -320,10 +320,10 @@ namespace DAL_Tests
                 rating1 = RatingEntityHelper.CreateRandomRating(activity, student);
                 rating2 = RatingEntityHelper.CreateRandomRating(activity, student);
                 context.Subjects.Add(subject);
-                subject.students.Add(student);
-                subject.activity.Add(activity);
-                activity.ratings.Add(rating1);
-                activity.ratings.Add(rating2);
+                subject.Students.Add(student);
+                subject.Activity.Add(activity);
+                activity.Ratings.Add(rating1);
+                activity.Ratings.Add(rating2);
                 context.SaveChanges();
 
                 // Act
@@ -366,10 +366,10 @@ namespace DAL_Tests
                 rating1 = RatingEntityHelper.CreateRandomRating(activity, student);
                 rating2 = RatingEntityHelper.CreateRandomRating(activity, student);
                 context.Subjects.Add(subject);
-                subject.students.Add(student);
-                subject.activity.Add(activity);
-                activity.ratings.Add(rating1);
-                activity.ratings.Add(rating2);
+                subject.Students.Add(student);
+                subject.Activity.Add(activity);
+                activity.Ratings.Add(rating1);
+                activity.Ratings.Add(rating2);
                 context.SaveChanges();
 
                 // Act

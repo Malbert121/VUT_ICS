@@ -17,20 +17,20 @@ namespace ICS.DAL.Seeds
         public static ActivityEntity potionActivity = new ActivityEntity //there is no Id of subject
         {
             Id = Guid.Parse("b1079d8c-26e7-49b5-bdd5-f63b1d3d8598"),
-            name = "Brewing a potion",
-            start = new DateTime(2021, 10, 10, 10, 0, 0),
-            end = new DateTime(2021, 10, 10, 12, 0, 0),
-            room = "A03",
-            activityTypeTag = "POT",
-            description = "Brewing a potion",
-            subject = SubjectSeeds.potions,
-            subjectId = SubjectSeeds.potions.Id
+            Name = "Brewing a potion",
+            Start = new DateTime(2021, 10, 10, 10, 0, 0),
+            End = new DateTime(2021, 10, 10, 12, 0, 0),
+            Room = "A03",
+            ActivityTypeTag = "POT",
+            Description = "Brewing a potion",
+            Subject = SubjectSeeds.potions,
+            SubjectId = SubjectSeeds.potions.Id
         };
 
         static ActivitySeeds()
         {
-            potionActivity.ratings.Add(RatingSeeds.Rating1);
-            potionActivity.ratings.Add(RatingSeeds.Rating2);
+            potionActivity.Ratings.Add(RatingSeeds.Rating1);
+            potionActivity.Ratings.Add(RatingSeeds.Rating2);
         }
 
         public static void Seed(ModelBuilder modelBuilder)

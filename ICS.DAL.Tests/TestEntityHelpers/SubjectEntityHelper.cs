@@ -12,8 +12,8 @@ namespace ICS.DAL
             return new SubjectEntity
             {
                 Id = Guid.NewGuid(),
-                name = $"name{counter}",
-                abbreviation = $"abbreviation{counter}",
+                Name = $"name{counter}",
+                Abbreviation = $"abbreviation{counter}",
             };
         }
     }

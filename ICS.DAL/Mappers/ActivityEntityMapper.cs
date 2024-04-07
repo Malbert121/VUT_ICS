@@ -6,17 +6,17 @@ namespace ICS.DAL.Mappers
     {
          public void MapToExistingEntity(ActivityEntity existingEntity, ActivityEntity newEntity)
         {
-            existingEntity.name = newEntity.name;
-            existingEntity.start = newEntity.start;
-            existingEntity.end = newEntity.end;
-            existingEntity.room = newEntity.room;
-            existingEntity.activityTypeTag = newEntity.activityTypeTag;
-            existingEntity.description = newEntity.description;
-            existingEntity.subjectId = newEntity.subjectId;
-            existingEntity.ratings.Clear();
-            foreach (var rating in newEntity.ratings)
+            existingEntity.Name = newEntity.Name;
+            existingEntity.Start = newEntity.Start;
+            existingEntity.End = newEntity.End;
+            existingEntity.Room = newEntity.Room;
+            existingEntity.ActivityTypeTag = newEntity.ActivityTypeTag;
+            existingEntity.Description = newEntity.Description;
+            existingEntity.SubjectId = newEntity.SubjectId;
+            existingEntity.Ratings.Clear();
+            foreach (var rating in newEntity.Ratings)
             {
-                existingEntity.ratings.Add(rating);
+                existingEntity.Ratings.Add(rating);
             }
         }
     }

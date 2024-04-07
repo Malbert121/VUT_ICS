@@ -12,8 +12,8 @@ namespace ICS.BL.Mappers
             : new SubjectListModel
             {
                 Id = entity.Id,
-                name = entity.name,
-                abbreviation = entity.abbreviation
+                name = entity.Name,
+                abbreviation = entity.Abbreviation
             };
 
         public override SubjectDetailModel MapToDetailModel(SubjectEntity? entity)
@@ -22,10 +22,10 @@ namespace ICS.BL.Mappers
             : new SubjectDetailModel
             {
                 Id = entity.Id,
-                name = entity.name,
-                abbreviation = entity.abbreviation,
-                activity = activityModelMapper.MapToListModel(entity.activity).ToObservableCollection(),
-                students = studentModelMapper.MapToListModel(entity.students).ToObservableCollection()
+                name = entity.Name,
+                abbreviation = entity.Abbreviation,
+                activity = activityModelMapper.MapToListModel(entity.Activity).ToObservableCollection(),
+                students = studentModelMapper.MapToListModel(entity.Students).ToObservableCollection()
             };
 
         public override SubjectEntity MapToEntity(SubjectDetailModel model)
@@ -33,8 +33,8 @@ namespace ICS.BL.Mappers
             return new SubjectEntity
             {
                 Id = model.Id,
-                name = model.name,
-                abbreviation = model.abbreviation,
+                Name = model.name,
+                Abbreviation = model.abbreviation,
             };
         }
 

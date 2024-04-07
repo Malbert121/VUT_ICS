@@ -12,9 +12,9 @@ namespace ICS.DAL
             return new StudentEntity
             {
                 Id = Guid.NewGuid(),
-                firstName = $"Name{counter}",
-                lastName = $"Surname{counter}",
-                fotoURL = "http://www.example.com/index.html"
+                FirstName = $"Name{counter}",
+                LastName = $"Surname{counter}",
+                FotoUrl = "http://www.example.com/index.html"
             };
         }
     }

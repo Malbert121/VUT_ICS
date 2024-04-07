@@ -18,23 +18,23 @@ namespace ICS.DAL.Seeds
         public static RatingEntity Rating1 = new RatingEntity
         {
             Id = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f485"), //there is no Id of activity and student
-            points = 5,
-            note = "Good job",
-            activity = ActivitySeeds.potionActivity,
-            activityId = ActivitySeeds.potionActivity.Id,
-            student = StudentSeeds.student1,
-            studentId = StudentSeeds.student1.Id
+            Points = 5,
+            Note = "Good job",
+            Activity = ActivitySeeds.potionActivity,
+            ActivityId = ActivitySeeds.potionActivity.Id,
+            Student = StudentSeeds.student1,
+            StudentId = StudentSeeds.student1.Id
         };
 
         public static RatingEntity Rating2 = new RatingEntity
         {
             Id = Guid.Parse("c7a85db5-b2ad-4a17-9cd1-868d961b56e8"),
-            points = 4,
-            note = "Good job",
-            activity = ActivitySeeds.potionActivity,
-            activityId = ActivitySeeds.potionActivity.Id,
-            student = StudentSeeds.student2,
-            studentId = StudentSeeds.student2.Id
+            Points = 4,
+            Note = "Good job",
+            Activity = ActivitySeeds.potionActivity,
+            ActivityId = ActivitySeeds.potionActivity.Id,
+            Student = StudentSeeds.student2,
+            StudentId = StudentSeeds.student2.Id
         };
 
         public static void Seed(ModelBuilder modelBuilder)

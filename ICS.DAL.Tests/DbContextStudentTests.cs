@@ -73,7 +73,7 @@ namespace ICS.DAL.Tests
                 context.Students.Add(entity);
 
                 // Act
-                entity.lastName = "Weasley";
+                entity.LastName = "Weasley";
                 context.SaveChanges();
             }
 
@@ -81,7 +81,7 @@ namespace ICS.DAL.Tests
             using (var context = new SchoolContext(options))
             {
                 var student = await context.Students.SingleAsync(i => i.Id == entity.Id);
-                Assert.Equal("Weasley", student.lastName);
+                Assert.Equal("Weasley", student.LastName);
             }
         }
 
@@ -100,17 +100,17 @@ namespace ICS.DAL.Tests
                 context.Students.Add(student);
 
                 // Act
-                student.subjects.Add(subject);
+                student.Subjects.Add(subject);
                 context.SaveChanges();
             }
 
             // Assert
             using (var context = new SchoolContext(options))
             {
-                var actualStudent = await context.Students.Include(i => i.subjects).SingleAsync(i => i.Id == student.Id);
+                var actualStudent = await context.Students.Include(i => i.Subjects).SingleAsync(i => i.Id == student.Id);
                 var actualSubject = await context.Subjects.SingleAsync(i => i.Id == subject.Id);
-                Assert.True(actualStudent.subjects.Contains(actualSubject));
-                Assert.True(actualSubject.students.Contains(actualStudent));
+                Assert.True(actualStudent.Subjects.Contains(actualSubject));
+                Assert.True(actualSubject.Students.Contains(actualStudent));
             }
         }
 
@@ -131,20 +131,20 @@ namespace ICS.DAL.Tests
                 context.Students.Add(student2);
                 context.Students.Add(student3);
 
-                student1.subjects.Add(subject1);
-                student2.subjects.Add(subject2);
-                student3.subjects.Add(subject1);
+                student1.Subjects.Add(subject1);
+                student2.Subjects.Add(subject2);
+                student3.Subjects.Add(subject1);
                 context.SaveChanges();
 
                 // Act
-                var studentsWithSubject = await context.Students.Include(i => i.subjects).Where(i => i.subjects.Any(i => i.Id == subject1.Id)).ToArrayAsync();
+                var studentsWithSubject = await context.Students.Include(i => i.Subjects).Where(i => i.Subjects.Any(i => i.Id == subject1.Id)).ToArrayAsync();
 
                 // Assert
                 Assert.Equal(2, studentsWithSubject.Length);
 
                 foreach (var student in studentsWithSubject)
                 {
-                    Assert.True(student.subjects.Contains(subject1));
+                    Assert.True(student.Subjects.Contains(subject1));
                 }
             }
         }
@@ -162,21 +162,21 @@ namespace ICS.DAL.Tests
                 subject = SubjectEntityHelper.CreateRandomSubject();
 
                 context.Students.Add(student);
-                student.subjects.Add(subject);
+                student.Subjects.Add(subject);
                 context.SaveChanges();
 
                 //Act
-                student.subjects.Remove(subject);
+                student.Subjects.Remove(subject);
                 context.SaveChanges();
             }
 
             // Assert
             using (var context = new SchoolContext(options))
             {
-                var actualStudent = await context.Students.Include(i => i.subjects).SingleAsync(i => i.Id == student.Id);
-                var actualSubject = await context.Subjects.Include(i => i.students).SingleAsync(i => i.Id == subject.Id); ;
-                Assert.False(actualStudent.subjects.Contains(actualSubject));
-                Assert.False(actualSubject.students.Contains(actualStudent));
+                var actualStudent = await context.Students.Include(i => i.Subjects).SingleAsync(i => i.Id == student.Id);
+                var actualSubject = await context.Subjects.Include(i => i.Students).SingleAsync(i => i.Id == subject.Id); ;
+                Assert.False(actualStudent.Subjects.Contains(actualSubject));
+                Assert.False(actualSubject.Students.Contains(actualStudent));
             }
         }
 
@@ -199,25 +199,25 @@ namespace ICS.DAL.Tests
                 subject1 = SubjectEntityHelper.CreateRandomSubject();
                 subject2 = SubjectEntityHelper.CreateRandomSubject();
                 context.Students.Add(student);
-                student.subjects.Add(subject1);
-                student.subjects.Add(subject2);
+                student.Subjects.Add(subject1);
+                student.Subjects.Add(subject2);
 
                 activity1 = ActivityEntityHelper.CreateRandomActivity(subject1);
                 activity2 = ActivityEntityHelper.CreateRandomActivity(subject1);
                 activity3 = ActivityEntityHelper.CreateRandomActivity(subject2);
-                subject1.activity.Add(activity1);
-                subject1.activity.Add(activity2);
-                subject2.activity.Add(activity3);
+                subject1.Activity.Add(activity1);
+                subject1.Activity.Add(activity2);
+                subject2.Activity.Add(activity3);
                 context.SaveChanges();
 
                 // Act
-                activitiesOfAStudent = student.subjects.SelectMany(i => i.activity).ToList();
+                activitiesOfAStudent = student.Subjects.SelectMany(i => i.Activity).ToList();
             }
 
             using (var context = new SchoolContext(options))
             {
                 // Assert
-                var studentFromDb = await context.Students.Include(i => i.subjects).ThenInclude(i => i.activity).SingleAsync(i => i.Id == student.Id);
+                var studentFromDb = await context.Students.Include(i => i.Subjects).ThenInclude(i => i.Activity).SingleAsync(i => i.Id == student.Id);
                 Assert.Equal(student.Id, studentFromDb.Id);
                 Assert.Equal(3, activitiesOfAStudent.Count);
 
@@ -243,25 +243,25 @@ namespace ICS.DAL.Tests
                 subject3 = SubjectEntityHelper.CreateRandomSubject();
 
                 context.Students.Add(student);
-                student.subjects.Add(subject1);
-                student.subjects.Add(subject2);
+                student.Subjects.Add(subject1);
+                student.Subjects.Add(subject2);
                 context.Subjects.Add(subject3);
                 context.SaveChanges();
 
                 // Act
-                subjectsOfStudent = student.subjects.ToList();
+                subjectsOfStudent = student.Subjects.ToList();
             }
 
             using (var context = new SchoolContext(options))
             {
                 // Assert
-                var studentFromDb = await context.Students.Include(i => i.subjects).SingleAsync(i => i.Id == student.Id);
+                var studentFromDb = await context.Students.Include(i => i.Subjects).SingleAsync(i => i.Id == student.Id);
                 Assert.Equal(student.Id, studentFromDb.Id);
                 Assert.Equal(2, subjectsOfStudent.Count);
 
                 foreach (var subject in subjectsOfStudent)
                 {
-                    Assert.True(subject.students.Contains(student));
+                    Assert.True(subject.Students.Contains(student));
                 }
             }
                 

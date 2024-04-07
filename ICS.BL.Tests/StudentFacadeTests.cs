@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 namespace ICS.BL.Tests;
 
 [Collection("SQLite Tests")]
-public sealed class StudentFacadeTests : FacadeTestsBase, IAsyncLifetime
+public sealed class StudentFacadeTests : FacadeTestsBase
 {
     private readonly IStudentFacade _studentFacadeSUT;
 
@@ -86,8 +86,8 @@ public sealed class StudentFacadeTests : FacadeTestsBase, IAsyncLifetime
                 new ()
                 {
                     Id = SubjectSeeds.SubjectWithNoStudent.Id,
-                    name = SubjectSeeds.SubjectWithNoStudent.name,
-                    abbreviation = SubjectSeeds.SubjectWithNoStudent.abbreviation
+                    name = SubjectSeeds.SubjectWithNoStudent.Name,
+                    abbreviation = SubjectSeeds.SubjectWithNoStudent.Abbreviation
                 }
             },
         };
