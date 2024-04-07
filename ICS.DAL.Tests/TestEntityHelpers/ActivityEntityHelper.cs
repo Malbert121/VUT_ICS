@@ -6,7 +6,7 @@ namespace ICS.DAL
     {
         private static int counter = 0;
 
-        public static ActivityEntity CreateRandomActivity(SubjectEntity? subject = null)
+        public static ActivityEntity CreateRandomActivity(SubjectEntity subject)
         {
             counter++;
             return new ActivityEntity

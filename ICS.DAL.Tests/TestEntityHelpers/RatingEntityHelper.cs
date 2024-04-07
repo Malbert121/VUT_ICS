@@ -7,7 +7,7 @@ namespace ICS.DAL
         private static int counter = 0;
         private static readonly Random random = new Random();
 
-        public static RatingEntity CreateRandomRating(ActivityEntity? activity = null, StudentEntity? student = null)
+        public static RatingEntity CreateRandomRating(ActivityEntity activity, StudentEntity student)
         {
             counter++;
             return new RatingEntity
