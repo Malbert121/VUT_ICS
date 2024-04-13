@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ICS.BL.Tests;
 
-public class DbContextSqLiteTestingFactory(string databaseName, bool seedTestingData = false)
+public class DbContextSqLiteTestingFactory(string? databaseName, bool seedTestingData = false)
     : IDbContextFactory<SchoolContext>
 {
     public SchoolContext CreateDbContext()

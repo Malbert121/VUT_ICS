@@ -19,6 +19,8 @@ public class FacadeTestsBase : IAsyncLifetime
         Console.SetOut(converter);
 
         DbContextFactory = new DbContextSqLiteTestingFactory(GetType().FullName, seedTestingData: true);
+       
+        
 
         RatingModelMapper = new RatingModelMapper();
         ActivityModelMapper = new ActivityModelMapper(RatingModelMapper);
