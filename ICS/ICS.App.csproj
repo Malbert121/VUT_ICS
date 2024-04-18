@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net8.0</TargetFrameworks>
 		
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFramework>net8.0</TargetFramework>
+		
+		
 		<RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
 		<OutputType Condition="'$(TargetFramework)' != 'net8.0'">Exe</OutputType>
@@ -11,7 +12,6 @@
 		<SingleProject>true</SingleProject>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<PublishReadyToRun>true</PublishReadyToRun>
 		<!-- Display name -->
 		<ApplicationTitle>ICS</ApplicationTitle>
 
