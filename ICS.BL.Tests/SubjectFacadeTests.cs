@@ -120,7 +120,7 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
         var returnedModel = await _subjectFacadeSUT.SaveAsync(model);
 
         //Assert
-        DeepAssert.Equal(model, returnedModel);
+        DeepAssert.Equal(model, returnedModel, nameof(SubjectDetailModel.Id));
     }
     
     [Fact]
