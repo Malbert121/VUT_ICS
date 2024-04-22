@@ -8,7 +8,7 @@ using ICS.BL.Facade;
 using ICS.BL.Models;
 using System.Collections.ObjectModel;
 using ICS.DAL.Context;
-using ICS.Common.Tests2.Seeds;
+using ICS.Common.Tests.Seeds;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 using Xunit.Abstractions;
@@ -232,7 +232,7 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     
     
     [Fact]
-    public async Task Update_FromSeeded_DoesNotThrou()
+    public async Task Update_FromSeeded_DoesNotThrow()
     {
         //Arrange
         var model = SubjectModelMapper.MapToDetailModel(SubjectSeeds.potions);

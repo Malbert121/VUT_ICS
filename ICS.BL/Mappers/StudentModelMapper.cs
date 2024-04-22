@@ -4,60 +4,67 @@ using ICS.DAL.Entities;
 using System.Collections.ObjectModel;
 
 
-namespace ICS.BL.Mappers
+namespace ICS.BL.Mappers;
+
+public class StudentModelMapper(SubjectModelMapper? subjectModelMapper) : ModelMapperBase<StudentEntity, StudentListModel, StudentDetailModel>, IStudentModelMapper
 {
-    public class StudentModelMapper(SubjectModelMapper? subjectModelMapper) : ModelMapperBase<StudentEntity, StudentListModel, StudentDetailModel>, IStudentModelMapper
+    public override StudentListModel MapToListModel(StudentEntity? entity)
+         => entity is null
+        ? StudentListModel.Empty
+        : new StudentListModel 
+        {
+            Id = entity.Id,
+            firstName = entity.FirstName, 
+            lastName = entity.LastName
+        };
+
+    public override StudentDetailModel MapToDetailModel(StudentEntity? entity)
     {
-        public override StudentListModel MapToListModel(StudentEntity? entity)
-             => entity is null
-            ? StudentListModel.Empty
-            : new StudentListModel 
-            {
-                Id = entity.Id,
-                firstName = entity.FirstName, 
-                lastName = entity.LastName
-            };
+        if (entity is null)
+            return StudentDetailModel.Empty;
 
-        public override StudentDetailModel MapToDetailModel(StudentEntity? entity)
+        var detailModel = new StudentDetailModel
         {
-            if (entity is null)
-                return StudentDetailModel.Empty;
+            Id = entity.Id,
+            firstName = entity.FirstName,
+            lastName = entity.LastName,
+            photoURL = entity.PhotoUrl
+        };
 
-            var detailModel = new StudentDetailModel
-            {
-                Id = entity.Id,
-                firstName = entity.FirstName,
-                lastName = entity.LastName,
-                fotoURL = entity.FotoUrl
-            };
-
-            if (subjectModelMapper != null)
-            {              
-                detailModel.subjects = subjectModelMapper.MapToListModel(entity.Subjects).ToObservableCollection();
-            }
-            else
-            {               
-                detailModel.subjects = new ObservableCollection<SubjectListModel>();
-            }
-
-            return detailModel;
+        if (subjectModelMapper != null)
+        {              
+            detailModel.subjects = subjectModelMapper.MapToListModel(entity.Subjects).ToObservableCollection();
+        }
+        else
+        {               
+            detailModel.subjects = new ObservableCollection<SubjectListModel>();
         }
 
-
-
-
-        public override StudentEntity MapToEntity(StudentDetailModel model)
-        {
-            return new StudentEntity
-            {
-                Id = model.Id,
-                FirstName = model.firstName,
-                LastName = model.lastName,
-                FotoUrl = model.fotoURL
-            };
-        }
-
-
-
+        return detailModel;
     }
+
+
+
+
+    public override StudentEntity MapToEntity(StudentDetailModel model)
+    {
+        return new StudentEntity
+        {
+            Id = model.Id,
+            FirstName = model.firstName,
+            LastName = model.lastName,
+            PhotoUrl = model.photoURL
+        };
+    }
+
+    public override StudentEntity MapToEntityList(StudentListModel model)
+    {
+        return new StudentEntity
+        {
+            Id = model.Id,
+            FirstName = model.firstName,
+            LastName = model.lastName
+        };
+    }
+
 }

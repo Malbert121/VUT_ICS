@@ -3,7 +3,7 @@ using System.Reflection.Emit;
 using ICS.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace ICS.Common.Tests2.Seeds
+namespace ICS.Common.Tests.Seeds
 {
     public static class ActivitySeeds
     {

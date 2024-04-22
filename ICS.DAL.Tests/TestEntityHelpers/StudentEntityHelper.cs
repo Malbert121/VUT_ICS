@@ -14,7 +14,7 @@ namespace ICS.DAL
                 Id = Guid.NewGuid(),
                 FirstName = $"Name{counter}",
                 LastName = $"Surname{counter}",
-                FotoUrl = "http://www.example.com/index.html"
+                PhotoUrl = "http://www.example.com/index.html"
             };
         }
     }

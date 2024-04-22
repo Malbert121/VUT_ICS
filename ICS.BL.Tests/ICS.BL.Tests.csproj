@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ICS.BL\ICS.BL.csproj" />
-    <ProjectReference Include="..\ICS.Common.Tests2\ICS.Common.Tests2.csproj" />
+    <ProjectReference Include="..\ICS.Common.Tests2\ICS.Common.Tests.csproj" />
     <ProjectReference Include="..\ICS.DAL\ICS.DAL.csproj" />
   </ItemGroup>
 

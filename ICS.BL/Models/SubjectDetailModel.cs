@@ -15,6 +15,6 @@ public record SubjectDetailModel : ModelBase
         name = string.Empty,
         abbreviation = string.Empty,
         activity = new(),
-        students = new ()
+        students = new()
     };
 }

@@ -1,4 +1,4 @@
-﻿using ICS.Common.Tests2.Seeds;
+﻿using ICS.Common.Tests.Seeds;
 using ICS.DAL;
 using ICS.DAL.Context;
 using Microsoft.EntityFrameworkCore;

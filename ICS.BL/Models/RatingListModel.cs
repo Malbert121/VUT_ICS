@@ -7,13 +7,13 @@ public record RatingListModel : ModelBase
     public int points { get; set; }
     public Guid activityId { get; set; }
     public Guid studentId { get; set; }
-    public StudentEntity? student { get; set; }
+    public StudentListModel? student { get; set; } = new StudentListModel();
     public static RatingListModel Empty => new()
     {
         Id = Guid.Empty,
         points = 0,
         studentId = Guid.Empty,
         activityId = Guid.Empty,
-        student = null
+        student = new()
     };
 }

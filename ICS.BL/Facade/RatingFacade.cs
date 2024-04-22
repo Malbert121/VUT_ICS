@@ -5,11 +5,10 @@ using ICS.DAL.Entities;
 using ICS.DAL.Mappers;
 using ICS.DAL.UnitOfWork;
 
-namespace ICS.BL.Facade
-{
-    public class RatingFacade(
-        IUnitOfWorkFactory unitOfWorkFactory,
-        IRatingModelMapper modelMapper)
-        : FacadeBase<RatingEntity, RatingListModel, RatingDetailModel, RatingEntityMapper>(
-            unitOfWorkFactory, modelMapper), IRatingFacade;
-}
+namespace ICS.BL.Facade;
+
+public class RatingFacade(
+    IUnitOfWorkFactory unitOfWorkFactory,
+    IRatingModelMapper modelMapper)
+    : FacadeBase<RatingEntity, RatingListModel, RatingDetailModel, RatingEntityMapper>(
+        unitOfWorkFactory, modelMapper), IRatingFacade;

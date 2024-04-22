@@ -22,7 +22,7 @@ public static class DeepAssert
         ComparisonResult comparisonResult = compareLogic.Compare(expected!, actual!);
         if (!comparisonResult.AreEqual)
         {
-           EqualException.ForMismatchedValues(expected, actual, comparisonResult.DifferencesString);
+           throw EqualException.ForMismatchedValues(expected, actual, comparisonResult.DifferencesString);
         }
     }
 
@@ -48,7 +48,7 @@ public static class DeepAssert
             string? expect = expected.ToString();
             if (expect != null)
             {
-                ContainsException.ForCollectionItemNotFound(expect, nameof(collection));
+                throw ContainsException.ForCollectionItemNotFound(expect, nameof(collection));
             }
         }
     }

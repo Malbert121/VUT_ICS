@@ -10,8 +10,6 @@ namespace ICS.DAL.Mappers
             existingEntity.Note = newEntity.Note;
             existingEntity.StudentId = newEntity.StudentId;
             existingEntity.ActivityId = newEntity.ActivityId;
-            existingEntity.Student = newEntity.Student;
-
         }
     }
 }

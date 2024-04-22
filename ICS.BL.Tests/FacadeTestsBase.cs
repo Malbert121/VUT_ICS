@@ -19,13 +19,16 @@ public class FacadeTestsBase : IAsyncLifetime
         Console.SetOut(converter);
 
         DbContextFactory = new DbContextSqLiteTestingFactory(GetType().FullName, seedTestingData: true);
-       
-        
 
-        RatingModelMapper = new RatingModelMapper();
-        ActivityModelMapper = new ActivityModelMapper(RatingModelMapper);
+        RatingModelMapper = new RatingModelMapper(null, null);
+        ActivityModelMapper = new ActivityModelMapper(null, null);
+        SubjectModelMapper = new SubjectModelMapper(null, null);
+        StudentModelMapper = new StudentModelMapper(null);
+
         StudentModelMapper = new StudentModelMapper(SubjectModelMapper);
         SubjectModelMapper = new SubjectModelMapper(ActivityModelMapper, StudentModelMapper);
+        RatingModelMapper = new RatingModelMapper(ActivityModelMapper, StudentModelMapper);
+        ActivityModelMapper = new ActivityModelMapper(RatingModelMapper, SubjectModelMapper);
 
         UnitOfWorkFactory = new UnitOfWorkFactory(DbContextFactory);
     }

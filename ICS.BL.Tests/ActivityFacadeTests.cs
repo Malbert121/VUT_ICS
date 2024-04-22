@@ -11,7 +11,7 @@ using ICS.DAL.Context;
 using Xunit.Abstractions;
 using ICS.DAL.Entities;
 using Microsoft.EntityFrameworkCore.Storage;
-using ICS.Common.Tests2.Seeds;
+using ICS.Common.Tests.Seeds;
 
 namespace ICS.BL.Tests;
 
@@ -37,11 +37,11 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
             room = "room",
             activityTypeTag = "Tag",
             subjectId = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f333"),
-            subject = new SubjectEntity()
+            subject = new SubjectListModel()
             {
                 Id = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f333"),
-                Abbreviation = "IDS",
-                Name = "Database systems"
+                abbreviation = "IDS",
+                name = "Database systems"
             },
             description = "description",
         };
@@ -94,7 +94,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
             activityTypeTag = "POT",
             description = "Brewing a potion",
             subjectId = Guid.Empty,
-            subject = SubjectSeeds.potions,
+            subject = SubjectModelMapper.MapToListModel(SubjectSeeds.potions),
             ratings =
             [
                 new RatingListModel
@@ -126,11 +126,11 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
             room = "room",
             activityTypeTag = "Tag",
             subjectId = Guid.Empty,
-            subject = new SubjectEntity()
+            subject = new SubjectListModel()
             {
                 Id = Guid.Empty,
-                Abbreviation = "IDS",
-                Name = "Database systems"
+                abbreviation = "IDS",
+                name = "Database systems"
             },
             description = "description",
             ratings = new ObservableCollection<RatingListModel>()

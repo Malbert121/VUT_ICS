@@ -8,7 +8,7 @@ using ICS.BL.Facade;
 using ICS.BL.Models;
 using System.Collections.ObjectModel;
 using Xunit.Abstractions;
-using ICS.Common.Tests2.Seeds;
+using ICS.Common.Tests.Seeds;
 using ICS.DAL.Context;
 using ICS.DAL.Entities;
 using ICS.DAL.Mappers;
@@ -28,7 +28,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase
         _ratingFacadeSUT = new RatingFacade(UnitOfWorkFactory, RatingModelMapper);
     }
     
-
+    
     [Fact]
     public async Task Create_WithActivityStudent_DoesNotThrow()
     {
@@ -38,30 +38,14 @@ public sealed class RatingFacadeTests : FacadeTestsBase
             Id = Guid.Empty,
             points = 20,
             note = "note",
-            activityId = Guid.Empty,
+            activityId = ActivitySeeds.PotionsActivity.Id,
             studentId = Guid.Empty,
-            activity = new ActivityEntity()
+            activity = ActivityModelMapper.MapToListModel(ActivitySeeds.PotionsActivity),
+            student = new StudentListModel()
             {
                 Id = Guid.Empty,
-                Name = "name",
-                Start = DateTime.MinValue,
-                End = DateTime.MinValue,
-                Room = "room",
-                SubjectId = Guid.Empty,
-                Subject = new SubjectEntity()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Database Systems",
-                    Abbreviation = "IDS"
-                }
-            },
-            student = new StudentEntity()
-            {
-                Id = Guid.Empty,
-                FirstName = "John",
-                LastName = "Doe",
-                FotoUrl = "http://www.example.com/index.html",
-                Subjects = new List<SubjectEntity>()
+                firstName = "John",
+                lastName = "Doe"
             }
         };
         //Act & Assert
@@ -109,7 +93,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase
         var actualRating = await dbxAssert.Rating.AnyAsync(i => i.Id == RatingSeeds.Rating1.Id);
         Assert.False(actualRating);
     }
-
+    
     [Fact]
     public async Task NewRating_Insert_RatingAdded()
     {
@@ -121,28 +105,19 @@ public sealed class RatingFacadeTests : FacadeTestsBase
             note = "note",
             activityId = Guid.Empty,
             studentId = Guid.Empty,
-            activity = new ActivityEntity()
+            activity = new ActivityListModel()
             {
                 Id = Guid.Empty,
-                Name = "name",
-                Start = DateTime.MinValue,
-                End = DateTime.MinValue,
-                Room = "room",
-                SubjectId = Guid.Empty,
-                Subject = new SubjectEntity()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Database Systems",
-                    Abbreviation = "IDS"
-                }
+                name = "name",
+                start = DateTime.MinValue,
+                end = DateTime.MinValue,
+                room = "room"
             },
-            student = new StudentEntity()
+            student = new StudentListModel()
             {
                 Id = Guid.Empty,
-                FirstName = "John",
-                LastName = "Doe",
-                FotoUrl = "http://www.example.com/index.html",
-                Subjects = new List<SubjectEntity>()
+                firstName = "John",
+                lastName = "Doe"
             }
         };
 
@@ -155,7 +130,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase
         DeepAssert.Equal(rating, RatingModelMapper.MapToDetailModel(ratingFromDb));
     }
 
-
+    
     [Fact]
     public async Task SeededRating2_Update_IngredientUpdated()
     {
@@ -167,8 +142,8 @@ public sealed class RatingFacadeTests : FacadeTestsBase
             note = RatingSeeds.Rating1.Note,
             activityId = RatingSeeds.Rating1.ActivityId,
             studentId = RatingSeeds.Rating1.StudentId,
-            activity = RatingSeeds.Rating1.Activity,
-            student = RatingSeeds.Rating1.Student
+            activity = ActivityModelMapper.MapToListModel(RatingSeeds.Rating1.Activity),
+            student = StudentModelMapper.MapToListModel(RatingSeeds.Rating1.Student)
         };
         rating.points = 20;
         rating.note += "Your evaluation was updated.";

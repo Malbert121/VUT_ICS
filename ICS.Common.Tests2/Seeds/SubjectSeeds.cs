@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 
-namespace ICS.Common.Tests2.Seeds
+namespace ICS.Common.Tests.Seeds
 {
     public static class SubjectSeeds
     {

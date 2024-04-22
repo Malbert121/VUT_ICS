@@ -3,7 +3,7 @@ using ICS.DAL.Entities;
 using ICS.DAL.Seeds;
 using Microsoft.EntityFrameworkCore;
 
-namespace ICS.Common.Tests2.Seeds
+namespace ICS.Common.Tests.Seeds
 {
     public static class RatingSeeds
     {

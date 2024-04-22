@@ -20,7 +20,7 @@ namespace ICS.DAL.Seeds
             Id = Guid.Parse("d9963767-91a2-4b3f-81f7-dc5d0aaecf7d"),
             FirstName = "Harry",
             LastName = "Potter",
-            FotoUrl = "http://www.example.com/index.html"
+            PhotoUrl = "http://www.example.com/index.html"
         };
 
 
@@ -29,7 +29,7 @@ namespace ICS.DAL.Seeds
             Id = Guid.Parse("f6b5fcf8-1a45-4135-b826-f6d4f14703cf"),
             FirstName = "Hermione",
             LastName = "Granger",
-            FotoUrl = "http://www.example.com/index.html"
+            PhotoUrl = "http://www.example.com/index.html"
         };
 
         static StudentSeeds()

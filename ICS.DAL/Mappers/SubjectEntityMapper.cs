@@ -8,18 +8,6 @@ namespace ICS.DAL.Mappers
         {
             existingEntity.Name = newEntity.Name;
             existingEntity.Abbreviation = newEntity.Abbreviation;
-
-            existingEntity.Activity.Clear();
-            foreach (var activity in newEntity.Activity)
-            {
-                existingEntity.Activity.Add(activity);
-            }
-
-            existingEntity.Students.Clear();
-            foreach (var student in newEntity.Students)
-            {
-                existingEntity.Students.Add(student);
-            }
         }
     }
 }

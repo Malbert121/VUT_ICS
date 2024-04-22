@@ -12,7 +12,7 @@ namespace ICS.DAL.Entities
         public string Description { get; set; } = string.Empty;
         public Guid SubjectId { get; set; }
         public SubjectEntity? Subject { get; set; }
-        public ICollection<RatingEntity> Ratings { get; set; } = new List<RatingEntity>();
+        public ICollection<RatingEntity> Ratings { get; init; } = new List<RatingEntity>();
 
         public required Guid Id { get; set; }
 

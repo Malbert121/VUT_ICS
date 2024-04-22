@@ -8,7 +8,7 @@ using ICS.BL.Facade;
 using ICS.BL.Models;
 using System.Collections.ObjectModel;
 using Xunit.Abstractions;
-using ICS.Common.Tests2.Seeds;
+using ICS.Common.Tests.Seeds;
 using ICS.DAL.Context;
 using Microsoft.EntityFrameworkCore.Storage;
 
@@ -35,7 +35,7 @@ public sealed class StudentFacadeTests : FacadeTestsBase
             Id = Guid.Empty,
             firstName = "Anna",
             lastName = "Tomson",
-            fotoURL = "http://www.example.com/index.html",
+            photoURL = "http://www.example.com/index.html",
             subjects = new ObservableCollection<SubjectListModel>()
             {
                 new SubjectListModel
@@ -59,7 +59,7 @@ public sealed class StudentFacadeTests : FacadeTestsBase
             Id = Guid.Empty,
             firstName = "Barak",
             lastName = "Obama",
-            fotoURL = "http://www.example.com/index.html",
+            photoURL = "http://www.example.com/index.html",
             subjects = new ObservableCollection<SubjectListModel>()
         };
 
@@ -80,7 +80,7 @@ public sealed class StudentFacadeTests : FacadeTestsBase
             Id = Guid.Empty,
             firstName = "Barak",
             lastName = "Obama",
-            fotoURL = "http://www.example.com/index.html",
+            photoURL = "http://www.example.com/index.html",
             subjects = new ObservableCollection<SubjectListModel>()
             {
                 new ()
@@ -131,7 +131,7 @@ public sealed class StudentFacadeTests : FacadeTestsBase
         var model = StudentModelMapper.MapToDetailModel(StudentSeeds.Harry);
         model.firstName = "Harry";
         model.lastName = "Potter";
-        model.fotoURL = "http://www.example.com/index.html";
+        model.photoURL = "http://www.example.com/index.html";
         model.subjects = new ObservableCollection<SubjectListModel>();
 
         //Act

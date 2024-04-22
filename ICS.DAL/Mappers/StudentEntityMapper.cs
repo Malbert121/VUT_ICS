@@ -8,13 +8,7 @@ namespace ICS.DAL.Mappers
         {
             existingEntity.FirstName = newEntity.FirstName;
             existingEntity.LastName = newEntity.LastName;
-            existingEntity.FotoUrl = newEntity.FotoUrl;
-
-            existingEntity.Subjects.Clear();
-            foreach (var subject in newEntity.Subjects)
-            {
-                existingEntity.Subjects.Add(subject);
-            }
+            existingEntity.PhotoUrl = newEntity.PhotoUrl;
         }
     }
 }

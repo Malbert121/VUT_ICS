@@ -13,11 +13,6 @@ namespace ICS.DAL.Mappers
             existingEntity.ActivityTypeTag = newEntity.ActivityTypeTag;
             existingEntity.Description = newEntity.Description;
             existingEntity.SubjectId = newEntity.SubjectId;
-            existingEntity.Ratings.Clear();
-            foreach (var rating in newEntity.Ratings)
-            {
-                existingEntity.Ratings.Add(rating);
-            }
         }
     }
 }
