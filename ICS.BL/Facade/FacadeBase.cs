@@ -86,7 +86,7 @@ public abstract class
 
         GuardCollectionsAreNotSet(model);
 
-        TEntity entity = ModelMapper.MapToEntity(model);
+        TEntity entity = ModelMapper.MapDetailModelToEntity(model);
 
         IUnitOfWork uow = UnitOfWorkFactory.Create();
         IRepository<TEntity> repository = uow.GetRepository<TEntity, TEntityMapper>();

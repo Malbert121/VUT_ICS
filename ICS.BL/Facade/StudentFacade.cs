@@ -10,17 +10,16 @@ using System.Threading.Tasks;
 using ICS.BL.Mappers;
 using ICS.DAL.UnitOfWork;
 
-namespace ICS.BL.Facade
+namespace ICS.BL.Facade;
+
+public class StudentFacade(
+    IUnitOfWorkFactory unitOfWorkFactory,
+    IStudentModelMapper modelMapper)
+    : FacadeBase<StudentEntity, StudentListModel, StudentDetailModel, StudentEntityMapper>(unitOfWorkFactory, modelMapper),
+        IStudentFacade
 {
-    public class StudentFacade(
-        IUnitOfWorkFactory unitOfWorkFactory,
-        IStudentModelMapper modelMapper)
-        : FacadeBase<StudentEntity, StudentListModel, StudentDetailModel, StudentEntityMapper>(unitOfWorkFactory, modelMapper),
-            IStudentFacade
-    {
-        protected override string IncludesSubjectNavigationPathDetail =>
-            $"{nameof(StudentEntity.Subjects)}.{nameof(SubjectEntity.Students)}";
+    protected override string IncludesSubjectNavigationPathDetail =>
+        $"{nameof(StudentEntity.Subjects)}.{nameof(SubjectEntity.Students)}";
 
 
-    }
 }

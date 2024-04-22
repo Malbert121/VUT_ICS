@@ -28,7 +28,7 @@ public class SubjectModelMapper (ActivityModelMapper? activityModelMapper, Stude
             students = studentModelMapper!.MapToListModel(entity.Students).ToObservableCollection()
         };
 
-    public override SubjectEntity MapToEntity(SubjectDetailModel model)
+    public override SubjectEntity MapDetailModelToEntity(SubjectDetailModel model)
     {
         return new SubjectEntity
         {
@@ -38,7 +38,7 @@ public class SubjectModelMapper (ActivityModelMapper? activityModelMapper, Stude
         };
     }
 
-    public override SubjectEntity MapToEntityList(SubjectListModel? model)
+    public override SubjectEntity MapListModelToEntity(SubjectListModel? model)
     {
         return new SubjectEntity
         {

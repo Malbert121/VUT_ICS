@@ -5,18 +5,17 @@ using ICS.DAL.Entities;
 using ICS.DAL.Mappers;
 using ICS.DAL.Repositories;
 using ICS.DAL.UnitOfWork;
-namespace ICS.BL.Facade
+namespace ICS.BL.Facade;
+
+public class SubjectFacade(
+    IUnitOfWorkFactory unitOfWorkFactory,
+    ISubjectModelMapper modelMapper)
+    : FacadeBase<SubjectEntity, SubjectListModel, SubjectDetailModel, SubjectEntityMapper>(unitOfWorkFactory, modelMapper),
+        ISubjectFacade
 {
-    public class SubjectFacade(
-        IUnitOfWorkFactory unitOfWorkFactory,
-        ISubjectModelMapper modelMapper)
-        : FacadeBase<SubjectEntity, SubjectListModel, SubjectDetailModel, SubjectEntityMapper>(unitOfWorkFactory, modelMapper),
-            ISubjectFacade
-    {
 
-        protected override string IncludesStudentNavigationPathDetail =>
-            $"{nameof(SubjectEntity.Students)}.{nameof(StudentEntity.Subjects)}";
+    protected override string IncludesStudentNavigationPathDetail =>
+        $"{nameof(SubjectEntity.Students)}.{nameof(StudentEntity.Subjects)}";
 
 
-    }
 }

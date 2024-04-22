@@ -38,12 +38,20 @@ public sealed class RatingFacadeTests : FacadeTestsBase
             Id = Guid.Empty,
             points = 20,
             note = "note",
-            activityId = ActivitySeeds.PotionsActivity.Id,
-            studentId = Guid.Empty,
-            activity = ActivityModelMapper.MapToListModel(ActivitySeeds.PotionsActivity),
+            activityId = Guid.Parse("34a98f97-30de-4df2-8c33-bef54679f333"),
+            studentId = Guid.Parse("5ef12a97-24de-4df2-8c33-bef54679f333"),
+            activity = new ActivityListModel()
+            {
+                Id = Guid.Parse("34a98f97-30de-4df2-8c33-bef54679f333"),
+                name = "name",
+                start = DateTime.MinValue,
+                end = DateTime.MinValue,
+                room = "room",
+                subjectId = SubjectSeeds.SubjectWithTwoStudents.Id
+            },
             student = new StudentListModel()
             {
-                Id = Guid.Empty,
+                Id = Guid.Parse("5ef12a97-24de-4df2-8c33-bef54679f333"),
                 firstName = "John",
                 lastName = "Doe"
             }
@@ -103,19 +111,20 @@ public sealed class RatingFacadeTests : FacadeTestsBase
             Id = Guid.Empty,
             points = 20,
             note = "note",
-            activityId = Guid.Empty,
-            studentId = Guid.Empty,
+            activityId = Guid.Parse("34a98f97-30de-4df2-8c33-bef54679f333"),
+            studentId = Guid.Parse("5ef12a97-24de-4df2-8c33-bef54679f333"),
             activity = new ActivityListModel()
             {
-                Id = Guid.Empty,
+                Id = Guid.Parse("34a98f97-30de-4df2-8c33-bef54679f333"),
                 name = "name",
                 start = DateTime.MinValue,
                 end = DateTime.MinValue,
-                room = "room"
+                room = "room",
+                subjectId = SubjectSeeds.SubjectWithTwoStudents.Id
             },
             student = new StudentListModel()
             {
-                Id = Guid.Empty,
+                Id = Guid.Parse("5ef12a97-24de-4df2-8c33-bef54679f333"),
                 firstName = "John",
                 lastName = "Doe"
             }

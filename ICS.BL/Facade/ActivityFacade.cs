@@ -10,16 +10,15 @@ using System.Threading.Tasks;
 using ICS.BL.Mappers;
 using ICS.DAL.UnitOfWork;
 
-namespace ICS.BL.Facade
+namespace ICS.BL.Facade;
+
+public class ActivityFacade(
+    IUnitOfWorkFactory unitOfWorkFactory,
+    IActivityModelMapper modelMapper)
+    : FacadeBase<ActivityEntity, ActivityListModel, ActivityDetailModel, ActivityEntityMapper>(
+        unitOfWorkFactory, modelMapper), IActivityFacade
 {
-    public class ActivityFacade(
-        IUnitOfWorkFactory unitOfWorkFactory,
-        IActivityModelMapper modelMapper)
-        : FacadeBase<ActivityEntity, ActivityListModel, ActivityDetailModel, ActivityEntityMapper>(
-            unitOfWorkFactory, modelMapper), IActivityFacade
-    {
 
-    }
-
-    
 }
+
+

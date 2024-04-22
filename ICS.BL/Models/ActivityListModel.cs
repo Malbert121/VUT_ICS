@@ -6,7 +6,8 @@ public record ActivityListModel : ModelBase
     public DateTime start { get; set; }
     public DateTime end { get; set; }
     public string room { get; set; } = string.Empty;
-    
+    public Guid subjectId { get; set; }
+
     public static ActivityListModel Empty => new()
     {
         Id = Guid.Empty,
@@ -14,5 +15,6 @@ public record ActivityListModel : ModelBase
         start = DateTime.MinValue,
         end = DateTime.MinValue,
         room = string.Empty,
+        subjectId = Guid.Empty
     };
 }

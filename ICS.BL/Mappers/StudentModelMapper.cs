@@ -46,7 +46,7 @@ public class StudentModelMapper(SubjectModelMapper? subjectModelMapper) : ModelM
 
 
 
-    public override StudentEntity MapToEntity(StudentDetailModel model)
+    public override StudentEntity MapDetailModelToEntity(StudentDetailModel model)
     {
         return new StudentEntity
         {
@@ -57,7 +57,7 @@ public class StudentModelMapper(SubjectModelMapper? subjectModelMapper) : ModelM
         };
     }
 
-    public override StudentEntity MapToEntityList(StudentListModel model)
+    public override StudentEntity MapListModelToEntity(StudentListModel model)
     {
         return new StudentEntity
         {

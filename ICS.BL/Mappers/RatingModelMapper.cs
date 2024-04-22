@@ -32,7 +32,7 @@ public class RatingModelMapper(ActivityModelMapper? activityModelMapper, Student
             
         };
 
-    public override RatingEntity MapToEntity(RatingDetailModel model)
+    public override RatingEntity MapDetailModelToEntity(RatingDetailModel model)
     {
         return new RatingEntity
         {
@@ -40,12 +40,12 @@ public class RatingModelMapper(ActivityModelMapper? activityModelMapper, Student
             Points = model.points,
             Note = model.note,
             ActivityId = model.activityId,
-            Activity = activityModelMapper!.MapToEntityList(model.activity!),
+            Activity = activityModelMapper!.MapListModelToEntity(model.activity!),
             StudentId = model.studentId,
-            Student = studentModelMapper!.MapToEntityList(model.student!)
+            Student = studentModelMapper!.MapListModelToEntity(model.student!)
         };
     }
-    public override RatingEntity MapToEntityList(RatingListModel? model)
+    public override RatingEntity MapListModelToEntity(RatingListModel? model)
     {
         return new RatingEntity
         {
@@ -53,7 +53,7 @@ public class RatingModelMapper(ActivityModelMapper? activityModelMapper, Student
             Points = model.points,
             ActivityId = model.activityId,
             StudentId = model.studentId,
-            Student = studentModelMapper!.MapToEntityList(model.student!)
+            Student = studentModelMapper!.MapListModelToEntity(model.student!)
         };
     }
 }

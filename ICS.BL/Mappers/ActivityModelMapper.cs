@@ -15,7 +15,8 @@ public class ActivityModelMapper(RatingModelMapper? ratingModelMapper, SubjectMo
             name = entity.Name,
             start = entity.Start,
             end = entity.End,
-            room = entity.Room
+            room = entity.Room,
+            subjectId = entity.SubjectId
         };
 
     public override ActivityDetailModel MapToDetailModel(ActivityEntity? entity)
@@ -35,7 +36,7 @@ public class ActivityModelMapper(RatingModelMapper? ratingModelMapper, SubjectMo
             ratings = ratingModelMapper!.MapToListModel(entity.Ratings).ToObservableCollection()
         };
 
-    public override ActivityEntity MapToEntity(ActivityDetailModel model)
+    public override ActivityEntity MapDetailModelToEntity(ActivityDetailModel model)
     {
         return new ActivityEntity
         {
@@ -47,12 +48,12 @@ public class ActivityModelMapper(RatingModelMapper? ratingModelMapper, SubjectMo
             ActivityTypeTag = model.activityTypeTag,
             Description = model.description,
             SubjectId = model.subjectId,
-            Subject = subjectModelMapper!.MapToEntityList(model.subject)
+            Subject = subjectModelMapper!.MapListModelToEntity(model.subject)
 
         };
     }
 
-    public override ActivityEntity MapToEntityList(ActivityListModel model)
+    public override ActivityEntity MapListModelToEntity(ActivityListModel model)
     {
         return new ActivityEntity
         {
@@ -60,7 +61,9 @@ public class ActivityModelMapper(RatingModelMapper? ratingModelMapper, SubjectMo
             Name = model.name,
             Start = model.start,
             End = model.end,
-            Room = model.room
+            Room = model.room,
+            SubjectId = model.subjectId
+            
         };
     }
 
