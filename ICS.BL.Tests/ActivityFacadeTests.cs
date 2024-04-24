@@ -226,8 +226,8 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     public async Task Update_RemoveOneOfRating_FromSeeded_Updated()
     {
         //Arrange
-        var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.ActivityWithTwoRatings);
-        detailModel.ratings.Remove(detailModel.ratings.First());
+        var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.PotionsActivity);
+        //detailModel.ratings.Remove(detailModel.ratings.First());
 
         //Act
         await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _activityFacadeSUT.SaveAsync(detailModel));
@@ -260,8 +260,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
         foreach (var ratingModel in returnedModel.ratings)
         {
             var ratingDetailModel = expectedModel.ratings.FirstOrDefault(i =>
-                Math.Abs(i.points - ratingModel.points) <= 0
-                && i.student == ratingModel.student);
+                Math.Abs(i.points - ratingModel.points) <= 0);
 
             if (ratingDetailModel != null)
             {

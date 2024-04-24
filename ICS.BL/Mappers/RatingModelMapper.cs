@@ -6,7 +6,7 @@ namespace ICS.BL.Mappers;
 public class RatingModelMapper(ActivityModelMapper? activityModelMapper, StudentModelMapper? studentModelMapper) : ModelMapperBase<RatingEntity, RatingListModel, RatingDetailModel>, IRatingModelMapper
 {
     public override RatingListModel MapToListModel(RatingEntity? entity)
-         => entity?.Student is null
+         => entity is null
         ? RatingListModel.Empty
         : new RatingListModel
         {
@@ -14,7 +14,6 @@ public class RatingModelMapper(ActivityModelMapper? activityModelMapper, Student
             points = entity.Points,
             studentId = entity.StudentId,
             activityId = entity.ActivityId,
-            student = studentModelMapper!.MapToListModel(entity.Student)
         };
 
     public override RatingDetailModel MapToDetailModel(RatingEntity? entity)
@@ -53,7 +52,7 @@ public class RatingModelMapper(ActivityModelMapper? activityModelMapper, Student
             Points = model.points,
             ActivityId = model.activityId,
             StudentId = model.studentId,
-            Student = studentModelMapper!.MapListModelToEntity(model.student!)
+            //Student = studentModelMapper!.MapListModelToEntity(model.student!)
         };
     }
 }

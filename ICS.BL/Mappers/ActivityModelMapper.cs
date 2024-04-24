@@ -32,8 +32,8 @@ public class ActivityModelMapper(RatingModelMapper? ratingModelMapper, SubjectMo
             activityTypeTag = entity.ActivityTypeTag,
             description = entity.Description,
             subjectId = entity.SubjectId,
-            subject = subjectModelMapper!.MapToListModel(entity.Subject),
-            ratings = ratingModelMapper!.MapToListModel(entity.Ratings).ToObservableCollection()
+            subject = subjectModelMapper.MapToListModel(entity.Subject),
+            ratings = ratingModelMapper.MapToListModel(entity.Ratings).ToObservableCollection()
         };
 
     public override ActivityEntity MapDetailModelToEntity(ActivityDetailModel model)
@@ -48,7 +48,7 @@ public class ActivityModelMapper(RatingModelMapper? ratingModelMapper, SubjectMo
             ActivityTypeTag = model.activityTypeTag,
             Description = model.description,
             SubjectId = model.subjectId,
-            Subject = subjectModelMapper!.MapListModelToEntity(model.subject)
+            Subject = subjectModelMapper!.MapListModelToEntity(model.subject),
 
         };
     }

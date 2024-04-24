@@ -20,7 +20,8 @@ namespace ICS.Common.Tests.Seeds
             Id = Guid.Parse("d9963767-91a2-4b3f-81f7-dc5d0aaecf7d"),
             FirstName = "Harry",
             LastName = "Potter",
-            PhotoUrl = "http://www.example.com/index.html"
+            PhotoUrl = "http://www.example.com/index.html",
+            Subjects = new List<SubjectEntity>()
         };
 
         public static readonly StudentEntity Hermione = new StudentEntity
@@ -28,7 +29,8 @@ namespace ICS.Common.Tests.Seeds
             Id = Guid.Parse("df935095-8709-4040-a2bb-b6f97cb416dc"),
             FirstName = "Hermione",
             LastName = "Granger",
-            PhotoUrl = "http://www.example.com/index.html"
+            PhotoUrl = "http://www.example.com/index.html",
+            Subjects = new List<SubjectEntity>()
         };
 
         public static readonly StudentEntity StudentWithNoSubjects = new StudentEntity
@@ -69,7 +71,8 @@ namespace ICS.Common.Tests.Seeds
 
         static StudentSeeds()
         {
-            StudentWithSubjects.Subjects.Add(SubjectSeeds.potions);
+            Harry.Subjects.Add(SubjectSeeds.potions);
+            Hermione.Subjects.Add(SubjectSeeds.potions);
         }
 
         public static void Seed(this ModelBuilder modelBuilder)

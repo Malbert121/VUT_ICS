@@ -18,8 +18,8 @@ public class StudentFacade(
     : FacadeBase<StudentEntity, StudentListModel, StudentDetailModel, StudentEntityMapper>(unitOfWorkFactory, modelMapper),
         IStudentFacade
 {
-    protected override string IncludesSubjectNavigationPathDetail =>
-        $"{nameof(StudentEntity.Subjects)}.{nameof(SubjectEntity.Students)}";
+    protected override ICollection<string> IncludesSubjectNavigationPathDetail =>
+       new[] { $"{nameof(StudentEntity.Subjects)}" };
 
 
 }

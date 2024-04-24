@@ -13,7 +13,7 @@ public record ActivityDetailModel : ModelBase
     public string description { get; set; } = string.Empty;
     public Guid subjectId { get; set; }
     public SubjectListModel? subject { get; set; } = new SubjectListModel();
-    public ObservableCollection<RatingListModel> ratings { get; init; } = new ();
+    public ObservableCollection<RatingListModel> ratings { get; set; } = new ();
     public static ActivityDetailModel Empty => new()
     {
         Id = Guid.Empty,

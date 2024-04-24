@@ -202,7 +202,6 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
         var model = SubjectModelMapper.MapToDetailModel(SubjectSeeds.SubjectWithNoStudent);
         model.name = "IMA5";
         model.abbreviation = "Machine Learning prerequisites";
-        model.students = new ObservableCollection<StudentListModel>();
 
         //Act
         var returnedModel = await _subjectFacadeSUT.SaveAsync(model);
@@ -248,7 +247,6 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     {
         //Arrange
         var model = SubjectModelMapper.MapToDetailModel(SubjectSeeds.SubjectWithTwoStudents);
-        model.students = new ObservableCollection<StudentListModel>();
 
         //Act
         var returnedModel = await _subjectFacadeSUT.SaveAsync(model);

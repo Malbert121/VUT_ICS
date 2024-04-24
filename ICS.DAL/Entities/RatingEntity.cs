@@ -7,9 +7,9 @@ namespace ICS.DAL.Entities
         public int Points { get; set; }
         public string Note { get; set; } = string.Empty;
         public Guid ActivityId { get; set; }
-        public ActivityEntity? Activity { get; set; }
+        public ActivityEntity? Activity { get; init; }
         public Guid StudentId { get; set; }
-        public required StudentEntity? Student { get; set; }
+        public StudentEntity? Student { get; init; }
 
         public required Guid Id { get; set; }
     }

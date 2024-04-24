@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ICS.DAL.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20240404203205_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240424132655_InitialGrade")]
+    partial class InitialGrade
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,34 +26,34 @@ namespace ICS.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("activityTypeTag")
+                    b.Property<string>("ActivityTypeTag")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("description")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("end")
+                    b.Property<DateTime>("End")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("room")
+                    b.Property<string>("Room")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<DateTime>("start")
+                    b.Property<DateTime>("Start")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("subjectId")
+                    b.Property<Guid>("SubjectId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("subjectId");
+                    b.HasIndex("SubjectId");
 
                     b.ToTable("Activities");
                 });
@@ -64,24 +64,24 @@ namespace ICS.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("activityId")
+                    b.Property<Guid>("ActivityId")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("note")
+                    b.Property<string>("Note")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("points")
+                    b.Property<int>("Points")
                         .HasColumnType("INTEGER");
 
-                    b.Property<Guid>("studentId")
+                    b.Property<Guid>("StudentId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("activityId");
+                    b.HasIndex("ActivityId");
 
-                    b.HasIndex("studentId");
+                    b.HasIndex("StudentId");
 
                     b.ToTable("Rating");
                 });
@@ -92,15 +92,15 @@ namespace ICS.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("firstName")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("fotoURL")
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("lastName")
+                    b.Property<string>("PhotoUrl")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -115,11 +115,11 @@ namespace ICS.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("abbreviation")
+                    b.Property<string>("Abbreviation")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -130,72 +130,72 @@ namespace ICS.DAL.Migrations
 
             modelBuilder.Entity("StudentEntitySubjectEntity", b =>
                 {
-                    b.Property<Guid>("studentsId")
+                    b.Property<Guid>("StudentsId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("subjectsId")
+                    b.Property<Guid>("SubjectsId")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("studentsId", "subjectsId");
+                    b.HasKey("StudentsId", "SubjectsId");
 
-                    b.HasIndex("subjectsId");
+                    b.HasIndex("SubjectsId");
 
                     b.ToTable("StudentSubject", (string)null);
                 });
 
             modelBuilder.Entity("ICS.DAL.Entities.ActivityEntity", b =>
                 {
-                    b.HasOne("ICS.DAL.Entities.SubjectEntity", "subject")
-                        .WithMany("activity")
-                        .HasForeignKey("subjectId")
+                    b.HasOne("ICS.DAL.Entities.SubjectEntity", "Subject")
+                        .WithMany("Activity")
+                        .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("subject");
+                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("ICS.DAL.Entities.RatingEntity", b =>
                 {
-                    b.HasOne("ICS.DAL.Entities.ActivityEntity", "activity")
-                        .WithMany("ratings")
-                        .HasForeignKey("activityId")
+                    b.HasOne("ICS.DAL.Entities.ActivityEntity", "Activity")
+                        .WithMany("Ratings")
+                        .HasForeignKey("ActivityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ICS.DAL.Entities.StudentEntity", "student")
+                    b.HasOne("ICS.DAL.Entities.StudentEntity", "Student")
                         .WithMany()
-                        .HasForeignKey("studentId")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("activity");
+                    b.Navigation("Activity");
 
-                    b.Navigation("student");
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("StudentEntitySubjectEntity", b =>
                 {
                     b.HasOne("ICS.DAL.Entities.StudentEntity", null)
                         .WithMany()
-                        .HasForeignKey("studentsId")
+                        .HasForeignKey("StudentsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ICS.DAL.Entities.SubjectEntity", null)
                         .WithMany()
-                        .HasForeignKey("subjectsId")
+                        .HasForeignKey("SubjectsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("ICS.DAL.Entities.ActivityEntity", b =>
                 {
-                    b.Navigation("ratings");
+                    b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("ICS.DAL.Entities.SubjectEntity", b =>
                 {
-                    b.Navigation("activity");
+                    b.Navigation("Activity");
                 });
 #pragma warning restore 612, 618
         }

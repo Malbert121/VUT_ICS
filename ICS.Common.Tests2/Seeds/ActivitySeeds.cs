@@ -16,7 +16,7 @@ namespace ICS.Common.Tests.Seeds
             Room = string.Empty,
             ActivityTypeTag = string.Empty,
             Description = string.Empty,
-            SubjectId = SubjectSeeds.potions.Id,
+            SubjectId = SubjectSeeds.EmptySubject.Id,
             Subject = SubjectSeeds.EmptySubject,
             Ratings = Array.Empty<RatingEntity>()
         };
@@ -32,7 +32,6 @@ namespace ICS.Common.Tests.Seeds
             Description = "Brewing a potion",
             SubjectId = SubjectSeeds.potions.Id,
             Subject = SubjectSeeds.potions,
-            Ratings = Array.Empty<RatingEntity>()
         };
 
         public static readonly ActivityEntity ActivityWithNoRatings = new ActivityEntity
@@ -60,7 +59,7 @@ namespace ICS.Common.Tests.Seeds
             Description = "Brewing a potion",
             SubjectId = SubjectSeeds.potions.Id,
             Subject = SubjectSeeds.potions,
-            Ratings = new List<RatingEntity> { RatingSeeds.Rating1 }
+            Ratings = new List<RatingEntity> ()
         };
 
         public static readonly ActivityEntity ActivityWithTwoRatings = new ActivityEntity
@@ -109,9 +108,9 @@ namespace ICS.Common.Tests.Seeds
 
         static ActivitySeeds()
         {
-            ActivityWithOneRating.Ratings.Add(RatingSeeds.Rating1);
-            ActivityWithTwoRatings.Ratings.Add(RatingSeeds.Rating1);
-            ActivityWithTwoRatings.Ratings.Add(RatingSeeds.Rating2);
+            PotionsActivity.Ratings.Add(RatingSeeds.Rating1);
+            PotionsActivity.Ratings.Add(RatingSeeds.Rating2);
+            ActivityWithOneRating.Ratings.Add(RatingSeeds.RatingUpdate);
         }
 
         public static void Seed(this ModelBuilder modelBuilder)

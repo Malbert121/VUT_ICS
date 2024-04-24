@@ -19,6 +19,8 @@ namespace ICS.Common.Tests.Seeds
             Id = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56238"),
             Name = "Potions",
             Abbreviation = "POT",
+            Students = new List<StudentEntity>(),
+            Activity = new List<ActivityEntity>()
         };
 
         public static readonly SubjectEntity SubjectWithNoStudent = new SubjectEntity
@@ -62,14 +64,14 @@ namespace ICS.Common.Tests.Seeds
         };
         static SubjectSeeds()
         {
-            SubjectWithOneStudent.Students.Add(StudentSeeds.Harry);
-            SubjectWithTwoStudents.Students.Add(StudentSeeds.Harry);
-            SubjectWithTwoStudents.Students.Add(StudentSeeds.Hermione);
+            potions.Students.Add(StudentSeeds.Harry);
+            potions.Students.Add(StudentSeeds.Hermione);
+            potions.Activity.Add(ActivitySeeds.PotionsActivity);
         }
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SubjectEntity>().HasData(potions, EmptySubject, SubjectWithNoStudent with { Students = Array.Empty<StudentEntity>() }, SubjectWithOneStudent with { Students = Array.Empty<StudentEntity>() }, SubjectWithTwoStudents with { Students = Array.Empty<StudentEntity>() }, SubjectUpdate with { Students = Array.Empty<StudentEntity>() }, SubjectDelete with { Students = Array.Empty<StudentEntity>() });
+            modelBuilder.Entity<SubjectEntity>().HasData(potions with { Students = Array.Empty<StudentEntity>(), Activity = Array.Empty<ActivityEntity>() }, EmptySubject, SubjectWithNoStudent with { Students = Array.Empty<StudentEntity>() }, SubjectWithOneStudent with { Students = Array.Empty<StudentEntity>() }, SubjectWithTwoStudents with { Students = Array.Empty<StudentEntity>() }, SubjectUpdate with { Students = Array.Empty<StudentEntity>() }, SubjectDelete with { Students = Array.Empty<StudentEntity>() });
         }
 
     }

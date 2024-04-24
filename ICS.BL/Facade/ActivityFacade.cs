@@ -18,7 +18,8 @@ public class ActivityFacade(
     : FacadeBase<ActivityEntity, ActivityListModel, ActivityDetailModel, ActivityEntityMapper>(
         unitOfWorkFactory, modelMapper), IActivityFacade
 {
-
+    protected override ICollection<string> IncludesRatingNavigationPathDetail =>
+        new[] {$"{nameof(ActivityEntity.Subject)}", $"{nameof(ActivityEntity.Ratings)}" };
 }
 
 

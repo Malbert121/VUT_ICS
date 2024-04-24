@@ -13,6 +13,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using ICS.BL.Models;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace ICS.BL.Facade;
 
@@ -29,8 +30,12 @@ public abstract class
     protected readonly IModelMapper<TEntity, TListModel, TDetailModel> ModelMapper = modelMapper;
     protected readonly IUnitOfWorkFactory UnitOfWorkFactory = unitOfWorkFactory;
 
-    protected virtual string IncludesStudentNavigationPathDetail => string.Empty;
-    protected virtual string IncludesSubjectNavigationPathDetail => string.Empty;
+    protected virtual ICollection<string> IncludesStudentNavigationPathDetail => new List<string>();
+    protected virtual ICollection<string> IncludesSubjectNavigationPathDetail => new List<string>();
+
+    protected virtual ICollection<string> IncludesRatingNavigationPathDetail => new List<string>();
+
+    protected virtual ICollection<string> IncludesActivityNavigationPathDetail => new List<string>();
 
 
     public async Task DeleteAsync(Guid id)
@@ -52,17 +57,24 @@ public abstract class
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
 
         IQueryable<TEntity> query = uow.GetRepository<TEntity, TEntityMapper>().Get();
-
-        if (string.IsNullOrWhiteSpace(IncludesStudentNavigationPathDetail) is false)
+        foreach (string pathDetail in IncludesActivityNavigationPathDetail)
         {
-            query = query.Include(IncludesStudentNavigationPathDetail);
+            query = query.Include(pathDetail);
         }
-        if (string.IsNullOrWhiteSpace(IncludesSubjectNavigationPathDetail) is false)
+        foreach (string pathDetail in IncludesRatingNavigationPathDetail)
         {
-            query = query.Include(IncludesSubjectNavigationPathDetail);
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesStudentNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesSubjectNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
         }
 
-        TEntity? entity = await query.SingleOrDefaultAsync(e => e.Id == id);
+        TEntity? entity = await query.SingleOrDefaultAsync(e => e.Id == id).ConfigureAwait(false);
 
         return entity is null
             ? null
@@ -103,7 +115,7 @@ public abstract class
             result = ModelMapper.MapToDetailModel(insertedEntity);
         }
 
-        await uow.CommitAsync();
+        await uow.CommitAsync().ConfigureAwait(false);
 
         return result;
     }

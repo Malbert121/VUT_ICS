@@ -7,7 +7,7 @@ namespace ICS.DAL.Entities
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string PhotoUrl { get; set; } = string.Empty;
-        public ICollection<SubjectEntity> Subjects { get; set; } = new List<SubjectEntity>();
+        public ICollection<SubjectEntity> Subjects { get; init; } = new List<SubjectEntity>();
 
         public required Guid Id { get; set; }
 
