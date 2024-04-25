@@ -34,14 +34,6 @@ namespace ICS.DAL.Context
         public DbSet<SubjectEntity> Subjects { get; set; }
         public DbSet<RatingEntity> Rating { get; set; }
 
-        // protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        // {
-        //     //optionsBuilder.UseSqlite(@"Data Source=SchoolApp.db;");
-        //     //optionsBuilder.UseInMemoryDatabase("TestDatabase");
-        //     optionsBuilder.EnableSensitiveDataLogging();
-        //
-        // }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

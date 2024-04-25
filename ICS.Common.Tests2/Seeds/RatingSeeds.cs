@@ -43,7 +43,7 @@ namespace ICS.Common.Tests.Seeds
         public static readonly RatingEntity RatingUpdate = new RatingEntity
         {
             Id = Guid.Parse("f3a3e3a3-7b1a-48c1-9796-d2bac7f67868"),
-            Points = 5,
+            Points = 10,
             Note = "Good",
             Activity = ActivitySeeds.ActivityWithTwoRatings,
             ActivityId = ActivitySeeds.ActivityWithTwoRatings.Id,

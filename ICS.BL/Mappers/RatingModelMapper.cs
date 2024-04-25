@@ -51,8 +51,7 @@ public class RatingModelMapper(ActivityModelMapper? activityModelMapper, Student
             Id = model!.Id,
             Points = model.points,
             ActivityId = model.activityId,
-            StudentId = model.studentId,
-            //Student = studentModelMapper!.MapListModelToEntity(model.student!)
+            StudentId = model.studentId
         };
     }
 }

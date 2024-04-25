@@ -14,7 +14,7 @@ namespace ICS.DAL.Seeds
 
     public class ActivitySeeds
     {
-        public static ActivityEntity potionActivity = new ActivityEntity //there is no Id of subject
+        public static ActivityEntity potionActivity = new ActivityEntity
         {
             Id = Guid.Parse("b1079d8c-26e7-49b5-bdd5-f63b1d3d8598"),
             Name = "Brewing a potion",

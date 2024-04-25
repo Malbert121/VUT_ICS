@@ -21,7 +21,6 @@ namespace ICS.DAL.Seeds
             Abbreviation = "POT",
         };
 
-        // Add student1 and student2 to subject
         static SubjectSeeds()
         {
             potions.Students.Add(StudentSeeds.student1);

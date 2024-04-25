@@ -22,13 +22,14 @@ public sealed class RatingFacadeTests : FacadeTestsBase
 {
     private readonly IRatingFacade _ratingFacadeSUT;
 
+    private readonly RatingFacade _ratingAppliedFacadeSUT;
 
     public RatingFacadeTests(ITestOutputHelper output) : base(output)
     {
         _ratingFacadeSUT = new RatingFacade(UnitOfWorkFactory, RatingModelMapper);
+
+        _ratingAppliedFacadeSUT = new RatingFacade(UnitOfWorkFactory, RatingModelMapper);
     }
-    
-    
     [Fact]
     public async Task Create_WithActivityStudent_DoesNotThrow()
     {
@@ -134,9 +135,8 @@ public sealed class RatingFacadeTests : FacadeTestsBase
         rating = await _ratingFacadeSUT.SaveAsync(rating);
 
         //Assert
-        await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
-        var ratingFromDb = await dbxAssert.Rating.SingleAsync(i => i.Id == rating.Id);
-        DeepAssert.Equal(rating, RatingModelMapper.MapToDetailModel(ratingFromDb));
+        var returnedModel = await _ratingFacadeSUT.GetAsync(rating.Id);
+        DeepAssert.Equal(rating, returnedModel);
     }
 
     
@@ -161,9 +161,8 @@ public sealed class RatingFacadeTests : FacadeTestsBase
         await _ratingFacadeSUT.SaveAsync(rating);
 
         //Assert
-        await using var dbxAssert = await DbContextFactory.CreateDbContextAsync();
-        var ratingFromDb = await dbxAssert.Rating.SingleAsync(i => i.Id == rating.Id);
-        DeepAssert.Equal(rating, RatingModelMapper.MapToDetailModel(ratingFromDb));
+        var returnedModel = await _ratingFacadeSUT.GetAsync(rating.Id);
+        DeepAssert.Equal(rating, returnedModel);
     }
 
     [Fact]
@@ -188,5 +187,90 @@ public sealed class RatingFacadeTests : FacadeTestsBase
         //Assert
         var returnedModel = await _ratingFacadeSUT.GetAsync(detailModel.Id);
         DeepAssert.Equal(detailModel, returnedModel);
+    }
+
+    [Fact]
+    public async Task DeleteById_FromSeeded_DoesNotThrow()
+    {
+        //Arrange & Act & Assert
+        await _ratingFacadeSUT.DeleteAsync(RatingSeeds.Rating2.Id);
+    }
+
+    [Fact]
+    public async Task DeleteById_FromEmptySeeded_Throws()
+    {
+        //Arrange & Act & Assert
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _ratingFacadeSUT.DeleteAsync(RatingSeeds.EmptyEntity.Id));
+    }
+
+    [Fact]
+    public async Task Delete_NonExisting_Throws()
+    {
+        //Arrange
+        var model = RatingModelMapper.MapToDetailModel(RatingSeeds.RatingDelete);
+        model.Id = Guid.NewGuid();
+
+        //Act & Assert
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _ratingFacadeSUT.DeleteAsync(model.Id));
+    }
+
+    [Fact]
+    public async Task SearchBySubstringNote_DoesNotThrow()
+    {
+        var ratingList = await _ratingAppliedFacadeSUT.GetSearchAsync("Good");
+
+        Assert.Equal(3, ratingList.ToObservableCollection().Count);
+    }
+
+    [Fact]
+    public async Task SearchBySubstringNote_NonExistent_DoesNotThrow()
+    {
+        var ratingList = await _ratingAppliedFacadeSUT.GetSearchAsync("Bad");
+
+        Assert.Empty(ratingList.ToObservableCollection());
+    }
+
+    [Fact]
+    public async Task SortByDescendingId_Correct()
+    {
+        var activityList = await _ratingAppliedFacadeSUT.GetSortedAsync("byDescendingId");
+
+        Assert.Equal(Guid.Parse("f3a3e3a3-7b1a-48c1-9796-d2bac7f67868"), activityList.ToObservableCollection()[0].Id);
+        Assert.Equal(Guid.Parse("a2e6849d-a158-4436-980c-7fc26b60c674"), activityList.ToObservableCollection()[1].Id);
+        Assert.Equal(Guid.Parse("87833e66-05ba-4d6b-900b-fe5ace88dbd8"), activityList.ToObservableCollection()[2].Id);
+        Assert.Equal(Guid.Parse("0d4fa150-ad80-4d46-a511-4c666166ec5e"), activityList.ToObservableCollection()[3].Id);
+    }
+
+    [Fact]
+    public async Task SortById_Correct()
+    {
+        var activityList = await _ratingAppliedFacadeSUT.GetSortedAsync("byId");
+
+        Assert.Equal(Guid.Parse("f3a3e3a3-7b1a-48c1-9796-d2bac7f67868"), activityList.ToObservableCollection()[3].Id);
+        Assert.Equal(Guid.Parse("a2e6849d-a158-4436-980c-7fc26b60c674"), activityList.ToObservableCollection()[2].Id);
+        Assert.Equal(Guid.Parse("87833e66-05ba-4d6b-900b-fe5ace88dbd8"), activityList.ToObservableCollection()[1].Id);
+        Assert.Equal(Guid.Parse("0d4fa150-ad80-4d46-a511-4c666166ec5e"), activityList.ToObservableCollection()[0].Id);
+    }
+
+    [Fact]
+    public async Task SortByDescendingPoints_Correct()
+    {
+        var activityList = await _ratingAppliedFacadeSUT.GetSortedAsync("byDescendingPoints");
+
+        Assert.Equal(10, activityList.ToObservableCollection()[0].points);
+        Assert.Equal(5, activityList.ToObservableCollection()[1].points);
+        Assert.Equal(5, activityList.ToObservableCollection()[2].points);
+        Assert.Equal(4, activityList.ToObservableCollection()[3].points);
+    }
+
+    [Fact]
+    public async Task SortByPoints_Correct()
+    {
+        var activityList = await _ratingAppliedFacadeSUT.GetSortedAsync("byPoints");
+
+        Assert.Equal(10, activityList.ToObservableCollection()[3].points);
+        Assert.Equal(5, activityList.ToObservableCollection()[2].points);
+        Assert.Equal(5, activityList.ToObservableCollection()[1].points);
+        Assert.Equal(4, activityList.ToObservableCollection()[0].points);
     }
 }
