@@ -33,9 +33,9 @@ public abstract class
     protected virtual ICollection<string> IncludesStudentNavigationPathDetail => new List<string>();
     protected virtual ICollection<string> IncludesSubjectNavigationPathDetail => new List<string>();
 
-    protected virtual ICollection<string> IncludesRatingNavigationPathDetail => new List<string>();
-
     protected virtual ICollection<string> IncludesActivityNavigationPathDetail => new List<string>();
+
+    protected virtual ICollection<string> IncludesRatingNavigationPathDetail => new List<string>();
 
 
     public async Task DeleteAsync(Guid id)

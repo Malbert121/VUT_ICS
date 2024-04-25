@@ -13,6 +13,8 @@ public class RatingFacade(
     : FacadeBase<RatingEntity, RatingListModel, RatingDetailModel, RatingEntityMapper>(
         unitOfWorkFactory, modelMapper), IRatingFacade
 {
-        protected override ICollection<string> IncludesActivityNavigationPathDetail =>
+        protected override ICollection<string> IncludesRatingNavigationPathDetail =>
                 new[] { $"{nameof(RatingEntity.Activity)}", $"{nameof(RatingEntity.Student)}" };
+
+
 }

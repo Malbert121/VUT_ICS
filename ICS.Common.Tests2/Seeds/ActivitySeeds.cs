@@ -37,9 +37,9 @@ namespace ICS.Common.Tests.Seeds
         public static readonly ActivityEntity ActivityWithNoRatings = new ActivityEntity
         {
             Id = Guid.Parse("5F6A8D0C-9B3E-4FD7-BD4A-1C9F20E6BDA7"),
-            Name = "Potions lecture",
-            Start = new DateTime(2021, 10, 10, 10, 0, 0),
-            End = new DateTime(2021, 10, 10, 12, 0, 0),
+            Name = "Defence Against the Dark Arts lecture",
+            Start = new DateTime(2021, 10, 8, 10, 0, 0),
+            End = new DateTime(2021, 10, 8, 12, 0, 0),
             Room = "A03",
             ActivityTypeTag = "POT",
             Description = "Brewing a potion",
@@ -52,8 +52,8 @@ namespace ICS.Common.Tests.Seeds
         {
             Id = Guid.Parse("E7F9E9C6-D29A-4B16-9D8C-9B21C5B78C4F"),
             Name = "Potions lecture",
-            Start = new DateTime(2021, 10, 10, 10, 0, 0),
-            End = new DateTime(2021, 10, 10, 12, 0, 0),
+            Start = new DateTime(2021, 10, 13, 10, 0, 0),
+            End = new DateTime(2021, 10, 13, 12, 0, 0),
             Room = "A03",
             ActivityTypeTag = "POT",
             Description = "Brewing a potion",
@@ -65,9 +65,9 @@ namespace ICS.Common.Tests.Seeds
         public static readonly ActivityEntity ActivityWithTwoRatings = new ActivityEntity
         {
             Id = Guid.Parse("2A6BFC68-1BC0-40F9-BF0D-16AF3B7E9B86"),
-            Name = "Potions lecture",
-            Start = new DateTime(2021, 10, 10, 10, 0, 0),
-            End = new DateTime(2021, 10, 10, 12, 0, 0),
+            Name = "Herbology lecture",
+            Start = new DateTime(2021, 10, 12, 10, 0, 0),
+            End = new DateTime(2021, 10, 12, 12, 0, 0),
             Room = "A03",
             ActivityTypeTag = "POT",
             Description = "Brewing a potion",
@@ -80,8 +80,8 @@ namespace ICS.Common.Tests.Seeds
         {
             Id = Guid.Parse("7D5DE8AB-3E62-4F17-BE1D-0FC2A892B5F3"),
             Name = "Potions lecture",
-            Start = new DateTime(2021, 10, 10, 10, 0, 0),
-            End = new DateTime(2021, 10, 10, 12, 0, 0),
+            Start = new DateTime(2021, 10, 7, 10, 0, 0),
+            End = new DateTime(2021, 10, 7, 12, 0, 0),
             Room = "A03",
             ActivityTypeTag = "POT",
             Description = "Brewing a potion",
@@ -94,8 +94,8 @@ namespace ICS.Common.Tests.Seeds
         {
             Id = Guid.Parse("D3D3D3D3-3D3D-3D3D-3D3D-3D3D3D3D3D3D"),
             Name = "Potions lecture",
-            Start = new DateTime(2021, 10, 10, 10, 0, 0),
-            End = new DateTime(2021, 10, 10, 12, 0, 0),
+            Start = new DateTime(2021, 10, 6, 10, 0, 0),
+            End = new DateTime(2021, 10, 6, 12, 0, 0),
             Room = "A03",
             ActivityTypeTag = "POT",
             Description = "Brewing a potion",

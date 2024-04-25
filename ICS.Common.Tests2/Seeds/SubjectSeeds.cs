@@ -67,6 +67,12 @@ namespace ICS.Common.Tests.Seeds
             potions.Students.Add(StudentSeeds.Harry);
             potions.Students.Add(StudentSeeds.Hermione);
             potions.Activity.Add(ActivitySeeds.PotionsActivity);
+            potions.Activity.Add(ActivitySeeds.ActivityWithNoRatings);
+            potions.Activity.Add(ActivitySeeds.ActivityWithOneRating);
+            potions.Activity.Add(ActivitySeeds.ActivityWithTwoRatings);
+            potions.Activity.Add(ActivitySeeds.ActivityUpdate);
+            potions.Activity.Add(ActivitySeeds.ActivityDelete);
+
         }
 
         public static void Seed(this ModelBuilder modelBuilder)

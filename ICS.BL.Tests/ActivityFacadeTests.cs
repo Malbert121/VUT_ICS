@@ -20,9 +20,13 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
 {
     private readonly IActivityFacade _activityFacadeSUT;
 
+    private readonly ActivityFacade _activityApliedFacadeSUT;
+
     public ActivityFacadeTests(ITestOutputHelper output) : base(output)
     {
         _activityFacadeSUT = new ActivityFacade(UnitOfWorkFactory, ActivityModelMapper);
+
+        _activityApliedFacadeSUT = new ActivityFacade(UnitOfWorkFactory, ActivityModelMapper);
     }
 
     [Fact]
@@ -249,10 +253,66 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     {
 
         //Arrange & Act & Assert
-        await  Assert.ThrowsAnyAsync<InvalidOperationException>(() => _activityFacadeSUT.DeleteAsync(ActivitySeeds.EmptyActivity.Id));
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _activityFacadeSUT.DeleteAsync(ActivitySeeds.EmptyActivity.Id));
     }
 
+    [Fact]
+    public async Task GetList_NotThrow()
+    {
+        //Arrange & Act
+        var activityList = await _activityFacadeSUT.GetAsync();
+        var returnedList = SubjectModelMapper.MapToDetailModel(SubjectSeeds.potions).activity;
 
+        //Assert
+        Assert.Equal(activityList.ToObservableCollection().Count, returnedList.Count);
+    }
+
+    [Fact]
+    public async Task SearchBySubstringName_NotThrow()
+    {
+        var activityList = await _activityApliedFacadeSUT.GetSearchAsync("Potions");
+
+        Assert.Equal(4, activityList.ToObservableCollection().Count);
+    }
+
+    [Fact]
+    public async Task SearchBySubstringNameOneResult_NotThrow()
+    {
+        var activityList = await _activityApliedFacadeSUT.GetSearchAsync("Dark");
+
+        Assert.Single(activityList.ToObservableCollection());
+    }
+    [Fact]
+    public async Task SearchNonExistingActivity_ReturnEmptyCollection()
+    {
+        var activityList = await _activityApliedFacadeSUT.GetSearchAsync("Super Puper Lecture");
+
+        Assert.Equal(activityList.ToObservableCollection(), []);
+    }
+
+    [Fact]
+    public async Task FilterByTime_OnlyStart()
+    {
+        var activityList = await _activityApliedFacadeSUT.GetFilteredAsync(new DateTime(2021, 10, 11, 10, 0, 0));
+
+        Assert.Equal(2, activityList.ToObservableCollection().Count);
+    }
+    [Fact]
+    public async Task FilterByTime_StartAndEnd()
+    {
+        var activityList = await _activityApliedFacadeSUT.GetFilteredAsync(new DateTime(2021, 10, 7, 10, 0, 0), new DateTime(2021, 10, 12, 10, 0, 0));
+
+        Assert.Equal(3, activityList.ToObservableCollection().Count);
+    }
+
+    [Fact]
+    public async Task SortByDescendingId()
+    {
+        var activityList = await _activityApliedFacadeSUT.GetSortedAsync("byDescendingId");
+        //TODO give normal assert
+
+        Assert.Equal(6, activityList.ToObservableCollection().Count);
+    }
     private static void FixIds(ActivityDetailModel expectedModel, ActivityDetailModel returnedModel)
     {
         returnedModel.Id = expectedModel.Id;
