@@ -5,6 +5,8 @@ using ICS.DAL.Entities;
 using ICS.DAL.Mappers;
 using ICS.DAL.Repositories;
 using ICS.DAL.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
+
 namespace ICS.BL.Facade;
 
 public class SubjectFacade(
@@ -16,6 +18,48 @@ public class SubjectFacade(
 
     protected override ICollection<string> IncludesStudentNavigationPathDetail =>
        new[] { $"{nameof(SubjectEntity.Students)}", $"{nameof(SubjectEntity.Activity)}" } ;
+
+    public async Task<IEnumerable<SubjectListModel>> GetSearchAsync(string search)
+    {
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+        List<SubjectEntity> entities = await uow
+            .GetRepository<SubjectEntity, SubjectEntityMapper>()
+            .Get()
+            .Where(e => e.Name.Contains(search))
+            .ToListAsync();
+
+        return ModelMapper.MapToListModel(entities);
+    }
+
+    public async Task<IEnumerable<SubjectListModel>> GetSortedAsync(string sortOptions)
+    {
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+        List<SubjectEntity> entities = sortOptions switch
+        {
+            "byDescendingId" => await uow
+                            .GetRepository<SubjectEntity, SubjectEntityMapper>()
+                            .Get()
+                            .OrderByDescending(entity => entity.Id)
+                            .ToListAsync(),
+            "byId" => await uow
+                            .GetRepository<SubjectEntity, SubjectEntityMapper>()
+                            .Get()
+                            .OrderBy(entity => entity.Id)
+                            .ToListAsync(),
+            "byDescendingName" => await uow
+                            .GetRepository<SubjectEntity, SubjectEntityMapper>()
+                            .Get()
+                            .OrderByDescending(entity => entity.Name)
+                            .ToListAsync(),
+            "byName" => await uow
+                            .GetRepository<SubjectEntity, SubjectEntityMapper>()
+                            .Get()
+                            .OrderBy(entity => entity.Name)
+                            .ToListAsync(),
+            _ => null!,
+        };
+        return ModelMapper.MapToListModel(entities);
+    }
 
 
 }

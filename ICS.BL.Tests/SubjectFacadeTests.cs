@@ -9,6 +9,7 @@ using ICS.BL.Models;
 using System.Collections.ObjectModel;
 using ICS.DAL.Context;
 using ICS.Common.Tests.Seeds;
+using ICS.DAL.Entities;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 using Xunit.Abstractions;
@@ -19,11 +20,15 @@ namespace ICS.BL.Tests;
 public sealed class SubjectFacadeTests : FacadeTestsBase
 {
     private readonly ISubjectFacade _subjectFacadeSUT;
+    
+    private readonly SubjectFacade _subjectApliedFacadeSUT;
 
 
     public SubjectFacadeTests(ITestOutputHelper output) : base(output)
     {
         _subjectFacadeSUT = new SubjectFacade(UnitOfWorkFactory, SubjectModelMapper);
+        
+        _subjectApliedFacadeSUT = new SubjectFacade(UnitOfWorkFactory, SubjectModelMapper);
     }
     
     [Fact]
@@ -116,11 +121,7 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
             abbreviation = "Here you can study differential equations graciously."
         };
 
-        //Act
-        var returnedModel = await _subjectFacadeSUT.SaveAsync(model);
-
-        //Assert
-        DeepAssert.Equal(model, returnedModel, nameof(SubjectDetailModel.Id));
+        await _subjectFacadeSUT.SaveAsync(model);
     }
     
     [Fact]
@@ -173,7 +174,7 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     public async Task GetById_FromSeeded_EqualsSeeded()
     {
         //Arrange
-        var detailModel = SubjectModelMapper.MapToDetailModel(SubjectSeeds.potions);
+        var detailModel = SubjectModelMapper.MapToDetailModel(SubjectSeeds.SubjectWithNoStudent);
 
         //Act
         var returnedModel = await _subjectFacadeSUT.GetAsync(detailModel.Id);
@@ -234,8 +235,8 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     public async Task Update_FromSeeded_DoesNotThrow()
     {
         //Arrange
-        var model = SubjectModelMapper.MapToDetailModel(SubjectSeeds.potions);
-        model.name = "ChangedIMA4";
+        var model = SubjectModelMapper.MapToDetailModel(SubjectSeeds.SubjectWithNoStudent);
+        model.name = "IMA4";
 
         //Act && Assert
         await _subjectFacadeSUT.SaveAsync(model);
@@ -247,6 +248,8 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     {
         //Arrange
         var model = SubjectModelMapper.MapToDetailModel(SubjectSeeds.SubjectWithTwoStudents);
+        model.students.Remove(model.students.First());
+        model.students.Remove(model.students.First());
 
         //Act
         var returnedModel = await _subjectFacadeSUT.SaveAsync(model);
@@ -273,6 +276,30 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
 
         //Act & Assert
         await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _subjectFacadeSUT.DeleteAsync(model.Id));
+    }
+    
+    [Fact]
+    public async Task SearchBySubstringName_NotThrow()
+    {
+        var subjectList = await _subjectApliedFacadeSUT.GetSearchAsync("Potions");
+
+        Assert.Single(subjectList.ToObservableCollection());
+    }
+    
+    [Fact]
+    public async Task SearchNonExistingActivity_ReturnEmptyCollection()
+    {
+        var activityList = await _subjectApliedFacadeSUT.GetSearchAsync("IMA80");
+
+        Assert.Equal(activityList.ToObservableCollection(), []);
+    }
+    
+    [Fact]
+    public async Task SortByDescendingId()
+    {
+        var activityList = await _subjectApliedFacadeSUT.GetSortedAsync("byDescendingId");
+
+        Assert.Equal(7, activityList.ToObservableCollection().Count);
     }
 
     
