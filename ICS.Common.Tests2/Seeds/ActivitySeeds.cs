@@ -73,7 +73,7 @@ namespace ICS.Common.Tests.Seeds
             Description = "Brewing a potion",
             SubjectId = SubjectSeeds.potions.Id,
             Subject = SubjectSeeds.potions,
-            Ratings = new List<RatingEntity> { RatingSeeds.Rating1, RatingSeeds.Rating2 }
+            Ratings = new List<RatingEntity> ()
         };
 
         public static readonly ActivityEntity ActivityUpdate = new ActivityEntity
@@ -110,7 +110,8 @@ namespace ICS.Common.Tests.Seeds
         {
             PotionsActivity.Ratings.Add(RatingSeeds.Rating1);
             PotionsActivity.Ratings.Add(RatingSeeds.Rating2);
-            ActivityWithOneRating.Ratings.Add(RatingSeeds.RatingUpdate);
+            ActivityWithTwoRatings.Ratings.Add(RatingSeeds.RatingUpdate);
+            ActivityWithTwoRatings.Ratings.Add(RatingSeeds.RatingUpdate);
         }
 
         public static void Seed(this ModelBuilder modelBuilder)

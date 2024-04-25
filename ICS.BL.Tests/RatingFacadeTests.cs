@@ -81,14 +81,14 @@ public sealed class RatingFacadeTests : FacadeTestsBase
         DeepAssert.Equal(RatingModelMapper.MapToDetailModel(RatingSeeds.Rating2), rating);
     }
 
-    //[Fact]
-    //public async Task GetById_NonExistent()
-    //{
-    //    //Act
-    //    var rating = await _ratingFacadeSUT.GetAsync(RatingSeeds.EmptyEntity.Id);
-    //    //Assert
-    //    Assert.Null(rating);
-    //}
+    [Fact]
+    public async Task GetById_NonExistent()
+    {
+        //Act
+        var rating = await _ratingFacadeSUT.GetAsync(RatingSeeds.EmptyEntity.Id);
+        //Assert
+        Assert.Null(rating);
+    }
 
 
     [Fact]

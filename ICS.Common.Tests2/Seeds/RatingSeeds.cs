@@ -7,16 +7,16 @@ namespace ICS.Common.Tests.Seeds
 {
     public static class RatingSeeds
     {
-        //public static readonly RatingEntity EmptyEntity = new RatingEntity
-        //{
-        //    Id = Guid.Empty,
-        //    Points = 0,
-        //    Note = string.Empty,
-        //    Activity = ActivitySeeds.EmptyActivity,
-        //    ActivityId = ActivitySeeds.EmptyActivity.Id,
-        //    Student = StudentSeeds.EmptyEntity,
-        //    StudentId = StudentSeeds.EmptyEntity.Id
-        //};
+        public static readonly RatingEntity EmptyEntity = new RatingEntity
+        {
+            Id = Guid.Empty,
+            Points = 0,
+            Note = string.Empty,
+            Activity = ActivitySeeds.EmptyActivity,
+            ActivityId = ActivitySeeds.EmptyActivity.Id,
+            Student = StudentSeeds.EmptyEntity,
+            StudentId = StudentSeeds.EmptyEntity.Id
+        };
 
         public static readonly RatingEntity Rating1 = new RatingEntity
         {
@@ -45,8 +45,8 @@ namespace ICS.Common.Tests.Seeds
             Id = Guid.Parse("f3a3e3a3-7b1a-48c1-9796-d2bac7f67868"),
             Points = 5,
             Note = "Good",
-            Activity = ActivitySeeds.ActivityWithOneRating,
-            ActivityId = ActivitySeeds.ActivityWithOneRating.Id,
+            Activity = ActivitySeeds.ActivityWithTwoRatings,
+            ActivityId = ActivitySeeds.ActivityWithTwoRatings.Id,
             Student = StudentSeeds.Hermione,
             StudentId = StudentSeeds.Hermione.Id
         };
@@ -56,8 +56,8 @@ namespace ICS.Common.Tests.Seeds
             Id = Guid.Parse("A2E6849D-A158-4436-980C-7FC26B60C674"),
             Points = 5,
             Note = "Good",
-            Activity = ActivitySeeds.PotionsActivity,
-            ActivityId = ActivitySeeds.PotionsActivity.Id,
+            Activity = ActivitySeeds.ActivityWithTwoRatings,
+            ActivityId = ActivitySeeds.ActivityWithTwoRatings.Id,
             Student = StudentSeeds.Hermione,
             StudentId = StudentSeeds.Hermione.Id
         };

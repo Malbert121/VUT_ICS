@@ -227,7 +227,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     {
         //Arrange
         var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.PotionsActivity);
-        //detailModel.ratings.Remove(detailModel.ratings.First());
+        detailModel.ratings.Remove(detailModel.ratings.First());
 
         //Act
         await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _activityFacadeSUT.SaveAsync(detailModel));
