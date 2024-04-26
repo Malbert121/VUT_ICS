@@ -28,7 +28,7 @@ public class StudentFacade(
         List<StudentEntity> entities = await uow
             .GetRepository<StudentEntity, StudentEntityMapper>()
             .Get()
-            .Where(e => e.LastName.Contains(search))
+            .Where(e => (e.FirstName + " " + e.LastName).Contains(search))
             .ToListAsync();
 
         return ModelMapper.MapToListModel(entities);

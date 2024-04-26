@@ -266,7 +266,7 @@ public sealed class StudentFacadeTests : FacadeTestsBase
     [Fact]
     public async Task Search_BySubstringLastName_DoesNotThrow()
     {
-         var studentList = await _studentApliedFacadeSUT.GetSearchAsync("Potter");
+         var studentList = await _studentApliedFacadeSUT.GetSearchAsync("Harry Potter");
          Assert.NotNull(studentList);
     }
 
@@ -280,7 +280,7 @@ public sealed class StudentFacadeTests : FacadeTestsBase
     [Fact]
     public async Task Search_BySubstringFirstName_OneResult()
     {
-        var studentList = await _studentApliedFacadeSUT.GetSearchAsync("Malfoy");
+        var studentList = await _studentApliedFacadeSUT.GetSearchAsync("Draco Malfoy");
         Assert.Single(studentList.ToObservableCollection());
     }
 
