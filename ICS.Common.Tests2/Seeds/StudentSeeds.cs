@@ -54,8 +54,8 @@ namespace ICS.Common.Tests.Seeds
         public static readonly StudentEntity StudentUpdate = new StudentEntity
         {
             Id = Guid.Parse("F3A3E3A3-7B1A-48C1-9796-D2BAC7F67868"),
-            FirstName = "Harry",
-            LastName = "Potter",
+            FirstName = "Draco",
+            LastName = "Malfoy",
             PhotoUrl = "http://www.example.com/index.html",
             Subjects = new List<SubjectEntity>()
         };
