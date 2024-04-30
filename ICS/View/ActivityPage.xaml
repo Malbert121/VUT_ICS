@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ICS.ActivityPage">
+
+    <StackLayout HorizontalOptions="FillAndExpand">
+        <CollectionView ItemsSource="{Binding YourItemsCollection}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <!-- Define how each item should look -->
+                    <StackLayout Padding="10">
+                        <Label Text="{Binding Name}" FontSize="16" />
+                        <!-- You can add more elements here depending on the data you're showing -->
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <StackLayout HorizontalOptions="EndAndExpand"
+                     VerticalOptions="EndAndExpand"
+                     Margin="30"
+                     Spacing="10"
+                     Grid.Column="1">
+            
+            <Button Text="Edit Activity"/>
+            <Button Text="Add Assignment"/>
+        </StackLayout>
+
+    </StackLayout>
+    
+
+</ContentPage>
