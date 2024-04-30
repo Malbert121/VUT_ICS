@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'windows10.0.19041.0'
 
 variables:
   solution: '**/*.sln'
