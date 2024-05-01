@@ -3,7 +3,7 @@ using ICS.DAL;
 using ICS.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace ICS.BL.Tests;
+namespace ICS.BL.Tests.TestingOptions;
 
 public class SchoolTestingContext(DbContextOptions contextOptions, bool seedTestingData = false)
     : SchoolContext(contextOptions, seedDemoData: false)

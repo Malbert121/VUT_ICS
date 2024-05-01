@@ -1,7 +1,7 @@
 ﻿using KellermanSoftware.CompareNetObjects;
 using Xunit.Sdk;
 
-namespace ICS.BL.Tests;
+namespace ICS.BL.Tests.TestingOptions;
 
 public static class DeepAssert
 {
@@ -22,7 +22,7 @@ public static class DeepAssert
         ComparisonResult comparisonResult = compareLogic.Compare(expected!, actual!);
         if (!comparisonResult.AreEqual)
         {
-           throw EqualException.ForMismatchedValues(expected, actual, comparisonResult.DifferencesString);
+            throw EqualException.ForMismatchedValues(expected, actual, comparisonResult.DifferencesString);
         }
     }
 

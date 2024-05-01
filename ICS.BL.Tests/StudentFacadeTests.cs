@@ -12,6 +12,7 @@ using ICS.Common.Tests.Seeds;
 using ICS.DAL.Context;
 using Microsoft.EntityFrameworkCore.Storage;
 using ICS.DAL.Entities;
+using ICS.BL.Tests.TestingOptions;
 
 namespace ICS.BL.Tests;
 
