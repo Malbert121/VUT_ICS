@@ -85,8 +85,14 @@
 		<Compile Update="View\Activity\ActivityPage.xaml.cs">
 			<DependentUpon>ActivityPage.xaml</DependentUpon>
 		</Compile>
-		<Compile Update="View\AddNewStudent.xaml.cs">
-			<DependentUpon>AddNewStudent.xaml</DependentUpon>
+		<Compile Update="View\StudentAddNew.xaml.cs">
+			<DependentUpon>StudentAddNew.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="View\StudentEditProfile.xaml.cs">
+			<DependentUpon>StudentEditProfile.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="View\StudentListView.xaml.cs">
+			<DependentUpon>StudentListView.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="View\ContentPageBase.xaml.cs">
 			<DependentUpon>ContentPageBase.xaml</DependentUpon>
@@ -97,18 +103,24 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<MauiXaml Update="View\AddNewStudent.xaml">
+		<MauiXaml Update="View\StudentAddNew.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-			<MauiXaml Update="View\Activity\ActivityPage.xaml">
-				<Generator>MSBuild:Compile</Generator>
-			</MauiXaml>
-			<MauiXaml Update="View\ContentPageBase.xaml">
-				<Generator>MSBuild:Compile</Generator>
-			</MauiXaml>
-			<MauiXaml Update="View\Rating\RatingListView.xaml">
-				<Generator>MSBuild:Compile</Generator>
-			</MauiXaml>
-		</ItemGroup>
+		<MauiXaml Update="View\StudentEditProfile.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\StudentListView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\Activity\ActivityPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\ContentPageBase.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\Rating\RatingListView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
 
 </Project>
