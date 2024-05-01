@@ -17,7 +17,7 @@ namespace ICS
         private async void ExecuteAddStudentCommand()
         {
             // Implement the logic to navigate to the StudentView
-            await Shell.Current.Navigation.PushAsync(new AddNewStudent());
+            await Shell.Current.Navigation.PushAsync(new StudentAddNew());
         }
     }
 }
