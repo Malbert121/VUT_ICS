@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ICS.RatingListView"
+             x:DataType="vm:RatingListViewModel"
+             xmlns:m="clr-namespace:ICS.BL.Models;assembly=ICS.BL"
+             xmlns:views="clr-namespace:ICS"
+             xmlns:vm="clr-namespace:ICS.ViewModel.Rating"
+             x:Name="RatingListViewRoot">
+    <VerticalStackLayout>
+        <Label 
+            Text="Ratings."
+            VerticalOptions="Center" 
+            FontSize="24"
+            HorizontalOptions="Center" />
+        <Button Text="Edit" Command="{Binding GoToCreateCommand}" />
+        <CollectionView ItemsSource="{Binding Ratings}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate 
+                    x:DataType="m:RatingListModel">
+                    <Grid Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="{Binding studentId}" />
+                        <Label Grid.Column="1" Text="{Binding points}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</views:ContentPageBase>
