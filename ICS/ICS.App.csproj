@@ -85,6 +85,18 @@
 	  <Compile Update="View\Activity\ActivityPage.xaml.cs">
 	    <DependentUpon>ActivityPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="View\RatingListView.xaml.cs">
+	    <DependentUpon>RatingListView.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="View\ContentPageBase.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\RatingListView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
