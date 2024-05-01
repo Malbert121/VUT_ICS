@@ -28,6 +28,7 @@
                         </Grid.ColumnDefinitions>
                         <Label Grid.Column="0" Text="{Binding studentId}" />
                         <Label Grid.Column="1" Text="{Binding points}" />
+                        <Button Grid.Column="2" Text="Detail" Command="{Binding BindingContext.GoToDetailCommand, Source={x:Reference RatingListViewRoot}}" CommandParameter="{Binding Id}" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
