@@ -1,9 +1,11 @@
-﻿namespace ICS
+﻿using ICS.ViewModel.Activity;
+
+namespace ICS
 {
-    public partial class ActivityPage : ContentPage
+    public partial class ActivityPage
     {
 
-        public ActivityPage()
+        public ActivityPage(ActivityListViewModel viewModel) : base(viewModel) 
         {
             InitializeComponent();
         }
