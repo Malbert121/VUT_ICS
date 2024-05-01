@@ -7,9 +7,17 @@
     Shell.FlyoutBehavior="Disabled"
     Title="ICS">
 
+
     <ShellContent
         Title="THIS IS OUR PROJECT"
         ContentTemplate="{DataTemplate local:ActivityPage}"
         Route="MainPage" />
+
+    <Shell.ToolbarItems>
+        <ToolbarItem
+            IconImageSource="add.png"
+            Text="Add Student"
+            Command="{Binding AddStudentCommand}" />
+    </Shell.ToolbarItems>
 
 </Shell>

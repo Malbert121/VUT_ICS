@@ -57,6 +57,7 @@
 			<PrivateAssets>all</PrivateAssets>
 		</PackageReference>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.2" />
+		<PackageReference Include="PropertyChanged.Fody" PrivateAssets="All" Version="4.1.0" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -80,6 +81,15 @@
 	  <Compile Update="View\ActivityPage.xaml.cs">
 	    <DependentUpon>ActivityPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="View\AddNewStudent.xaml.cs">
+	    <DependentUpon>AddNewStudent.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="View\AddNewStudent.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
