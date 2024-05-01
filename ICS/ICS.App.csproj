@@ -85,22 +85,22 @@
 	  <Compile Update="View\Activity\ActivityPage.xaml.cs">
 	    <DependentUpon>ActivityPage.xaml</DependentUpon>
 	  </Compile>
-	  <Compile Update="View\RatingListView.xaml.cs">
+	  <Compile Update="View\Rating\RatingListView.xaml.cs">
 	    <DependentUpon>RatingListView.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="View\ContentPageBase.xaml.cs">
+	    <DependentUpon>ContentPageBase.xaml</DependentUpon>
 	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="View\Activity\ActivityPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="View\ContentPageBase.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\RatingListView.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <MauiXaml Update="View\ContentBasePage.xaml">
+	  <MauiXaml Update="View\Rating\RatingListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
