@@ -9,7 +9,7 @@
 
     <ShellContent
         Title="THIS IS OUR PROJECT"
-        ContentTemplate="{DataTemplate local:ActivityPage}"
+        ContentTemplate="{DataTemplate local:App}"
         Route="MainPage" />
 
 </Shell>

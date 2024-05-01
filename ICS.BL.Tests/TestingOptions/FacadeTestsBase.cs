@@ -1,5 +1,4 @@
 using ICS.DAL;
-using ICS.BL;
 using Xunit;
 using System.Threading.Tasks;
 using System;
@@ -9,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using ICS.DAL.UnitOfWork;
 using ICS.DAL.Context;
 
-namespace ICS.BL.Tests;
+namespace ICS.BL.Tests.TestingOptions;
 
 public class FacadeTestsBase : IAsyncLifetime
 {

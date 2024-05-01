@@ -1,6 +1,5 @@
 ﻿using ICS.Services;
 using ICS.Messages;
-using ICS.ViewModel;
 using ICS.BL.Models;
 using ICS.BL.Facade.Interface;
 using CommunityToolkit.Mvvm.Input;
@@ -49,7 +48,7 @@ public partial class ActivityDetailViewModel(
     private async Task GoToEditAsync()
     {
         await navigationService.GoToAsync("/edit",
-            new Dictionary<string, object?> { [nameof(IngredientEditViewModel.Activity)] = Activity });
+            new Dictionary<string, object?> { [nameof(ActivityEditViewModel.Activity)] = Activity });
     }
 
     public async void Receive(ActivityEditMessage message)

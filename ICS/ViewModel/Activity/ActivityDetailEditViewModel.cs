@@ -8,8 +8,8 @@ using ICS.BL.Facade.Interface;
 namespace ICS.ViewModel.Activity;
 
 [QueryProperty(nameof(Activity), nameof(Activity))]
-public partial class IngredientEditViewModel(
-    IActivityFacade ingredientFacade,
+public partial class ActivityEditViewModel(
+    IActivityFacade activityFacade,
     INavigationService navigationService,
     IMessengerService messengerService)
     : ViewModelBase(messengerService)
@@ -19,7 +19,7 @@ public partial class IngredientEditViewModel(
     [RelayCommand]
     private async Task SaveAsync()
     {
-        await ingredientFacade.SaveAsync(Activity);
+        await activityFacade.SaveAsync(Activity);
 
         MessengerService.Send(new ActivityEditMessage { ActivityId = Activity.Id });
 

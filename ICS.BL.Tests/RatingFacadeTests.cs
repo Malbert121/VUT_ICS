@@ -14,6 +14,7 @@ using ICS.DAL.Entities;
 using ICS.DAL.Mappers;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
+using ICS.BL.Tests.TestingOptions;
 
 namespace ICS.BL.Tests;
 
@@ -141,7 +142,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase
 
     
     [Fact]
-    public async Task SeededRating2_Update_IngredientUpdated()
+    public async Task SeededRating2_Update_RatingUpdated()
     {
         //Arrange
         var rating = new RatingDetailModel()

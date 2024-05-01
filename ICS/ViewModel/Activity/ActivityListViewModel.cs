@@ -1,6 +1,5 @@
 ﻿using ICS.Services;
 using ICS.Messages;
-using ICS.ViewModel.Activity;
 using ICS.BL.Models;
 using ICS.BL.Facade.Interface;
 using CommunityToolkit.Mvvm.Input;
