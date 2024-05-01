@@ -1,45 +1,46 @@
 ﻿using ICS.Services;
-using ICS.Messages;
+using ICS.Messages.SubjectMessages;
+using ICS.ViewModel;
 using ICS.BL.Models;
 using ICS.BL.Facade.Interface;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
 
-namespace ICS.ViewModel.Activity;
+namespace ICS.ViewModel.Subject;
 
 [QueryProperty(nameof(Id), nameof(Id))]
-public partial class ActivityDetailViewModel(
-    IActivityFacade activityFacade,
+public partial class SubjectDetailViewModel(
+    ISubjectFacade subjectFacade,
     INavigationService navigationService,
     IMessengerService messengerService,
     IAlertService alertService)
-    : ViewModelBase(messengerService), IRecipient<ActivityEditMessage>
+    : ViewModelBase(messengerService), IRecipient<SubjectEditMessage>
 {
     public Guid Id { get; set; }
-    public ActivityDetailModel? Activity { get; private set; }
+    public SubjectDetailModel? Subject { get; private set; }
 
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
 
-        Activity = await activityFacade.GetAsync(Id);
+        Subject = await subjectFacade.GetAsync(Id);
     }
 
     [RelayCommand]
     private async Task DeleteAsync()
     {
-        if (Activity is not null)
+        if (Subject is not null)
         {
             try
             {
-                await activityFacade.DeleteAsync(Activity.Id);
-                MessengerService.Send(new ActivityDeleteMessage());
+                await subjectFacade.DeleteAsync(Subject.Id);
+                MessengerService.Send(new SubjectDeleteMessage());
                 navigationService.SendBackButtonPressed();
             }
             catch (InvalidOperationException)
             {
-                await alertService.DisplayAsync("PlaceHolder", "PlaceHoder");
+                await alertService.DisplayAsync("ERROR", "ERROR");
             }
         }
     }
@@ -48,15 +49,14 @@ public partial class ActivityDetailViewModel(
     private async Task GoToEditAsync()
     {
         await navigationService.GoToAsync("/edit",
-            new Dictionary<string, object?> { [nameof(ActivityEditViewModel.Activity)] = Activity });
+            new Dictionary<string, object?> { [nameof(SubjectEditViewModel.Subject)] = Subject });
     }
 
-    public async void Receive(ActivityEditMessage message)
+    public async void Receive(SubjectEditMessage message)
     {
-        if (message.ActivityId == Activity?.Id)
+        if (message.SubjectId == Subject?.Id)
         {
             await LoadDataAsync();
         }
     }
 }
-

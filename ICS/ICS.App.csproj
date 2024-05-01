@@ -47,6 +47,10 @@
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="CompareNETObjects" Version="4.83.0" />
+		<PackageReference Include="Fody" Version="6.8.0">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.7" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.7" />
@@ -70,24 +74,34 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Remove="View\ContentPageBase.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <None Include="C:\Users\gdvma\Desktop\review 2\ics-2024-xpopov10\ICS\.editorconfig" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Services\Interfaces\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="View\ActivityPage.xaml.cs">
+	  <Compile Update="View\Activity\ActivityPage.xaml.cs">
 	    <DependentUpon>ActivityPage.xaml</DependentUpon>
 	  </Compile>
 	  <Compile Update="View\AddNewStudent.xaml.cs">
 	    <DependentUpon>AddNewStudent.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="View\ContentPageBase.xaml.cs">
+	    <DependentUpon>ContentPageBase.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <MauiXaml Update="View\AddNewStudent.xaml">
+	  <MauiXaml Update="View\Activity\ActivityPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ContentPageBase.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\Rating\RatingListView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
