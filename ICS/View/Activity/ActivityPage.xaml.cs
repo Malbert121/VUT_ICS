@@ -1,15 +1,13 @@
 ﻿using ICS.ViewModel.Activity;
 
-namespace ICS
+namespace ICS.View.Activity;
+
+public partial class ActivityPage
 {
-    public partial class ActivityPage
+
+    public ActivityPage(ActivityListViewModel viewModel) : base(viewModel) 
     {
-
-        public ActivityPage(ActivityListViewModel viewModel) : base(viewModel) 
-        {
-            InitializeComponent();
-        }
-
+        InitializeComponent();
     }
 
 }

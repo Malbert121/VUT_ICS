@@ -3,6 +3,9 @@
     x:Class="ICS.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:a="clr-namespace:ICS.View.Activity"
+    xmlns:r="clr-namespace:ICS.View.Rating"
+    x:Name="AppShellRoot"
     xmlns:local="clr-namespace:ICS"
     Shell.FlyoutBehavior="Disabled"
     Title="ICS">
@@ -10,7 +13,7 @@
 
     <ShellContent
         Title="THIS IS OUR PROJECT"
-        ContentTemplate="{DataTemplate local:App}"
+        ContentTemplate="{DataTemplate a:ActivityPage}"
         Route="MainPage" />
 
     <Shell.ToolbarItems>

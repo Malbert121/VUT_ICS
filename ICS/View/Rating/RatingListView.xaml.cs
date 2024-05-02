@@ -1,6 +1,6 @@
 using ICS.ViewModel.Rating;
 
-namespace ICS;
+namespace ICS.View.Rating;
 
 public partial class RatingListView
 {
