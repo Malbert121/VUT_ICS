@@ -9,7 +9,7 @@ using ICS.Messages;
 using ICS.Services;
 using ICS.BL.Models;
 using ICS.BL.Facade.Interface;
-using ICS.ViewModel;
+using ICS.ViewModel.Activity;
 
 
 namespace ICS.ViewModel.Rating
@@ -39,8 +39,8 @@ namespace ICS.ViewModel.Rating
         [RelayCommand]
         private async Task GoToDetailAsync(Guid id)
         {
-            //await navigationService.GoToAsync<RatingDetailViewModel>(
-            //  new Dictionary<string, object?> { [nameof(RatingDetailViewModel.Id)] = id });
+            //await navigationService.GoToAsync<ActivityDetailViewModel>(
+            //  new Dictionary<string, object?> { [nameof(ActivityDetailViewModel.Id)] = id });
         }
 
         public async void Receive(RatingEditMessage message)

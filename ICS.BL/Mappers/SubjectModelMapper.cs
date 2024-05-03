@@ -4,7 +4,7 @@ using ICS.DAL.Entities;
 
 namespace ICS.BL.Mappers;
 
-public class SubjectModelMapper (ActivityModelMapper? activityModelMapper, StudentModelMapper? studentModelMapper) : ModelMapperBase<SubjectEntity, SubjectListModel, SubjectDetailModel>, ISubjectModelMapper
+public class SubjectModelMapper (ActivityModelMapper activityModelMapper) : ModelMapperBase<SubjectEntity, SubjectListModel, SubjectDetailModel>, ISubjectModelMapper
 {
     public override SubjectListModel MapToListModel(SubjectEntity? entity)
          => entity is null
@@ -25,7 +25,6 @@ public class SubjectModelMapper (ActivityModelMapper? activityModelMapper, Stude
             name = entity.Name,
             abbreviation = entity.Abbreviation,
             activity = activityModelMapper!.MapToListModel(entity.Activity).ToObservableCollection(),
-            students = studentModelMapper!.MapToListModel(entity.Students).ToObservableCollection()
         };
 
     public override SubjectEntity MapDetailModelToEntity(SubjectDetailModel model)
@@ -38,14 +37,5 @@ public class SubjectModelMapper (ActivityModelMapper? activityModelMapper, Stude
         };
     }
 
-    public override SubjectEntity MapListModelToEntity(SubjectListModel? model)
-    {
-        return new SubjectEntity
-        {
-            Id = model!.Id,
-            Name = model.name,
-            Abbreviation = model.abbreviation,
-        };
-    }
 
 }

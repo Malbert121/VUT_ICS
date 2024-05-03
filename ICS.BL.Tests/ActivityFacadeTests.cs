@@ -42,7 +42,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
             room = "room",
             activityTypeTag = "Tag",
             subjectId = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f333"),
-            subject = new SubjectListModel()
+            subject = new SubjectDetailModel()
             {
                 Id = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f333"),
                 abbreviation = "IDS",
@@ -99,7 +99,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
             activityTypeTag = "POT",
             description = "Brewing a potion",
             subjectId = Guid.Empty,
-            subject = SubjectModelMapper.MapToListModel(SubjectSeeds.potions),
+            subject = SubjectModelMapper.MapToDetailModel(SubjectSeeds.potions),
             ratings =
             [
                 new RatingListModel
@@ -131,7 +131,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
             room = "room",
             activityTypeTag = "Tag",
             subjectId = Guid.Empty,
-            subject = new SubjectListModel()
+            subject = new SubjectDetailModel()
             {
                 Id = Guid.Empty,
                 abbreviation = "IDS",

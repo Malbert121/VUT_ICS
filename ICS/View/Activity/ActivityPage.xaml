@@ -3,20 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ICS.View.Activity.ActivityPage"
              xmlns:views="clr-namespace:ICS.View"
+             xmlns:m="clr-namespace:ICS.BL.Models;assembly=ICS.BL"
+             xmlns:vm="clr-namespace:ICS.ViewModel.Activity"
+             x:DataType="vm:ActivityListViewModel"
              >
 
     <StackLayout HorizontalOptions="FillAndExpand">
-        <CollectionView ItemsSource="{Binding YourItemsCollection}">
+        <!--<CollectionView ItemsSource="{Binding YourItemsCollection}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <!-- Define how each item should look -->
+                    --><!-- Define how each item should look --><!--
                     <StackLayout Padding="10">
                         <Label Text="{Binding Name}" FontSize="16" />
-                        <!-- You can add more elements here depending on the data you're showing -->
+                        --><!-- You can add more elements here depending on the data you're showing --><!--
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-        </CollectionView>
+        </CollectionView>-->
 
         <StackLayout HorizontalOptions="EndAndExpand"
                      VerticalOptions="EndAndExpand"
