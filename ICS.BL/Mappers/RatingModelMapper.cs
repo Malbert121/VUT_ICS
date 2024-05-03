@@ -24,8 +24,8 @@ public class RatingModelMapper() : ModelMapperBase<RatingEntity, RatingListModel
             Id = entity.Id,
             points = entity.Points,
             note = entity.Note,
-            studentId = entity.StudentId
-            
+            studentId = entity.StudentId,
+            activityId = entity.ActivityId
         };
 
     public override RatingEntity MapDetailModelToEntity(RatingDetailModel model)
@@ -35,7 +35,8 @@ public class RatingModelMapper() : ModelMapperBase<RatingEntity, RatingListModel
             Id = model.Id,
             Points = model.points,
             Note = model.note,
-            StudentId = model.studentId
+            StudentId = model.studentId,
+            ActivityId = model.activityId
         };
     }
 }

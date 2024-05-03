@@ -72,7 +72,10 @@ namespace ICS.Common.Tests.Seeds
         static StudentSeeds()
         {
             Harry.Subjects.Add(SubjectSeeds.potions);
+            Harry.Subjects.Add(SubjectSeeds.SubjectWithTwoStudents);
             Hermione.Subjects.Add(SubjectSeeds.potions);
+            Hermione.Subjects.Add(SubjectSeeds.SubjectWithTwoStudents);
+
         }
 
         public static void Seed(this ModelBuilder modelBuilder)

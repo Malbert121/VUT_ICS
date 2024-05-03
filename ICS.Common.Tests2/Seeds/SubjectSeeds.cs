@@ -43,8 +43,7 @@ namespace ICS.Common.Tests.Seeds
         {
             Id = Guid.Parse("F78ED923-E094-4016-9045-3F5BB7F2EB88"),
             Name = "SubjectWithTwoStudents",
-            Abbreviation = "SWTS",
-            Students = new List<StudentEntity> { StudentSeeds.Harry, StudentSeeds.Hermione }
+            Abbreviation = "SWTS"
         };
 
         public static readonly SubjectEntity SubjectUpdate = new SubjectEntity
@@ -72,6 +71,9 @@ namespace ICS.Common.Tests.Seeds
             potions.Activity.Add(ActivitySeeds.ActivityWithTwoRatings);
             potions.Activity.Add(ActivitySeeds.ActivityUpdate);
             potions.Activity.Add(ActivitySeeds.ActivityDelete);
+            SubjectWithTwoStudents.Students.Add(StudentSeeds.Harry);
+            SubjectWithTwoStudents.Students.Add(StudentSeeds.Hermione);
+
 
         }
 

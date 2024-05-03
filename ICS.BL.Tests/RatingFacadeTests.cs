@@ -37,10 +37,11 @@ public sealed class RatingFacadeTests : FacadeTestsBase
         //Arrange   
         var model = new RatingDetailModel()
         {
-            Id = Guid.Empty,
+            Id = Guid.Parse("5ef12a97-24de-4df2-8c33-bef54679f333"),
             points = 20,
             note = "note",
-            studentId = Guid.Parse("5ef12a97-24de-4df2-8c33-bef54679f333"),
+            studentId = Guid.Parse("d9963767-91a2-4b3f-81f7-dc5d0aaecf7d"),
+            activityId = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f485")
         };
         //Act & Assert
         var _ = await _ratingFacadeSUT.SaveAsync(model);
@@ -94,10 +95,11 @@ public sealed class RatingFacadeTests : FacadeTestsBase
         //Arrange
         var rating = new RatingDetailModel()
         {
-            Id = Guid.Empty,
+            Id = Guid.Parse("d9963767-91a2-4b3f-81f7-dc5d0aae4f7d"),
             points = 20,
             note = "note",
-            studentId = Guid.Parse("5ef12a97-24de-4df2-8c33-bef54679f333"),
+            studentId = Guid.Parse("d9963767-91a2-4b3f-81f7-dc5d0aaecf7d"),
+            activityId = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f485"),
         };
 
         //Act
@@ -113,13 +115,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase
     public async Task SeededRating2_Update_RatingUpdated()
     {
         //Arrange
-        var rating = new RatingDetailModel()
-        {
-            Id = RatingSeeds.Rating1.Id,
-            points = RatingSeeds.Rating1.Points,
-            note = RatingSeeds.Rating1.Note,
-            studentId = RatingSeeds.Rating1.StudentId
-        };
+        var rating = RatingModelMapper.MapToDetailModel(RatingSeeds.Rating1);
         rating.points = 20;
         rating.note += "Your evaluation was updated.";
 
