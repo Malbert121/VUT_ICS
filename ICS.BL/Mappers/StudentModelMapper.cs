@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace ICS.BL.Mappers;
 
-public class StudentModelMapper(SubjectModelMapper? subjectModelMapper) : ModelMapperBase<StudentEntity, StudentListModel, StudentDetailModel>, IStudentModelMapper
+public class StudentModelMapper(SubjectModelMapper subjectModelMapper) : ModelMapperBase<StudentEntity, StudentListModel, StudentDetailModel>, IStudentModelMapper
 {
     public override StudentListModel MapToListModel(StudentEntity? entity)
          => entity is null
@@ -54,16 +54,6 @@ public class StudentModelMapper(SubjectModelMapper? subjectModelMapper) : ModelM
             FirstName = model.firstName,
             LastName = model.lastName,
             PhotoUrl = model.photoURL
-        };
-    }
-
-    public override StudentEntity MapListModelToEntity(StudentListModel model)
-    {
-        return new StudentEntity
-        {
-            Id = model.Id,
-            FirstName = model.firstName,
-            LastName = model.lastName
         };
     }
 

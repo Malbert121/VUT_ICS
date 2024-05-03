@@ -1,12 +1,11 @@
 using ICS.ViewModel.Rating;
 
-namespace ICS;
+namespace ICS.View.Rating;
 
 public partial class RatingListView
 {
-     public RatingListView(RatingListViewModel viewModel)
-     : base(viewModel)
-     {
-         InitializeComponent();
-     }
+    public RatingListView()
+    {
+        InitializeComponent();
+    }
 }

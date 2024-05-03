@@ -12,7 +12,6 @@ public record ActivityDetailModel : ModelBase
     public string activityTypeTag { get; set; } = string.Empty;
     public string description { get; set; } = string.Empty;
     public Guid subjectId { get; set; }
-    public SubjectListModel? subject { get; set; } = new SubjectListModel();
     public ObservableCollection<RatingListModel> ratings { get; set; } = new ();
     public static ActivityDetailModel Empty => new()
     {
@@ -23,7 +22,6 @@ public record ActivityDetailModel : ModelBase
         room = string.Empty,
         activityTypeTag = string.Empty,
         subjectId = Guid.Empty,
-        description = string.Empty,
-        subject = new()
+        description = string.Empty
     };
 }        

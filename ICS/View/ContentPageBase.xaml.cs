@@ -1,5 +1,5 @@
 using ICS.ViewModel;
-namespace ICS;
+namespace ICS.View;
 
 public partial class ContentPageBase
 {

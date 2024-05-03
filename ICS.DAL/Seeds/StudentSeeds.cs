@@ -4,14 +4,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ICS.DAL.Seeds
 {
-    public static class StudentSeedExtensions
-    {
-        public static void Seed(this ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<StudentEntity>().HasData(StudentSeeds.student1, StudentSeeds.student2);
-        }
-    }
-
 
     public static class StudentSeeds
     {
@@ -20,7 +12,8 @@ namespace ICS.DAL.Seeds
             Id = Guid.Parse("d9963767-91a2-4b3f-81f7-dc5d0aaecf7d"),
             FirstName = "Harry",
             LastName = "Potter",
-            PhotoUrl = "http://www.example.com/index.html"
+            PhotoUrl = "http://www.example.com/index.html",
+            Subjects = new List<SubjectEntity>()
         };
 
 
@@ -29,7 +22,8 @@ namespace ICS.DAL.Seeds
             Id = Guid.Parse("f6b5fcf8-1a45-4135-b826-f6d4f14703cf"),
             FirstName = "Hermione",
             LastName = "Granger",
-            PhotoUrl = "http://www.example.com/index.html"
+            PhotoUrl = "http://www.example.com/index.html",
+            Subjects = new List<SubjectEntity>()
         };
 
         static StudentSeeds()
@@ -38,9 +32,12 @@ namespace ICS.DAL.Seeds
             student2.Subjects.Add(SubjectSeeds.potions);
         }
 
-        public static void Seed(ModelBuilder modelBuilder)
+        public static void Seed(this ModelBuilder modelBuilder)
         {
-            StudentSeedExtensions.Seed(modelBuilder);
+            modelBuilder.Entity<StudentEntity>()
+                .HasData(
+                StudentSeeds.student1 with { Subjects = Array.Empty<SubjectEntity>() },
+                StudentSeeds.student2 with { Subjects = Array.Empty<SubjectEntity>() });
         }
     }
 }

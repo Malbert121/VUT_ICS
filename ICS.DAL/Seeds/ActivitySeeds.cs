@@ -4,15 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ICS.DAL.Seeds
 {
-    public static class ActivitySeedExtensions
-    {
-        public static void Seed(this ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<ActivityEntity>().HasData(ActivitySeeds.potionActivity);
-        }
-    }
 
-    public class ActivitySeeds
+    public static class ActivitySeeds
     {
         public static ActivityEntity potionActivity = new ActivityEntity
         {
@@ -24,7 +17,8 @@ namespace ICS.DAL.Seeds
             ActivityTypeTag = "POT",
             Description = "Brewing a potion",
             Subject = SubjectSeeds.potions,
-            SubjectId = SubjectSeeds.potions.Id
+            SubjectId = SubjectSeeds.potions.Id,
+            Ratings = new List<RatingEntity>()
         };
 
         static ActivitySeeds()
@@ -33,9 +27,10 @@ namespace ICS.DAL.Seeds
             potionActivity.Ratings.Add(RatingSeeds.Rating2);
         }
 
-        public static void Seed(ModelBuilder modelBuilder)
+        public static void Seed(this ModelBuilder modelBuilder)
         {
-            ActivitySeedExtensions.Seed(modelBuilder);
+            modelBuilder.Entity<ActivityEntity>().HasData(
+                ActivitySeeds.potionActivity with { Subject = null!, Ratings = Array.Empty<RatingEntity>() });
         }
     }
 }

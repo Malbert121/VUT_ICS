@@ -1,6 +1,6 @@
 namespace ICS;
 
-public partial class StudentAddNew : ContentPage
+public partial class StudentAddNew
 {
 	public StudentAddNew()
 	{
