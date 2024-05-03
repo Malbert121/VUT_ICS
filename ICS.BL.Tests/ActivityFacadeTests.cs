@@ -21,13 +21,13 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
 {
     private readonly IActivityFacade _activityFacadeSUT;
 
-    private readonly ActivityFacade _activityApliedFacadeSUT;
+    private readonly ActivityFacade _activityAppliedFacadeSUT;
 
     public ActivityFacadeTests(ITestOutputHelper output) : base(output)
     {
         _activityFacadeSUT = new ActivityFacade(UnitOfWorkFactory, ActivityModelMapper);
 
-        _activityApliedFacadeSUT = new ActivityFacade(UnitOfWorkFactory, ActivityModelMapper);
+        _activityAppliedFacadeSUT = new ActivityFacade(UnitOfWorkFactory, ActivityModelMapper);
     }
 
     [Fact]
@@ -41,13 +41,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
             end = DateTime.MinValue,
             room = "room",
             activityTypeTag = "Tag",
-            subjectId = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f333"),
-            subject = new SubjectListModel()
-            {
-                Id = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f333"),
-                abbreviation = "IDS",
-                name = "Database systems"
-            },
+            subjectId = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56238"),
             description = "description",
         };
 
@@ -70,7 +64,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
             end = DateTime.MinValue,
             room = "room",
             activityTypeTag = "Tag",
-            subjectId = Guid.Empty,
+            subjectId = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56238"),
             description = "description",
             ratings = new ObservableCollection<RatingListModel>()
             {
@@ -91,15 +85,14 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     {
         var model = new ActivityDetailModel()
         {
-            Id = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f485"),
+            Id = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f486"),
             name = "Potions lecture",
             start = new DateTime(2021, 10, 10, 10, 0, 0),
             end = new DateTime(2021, 10, 10, 12, 0, 0),
             room = "A03",
             activityTypeTag = "POT",
             description = "Brewing a potion",
-            subjectId = Guid.Empty,
-            subject = SubjectModelMapper.MapToListModel(SubjectSeeds.potions),
+            subjectId = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56238"),
             ratings =
             [
                 new RatingListModel
@@ -130,13 +123,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
             end = DateTime.MinValue,
             room = "room",
             activityTypeTag = "Tag",
-            subjectId = Guid.Empty,
-            subject = new SubjectListModel()
-            {
-                Id = Guid.Empty,
-                abbreviation = "IDS",
-                name = "Database systems"
-            },
+            subjectId = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56238"),
             description = "description",
             ratings = new ObservableCollection<RatingListModel>()
         };
@@ -271,7 +258,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     [Fact]
     public async Task SearchBySubstringName_NotThrow()
     {
-        var activityList = await _activityApliedFacadeSUT.GetSearchAsync("Potions");
+        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Potions");
 
         Assert.Equal(4, activityList.ToObservableCollection().Count);
     }
@@ -279,14 +266,14 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     [Fact]
     public async Task SearchBySubstringNameOneResult_NotThrow()
     {
-        var activityList = await _activityApliedFacadeSUT.GetSearchAsync("Dark");
+        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Dark");
 
         Assert.Single(activityList.ToObservableCollection());
     }
     [Fact]
     public async Task SearchNonExistingActivity_ReturnEmptyCollection()
     {
-        var activityList = await _activityApliedFacadeSUT.GetSearchAsync("Super Puper Lecture");
+        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Super Puper Lecture");
 
         Assert.Equal(activityList.ToObservableCollection(), []);
     }
@@ -294,14 +281,14 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     [Fact]
     public async Task FilterByTime_OnlyStart()
     {
-        var activityList = await _activityApliedFacadeSUT.GetFilteredAsync(new DateTime(2021, 10, 11, 10, 0, 0));
+        var activityList = await _activityAppliedFacadeSUT.GetFilteredAsync(new DateTime(2021, 10, 11, 10, 0, 0));
 
         Assert.Equal(2, activityList.ToObservableCollection().Count);
     }
     [Fact]
     public async Task FilterByTime_StartAndEnd()
     {
-        var activityList = await _activityApliedFacadeSUT.GetFilteredAsync(new DateTime(2021, 10, 7, 10, 0, 0), new DateTime(2021, 10, 12, 10, 0, 0));
+        var activityList = await _activityAppliedFacadeSUT.GetFilteredAsync(new DateTime(2021, 10, 7, 10, 0, 0), new DateTime(2021, 10, 12, 10, 0, 0));
 
         Assert.Equal(3, activityList.ToObservableCollection().Count);
     }
@@ -309,7 +296,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     [Fact]
     public async Task SortByDescendingId()
     {
-        var activityList = await _activityApliedFacadeSUT.GetSortedAsync("byDescendingId");
+        var activityList = await _activityAppliedFacadeSUT.GetSortedAsync("byDescendingId");
         //TODO give normal assert
 
         Assert.Equal(6, activityList.ToObservableCollection().Count);

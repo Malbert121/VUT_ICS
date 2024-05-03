@@ -40,23 +40,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase
             Id = Guid.Empty,
             points = 20,
             note = "note",
-            activityId = Guid.Parse("34a98f97-30de-4df2-8c33-bef54679f333"),
             studentId = Guid.Parse("5ef12a97-24de-4df2-8c33-bef54679f333"),
-            activity = new ActivityListModel()
-            {
-                Id = Guid.Parse("34a98f97-30de-4df2-8c33-bef54679f333"),
-                name = "name",
-                start = DateTime.MinValue,
-                end = DateTime.MinValue,
-                room = "room",
-                subjectId = SubjectSeeds.SubjectWithTwoStudents.Id
-            },
-            student = new StudentListModel()
-            {
-                Id = Guid.Parse("5ef12a97-24de-4df2-8c33-bef54679f333"),
-                firstName = "John",
-                lastName = "Doe"
-            }
         };
         //Act & Assert
         var _ = await _ratingFacadeSUT.SaveAsync(model);
@@ -113,23 +97,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase
             Id = Guid.Empty,
             points = 20,
             note = "note",
-            activityId = Guid.Parse("34a98f97-30de-4df2-8c33-bef54679f333"),
             studentId = Guid.Parse("5ef12a97-24de-4df2-8c33-bef54679f333"),
-            activity = new ActivityListModel()
-            {
-                Id = Guid.Parse("34a98f97-30de-4df2-8c33-bef54679f333"),
-                name = "name",
-                start = DateTime.MinValue,
-                end = DateTime.MinValue,
-                room = "room",
-                subjectId = SubjectSeeds.SubjectWithTwoStudents.Id
-            },
-            student = new StudentListModel()
-            {
-                Id = Guid.Parse("5ef12a97-24de-4df2-8c33-bef54679f333"),
-                firstName = "John",
-                lastName = "Doe"
-            }
         };
 
         //Act
@@ -150,10 +118,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase
             Id = RatingSeeds.Rating1.Id,
             points = RatingSeeds.Rating1.Points,
             note = RatingSeeds.Rating1.Note,
-            activityId = RatingSeeds.Rating1.ActivityId,
-            studentId = RatingSeeds.Rating1.StudentId,
-            activity = ActivityModelMapper.MapToListModel(RatingSeeds.Rating1.Activity),
-            student = StudentModelMapper.MapToListModel(RatingSeeds.Rating1.Student)
+            studentId = RatingSeeds.Rating1.StudentId
         };
         rating.points = 20;
         rating.note += "Your evaluation was updated.";
