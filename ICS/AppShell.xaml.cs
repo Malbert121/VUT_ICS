@@ -1,4 +1,4 @@
-﻿using ICS.Views;
+﻿using ICS.View;
 using System;
 using System.Windows.Input;
 

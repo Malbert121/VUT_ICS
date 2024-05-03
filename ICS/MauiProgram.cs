@@ -1,4 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using ICS.DAL.Migrator;
+using ICS.DAL.Options;
+using ICS.DAL;
+using ICS.BL;
+using ICS.Services;
+using CommunityToolkit.Maui;
+using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace ICS
 {
@@ -10,17 +17,62 @@ namespace ICS
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-#if DEBUG
-    		builder.Logging.AddDebug();
-#endif
+            ConfigureAppSettings(builder);
 
-            return builder.Build();
+            builder.Services
+                .AddDALServices(GetDALOptions(builder.Configuration))
+                .AddAppServices()
+                .AddBLServices();
+
+            var app = builder.Build();
+
+            MigrateDb(app.Services.GetRequiredService<IDbMigrator>());
+            RegisterRouting(app.Services.GetRequiredService<INavigationService>());
+
+            return app;
         }
+
+        private static void ConfigureAppSettings(MauiAppBuilder builder)
+        {
+            var configurationBuilder = new ConfigurationBuilder();
+
+            var assembly = Assembly.GetExecutingAssembly();
+            const string appSettingsFilePath = "ICS.appsettings.json";
+            using var appSettingsStream = assembly.GetManifestResourceStream(appSettingsFilePath);
+            if (appSettingsStream is not null)
+            {
+                configurationBuilder.AddJsonStream(appSettingsStream);
+            }
+
+            var configuration = configurationBuilder.Build();
+            builder.Configuration.AddConfiguration(configuration);
+        }
+
+        private static void RegisterRouting(INavigationService navigationService)
+        {
+            foreach (var route in navigationService.Routes)
+            {
+                Routing.RegisterRoute(route.Route, route.ViewType);
+            }
+        }
+
+        private static DALOptions GetDALOptions(IConfiguration configuration)
+        {
+            DALOptions dalOptions = new()
+            {
+                DatabaseDirectory = FileSystem.AppDataDirectory
+            };
+            configuration.GetSection("ICS:DAL").Bind(dalOptions);
+            return dalOptions;
+        }
+
+        private static void MigrateDb(IDbMigrator migrator) => migrator.Migrate();
     }
 }

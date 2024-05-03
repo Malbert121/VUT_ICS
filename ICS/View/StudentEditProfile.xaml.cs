@@ -1,6 +1,6 @@
 namespace ICS;
 
-public partial class StudentEditProfile : ContentPage
+public partial class StudentEditProfile
 {
 	public StudentEditProfile()
 	{

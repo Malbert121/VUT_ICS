@@ -1,6 +1,6 @@
 namespace ICS;
 
-public partial class StudentListView : ContentView
+public partial class StudentListView
 {
 	public StudentListView()
 	{

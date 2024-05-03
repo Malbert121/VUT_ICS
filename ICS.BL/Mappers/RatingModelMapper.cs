@@ -3,7 +3,7 @@ using ICS.DAL.Entities;
 
 namespace ICS.BL.Mappers;
 
-public class RatingModelMapper(ActivityModelMapper? activityModelMapper, StudentModelMapper? studentModelMapper) : ModelMapperBase<RatingEntity, RatingListModel, RatingDetailModel>, IRatingModelMapper
+public class RatingModelMapper() : ModelMapperBase<RatingEntity, RatingListModel, RatingDetailModel>, IRatingModelMapper
 {
     public override RatingListModel MapToListModel(RatingEntity? entity)
          => entity is null
@@ -24,10 +24,7 @@ public class RatingModelMapper(ActivityModelMapper? activityModelMapper, Student
             Id = entity.Id,
             points = entity.Points,
             note = entity.Note,
-            activityId = entity.ActivityId,
-            activity = activityModelMapper!.MapToListModel(entity.Activity),
-            studentId = entity.StudentId,
-            student = studentModelMapper!.MapToListModel(entity.Student)
+            studentId = entity.StudentId
             
         };
 
@@ -38,19 +35,6 @@ public class RatingModelMapper(ActivityModelMapper? activityModelMapper, Student
             Id = model.Id,
             Points = model.points,
             Note = model.note,
-            ActivityId = model.activityId,
-            Activity = activityModelMapper!.MapListModelToEntity(model.activity!),
-            StudentId = model.studentId,
-            Student = studentModelMapper!.MapListModelToEntity(model.student!)
-        };
-    }
-    public override RatingEntity MapListModelToEntity(RatingListModel? model)
-    {
-        return new RatingEntity
-        {
-            Id = model!.Id,
-            Points = model.points,
-            ActivityId = model.activityId,
             StudentId = model.studentId
         };
     }

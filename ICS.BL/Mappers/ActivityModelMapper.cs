@@ -4,8 +4,9 @@ using ICS.DAL.Entities;
 
 namespace ICS.BL.Mappers;
 
-public class ActivityModelMapper(RatingModelMapper? ratingModelMapper, SubjectModelMapper? subjectModelMapper) : ModelMapperBase<ActivityEntity, ActivityListModel, ActivityDetailModel>, IActivityModelMapper
+public class ActivityModelMapper(RatingModelMapper ratingModelMapper) : ModelMapperBase<ActivityEntity, ActivityListModel, ActivityDetailModel>, IActivityModelMapper
 {
+
     public override ActivityListModel MapToListModel(ActivityEntity? entity)
          => entity is null
         ? ActivityListModel.Empty
@@ -32,7 +33,6 @@ public class ActivityModelMapper(RatingModelMapper? ratingModelMapper, SubjectMo
             activityTypeTag = entity.ActivityTypeTag,
             description = entity.Description,
             subjectId = entity.SubjectId,
-            subject = subjectModelMapper.MapToListModel(entity.Subject),
             ratings = ratingModelMapper.MapToListModel(entity.Ratings).ToObservableCollection()
         };
 
@@ -47,24 +47,10 @@ public class ActivityModelMapper(RatingModelMapper? ratingModelMapper, SubjectMo
             Room = model.room,
             ActivityTypeTag = model.activityTypeTag,
             Description = model.description,
-            SubjectId = model.subjectId,
-            Subject = subjectModelMapper!.MapListModelToEntity(model.subject),
-
-        };
-    }
-
-    public override ActivityEntity MapListModelToEntity(ActivityListModel model)
-    {
-        return new ActivityEntity
-        {
-            Id = model.Id,
-            Name = model.name,
-            Start = model.start,
-            End = model.end,
-            Room = model.room,
             SubjectId = model.subjectId
-            
+
         };
     }
+
 
 }

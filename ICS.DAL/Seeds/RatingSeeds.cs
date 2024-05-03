@@ -4,16 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ICS.DAL.Seeds
 {
-    public static class RatingSeedExtensions
-    {
-        public static void Seed(this ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<RatingEntity>().HasData(RatingSeeds.Rating1);
-            modelBuilder.Entity<RatingEntity>().HasData(RatingSeeds.Rating2);
-        }
-    }
 
-    public class RatingSeeds
+    public static class RatingSeeds
     {
         public static RatingEntity Rating1 = new RatingEntity
         {
@@ -37,9 +29,10 @@ namespace ICS.DAL.Seeds
             StudentId = StudentSeeds.student2.Id
         };
 
-        public static void Seed(ModelBuilder modelBuilder)
+        public static void Seed(this ModelBuilder modelBuilder)
         {
-            RatingSeedExtensions.Seed(modelBuilder);
+            modelBuilder.Entity<RatingEntity>().HasData(RatingSeeds.Rating1 with { Activity = null!, Student = null! });
+            modelBuilder.Entity<RatingEntity>().HasData(RatingSeeds.Rating2 with { Activity = null!, Student = null! });
         }
     }
 }

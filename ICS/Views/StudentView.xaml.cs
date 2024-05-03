@@ -1,4 +1,4 @@
-namespace ICS.Views;
+namespace ICS.View;
 
 public partial class StudentView : ContentPage
 {

@@ -31,10 +31,9 @@ public static class DALInstaller
         services.AddSingleton<IDbContextFactory<SchoolContext>>(_ =>
             new DbContextSqLiteFactory(options.DatabaseFilePath, options?.SeedDemoData ?? false));
         services.AddSingleton<IDbMigrator, DbMigrator>();
-
-        services.AddSingleton<ActivityEntityMapper>();
-        services.AddSingleton<SubjectEntityMapper>();
         services.AddSingleton<StudentEntityMapper>();
+        services.AddSingleton<SubjectEntityMapper>();
+        services.AddSingleton<ActivityEntityMapper>();
         services.AddSingleton<RatingEntityMapper>();
 
         return services;
