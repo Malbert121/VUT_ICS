@@ -1,4 +1,3 @@
-using ICS.ViewModel.Activity;
 using ICS.ViewModel.Rating;
 
 namespace ICS.View.Rating;
