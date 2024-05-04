@@ -13,7 +13,7 @@
 
     <ShellContent
         Title="THIS IS OUR PROJECT"
-        ContentTemplate="{DataTemplate a:ActivityPage}"
+        ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
     <Shell.ToolbarItems>
@@ -21,6 +21,10 @@
             IconImageSource="add.png"
             Text="Add Student"
             Command="{Binding AddStudentCommand}" />
+        <ToolbarItem
+            IconImageSource="add.png"
+            Text="Add Subject"
+            Command="{Binding AddSubjectCommand}" />
     </Shell.ToolbarItems>
 
 </Shell>

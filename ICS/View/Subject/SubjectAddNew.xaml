@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ICS.View.Subject.SubjectAddNew"
+             Title="Add new subject"
+             xmlns:viewModels="clr-namespace:ICS.ViewModel.Subject">
+
+    <ScrollView>
+        <StackLayout Padding="20">
+
+            <Entry Placeholder="Name" Text="{Binding Name}" FontSize="20" Margin="0,20,0,10" />
+
+            <Entry Placeholder="Description" Text="{Binding Abbreviation}" FontSize="20" Margin="0,10"/>
+
+            <Button Text="Save Subject" Command="{Binding SaveChangesCommand}" Margin="0,20,0,10"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
