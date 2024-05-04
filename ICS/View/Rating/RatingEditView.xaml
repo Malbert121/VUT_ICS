@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="ICS.View.Rating.RatingEditView"
+                       xmlns:vm="clr-namespace:ICS.ViewModel.Rating"
+                       x:DataType="vm:RatingEditViewModel"
+                       xmlns:views="clr-namespace:ICS.View"
+                       x:Name="RatingEditViewRoot">
+    <VerticalStackLayout>
+        <Label 
+        Text="Rating Edit."
+        VerticalOptions="Center" 
+        FontSize="24"
+        HorizontalOptions="Center" />
+        <Button Text="Save"  Command="{Binding SaveCommand}" />
+
+        <Label Text="Student ID."
+           FontSize="20"
+           TextColor="{StaticResource PrimaryLabelTextColor}" />
+        <Entry HorizontalOptions="Fill"
+           Text="{Binding Rating.studentId}" />
+
+        <Label Text="Points."
+           FontSize="20"
+           TextColor="{StaticResource PrimaryLabelTextColor}" />
+        <Entry HorizontalOptions="Fill"
+           Text="{Binding Rating.points}" />
+
+        <Label Text="Note."
+           FontSize="20"
+           TextColor="{StaticResource PrimaryLabelTextColor}" />
+        <Editor HorizontalOptions="Fill"
+            TextColor="{StaticResource FormEntryTextColor}"
+            AutoSize="TextChanges"
+            BackgroundColor="{StaticResource FormEntryBackgroundColor}"
+            Text="{Binding Rating.note}" />
+    </VerticalStackLayout>
+</views:ContentPageBase>

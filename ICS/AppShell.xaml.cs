@@ -1,4 +1,8 @@
-﻿using ICS.View;
+﻿using CommunityToolkit.Mvvm.Input;
+using ICS.Services;
+using ICS.View;
+using ICS.ViewModel.Activity;
+using ICS.ViewModel.Rating;
 using System;
 using System.Windows.Input;
 
@@ -6,18 +10,22 @@ namespace ICS
 {
     public partial class AppShell : Shell
     {
-        public ICommand AddStudentCommand { get; }
-        public AppShell()
+        private readonly INavigationService _navigationService;
+        public AppShell(INavigationService navigationService)
         {
+            _navigationService = navigationService;
             BindingContext = this; // Set AppShell as the BindingContext
-            AddStudentCommand = new Command(ExecuteAddStudentCommand);
             InitializeComponent();
         }
 
-        private async void ExecuteAddStudentCommand()
-        {
-            // Implement the logic to navigate to the StudentView
-            await Shell.Current.Navigation.PushAsync(new StudentAddNew());
-        }
+        [RelayCommand]
+        private async Task GoToRatingsAsync()
+        => await _navigationService.GoToAsync<RatingListViewModel>();
+
+        [RelayCommand]
+        private async Task GoToActivitiesAsync()
+        => await _navigationService.GoToAsync<ActivityListViewModel>();
+
     }
+   
 }

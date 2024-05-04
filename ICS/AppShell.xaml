@@ -9,18 +9,16 @@
     xmlns:local="clr-namespace:ICS"
     Shell.FlyoutBehavior="Disabled"
     Title="ICS">
+    <Shell.MenuBarItems>
+        <MenuBarItem Text="File">
+            <MenuFlyoutItem Text="Activities"
+                        Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToActivitiesCommand}" />
+            <MenuFlyoutItem Text="Ratings"
+                        Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToRatingsCommand}" />
+        </MenuBarItem>
+    </Shell.MenuBarItems>
 
-
-    <ShellContent
-        Title="THIS IS OUR PROJECT"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
-
-    <Shell.ToolbarItems>
-        <ToolbarItem
-            IconImageSource="add.png"
-            Text="Add Student"
-            Command="{Binding AddStudentCommand}" />
-    </Shell.ToolbarItems>
+    <ShellContent ContentTemplate="{DataTemplate r:RatingListView}" Route="ratings" />
+    <ShellContent ContentTemplate="{DataTemplate a:ActivityPage}" Route="activities" />
 
 </Shell>

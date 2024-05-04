@@ -117,6 +117,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Update="View\Rating\RatingDetailView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\Rating\RatingEditView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="View\StudentListView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>

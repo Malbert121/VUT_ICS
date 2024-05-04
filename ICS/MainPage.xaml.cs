@@ -29,10 +29,10 @@ public partial class MainPage : ContentPage
         Navigation.PushAsync(new StudentListView());
     }
 
-    private void OnRatingListClicked(object sender, EventArgs e)
-    {
-        Navigation.PushAsync(new RatingListView());
-    }
+    //private void OnRatingListClicked(object sender, EventArgs e)
+    //{
+        //Navigation.PushAsync(new RatingListView());
+    //}
 
    /* private void OnActivityClicked(object sender, EventArgs e)
     {

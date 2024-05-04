@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:ICS.View"
+                       xmlns:vm="clr-namespace:ICS.ViewModel.Rating"
+                       x:Class="ICS.View.Rating.RatingDetailView"
+                       x:Name="RatingDetailViewRoot"
+                       x:DataType="vm:RatingDetailViewModel">
+    <VerticalStackLayout>
+        <Label 
+            Text="Rating Detail."
+            FontSize="24"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <Button Text="Delete"
+            FontSize="20"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            Command="{Binding DeleteCommand}" />
+
+        <Button Text="Edit"
+                FontSize="20"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            Command="{Binding GoToEditCommand}" />
+        <Grid HorizontalOptions="Center" VerticalOptions="Start"
+        RowDefinitions="170, *" ColumnDefinitions="*, Auto, Auto, *"
+        RowSpacing="20" ColumnSpacing="20">
+            <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
+                         Grid.Column="2"
+                         Spacing="20">
+                <HorizontalStackLayout Spacing="20">
+                    <Label Text="Points:" FontSize="20"/>
+                    <Label Text="{Binding Rating.points}" FontSize="20"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="20">
+                    <Label Text="Student ID:" FontSize="20"/>
+                    <Label Text="{Binding Rating.studentId}" FontSize="20"/>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="20">
+                    <Label Text="Note:" FontSize="20"/>
+                    <Label Text="{Binding Rating.note}" FontSize="20"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Grid>
+    </VerticalStackLayout>
+</views:ContentPageBase>
