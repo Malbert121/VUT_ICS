@@ -1,5 +1,4 @@
 ﻿namespace ICS.Messages;
-using System;
 
 public record RatingEditMessage
 {

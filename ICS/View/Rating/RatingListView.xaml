@@ -6,7 +6,6 @@
              x:DataType="vm:RatingListViewModel"
              xmlns:m="clr-namespace:ICS.BL.Models;assembly=ICS.BL"
              xmlns:views="clr-namespace:ICS.View"
-             
              x:Name="RatingListViewRoot">
     <VerticalStackLayout>
         <Label 
@@ -14,7 +13,7 @@
             VerticalOptions="Center" 
             FontSize="24"
             HorizontalOptions="Center" />
-        <Button Text="Edit" Command="{Binding GoToCreateCommand}" />
+        <Button Text="Add Rating" Command="{Binding GoToCreateCommand}" />
         <CollectionView ItemsSource="{Binding Ratings}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"/>
