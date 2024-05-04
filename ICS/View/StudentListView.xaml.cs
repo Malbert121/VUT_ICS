@@ -6,4 +6,9 @@ public partial class StudentListView
 	{
 		InitializeComponent();
 	}
+
+	private void OnEditStudentClicked(object sender, EventArgs e)
+	{
+        Navigation.PushAsync(new StudentEditProfile());
+    }
 }

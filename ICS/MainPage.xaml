@@ -32,18 +32,6 @@
                 Clicked="OnStudentListClicked"
                 HorizontalOptions="Fill" />
 
-            <Button
-                x:Name="RatingList"
-                Text="List of ratings"
-                Clicked="OnRatingListClicked"
-                HorizontalOptions="Fill" />
-            <Button
-                x:Name="SubjectList"
-                Text="List of subjects"
-                Clicked="OnSubjectListClicked"
-                HorizontalOptions="Fill" /> 
-
-
         </VerticalStackLayout>
     </ScrollView>
 

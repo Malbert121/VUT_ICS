@@ -1,6 +1,9 @@
 ﻿using ICS.Models;
 using ICS.ViewModel.Activity;
 using ICS.ViewModel;
+using ICS.View.Rating;
+using ICS.ViewModel.Rating;
+using ICS.View.Activity;
 
 namespace ICS.Services;
 
@@ -8,13 +11,13 @@ public class NavigationService : INavigationService
 {
     public IEnumerable<RouteModel> Routes { get; } = new List<RouteModel>
     {
-        //new("//ingredients", typeof(IngredientListView), typeof(IngredientListViewModel)),
-        //new("//ingredients/detail", typeof(IngredientDetailView), typeof(IngredientDetailViewModel)),
+        new("//ratings", typeof(RatingListView), typeof(RatingListViewModel)),
+        new("//ratings/detail", typeof(RatingDetailView), typeof(RatingDetailViewModel)),
 
-        //new("//ingredients/edit", typeof(IngredientEditView), typeof(IngredientEditViewModel)),
-        //new("//ingredients/detail/edit", typeof(IngredientEditView), typeof(IngredientEditViewModel)),
+        new("//ratings/edit", typeof(RatingEditView), typeof(RatingEditViewModel)),
+        new("//ratings/detail/edit", typeof(RatingEditView), typeof(RatingEditViewModel)),
 
-        //new("//recipes", typeof(RecipeListView), typeof(RecipeListViewModel)),
+        new("//activities", typeof(ActivityPage), typeof(ActivityListViewModel)),
         //new("//recipes/detail", typeof(RecipeDetailView), typeof(RecipeDetailViewModel)),
 
         //new("//recipes/edit", typeof(RecipeEditView), typeof(RecipeEditViewModel)),

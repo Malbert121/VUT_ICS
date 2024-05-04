@@ -1,8 +1,6 @@
 ﻿using ICS.View.Rating;
 using ICS.View.Activity;
 using ICS.ViewModel.Activity;
-using ICS.View.Subject;
-using ICS.ViewModel.Subject;
 namespace ICS;
 
 public partial class MainPage : ContentPage
@@ -31,17 +29,13 @@ public partial class MainPage : ContentPage
         Navigation.PushAsync(new StudentListView());
     }
 
-    private void OnRatingListClicked(object sender, EventArgs e)
-    {
-        Navigation.PushAsync(new RatingListView());
-    }
+    //private void OnRatingListClicked(object sender, EventArgs e)
+    //{
+        //Navigation.PushAsync(new RatingListView());
+    //}
 
-    /* private void OnActivityClicked(object sender, EventArgs e)
-     {
-         Navigation.PushAsync(new ActivityPage(new ActivityListViewModel));
-     }*/
-    private void OnSubjectListClicked(object sender, EventArgs e)
+   /* private void OnActivityClicked(object sender, EventArgs e)
     {
-        Navigation.PushAsync(new SubjectListView());
-    }
+        Navigation.PushAsync(new ActivityPage(new ActivityListViewModel));
+    }*/
 }

@@ -39,8 +39,8 @@ namespace ICS.ViewModel.Rating
         [RelayCommand]
         private async Task GoToDetailAsync(Guid id)
         {
-            //await navigationService.GoToAsync<ActivityDetailViewModel>(
-            //  new Dictionary<string, object?> { [nameof(ActivityDetailViewModel.Id)] = id });
+            await navigationService.GoToAsync<RatingDetailViewModel>(
+              new Dictionary<string, object?> { [nameof(RatingDetailViewModel.Id)] = id });
         }
 
         public async void Receive(RatingEditMessage message)

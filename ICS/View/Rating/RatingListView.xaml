@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ICS.View.Rating.RatingListView"
              xmlns:vm="clr-namespace:ICS.ViewModel.Rating"
              x:DataType="vm:RatingListViewModel"
              xmlns:m="clr-namespace:ICS.BL.Models;assembly=ICS.BL"
              xmlns:views="clr-namespace:ICS.View"
-             
              x:Name="RatingListViewRoot">
     <VerticalStackLayout>
         <Label 
-            Text="Ratings."
+            Text="Rating List."
             VerticalOptions="Center" 
             FontSize="24"
             HorizontalOptions="Center" />
-        <Button Text="Edit" Command="{Binding GoToCreateCommand}" />
+        <Button Text="Add Rating" Command="{Binding GoToCreateCommand}" />
         <CollectionView ItemsSource="{Binding Ratings}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"/>
@@ -25,14 +24,19 @@
                     <Grid Padding="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="400" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="{Binding studentId}" />
-                        <Label Grid.Column="1" Text="{Binding points}" />
-                        <Button Grid.Column="2" Text="Detail" Command="{Binding BindingContext.GoToDetailCommand, Source={x:Reference RatingListViewRoot}}" CommandParameter="{Binding Id}" />
+                        <Label Grid.Column="0" Text="Student ID:" />
+                        <Label Grid.Column="1" Text="{Binding studentId}" />
+                        <Label Grid.Column="2" Text="Points:" />
+                        <Label Grid.Column="3" Text="{Binding points}" />
+                        <Button Grid.Column="4" Text="Detail" Command="{Binding Source={x:Reference RatingListViewRoot}, Path=BindingContext.GoToDetailCommand}" CommandParameter="{Binding Id}" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
     </VerticalStackLayout>
-</ContentPage>
+</views:ContentPageBase>
