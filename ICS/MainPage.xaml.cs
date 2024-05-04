@@ -1,4 +1,7 @@
-﻿namespace ICS;
+﻿using ICS.View.Rating;
+using ICS.View.Activity;
+using ICS.ViewModel.Activity;
+namespace ICS;
 
 public partial class MainPage : ContentPage
 {
@@ -20,4 +23,19 @@ public partial class MainPage : ContentPage
 
         SemanticScreenReader.Announce(CounterBtn.Text);
     }
+
+    private void OnStudentListClicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new StudentListView());
+    }
+
+    private void OnRatingListClicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new RatingListView());
+    }
+
+   /* private void OnActivityClicked(object sender, EventArgs e)
+    {
+        Navigation.PushAsync(new ActivityPage(new ActivityListViewModel));
+    }*/
 }

@@ -13,7 +13,7 @@
 
     <ShellContent
         Title="THIS IS OUR PROJECT"
-        ContentTemplate="{DataTemplate a:ActivityPage}"
+        ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 
     <Shell.ToolbarItems>
