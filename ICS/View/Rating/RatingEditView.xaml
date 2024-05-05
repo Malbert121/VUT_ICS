@@ -12,27 +12,26 @@
         VerticalOptions="Center" 
         FontSize="24"
         HorizontalOptions="Center" />
-        <Button Text="Save"  Command="{Binding SaveCommand}" />
+        <Button Text="Save" 
+        FontSize="24"
+        Command="{Binding SaveCommand}" />
 
         <Label Text="Student ID."
-           FontSize="20"
-           TextColor="{StaticResource PrimaryLabelTextColor}" />
+           FontSize="20"/>
         <Entry HorizontalOptions="Fill"
+           FontSize="20"  
            Text="{Binding Rating.studentId}" />
 
         <Label Text="Points."
-           FontSize="20"
-           TextColor="{StaticResource PrimaryLabelTextColor}" />
+           FontSize="20"/>
         <Entry HorizontalOptions="Fill"
-           Text="{Binding Rating.points}" />
-
-        <Label Text="Note."
            FontSize="20"
-           TextColor="{StaticResource PrimaryLabelTextColor}" />
+           Text="{Binding Rating.points}" />
+        <Label Text="Note."
+           FontSize="20"/>
         <Editor HorizontalOptions="Fill"
-            TextColor="{StaticResource FormEntryTextColor}"
+            FontSize="20"
             AutoSize="TextChanges"
-            BackgroundColor="{StaticResource FormEntryBackgroundColor}"
             Text="{Binding Rating.note}" />
     </VerticalStackLayout>
 </views:ContentPageBase>
