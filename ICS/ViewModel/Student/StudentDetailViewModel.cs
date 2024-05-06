@@ -16,8 +16,12 @@ namespace ICS.ViewModel.Student
         IAlertService alertService)
         : ViewModelBase(messengerService), IRecipient<StudentEditMessage>
     {
-        public Guid StudentId { get; set; }
+        public Guid Id { get; set; }
         public StudentDetailModel? Student { get; private set; }
+        public List<SubjectListModel> Subjects
+        {
+            get => Student?.subjects.ToList() ?? new List<SubjectListModel>();
+        }
 
         [RelayCommand]
         public async Task DeleteAsync()
@@ -48,7 +52,7 @@ namespace ICS.ViewModel.Student
         {
             await base.LoadDataAsync();
 
-            Student = await studentFacade.GetAsync(StudentId);
+            Student = await studentFacade.GetAsync(Id);
         }
 
         public async void Receive(StudentEditMessage message)

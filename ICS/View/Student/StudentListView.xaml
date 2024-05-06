@@ -13,14 +13,16 @@
             VerticalOptions="Center" 
             FontSize="24"
             HorizontalOptions="Center" />
-        <Button Text="Add Student" Command="{Binding GoToCreateCommand}" />
+        <Button Text="Add Student" 
+            FontSize="20"
+            Command="{Binding GoToCreateCommand}" />
         <CollectionView ItemsSource="{Binding Students}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate 
-                    x:DataType="m:StudentListModel">
+                x:DataType="m:StudentListModel">
                     <Grid Padding="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -29,11 +31,12 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="Student First Name:" />
-                        <Label Grid.Column="1" Text="{Binding firstName}" />
-                        <Label Grid.Column="2" Text="Points:" />
-                        <Label Grid.Column="3" Text="{Binding lastName}" />
-                        <Button Grid.Column="4" Text="Detail" Command="{Binding Source={x:Reference StudentListViewRoot}, Path=BindingContext.GoToDetailCommand}" CommandParameter="{Binding lastName}" />
+                        <Label Grid.Column="0" FontSize="20" Text="First name:" />
+                        <Label Grid.Column="1" FontSize="20" Text="{Binding firstName}" />
+                        <Label Grid.Column="2" FontSize="20" Text="Last name:" />
+                        <Label Grid.Column="3" FontSize="20" Text="{Binding lastName}" />
+
+                        <Button Grid.Column="4" FontSize="20" Text="Detail" Command="{Binding Source={x:Reference StudentListViewRoot}, Path=BindingContext.GoToDetailCommand}" CommandParameter="{Binding Id}" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
