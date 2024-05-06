@@ -105,8 +105,14 @@
 		<Compile Update="View\Rating\RatingListView.xaml.cs">
 			<DependentUpon>RatingListView.xaml</DependentUpon>
 		</Compile>
+		<Compile Update="View\Subject\SubjectEditView.xaml.cs">
+		  <DependentUpon>SubjectEditView.xaml</DependentUpon>
+		</Compile>
     <Compile Update="View\Subject\SubjectListView.xaml.cs">
       <DependentUpon>SubjectListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="View\Subject\SubjectDetailView.xaml.cs">
+      <DependentUpon>SubjectDetailView.xaml</DependentUpon>
     </Compile>
 	</ItemGroup>
 

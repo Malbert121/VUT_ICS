@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ICS.View.Subject.SubjectAddNew"
+             x:Class="ICS.View.Subject.SubjectEditView"
              xmlns:vm="clr-namespace:ICS.ViewModel.Subject"
              x:DataType="vm:SubjectEditViewModel"
              xmlns:m="clr-namespace:ICS.BL.Models;assembly=ICS.BL"

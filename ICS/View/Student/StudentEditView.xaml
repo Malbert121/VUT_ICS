@@ -12,9 +12,12 @@
         VerticalOptions="Center" 
         FontSize="24"
         HorizontalOptions="Center" />
+        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Save" 
-        FontSize="24"
-        Command="{Binding SaveCommand}" />
+            FontSize="24"
+            HeightRequest="50"
+            WidthRequest="200"
+            Command="{Binding SaveCommand}" />
 
         <Label Text="First Name."
            FontSize="20"/>

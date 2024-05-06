@@ -13,9 +13,21 @@
             VerticalOptions="Center" 
             FontSize="24"
             HorizontalOptions="Center" />
+        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Add Student" 
             FontSize="20"
+            HeightRequest="50"
+            WidthRequest="200"
             Command="{Binding GoToCreateCommand}" />
+        <Grid Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="First name" />
+            <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="Last name" />
+        </Grid>
         <CollectionView ItemsSource="{Binding Students}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"/>
@@ -26,17 +38,12 @@
                     <Grid Padding="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="400" />
-                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" FontSize="20" Text="First name:" />
-                        <Label Grid.Column="1" FontSize="20" Text="{Binding firstName}" />
-                        <Label Grid.Column="2" FontSize="20" Text="Last name:" />
-                        <Label Grid.Column="3" FontSize="20" Text="{Binding lastName}" />
-
-                        <Button Grid.Column="4" FontSize="20" Text="Detail" Command="{Binding Source={x:Reference StudentListViewRoot}, Path=BindingContext.GoToDetailCommand}" CommandParameter="{Binding Id}" />
+                        <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="{Binding firstName}" />
+                        <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="{Binding lastName}" />
+                        <Button Grid.Column="2" FontSize="20" Text="Detail" HeightRequest="50" WidthRequest="200" Command="{Binding Source={x:Reference StudentListViewRoot}, Path=BindingContext.GoToDetailCommand}" CommandParameter="{Binding Id}" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
