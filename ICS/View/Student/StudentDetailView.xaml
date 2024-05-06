@@ -13,22 +13,23 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
         <Button Text="Delete"
-            FontSize="20"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" 
-            Command="{Binding DeleteCommand}" />
+                FontSize="20"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" 
+                Command="{Binding DeleteCommand}" />
 
         <Button Text="Edit"
                 FontSize="20"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" 
-            Command="{Binding GoToEditCommand}" />
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" 
+                Command="{Binding GoToEditCommand}" />
         <Grid HorizontalOptions="Center" VerticalOptions="Start"
-        RowDefinitions="170, *" ColumnDefinitions="*, Auto, Auto, *"
-        RowSpacing="20" ColumnSpacing="20">
+              RowDefinitions="170, *, *"
+              ColumnDefinitions="*, Auto, Auto, *"
+              RowSpacing="20" ColumnSpacing="20">
             <VerticalStackLayout Grid.Row="0" Grid.RowSpan="2"
-                         Grid.Column="2"
-                         Spacing="20">
+                                 Grid.Column="2"
+                                 Spacing="20">
                 <HorizontalStackLayout Spacing="20">
                     <Label Text="First Name:" FontSize="20"/>
                     <Label Text="{Binding Student.firstName}" FontSize="20"/>
@@ -37,6 +38,12 @@
                     <Label Text="Last Name:" FontSize="20"/>
                     <Label Text="{Binding Student.lastName}" FontSize="20"/>
                 </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="20">
+                    <Label Text="Photo URL:" FontSize="20"/>
+                    <Label Text="{Binding Student.photoURL}" FontSize="20"/>
+                </HorizontalStackLayout>
+                <Label Text="Subjects:" FontSize="20"/>
+
             </VerticalStackLayout>
         </Grid>
     </VerticalStackLayout>
