@@ -8,7 +8,7 @@ using ICS.Services;
 
 namespace ICS.ViewModel.Student
 {
-    [QueryProperty(nameof(Student), nameof(Student))]
+    [QueryProperty(nameof(Id), nameof(Id))]
     public partial class StudentDetailViewModel(
         IStudentFacade studentFacade,
         INavigationService navigationService,
@@ -45,7 +45,7 @@ namespace ICS.ViewModel.Student
         public async Task GoToEditAsync()
         {
             await navigationService.GoToAsync("/edit",
-            new Dictionary<string, object?> { [nameof(StudentEditViewModel.Student)] = Student.Id });
+            new Dictionary<string, object?> { [nameof(StudentEditViewModel.Student)] = Student });
         }
 
         protected override async Task LoadDataAsync()
