@@ -96,8 +96,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="View\Activity\ActivityPage.xaml.cs">
-			<DependentUpon>ActivityPage.xaml</DependentUpon>
+		<Compile Update="View\Activity\ActivityListView.xaml.cs">
+			<DependentUpon>ActivityListView.xaml</DependentUpon>
 		</Compile>
 		<Compile Update="View\ContentPageBase.xaml.cs">
 			<DependentUpon>ContentPageBase.xaml</DependentUpon>
@@ -111,13 +111,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<MauiXaml Update="View\Activity\ActivityDetailView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\Activity\ActivityEditView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
 		<MauiXaml Update="View\Rating\RatingDetailView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\Rating\RatingEditView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
-		<MauiXaml Update="View\Activity\ActivityPage.xaml">
+		<MauiXaml Update="View\Activity\ActivityListView.xaml">
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\ContentPageBase.xaml">

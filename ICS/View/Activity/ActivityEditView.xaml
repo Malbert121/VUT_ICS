@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ICS.View.Activity.ActivityEditView"
+             xmlns:views="clr-namespace:ICS.View"
+             xmlns:vm="clr-namespace:ICS.ViewModel.Activity"
+             x:DataType="vm:ActivityEditViewModel"
+             x:Name="ActivityEditViewRoot">
+
+    <VerticalStackLayout>
+        <Label 
+        Text="Activity Edit."
+        VerticalOptions="Center" 
+        FontSize="24"
+        HorizontalOptions="Center" />
+        <BoxView HeightRequest="10" Color="White"/>
+        <Button Text="Save" 
+        FontSize="24"
+        HeightRequest="50"
+        WidthRequest="200" 
+        Command="{Binding SaveCommand}" />
+
+        <Label Text="Subjectt ID."
+           FontSize="20"/>
+        <Entry HorizontalOptions="Fill"
+           FontSize="20"  
+           Text="{Binding Activity.subjectId}" />
+
+        <Label Text="Name."
+           FontSize="20"/>
+        <Entry HorizontalOptions="Fill"
+           FontSize="20"
+           Text="{Binding Activity.name}" />
+
+        <Label Text="Start."
+            FontSize="20"/>
+        <Entry HorizontalOptions="Fill"
+            FontSize="20"
+            Text="{Binding Activity.start}" />
+
+        <Label Text="End."
+            FontSize="20"/>
+        <Entry HorizontalOptions="Fill"
+            FontSize="20"
+            Text="{Binding Activity.end}" />
+        
+        <Label Text="Room."
+            FontSize="20"/>
+        <Entry HorizontalOptions="Fill"
+           FontSize="20"
+           Text="{Binding Activity.room}" />
+    </VerticalStackLayout>
+</views:ContentPageBase>
