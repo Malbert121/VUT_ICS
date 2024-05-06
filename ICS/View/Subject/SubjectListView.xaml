@@ -13,8 +13,11 @@
             VerticalOptions="Center" 
             FontSize="24"
             HorizontalOptions="Center" />
+        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Add Subject" 
             FontSize="20"
+            HeightRequest="50"
+            WidthRequest="200" 
             Command="{Binding GoToCreateCommand}" />
         <Grid Padding="10">
             <Grid.ColumnDefinitions>

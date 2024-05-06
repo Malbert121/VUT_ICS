@@ -14,7 +14,7 @@ namespace ICS
         public AppShell(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            BindingContext = this; // Set AppShell as the BindingContext
+            BindingContext = this;
             InitializeComponent();
         }
 

@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ICS.View.Activity.ActivityListView"
+             xmlns:views="clr-namespace:ICS.View"
+             xmlns:m="clr-namespace:ICS.BL.Models;assembly=ICS.BL"
+             xmlns:vm="clr-namespace:ICS.ViewModel.Activity"
+             x:DataType="vm:ActivityListViewModel"
+             x:Name="ActivityListViewRoot">
+
+    <VerticalStackLayout>
+        <Label 
+        Text="Activity List."
+        VerticalOptions="Center" 
+        FontSize="24"
+        HorizontalOptions="Center" />
+        <BoxView HeightRequest="10" Color="White"/>
+        <Button Text="Add Activity" 
+            FontSize="20"
+            HeightRequest="50"
+            WidthRequest="200" 
+            Command="{Binding GoToCreateCommand}" />
+
+        <Grid Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="Subject ID" />
+            <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="Name" />
+            <Label Grid.Column="2" FontSize="20" HorizontalOptions="Center" Text="Start" />
+            <Label Grid.Column="3" FontSize="20" HorizontalOptions="Center" Text="End" />
+            <Label Grid.Column="4" FontSize="20" HorizontalOptions="Center" Text="Room" />
+        </Grid>
+
+        <CollectionView ItemsSource="{Binding Activities}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate 
+                x:DataType="m:ActivityListModel">
+                    <Grid Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="400" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="{Binding subjectId}" />
+                        <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="{Binding name}" />
+                        <Label Grid.Column="2" FontSize="20" HorizontalOptions="Center" Text="{Binding start}" />
+                        <Label Grid.Column="3" FontSize="20" HorizontalOptions="Center" Text="{Binding end}" />
+                        <Label Grid.Column="4" FontSize="20" HorizontalOptions="Center" Text="{Binding room}" />
+                        <Button Grid.Column="5" FontSize="20" Text="Detail" HeightRequest="50" WidthRequest="150" Command="{Binding Source={x:Reference ActivityListViewRoot}, Path=BindingContext.GoToDetailCommand}" CommandParameter="{Binding Id}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+
+
+</views:ContentPageBase>

@@ -25,7 +25,7 @@
     </Shell.MenuBarItems>
 
     <ShellContent ContentTemplate="{DataTemplate r:RatingListView}" Route="ratings" />
-    <ShellContent ContentTemplate="{DataTemplate a:ActivityPage}" Route="activities" />
+    <ShellContent ContentTemplate="{DataTemplate a:ActivityListView}" Route="activities" />
     <ShellContent ContentTemplate="{DataTemplate s:SubjectListView}" Route="subjects" />
     <ShellContent ContentTemplate="{DataTemplate b:StudentListView}" Route="students" />
 
