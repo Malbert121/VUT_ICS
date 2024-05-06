@@ -32,7 +32,7 @@ namespace ICS.ViewModel.Student
         private async Task GoToDetailAsync(Guid id)
         {
             await navigationService.GoToAsync<StudentDetailViewModel>(
-            new Dictionary<string, object?> { [nameof(StudentDetailViewModel.Student)] = id });
+            new Dictionary<string, object?> { [nameof(StudentDetailViewModel.Id)] = id });
         }
 
         public async void Receive(StudentEditMessage message)
