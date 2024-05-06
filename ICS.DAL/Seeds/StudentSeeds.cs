@@ -12,7 +12,7 @@ namespace ICS.DAL.Seeds
             Id = Guid.Parse("d9963767-91a2-4b3f-81f7-dc5d0aaecf7d"),
             FirstName = "Harry",
             LastName = "Potter",
-            PhotoUrl = "http://www.example.com/index.html",
+            PhotoUrl = @"https://upload.wikimedia.org/wikipedia/en/d/d7/Harry_Potter_character_poster.jpg",
             Subjects = new List<SubjectEntity>()
         };
 
@@ -22,7 +22,7 @@ namespace ICS.DAL.Seeds
             Id = Guid.Parse("f6b5fcf8-1a45-4135-b826-f6d4f14703cf"),
             FirstName = "Hermione",
             LastName = "Granger",
-            PhotoUrl = "http://www.example.com/index.html",
+            PhotoUrl = @"https://upload.wikimedia.org/wikipedia/en/d/d3/Hermione_Granger_poster.jpg",
             Subjects = new List<SubjectEntity>()
         };
 
@@ -36,8 +36,8 @@ namespace ICS.DAL.Seeds
         {
             modelBuilder.Entity<StudentEntity>()
                 .HasData(
-                StudentSeeds.student1 with { Subjects = Array.Empty<SubjectEntity>() },
-                StudentSeeds.student2 with { Subjects = Array.Empty<SubjectEntity>() });
+                student1 with { Subjects = Array.Empty<SubjectEntity>() },
+                student2 with { Subjects = Array.Empty<SubjectEntity>() });
         }
     }
 }

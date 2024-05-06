@@ -30,5 +30,16 @@
         <Entry HorizontalOptions="Fill"
            FontSize="20"
            Text="{Binding Student.lastName}" />
+
+        <Label Text="Photo."
+               FontSize="20"/>
+        <Image Source="{Binding Student.photoURL}"
+                HeightRequest="100"
+                WidthRequest="100"
+                Aspect="AspectFill"
+                HorizontalOptions="Center" />
+        <Entry HorizontalOptions="Fill"
+               FontSize="20"
+               Text="{Binding Student.photoURL}" />
     </VerticalStackLayout>
 </views:ContentPageBase>

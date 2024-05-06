@@ -43,11 +43,19 @@
                     <Label Text="Last Name:" FontSize="20"/>
                     <Label Text="{Binding Student.lastName}" FontSize="20"/>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="20">
-                    <Label Text="Photo URL:" FontSize="20"/>
-                    <Label Text="{Binding Student.photoURL}" FontSize="20"/>
-                </HorizontalStackLayout>
+                <Image Source="{Binding Student.photoURL}" 
+                          HeightRequest="100" 
+                          WidthRequest="100"
+                          Aspect="AspectFill"/>
                 <Label Text="Subjects:" FontSize="20"/>
+                <ListView ItemsSource="{Binding Student.subjects}"
+                          HeightRequest="200">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
             </VerticalStackLayout>
         </Grid>
