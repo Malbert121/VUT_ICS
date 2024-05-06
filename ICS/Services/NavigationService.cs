@@ -4,6 +4,8 @@ using ICS.ViewModel;
 using ICS.View.Rating;
 using ICS.ViewModel.Rating;
 using ICS.View.Activity;
+using ICS.View.Student;
+using ICS.ViewModel.Student;
 
 namespace ICS.Services;
 
@@ -18,12 +20,11 @@ public class NavigationService : INavigationService
         new("//ratings/detail/edit", typeof(RatingEditView), typeof(RatingEditViewModel)),
 
         new("//activities", typeof(ActivityPage), typeof(ActivityListViewModel)),
-        //new("//recipes/detail", typeof(RecipeDetailView), typeof(RecipeDetailViewModel)),
 
-        //new("//recipes/edit", typeof(RecipeEditView), typeof(RecipeEditViewModel)),
-        //new("//recipes/detail/edit", typeof(RecipeEditView), typeof(RecipeEditViewModel)),
+        new("//students", typeof(StudentListView), typeof(StudentListViewModel)),
+        new("//students/detail", typeof(StudentDetailView), typeof(StudentDetailViewModel)),
+        new("//students/edit", typeof(StudentEditView), typeof(StudentEditViewModel)),
 
-        //new("//recipes/detail/edit/ingredients", typeof(RecipeIngredientsEditView), typeof(RecipeIngredientsEditViewModel)),
     };
 
     public async Task GoToAsync<TViewModel>()

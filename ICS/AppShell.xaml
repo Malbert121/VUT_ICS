@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:a="clr-namespace:ICS.View.Activity"
     xmlns:r="clr-namespace:ICS.View.Rating"
+    xmlns:s="clr-namespace:ICS.View.Student"
     x:Name="AppShellRoot"
     xmlns:local="clr-namespace:ICS"
     Shell.FlyoutBehavior="Disabled"
@@ -15,10 +16,13 @@
                         Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToActivitiesCommand}" />
             <MenuFlyoutItem Text="Ratings"
                         Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToRatingsCommand}" />
+            <MenuFlyoutItem Text="Students"
+                        Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentsCommand}" />
         </MenuBarItem>
     </Shell.MenuBarItems>
 
     <ShellContent ContentTemplate="{DataTemplate r:RatingListView}" Route="ratings" />
     <ShellContent ContentTemplate="{DataTemplate a:ActivityPage}" Route="activities" />
+    <ShellContent ContentTemplate="{DataTemplate s:StudentListView}" Route="students" />
 
 </Shell>

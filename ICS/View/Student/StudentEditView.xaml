@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="ICS.View.Student.StudentEditView"
+                       xmlns:vm="clr-namespace:ICS.ViewModel.Student"
+                       x:DataType="vm:StudentEditViewModel"
+                       xmlns:views="clr-namespace:ICS.View"
+                       x:Name="StudentEditViewRoot">
+    <VerticalStackLayout>
+        <Label 
+        Text="Student Edit."
+        VerticalOptions="Center" 
+        FontSize="24"
+        HorizontalOptions="Center" />
+        <Button Text="Save" 
+        FontSize="24"
+        Command="{Binding SaveCommand}" />
+
+        <Label Text="First Name."
+           FontSize="20"/>
+        <Entry HorizontalOptions="Fill"
+           FontSize="20"  
+           Text="{Binding Student.firstName}" />
+
+        <Label Text="Last Name."
+           FontSize="20"/>
+        <Entry HorizontalOptions="Fill"
+           FontSize="20"
+           Text="{Binding Student.lastName}" />
+    </VerticalStackLayout>
+</views:ContentPageBase>
