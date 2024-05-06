@@ -24,10 +24,10 @@ public partial class MainPage : ContentPage
         SemanticScreenReader.Announce(CounterBtn.Text);
     }
 
-    private void OnStudentListClicked(object sender, EventArgs e)
-    {
-        Navigation.PushAsync(new StudentListView());
-    }
+   // private void OnStudentListClicked(object sender, EventArgs e)
+   // {
+   //     Navigation.PushAsync(new StudentListView());
+   // }
 
     //private void OnRatingListClicked(object sender, EventArgs e)
     //{

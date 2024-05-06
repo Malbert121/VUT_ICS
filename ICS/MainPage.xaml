@@ -26,12 +26,6 @@
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />
 
-            <Button
-                x:Name="StudentsList"
-                Text="List of students"
-                Clicked="OnStudentListClicked"
-                HorizontalOptions="Fill" />
-
         </VerticalStackLayout>
     </ScrollView>
 

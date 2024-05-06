@@ -1,6 +1,6 @@
 ﻿namespace ICS.Messages
 {
-    internal class StudentDeleteMessage
+    public class StudentDeleteMessage
     {
     }
 }
