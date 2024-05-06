@@ -1,9 +1,11 @@
+using ICS.ViewModel.Subject;
+
 namespace ICS.View.Subject;
 
-public partial class SubjectAddNew : ContentPage
+public partial class SubjectAddNew
 {
-	public SubjectAddNew()
-	{
-		InitializeComponent();
-	}
+    public SubjectAddNew(SubjectEditViewModel viewModel) : base(viewModel)
+    {
+        InitializeComponent();
+    }
 }

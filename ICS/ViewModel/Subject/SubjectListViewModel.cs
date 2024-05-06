@@ -11,7 +11,7 @@ public partial class SubjectListViewModel(
     ISubjectFacade subjectFacade,
     INavigationService navigationService,
     IMessengerService messengerService)
-    : ViewModelBase(messengerService), IRecipient<SubjectEditMessage>, IRecipient<SubjectDeleteMessage>
+    : ViewModelBase(messengerService), IRecipient<SubjectEditMessage>, IRecipient<SubjectDeleteMessage>, IRecipient<SubjectAddMessage>
 {
     public IEnumerable<SubjectListModel> Subjects { get; set; } = null!;
 

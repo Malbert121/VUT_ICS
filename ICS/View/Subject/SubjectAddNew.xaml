@@ -1,18 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ICS.View.Subject.SubjectAddNew"
-             Title="Add new subject"
-             xmlns:viewModels="clr-namespace:ICS.ViewModel.Subject">
+             xmlns:vm="clr-namespace:ICS.ViewModel.Subject"
+             x:DataType="vm:SubjectEditViewModel"
+             xmlns:m="clr-namespace:ICS.BL.Models;assembly=ICS.BL"
+             xmlns:views="clr-namespace:ICS.View">
 
-    <ScrollView>
-        <StackLayout Padding="20">
+    <VerticalStackLayout>
+        <Label 
+    Text="Subject Edit."
+    VerticalOptions="Center" 
+    FontSize="24"
+    HorizontalOptions="Center" />
+        <Button Text="Save" 
+    FontSize="24"
+    Command="{Binding SaveCommand}" />
 
-            <Entry Placeholder="Name" Text="{Binding Name}" FontSize="20" Margin="0,20,0,10" />
+        <Label Text="Subject ID."
+       FontSize="20"/>
+        <Entry HorizontalOptions="Fill"
+       FontSize="20"  
+       Text="{Binding Subject.Id}" />
 
-            <Entry Placeholder="Description" Text="{Binding Abbreviation}" FontSize="20" Margin="0,10"/>
-
-            <Button Text="Save Subject" Command="{Binding SaveChangesCommand}" Margin="0,20,0,10"/>
-        </StackLayout>
-    </ScrollView>
-</ContentPage>
+        <Label Text="Name."
+       FontSize="20"/>
+        <Entry HorizontalOptions="Fill"
+       FontSize="20"
+       Text="{Binding Subject.name}" />
+        <Label Text="Description."
+       FontSize="20"/>
+        <Editor HorizontalOptions="Fill"
+        FontSize="20"
+        AutoSize="TextChanges"
+        Text="{Binding Subject.abbreviation}" />
+    </VerticalStackLayout>
+</views:ContentPageBase>

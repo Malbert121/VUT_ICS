@@ -1,6 +1,5 @@
 ﻿using ICS.Services;
 using ICS.Messages.SubjectMessages;
-using ICS.ViewModel;
 using ICS.BL.Models;
 using ICS.BL.Facade.Interface;
 using CommunityToolkit.Mvvm.Input;
