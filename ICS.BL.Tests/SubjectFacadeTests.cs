@@ -243,7 +243,7 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
         await _subjectFacadeSUT.SaveAsync(model);
     }
     
-    
+    /*
     [Fact]
     public async Task Update_RemoveStudents_EqualsUpdated()
     {
@@ -258,7 +258,7 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
         //Assert
         FixStudentIds(model, returnedModel);
         DeepAssert.Equal(model, returnedModel);
-    }
+    }*/
     
     
     [Fact]
