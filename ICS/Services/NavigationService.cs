@@ -6,6 +6,8 @@ using ICS.ViewModel.Rating;
 using ICS.View.Activity;
 using ICS.View.Subject;
 using ICS.ViewModel.Subject;
+using ICS.View.Student;
+using ICS.ViewModel.Student;
 
 namespace ICS.Services;
 
@@ -24,6 +26,10 @@ public class NavigationService : INavigationService
         new("//subjects", typeof(SubjectListView), typeof(SubjectListViewModel)),
         new("//subjects/detail", typeof(SubjectDetailView), typeof(SubjectDetailViewModel)),
         new("//subjects/edit", typeof(SubjectAddNew), typeof(SubjectEditViewModel)),
+
+        new("//students", typeof(StudentListView), typeof(StudentListViewModel)),
+        new("//students/detail", typeof(StudentDetailView), typeof(StudentDetailViewModel)),
+        new("//students/edit", typeof(StudentEditView), typeof(StudentEditViewModel)),
         //new("//subjects/detail/edit", typeof(SubjectEditView), typeof(RatingEditViewModel)),
         //new("//recipes/detail", typeof(RecipeDetailView), typeof(RecipeDetailViewModel)),
 

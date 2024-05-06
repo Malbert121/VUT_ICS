@@ -4,9 +4,7 @@ using ICS.View;
 using ICS.ViewModel.Activity;
 using ICS.ViewModel.Rating;
 using ICS.ViewModel.Subject;
-using System;
-using System.Linq.Expressions;
-using System.Windows.Input;
+using ICS.ViewModel.Student;
 
 namespace ICS
 {
@@ -29,6 +27,12 @@ namespace ICS
         {
             
             await _navigationService.GoToAsync<ActivityListViewModel>();
+        }
+
+        [RelayCommand]
+        private async Task GoToStudentsAsync()
+        {
+            await _navigationService.GoToAsync<StudentListViewModel>();
         }
 
         [RelayCommand]
