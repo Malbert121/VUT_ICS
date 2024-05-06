@@ -19,8 +19,9 @@ public partial class SubjectEditViewModel(
     [RelayCommand]
     private async Task SaveAsync()
     {
-        await subjectFacade.SaveAsync(Subject);
-
+        
+        await subjectFacade.SaveAsync(Subject with { activity = default!, students = default! });
+       
         MessengerService.Send(new SubjectEditMessage { SubjectId = Subject.Id });
 
         navigationService.SendBackButtonPressed();
