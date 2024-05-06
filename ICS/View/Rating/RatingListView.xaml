@@ -21,9 +21,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="575" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" FontSize="20" Text="Student ID" />
-            <Label Grid.Column="1" FontSize="20" Text="Points" />
+            <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="Student ID" />
+            <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="Points" />
         </Grid>
 
         <CollectionView ItemsSource="{Binding Ratings}">
@@ -39,9 +40,9 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" FontSize="20" Text="{Binding studentId}" />
-                        <Label Grid.Column="1" FontSize="20" Text="{Binding points}" />
-                        <Button Grid.Column="4" FontSize="20" Text="Detail" Command="{Binding Source={x:Reference RatingListViewRoot}, Path=BindingContext.GoToDetailCommand}" CommandParameter="{Binding Id}" />
+                        <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="{Binding studentId}" />
+                        <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="{Binding points}" />
+                        <Button Grid.Column="4" FontSize="20" Text="Detail"  HeightRequest="50" WidthRequest="200" Command="{Binding Source={x:Reference RatingListViewRoot}, Path=BindingContext.GoToDetailCommand}" CommandParameter="{Binding Id}" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
