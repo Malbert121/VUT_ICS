@@ -19,7 +19,7 @@ public partial class ActivityEditViewModel(
     [RelayCommand]
     private async Task SaveAsync()
     {
-        await activityFacade.SaveAsync(Activity);
+        await activityFacade.SaveAsync(Activity with { ratings = default!});
 
         MessengerService.Send(new ActivityEditMessage { ActivityId = Activity.Id });
 
