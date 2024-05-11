@@ -12,6 +12,7 @@ namespace ICS.Common.Tests.Seeds
             Id = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56239"),
             Name = string.Empty,
             Abbreviation = string.Empty,
+            Activity = new List<ActivityEntity>()
         };
 
         public static SubjectEntity potions = new SubjectEntity
@@ -19,7 +20,6 @@ namespace ICS.Common.Tests.Seeds
             Id = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56238"),
             Name = "Potions",
             Abbreviation = "POT",
-            Students = new List<StudentEntity>(),
             Activity = new List<ActivityEntity>()
         };
 
@@ -28,7 +28,7 @@ namespace ICS.Common.Tests.Seeds
             Id = Guid.Parse("6E6E0B29-20D6-4723-99D5-9140CBAB73F5"),
             Name = "SubjectWithNoStudent",
             Abbreviation = "SWNS",
-            Students = new List<StudentEntity>()
+            Activity = new List<ActivityEntity>()
         };
 
         public static readonly SubjectEntity SubjectWithOneStudent = new SubjectEntity
@@ -36,14 +36,15 @@ namespace ICS.Common.Tests.Seeds
             Id = Guid.Parse("4FD824C0-A7D1-48BA-8E7C-4F136CF8BF31"),
             Name = "SubjectWithOneStudent",
             Abbreviation = "SWOS",
-            Students = new List<StudentEntity> { StudentSeeds.Harry }
+            Activity = new List<ActivityEntity>()
         };
 
         public static readonly SubjectEntity SubjectWithTwoStudents = new SubjectEntity
         {
             Id = Guid.Parse("F78ED923-E094-4016-9045-3F5BB7F2EB88"),
             Name = "SubjectWithTwoStudents",
-            Abbreviation = "SWTS"
+            Abbreviation = "SWTS",
+            Activity = new List<ActivityEntity>()
         };
 
         public static readonly SubjectEntity SubjectUpdate = new SubjectEntity
@@ -51,7 +52,7 @@ namespace ICS.Common.Tests.Seeds
             Id = Guid.Parse("143332B9-080E-4953-AEA5-BEF64679B052"),
             Name = "SubjectUpdate",
             Abbreviation = "SU",
-            Students = new List<StudentEntity>()
+            Activity = new List<ActivityEntity>()
         };
 
         public static readonly SubjectEntity SubjectDelete = new SubjectEntity
@@ -59,27 +60,45 @@ namespace ICS.Common.Tests.Seeds
             Id = Guid.Parse("274D0CC9-A948-4818-AADB-A8B4C0506619"),
             Name = "SubjectDelete",
             Abbreviation = "SD",
-            Students = new List<StudentEntity>()
+            Activity = new List<ActivityEntity>()
+        };
+
+        public static SubjectEntity DefenceDarkArts = new SubjectEntity
+        {
+            Id = Guid.Parse("6e6e0b29-20e6-4723-99d5-9140444473f4"),
+            Name = "Defence Against Dark Arts",
+            Abbreviation = "DDA",
+            Activity = new List<ActivityEntity>(),
+            Students = new List<StudentSubjectEntity>()
         };
         static SubjectSeeds()
         {
-            potions.Students.Add(StudentSeeds.Harry);
-            potions.Students.Add(StudentSeeds.Hermione);
             potions.Activity.Add(ActivitySeeds.PotionsActivity);
             potions.Activity.Add(ActivitySeeds.ActivityWithNoRatings);
             potions.Activity.Add(ActivitySeeds.ActivityWithOneRating);
             potions.Activity.Add(ActivitySeeds.ActivityWithTwoRatings);
             potions.Activity.Add(ActivitySeeds.ActivityUpdate);
             potions.Activity.Add(ActivitySeeds.ActivityDelete);
-            SubjectWithTwoStudents.Students.Add(StudentSeeds.Harry);
-            SubjectWithTwoStudents.Students.Add(StudentSeeds.Hermione);
-
-
+            potions.Students.Add(StudentSubjectSeeds.HarryPotions);
+            potions.Students.Add(StudentSubjectSeeds.HermionePotions);
+            DefenceDarkArts.Students.Add(StudentSubjectSeeds.HarryDarkArts);
+            DefenceDarkArts.Students.Add(StudentSubjectSeeds.HermioneDarkArts);
+            DefenceDarkArts.Students.Add(StudentSubjectSeeds.RonaldDarkArts);
+            DefenceDarkArts.Students.Add(StudentSubjectSeeds.LunaDarkArts);
+            DefenceDarkArts.Students.Add(StudentSubjectSeeds.NevilleDarkArts);
         }
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<SubjectEntity>().HasData(potions with { Students = Array.Empty<StudentEntity>(), Activity = Array.Empty<ActivityEntity>() }, EmptySubject, SubjectWithNoStudent with { Students = Array.Empty<StudentEntity>() }, SubjectWithOneStudent with { Students = Array.Empty<StudentEntity>() }, SubjectWithTwoStudents with { Students = Array.Empty<StudentEntity>() }, SubjectUpdate with { Students = Array.Empty<StudentEntity>() }, SubjectDelete with { Students = Array.Empty<StudentEntity>() });
+            modelBuilder.Entity<SubjectEntity>().HasData(
+                potions with { Students = Array.Empty<StudentSubjectEntity>(), 
+                    Activity = Array.Empty<ActivityEntity>() }, 
+                EmptySubject, 
+                SubjectWithNoStudent with { Students = Array.Empty<StudentSubjectEntity>() }, 
+                SubjectWithOneStudent with { Students = Array.Empty<StudentSubjectEntity>() }, 
+                SubjectWithTwoStudents with { Students = Array.Empty<StudentSubjectEntity>() }, 
+                SubjectUpdate with { Students = Array.Empty<StudentSubjectEntity>() }, 
+                SubjectDelete with { Students = Array.Empty<StudentSubjectEntity>() });
         }
 
     }

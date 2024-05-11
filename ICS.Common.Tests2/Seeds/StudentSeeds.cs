@@ -21,7 +21,6 @@ namespace ICS.Common.Tests.Seeds
             FirstName = "Harry",
             LastName = "Potter",
             PhotoUrl = "http://www.example.com/index.html",
-            Subjects = new List<SubjectEntity>()
         };
 
         public static readonly StudentEntity Hermione = new StudentEntity
@@ -30,7 +29,6 @@ namespace ICS.Common.Tests.Seeds
             FirstName = "Hermione",
             LastName = "Granger",
             PhotoUrl = "http://www.example.com/index.html",
-            Subjects = new List<SubjectEntity>()
         };
 
         public static readonly StudentEntity StudentWithNoSubjects = new StudentEntity
@@ -39,7 +37,6 @@ namespace ICS.Common.Tests.Seeds
             FirstName = "Harry",
             LastName = "Potter",
             PhotoUrl = "http://www.example.com/index.html",
-            Subjects = new List<SubjectEntity>()
         };
 
         public static readonly StudentEntity StudentWithSubjects = new StudentEntity
@@ -48,7 +45,6 @@ namespace ICS.Common.Tests.Seeds
             FirstName = "Harry",
             LastName = "Potter",
             PhotoUrl = "http://www.example.com/index.html",
-            Subjects = new List<SubjectEntity> { SubjectSeeds.potions }
         };
 
         public static readonly StudentEntity StudentUpdate = new StudentEntity
@@ -57,7 +53,6 @@ namespace ICS.Common.Tests.Seeds
             FirstName = "Draco",
             LastName = "Malfoy",
             PhotoUrl = "http://www.example.com/index.html",
-            Subjects = new List<SubjectEntity>()
         };
 
         public static readonly StudentEntity StudentDelete = new StudentEntity
@@ -65,8 +60,30 @@ namespace ICS.Common.Tests.Seeds
             Id = Guid.Parse("5DCA4CEA-B8A8-4C86-A0B3-FFB78FBA1A09"),
             FirstName = "Harry",
             LastName = "Potter",
-            PhotoUrl = "http://www.example.com/index.html",
-            Subjects = new List<SubjectEntity>()
+        };
+
+        public static readonly StudentEntity student3 = new StudentEntity
+        {
+            Id = Guid.Parse("f6b5fcf8-1a45-4135-b826-f6d4f14703cf"),
+            FirstName = "Ronald",
+            LastName = "Weasley",
+            PhotoUrl = @"https://static.wikia.nocookie.net/harrypotter/images/8/85/Ron_Weasley.jpg/revision/latest?cb=20101104210200",
+        };
+
+        public static readonly StudentEntity student4 = new StudentEntity
+        {
+            Id = Guid.Parse("f6b5fcf8-1a45-4135-b826-f6d4f14703cf"),
+            FirstName = "Luna",
+            LastName = "Lovegood",
+            PhotoUrl = @"https://static.wikia.nocookie.net/harrypotter/images/e/ed/Luna_Lovegood.jpg/revision/latest/scale-to-width-down/1000?cb=20160902165706",
+        };
+
+        public static readonly StudentEntity student5 = new StudentEntity
+        {
+            Id = Guid.Parse("f6b5fcf8-1a45-4135-b826-f6d4f14703cf"),
+            FirstName = "Neville",
+            LastName = "Longbottom",
+            PhotoUrl = @"https://static.wikia.nocookie.net/harrypotter/images/4/41/Normal_promo_neville_plant.jpg/revision/latest?cb=20071228151053",
         };
 
         static StudentSeeds()
@@ -74,16 +91,19 @@ namespace ICS.Common.Tests.Seeds
             Harry.Subjects.Add(SubjectSeeds.potions);
             Harry.Subjects.Add(SubjectSeeds.SubjectWithTwoStudents);
             Hermione.Subjects.Add(SubjectSeeds.potions);
-            Hermione.Subjects.Add(SubjectSeeds.SubjectWithTwoStudents);
 
         }
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<StudentEntity>().HasData(Harry with { Subjects = Array.Empty<SubjectEntity>() }, Hermione with { Subjects = Array.Empty<SubjectEntity>() }, StudentWithNoSubjects with {Subjects = Array.Empty<SubjectEntity>() }, 
-                StudentWithSubjects with { Subjects = Array.Empty<SubjectEntity>() }, 
-                StudentUpdate with { Subjects = Array.Empty<SubjectEntity>() }, 
-                StudentDelete with { Subjects = Array.Empty<SubjectEntity>() });
+            modelBuilder.Entity<StudentEntity>().HasData(
+                Harry,
+                Hermione, 
+                StudentWithNoSubjects, 
+                StudentWithSubjects, 
+                StudentUpdate, 
+                StudentDelete
+                );
         }
     }
 }

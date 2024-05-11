@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ICS.DAL.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialGrade : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -63,24 +63,25 @@ namespace ICS.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentSubject",
+                name: "StudentSubjects",
                 columns: table => new
                 {
-                    StudentsId = table.Column<Guid>(type: "TEXT", nullable: false),
-                    SubjectsId = table.Column<Guid>(type: "TEXT", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    StudentId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    SubjectId = table.Column<Guid>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentSubject", x => new { x.StudentsId, x.SubjectsId });
+                    table.PrimaryKey("PK_StudentSubjects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StudentSubject_Students_StudentsId",
-                        column: x => x.StudentsId,
+                        name: "FK_StudentSubjects_Students_StudentId",
+                        column: x => x.StudentId,
                         principalTable: "Students",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StudentSubject_Subjects_SubjectsId",
-                        column: x => x.SubjectsId,
+                        name: "FK_StudentSubjects_Subjects_SubjectId",
+                        column: x => x.SubjectId,
                         principalTable: "Subjects",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -129,9 +130,14 @@ namespace ICS.DAL.Migrations
                 column: "StudentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentSubject_SubjectsId",
-                table: "StudentSubject",
-                column: "SubjectsId");
+                name: "IX_StudentSubjects_StudentId",
+                table: "StudentSubjects",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudentSubjects_SubjectId",
+                table: "StudentSubjects",
+                column: "SubjectId");
         }
 
         /// <inheritdoc />
@@ -141,7 +147,7 @@ namespace ICS.DAL.Migrations
                 name: "Rating");
 
             migrationBuilder.DropTable(
-                name: "StudentSubject");
+                name: "StudentSubjects");
 
             migrationBuilder.DropTable(
                 name: "Activities");

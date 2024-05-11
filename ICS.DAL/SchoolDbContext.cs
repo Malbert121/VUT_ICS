@@ -29,36 +29,46 @@ namespace ICS.DAL.Context
 {
     public class SchoolContext(DbContextOptions contextOptions, bool seedDemoData = false) :  DbContext(contextOptions)
     {
-        public DbSet<StudentEntity> Students { get; set; }
-        public DbSet<ActivityEntity> Activities { get; set; }
-        public DbSet<SubjectEntity> Subjects { get; set; }
-        public DbSet<RatingEntity> Rating { get; set; }
+        public DbSet<StudentSubjectEntity> StudentSubjects => Set<StudentSubjectEntity>();
+        public DbSet<StudentEntity> Students => Set<StudentEntity>();
+        public DbSet<ActivityEntity> Activities => Set<ActivityEntity>();
+        public DbSet<SubjectEntity> Subjects => Set<SubjectEntity>();
+        public DbSet<RatingEntity> Rating => Set<RatingEntity>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ActivityEntity>()
-                .HasKey(a => a.Id);
-            modelBuilder.Entity<RatingEntity>()
-                .HasKey(a => a.Id);
             modelBuilder.Entity<StudentEntity>()
                 .HasKey(a => a.Id);
             modelBuilder.Entity<SubjectEntity>()
                 .HasKey(a => a.Id);
+            modelBuilder.Entity<StudentSubjectEntity>()
+                .HasKey(a => a.Id);
+            modelBuilder.Entity<ActivityEntity>()
+                .HasKey(a => a.Id);
+            modelBuilder.Entity<RatingEntity>()
+                .HasKey(a => a.Id);
 
-
-            // Many-to-many between Subject and Student
-            modelBuilder.Entity<SubjectEntity>()
-                .HasMany(p => p.Students)
-                .WithMany(s => s.Subjects)
-                .UsingEntity(j => j.ToTable("StudentSubject"));
 
             //One to many between subject and activities
             modelBuilder.Entity<SubjectEntity>()
                 .HasMany(s => s.Activity)
                 .WithOne(a => a.Subject)
                 .HasForeignKey(a => a.SubjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<SubjectEntity>()
+                .HasMany(s => s.Students)
+                .WithOne(a => a.Subject)
+                .HasForeignKey(a => a.SubjectId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Many-to-many between Subject and Student
+            modelBuilder.Entity<StudentEntity>()
+                .HasMany(s => s.Subjects)
+                .WithOne(s => s.Student)
+                .HasForeignKey(a => a.StudentId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             //many to one between activity and rating
@@ -79,6 +89,7 @@ namespace ICS.DAL.Context
             {
                 StudentSeeds.Seed(modelBuilder);
                 SubjectSeeds.Seed(modelBuilder);
+                StudentSubjectSeeds.Seed(modelBuilder);
                 ActivitySeeds.Seed(modelBuilder);
                 RatingSeeds.Seed(modelBuilder);
             }

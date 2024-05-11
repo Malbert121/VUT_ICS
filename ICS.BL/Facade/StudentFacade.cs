@@ -2,11 +2,6 @@
 using ICS.BL.Models;
 using ICS.DAL.Entities;
 using ICS.DAL.Mappers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ICS.BL.Mappers;
 using ICS.DAL.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
@@ -20,7 +15,7 @@ public class StudentFacade(
         IStudentFacade
 {
     protected override ICollection<string> IncludesSubjectNavigationPathDetail =>
-       new[] { $"{nameof(StudentEntity.Subjects)}" };
+       new[] { $"{nameof(StudentEntity.Subjects)}.{nameof(StudentSubjectEntity.Subject)}" };
 
     public async Task<IEnumerable<StudentListModel>> GetSearchAsync(string search)
     {

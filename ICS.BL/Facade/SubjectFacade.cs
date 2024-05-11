@@ -17,7 +17,8 @@ public class SubjectFacade(
 {
 
     protected override ICollection<string> IncludesStudentNavigationPathDetail =>
-       new[] { $"{nameof(SubjectEntity.Students)}", $"{nameof(SubjectEntity.Activity)}" } ;
+       new[] { $"{nameof(SubjectEntity.Students)}.{nameof(StudentSubjectEntity.Student)}", $"{nameof(SubjectEntity.Activity)}" };
+
 
     public async Task<IEnumerable<SubjectListModel>> GetSearchAsync(string search)
     {

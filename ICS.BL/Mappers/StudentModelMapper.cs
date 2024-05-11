@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace ICS.BL.Mappers;
 
-public class StudentModelMapper(SubjectModelMapper subjectModelMapper) : ModelMapperBase<StudentEntity, StudentListModel, StudentDetailModel>, IStudentModelMapper
+public class StudentModelMapper(StudentSubjectModelMapper studentSubjectModelMapper) : ModelMapperBase<StudentEntity, StudentListModel, StudentDetailModel>, IStudentModelMapper
 {
     public override StudentListModel MapToListModel(StudentEntity? entity)
          => entity is null
@@ -31,13 +31,13 @@ public class StudentModelMapper(SubjectModelMapper subjectModelMapper) : ModelMa
             photoURL = entity.PhotoUrl
         };
 
-        if (subjectModelMapper != null)
+        if (studentSubjectModelMapper != null)
         {              
-            detailModel.subjects = subjectModelMapper.MapToListModel(entity.Subjects).ToObservableCollection();
+            detailModel.subjects = studentSubjectModelMapper.MapToListModel(entity.Subjects).ToObservableCollection();
         }
         else
         {               
-            detailModel.subjects = new ObservableCollection<SubjectListModel>();
+            detailModel.subjects = new ObservableCollection<StudentSubjectListModel>();
         }
 
         return detailModel;

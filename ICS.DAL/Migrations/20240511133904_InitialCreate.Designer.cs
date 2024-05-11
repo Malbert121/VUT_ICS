@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ICS.DAL.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20240424132655_InitialGrade")]
-    partial class InitialGrade
+    [Migration("20240511133904_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -109,6 +109,27 @@ namespace ICS.DAL.Migrations
                     b.ToTable("Students");
                 });
 
+            modelBuilder.Entity("ICS.DAL.Entities.StudentSubjectEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("StudentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid>("SubjectId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("StudentSubjects");
+                });
+
             modelBuilder.Entity("ICS.DAL.Entities.SubjectEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -126,21 +147,6 @@ namespace ICS.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Subjects");
-                });
-
-            modelBuilder.Entity("StudentEntitySubjectEntity", b =>
-                {
-                    b.Property<Guid>("StudentsId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid>("SubjectsId")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("StudentsId", "SubjectsId");
-
-                    b.HasIndex("SubjectsId");
-
-                    b.ToTable("StudentSubject", (string)null);
                 });
 
             modelBuilder.Entity("ICS.DAL.Entities.ActivityEntity", b =>
@@ -173,19 +179,23 @@ namespace ICS.DAL.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("StudentEntitySubjectEntity", b =>
+            modelBuilder.Entity("ICS.DAL.Entities.StudentSubjectEntity", b =>
                 {
-                    b.HasOne("ICS.DAL.Entities.StudentEntity", null)
+                    b.HasOne("ICS.DAL.Entities.StudentEntity", "Student")
                         .WithMany()
-                        .HasForeignKey("StudentsId")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ICS.DAL.Entities.SubjectEntity", null)
-                        .WithMany()
-                        .HasForeignKey("SubjectsId")
+                    b.HasOne("ICS.DAL.Entities.SubjectEntity", "Subject")
+                        .WithMany("Students")
+                        .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("ICS.DAL.Entities.ActivityEntity", b =>
@@ -196,6 +206,8 @@ namespace ICS.DAL.Migrations
             modelBuilder.Entity("ICS.DAL.Entities.SubjectEntity", b =>
                 {
                     b.Navigation("Activity");
+
+                    b.Navigation("Students");
                 });
 #pragma warning restore 612, 618
         }
