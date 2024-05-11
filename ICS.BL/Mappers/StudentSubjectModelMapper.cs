@@ -23,7 +23,7 @@ public class StudentSubjectModelMapper : ModelMapperBase<StudentSubjectEntity, S
             StudentFirstName = entity.Student.FirstName,
             StudentLastName = entity.Student.LastName,
             SubjectName = entity.Subject.Name,
-            SubjectAbbriviation = entity.Subject.Abbreviation
+            SubjectAbbreviation = entity.Subject.Abbreviation
         };
 
     public override StudentSubjectDetailModel MapToDetailModel(StudentSubjectEntity? entity)
@@ -36,7 +36,7 @@ public class StudentSubjectModelMapper : ModelMapperBase<StudentSubjectEntity, S
             StudentFirstName = entity.Student.FirstName,
             StudentLastName = entity.Student.LastName,
             SubjectName = entity.Subject.Name,
-            SubjectAbbriviation = entity.Subject.Abbreviation
+            SubjectAbbreviation = entity.Subject.Abbreviation
         };
 
     public override StudentSubjectEntity MapDetailModelToEntity(StudentSubjectDetailModel model)

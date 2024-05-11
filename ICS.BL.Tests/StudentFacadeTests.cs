@@ -40,13 +40,15 @@ public sealed class StudentFacadeTests : FacadeTestsBase
             firstName = "Anna",
             lastName = "Tomson",
             photoURL = "http://www.example.com/index.html",
-            subjects = new ObservableCollection<SubjectListModel>()
+            subjects = new ObservableCollection<StudentSubjectListModel>()
             {
-                new SubjectListModel
+                new StudentSubjectListModel
                 {
                     Id = Guid.NewGuid(),
-                    name = "Database Systems",
-                    abbreviation = "IDS"
+                    SubjectName = "Database Systems",
+                    SubjectAbbreviation = "IDS",
+                    StudentId = Guid.Empty,
+                    SubjectId = Guid.NewGuid()
                 }
             }
         };

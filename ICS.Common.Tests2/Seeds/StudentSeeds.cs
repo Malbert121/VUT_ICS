@@ -88,21 +88,26 @@ namespace ICS.Common.Tests.Seeds
 
         static StudentSeeds()
         {
-            Harry.Subjects.Add(SubjectSeeds.potions);
-            Harry.Subjects.Add(SubjectSeeds.SubjectWithTwoStudents);
-            Hermione.Subjects.Add(SubjectSeeds.potions);
-
+            Harry.Subjects.Add(StudentSubjectSeeds.HarryPotions);
+            Harry.Subjects.Add(StudentSubjectSeeds.HarrySubjectWithTwoStudents);
+            Hermione.Subjects.Add(StudentSubjectSeeds.HermionePotions);
+            Harry.Subjects.Add(StudentSubjectSeeds.HarryDarkArts);
+            Hermione.Subjects.Add(StudentSubjectSeeds.HermioneDarkArts);
+            student3.Subjects.Add(StudentSubjectSeeds.RonaldDarkArts);
+            student4.Subjects.Add(StudentSubjectSeeds.LunaDarkArts);
+            student5.Subjects.Add(StudentSubjectSeeds.NevilleDarkArts);
+            
         }
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<StudentEntity>().HasData(
-                Harry,
-                Hermione, 
-                StudentWithNoSubjects, 
-                StudentWithSubjects, 
-                StudentUpdate, 
-                StudentDelete
+                Harry with { Subjects = Array.Empty<StudentSubjectEntity>() },
+                Hermione with { Subjects = Array.Empty<StudentSubjectEntity>() },
+                StudentWithNoSubjects with { Subjects = Array.Empty<StudentSubjectEntity>() },
+                StudentWithSubjects with { Subjects = Array.Empty<StudentSubjectEntity>() },
+                StudentUpdate with { Subjects = Array.Empty<StudentSubjectEntity>() },
+                StudentDelete with { Subjects = Array.Empty<StudentSubjectEntity>() }
                 );
         }
     }

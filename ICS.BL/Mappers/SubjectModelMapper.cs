@@ -25,6 +25,7 @@ public class SubjectModelMapper (ActivityModelMapper activityModelMapper, Studen
             name = entity.Name,
             abbreviation = entity.Abbreviation,
             activity = activityModelMapper.MapToListModel(entity.Activity).ToObservableCollection(),
+            students = studentSubjectModelMapper.MapToListModel(entity.Students).ToObservableCollection()
         };
 
     public override SubjectEntity MapDetailModelToEntity(SubjectDetailModel model)

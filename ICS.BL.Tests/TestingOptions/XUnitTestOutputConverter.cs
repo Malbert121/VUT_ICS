@@ -3,7 +3,7 @@ using Xunit.Abstractions;
 
 namespace ICS.BL.Tests.TestingOptions
 {
-    internal class XUnitTestOutputConverter(ITestOutputHelper output) : TextWriter
+    public class XUnitTestOutputConverter(ITestOutputHelper output) : TextWriter
     {
         public override Encoding Encoding => Encoding.UTF8;
 

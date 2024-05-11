@@ -66,6 +66,15 @@ namespace ICS.Common.Tests.Seeds
             Id = Guid.Parse("6e6e0b29-20e6-4723-99d5-1140cba37334")
         };
 
+        public static readonly StudentSubjectEntity HarrySubjectWithTwoStudents = new()
+        {
+            StudentId = StudentSeeds.Harry.Id,
+            SubjectId = SubjectSeeds.SubjectWithTwoStudents.Id,
+            Student = StudentSeeds.Harry,
+            Subject = SubjectSeeds.SubjectWithTwoStudents,
+            Id = Guid.Parse("6e6e0b29-20e6-4723-99d5-0140cba37334")
+        };
+
         public static void Seed(this ModelBuilder modelBuilder) =>
             modelBuilder.Entity<StudentSubjectEntity>().HasData(
                 HarryPotions with { Student = null!, Subject = null! },

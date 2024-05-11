@@ -48,10 +48,27 @@ namespace ICS.DAL.Seeds
             PhotoUrl = @"https://static.wikia.nocookie.net/harrypotter/images/4/41/Normal_promo_neville_plant.jpg/revision/latest?cb=20071228151053",
         };
 
+
+        static StudentSeeds()
+        {
+            student1.Subjects.Add(StudentSubjectSeeds.HarryPotions);
+            student1.Subjects.Add(StudentSubjectSeeds.HarryDarkArts);
+            student2.Subjects.Add(StudentSubjectSeeds.HermionePotions);
+            student2.Subjects.Add(StudentSubjectSeeds.HermioneDarkArts);
+            student3.Subjects.Add(StudentSubjectSeeds.RonaldDarkArts);
+            student4.Subjects.Add(StudentSubjectSeeds.LunaDarkArts);
+            student5.Subjects.Add(StudentSubjectSeeds.NevilleDarkArts);
+        }
+
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<StudentEntity>()
-                .HasData(student1, student2, student3, student4, student5);
+                .HasData(student1 with { Subjects = Array.Empty<StudentSubjectEntity>()},
+                         student2 with { Subjects = Array.Empty<StudentSubjectEntity>()},
+                         student3 with { Subjects = Array.Empty<StudentSubjectEntity>()},
+                         student4 with { Subjects = Array.Empty<StudentSubjectEntity>()},
+                         student5 with { Subjects = Array.Empty<StudentSubjectEntity>()}
+                         );
         }
     }
 }
