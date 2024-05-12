@@ -69,7 +69,7 @@ namespace ICS.Common.Tests.Seeds
             Name = "Defence Against Dark Arts",
             Abbreviation = "DDA",
             Activity = new List<ActivityEntity>(),
-            Students = new List<StudentSubjectEntity>()
+
         };
         static SubjectSeeds()
         {
@@ -98,7 +98,8 @@ namespace ICS.Common.Tests.Seeds
                 SubjectWithOneStudent with { Students = Array.Empty<StudentSubjectEntity>() }, 
                 SubjectWithTwoStudents with { Students = Array.Empty<StudentSubjectEntity>() }, 
                 SubjectUpdate with { Students = Array.Empty<StudentSubjectEntity>() }, 
-                SubjectDelete with { Students = Array.Empty<StudentSubjectEntity>() });
+                SubjectDelete with { Students = Array.Empty<StudentSubjectEntity>() },
+                DefenceDarkArts with { Students = Array.Empty<StudentSubjectEntity>() });
         }
 
     }

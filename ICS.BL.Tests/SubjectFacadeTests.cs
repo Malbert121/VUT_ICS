@@ -40,13 +40,15 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
             Id = Guid.Empty,
             name = "Database Systems",
             abbreviation = "IDS",
-            students = new ObservableCollection<StudentListModel>()
+            students = new ObservableCollection<StudentSubjectListModel>()
             {
-                new StudentListModel
+                new StudentSubjectListModel
                 {
                     Id = Guid.NewGuid(),
-                    firstName = "Pavel",
-                    lastName = "Maslov"
+                    StudentFirstName = "Harry",
+                    StudentLastName = "Potter",
+                    StudentId = Guid.Empty,
+                    SubjectId = SubjectSeeds.SubjectWithNoStudent.Id
                 }
             }
         };
@@ -97,13 +99,15 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
                     room = "A03",
                 }
             },
-            students = new ObservableCollection<StudentListModel>()
+            students = new ObservableCollection<StudentSubjectListModel>()
             {
-                new StudentListModel
+                new StudentSubjectListModel
                 {
                     Id = Guid.NewGuid(),
-                    firstName = "Pavel",
-                    lastName = "Maslov" 
+                    StudentFirstName = "Hermione",
+                    StudentLastName = "G",
+                    StudentId = Guid.Empty,
+                    SubjectId = SubjectSeeds.SubjectWithNoStudent.Id
                 }
             }
         };
@@ -157,13 +161,15 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
             Id = Guid.Empty,
             name = "Database Systems",
             abbreviation = "IDS",
-            students = new ObservableCollection<StudentListModel>()
+            students = new ObservableCollection<StudentSubjectListModel>()
             {
-                new StudentListModel
+                new StudentSubjectListModel
                 {
-                    Id = StudentSeeds.Harry.Id,
-                    firstName = StudentSeeds.Harry.FirstName,
-                    lastName = StudentSeeds.Harry.LastName,
+                    Id = Guid.NewGuid(),
+                    StudentFirstName = "Harry",
+                    StudentLastName = "Potter",
+                    StudentId = Guid.Empty,
+                    SubjectId = SubjectSeeds.SubjectWithNoStudent.Id
                 }
             }
         };
@@ -300,7 +306,7 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     {
         var activityList = await _subjectApliedFacadeSUT.GetSortedAsync("byDescendingId");
 
-        Assert.Equal(7, activityList.ToObservableCollection().Count);
+        Assert.Equal(8, activityList.ToObservableCollection().Count);
     }
 
     
@@ -334,14 +340,14 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
         foreach (var studentModel in returnedModel.students)
         {
             var studentDetailModel = expectedModel.students.FirstOrDefault(i =>
-                i.firstName == studentModel.firstName && i.lastName == studentModel.lastName);
+                i.StudentFirstName == studentModel.StudentFirstName && i.StudentLastName == studentModel.StudentLastName);
 
 
             if (studentDetailModel != null)
             {
                 studentModel.Id = studentDetailModel.Id;
-                studentModel.firstName = studentModel.firstName;
-                studentModel.lastName = studentModel.lastName;
+                studentModel.StudentFirstName = studentModel.StudentFirstName;
+                studentModel.StudentFirstName = studentModel.StudentLastName;
             }
         }
     }

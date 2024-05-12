@@ -14,9 +14,10 @@ public class SchoolTestingContext(DbContextOptions contextOptions, bool seedTest
 
         if (seedTestingData)
         {
-            StudentSubjectSeeds.Seed(modelBuilder);
+           
             StudentSeeds.Seed(modelBuilder);
             SubjectSeeds.Seed(modelBuilder);
+            StudentSubjectSeeds.Seed(modelBuilder);
             ActivitySeeds.Seed(modelBuilder);
             RatingSeeds.Seed(modelBuilder);
         }

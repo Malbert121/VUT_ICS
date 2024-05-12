@@ -83,7 +83,8 @@ namespace ICS.Common.Tests.Seeds
                 HermioneDarkArts with { Student = null!, Subject = null! },
                 RonaldDarkArts with { Student = null!, Subject = null! },
                 LunaDarkArts with { Student = null!, Subject = null! },
-                NevilleDarkArts with { Student = null!, Subject = null! }
+                NevilleDarkArts with { Student = null!, Subject = null! },
+                HarrySubjectWithTwoStudents with { Student = null!, Subject = null! }
             );
     }
 }
