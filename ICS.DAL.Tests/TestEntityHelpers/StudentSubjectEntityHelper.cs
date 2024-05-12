@@ -11,7 +11,7 @@ namespace ICS.DAL.Tests.TestEntityHelpers
     {
         private static int counter = 0;
 
-        public static StudentSubjectEntity CreateRandomStudent(StudentEntity student, SubjectEntity subject)
+        public static StudentSubjectEntity CreateStudentSubject(StudentEntity student, SubjectEntity subject)
         {
             counter++;
             return new StudentSubjectEntity
