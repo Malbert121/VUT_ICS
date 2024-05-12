@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:coll="clr-namespace:System.Collections.ObjectModel;assembly=netstandard"
                        xmlns:views="clr-namespace:ICS.View"
                        xmlns:vm="clr-namespace:ICS.ViewModel.Student"
                        x:Class="ICS.View.Student.StudentDetailView"
                        x:Name="StudentDetailViewRoot"
                        x:DataType="vm:StudentDetailViewModel">
+                        
     <VerticalStackLayout>
         <Label 
             Text="Student Detail."
@@ -48,14 +50,13 @@
                           WidthRequest="100"
                           Aspect="AspectFill"/>
                 <Label Text="Subjects:" FontSize="20"/>
-                <ListView ItemsSource="{Binding Student.subjects}"
-                          HeightRequest="200">
-                    <ListView.ItemTemplate>
+                <CollectionView ItemsSource="{Binding Student.subjects}">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <TextCell Text="{Binding}" />
+                            <Label Text="{Binding}" FontSize="20"/>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
             </VerticalStackLayout>
         </Grid>

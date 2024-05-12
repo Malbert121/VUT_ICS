@@ -30,7 +30,7 @@ namespace ICS.DAL.Seeds
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ActivityEntity>().HasData(
-                ActivitySeeds.potionActivity with { Subject = null!, Ratings = Array.Empty<RatingEntity>() });
+                potionActivity with { Subject = null!, Ratings = Array.Empty<RatingEntity>() });
         }
     }
 }

@@ -18,10 +18,7 @@ namespace ICS.ViewModel.Student
     {
         public Guid Id { get; set; }
         public StudentDetailModel? Student { get; private set; }
-        public List<SubjectListModel> Subjects
-        {
-            get => Student?.subjects.ToList() ?? new List<SubjectListModel>();
-        }
+  
 
         [RelayCommand]
         public async Task DeleteAsync()

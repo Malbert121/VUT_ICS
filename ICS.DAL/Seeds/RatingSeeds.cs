@@ -9,8 +9,7 @@ namespace ICS.DAL.Seeds
     {
         public static RatingEntity Rating1 = new RatingEntity
         {
-            Id = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f485"), //there is no Id of activity and student
-            Points = 5,
+            Id = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f485"), 
             Note = "Good job",
             Activity = ActivitySeeds.potionActivity,
             ActivityId = ActivitySeeds.potionActivity.Id,
@@ -31,8 +30,8 @@ namespace ICS.DAL.Seeds
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<RatingEntity>().HasData(RatingSeeds.Rating1 with { Activity = null!, Student = null! });
-            modelBuilder.Entity<RatingEntity>().HasData(RatingSeeds.Rating2 with { Activity = null!, Student = null! });
+            modelBuilder.Entity<RatingEntity>().HasData(Rating1 with { Activity = null!, Student = null! });
+            modelBuilder.Entity<RatingEntity>().HasData(  Rating2 with { Activity = null!, Student = null! });
         }
     }
 }

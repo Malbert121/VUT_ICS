@@ -22,9 +22,10 @@ public class FacadeTestsBase : IAsyncLifetime
         RatingModelMapper = new RatingModelMapper();
         ActivityModelMapper = new ActivityModelMapper(RatingModelMapper);
 
-        
-        SubjectModelMapper = new SubjectModelMapper(ActivityModelMapper);
-        StudentModelMapper = new StudentModelMapper(SubjectModelMapper);
+        StudentSubjectModelMapper = new StudentSubjectModelMapper();
+
+        SubjectModelMapper = new SubjectModelMapper(ActivityModelMapper, StudentSubjectModelMapper);
+        StudentModelMapper = new StudentModelMapper(StudentSubjectModelMapper);
 
 
 
@@ -33,6 +34,7 @@ public class FacadeTestsBase : IAsyncLifetime
 
     protected IDbContextFactory<SchoolContext> DbContextFactory { get; }
     protected ActivityModelMapper ActivityModelMapper { get; }
+    public StudentSubjectModelMapper StudentSubjectModelMapper { get; }
     protected RatingModelMapper RatingModelMapper { get; }
     protected StudentModelMapper StudentModelMapper { get; }
     protected SubjectModelMapper SubjectModelMapper { get; }
