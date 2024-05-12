@@ -19,13 +19,6 @@
             HeightRequest="50"
             WidthRequest="200" 
             Command="{Binding GoToCreateCommand}" />
-        <Grid Padding="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="Name" />
-        </Grid>
         <CollectionView ItemsSource="{Binding Subjects}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"/>
@@ -36,11 +29,17 @@
                     <Grid Padding="10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="400" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" HorizontalOptions="Center" FontSize="20" Text="{Binding name}" />
-
-                        <Button Grid.Column="1" HorizontalOptions="Center" FontSize="20" Text="Detail"  HeightRequest="50" WidthRequest="200" Command="{Binding Source={x:Reference SubjectListViewRoot}, Path=BindingContext.GoToDetailCommand}" CommandParameter="{Binding Id}" />
+                        <Label Grid.Column="0" FontSize="20" Text="Subject ID:" />
+                        <Label Grid.Column="1" FontSize="20" Text="{Binding Id}" />
+                        <Label Grid.Column="2" FontSize="20" Text="Name:" />
+                        <Label Grid.Column="3" FontSize="20" Text="{Binding name}" />
+                       
+                        <Button Grid.Column="4" FontSize="20" Text="Detail" Command="{Binding Source={x:Reference SubjectListViewRoot}, Path=BindingContext.GoToDetailCommand}" CommandParameter="{Binding Id}" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
