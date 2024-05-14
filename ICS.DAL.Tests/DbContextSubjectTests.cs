@@ -1,7 +1,9 @@
 ﻿using ICS.DAL;
 using ICS.DAL.Context;
 using ICS.DAL.Entities;
+using ICS.DAL.Tests.TestEntityHelpers;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using Xunit;
 
 namespace ICS.DAL.Tests;
@@ -90,11 +92,11 @@ public class DbContextSubjectTests
         {
             student = StudentEntityHelper.CreateRandomStudent();
             subject = SubjectEntityHelper.CreateRandomSubject();
-
+            var studentSubject = StudentSubjectEntityHelper.CreateStudentSubject(student, subject);
             context.Subjects.Add(subject);
 
             //Act
-            subject.Students.Add(student);
+            context.StudentSubjects.Add(studentSubject);
             context.SaveChanges();
         }
 
@@ -103,8 +105,12 @@ public class DbContextSubjectTests
         {
             var actualSubject = await context.Subjects.Include(i => i.Students).SingleAsync(i => i.Id == subject.Id);
             var actualStudent = await context.Students.SingleAsync(i => i.Id == student.Id);
-            Assert.True(actualSubject.Students.Contains(actualStudent));
-            Assert.True(actualStudent.Subjects.Contains(actualSubject));
+            var studentSubjectInDb = await context.StudentSubjects
+                .Include(ss => ss.Subject)
+                .Include(ss => ss.Student)
+                .FirstOrDefaultAsync(ss => ss.SubjectId == actualSubject.Id && ss.StudentId == actualStudent.Id);
+
+            Assert.NotNull(studentSubjectInDb);
         }
     }
 
@@ -181,25 +187,26 @@ public class DbContextSubjectTests
             var student1 = StudentEntityHelper.CreateRandomStudent();
             var student2 = StudentEntityHelper.CreateRandomStudent();
             var student3 = StudentEntityHelper.CreateRandomStudent();
+            var studentSubject1 = StudentSubjectEntityHelper.CreateStudentSubject(student1, subject);
+            var studentSubject2 = StudentSubjectEntityHelper.CreateStudentSubject(student2, subject);
+            var studentSubject3 = StudentSubjectEntityHelper.CreateStudentSubject(student3, subject);
 
             context.Subjects.Add(subject);
-            subject.Students.Add(student1);
-            subject.Students.Add(student3);
-
+            context.Students.Add(student1);
             context.Students.Add(student2);
+            context.Students.Add(student3);
+
+            context.StudentSubjects.Add(studentSubject1);
+            context.StudentSubjects.Add(studentSubject2);
+            context.StudentSubjects.Add(studentSubject3);
             await context.SaveChangesAsync();
 
             // Act
             var studentsOfSubject = subject.Students.ToList();
 
             // Assert
-            Assert.Equal(2, studentsOfSubject.Count);
-
-            foreach (var student in studentsOfSubject)
-            {
-                Assert.True(student.Subjects.Contains(subject));
-            }
-
+            Assert.Equal(3, studentsOfSubject.Count);
+            Assert.Contains(student1, studentsOfSubject.Select(ss => ss.Student));
         }
     }
 
@@ -250,13 +257,15 @@ public class DbContextSubjectTests
             // Arrange
             student = StudentEntityHelper.CreateRandomStudent();
             subject = SubjectEntityHelper.CreateRandomSubject();
+            var studentSubject = StudentSubjectEntityHelper.CreateStudentSubject(student, subject);
 
             context.Subjects.Add(subject);
-            subject.Students.Add(student);
+
+            context.StudentSubjects.Add(studentSubject);
             context.SaveChanges();
 
             //Act
-            subject.Students.Remove(student);
+            context.StudentSubjects.Remove(studentSubject);
             await context.SaveChangesAsync();
         }
 
@@ -265,8 +274,12 @@ public class DbContextSubjectTests
         {
             var actualStudent = await context.Students.Include(i => i.Subjects).SingleAsync(i => i.Id == student.Id);
             var actualSubject = await context.Subjects.Include(i => i.Students).SingleAsync(i => i.Id == subject.Id); ;
-            Assert.False(student.Subjects.Contains(subject));
-            Assert.False(subject.Students.Contains(student));
+            var studentSubjectInDb = await context.StudentSubjects
+                .Include(ss => ss.Subject)
+                .Include(ss => ss.Student)
+                .FirstOrDefaultAsync(ss => ss.SubjectId == actualSubject.Id && ss.StudentId == actualStudent.Id);
+
+            Assert.Null(studentSubjectInDb);
         }
     }
 }
