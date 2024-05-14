@@ -12,7 +12,7 @@ using Microsoft.Data.Sqlite;
 using System.IO;
 using ICS.DAL.Tests.TestEntityHelpers;
 
-namespace DAL_Tests
+namespace ICS.DAL.Tests
 {
     public class Activity_and_Rating_Test
     {

@@ -15,7 +15,7 @@ public record ActivityDetailModel : ModelBase
     public ObservableCollection<RatingListModel> ratings { get; set; } = new ();
     public static ActivityDetailModel Empty => new()
     {
-        Id = Guid.Empty,
+        Id = Guid.NewGuid(),
         name = string.Empty,
         start = DateTime.MinValue,
         end = DateTime.MinValue,

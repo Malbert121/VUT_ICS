@@ -7,13 +7,13 @@
              xmlns:m="clr-namespace:ICS.BL.Models;assembly=ICS.BL"
              xmlns:views="clr-namespace:ICS.View">
 
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Spacing="10">
         <Label 
     Text="Subject Edit."
     VerticalOptions="Center" 
     FontSize="24"
     HorizontalOptions="Center" />
-        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Save" 
     FontSize="24"
     HeightRequest="50"

@@ -7,13 +7,13 @@
              x:DataType="vm:ActivityDetailViewModel"
              x:Name="ActivityDetailViewRoot">
 
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Spacing="10">
         <Label 
             Text="Activity Detail."
             FontSize="24"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Delete"
             FontSize="20"
             VerticalOptions="Center" 
@@ -21,7 +21,6 @@
             HeightRequest="50"
             WidthRequest="200" 
             Command="{Binding DeleteCommand}" />
-        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Edit"
                 FontSize="20"
             VerticalOptions="Center" 
@@ -29,6 +28,13 @@
             HeightRequest="50"
             WidthRequest="200"
             Command="{Binding GoToEditCommand}" />
+        <Button Text="Ratings"
+        FontSize="20"
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" 
+        HeightRequest="50"
+        WidthRequest="200" 
+        Command="{Binding GoToRatingCommand}" />
         <Grid HorizontalOptions="Center" VerticalOptions="Start"
         RowDefinitions="170, *" ColumnDefinitions="*, Auto, Auto, *"
         RowSpacing="20" ColumnSpacing="20">

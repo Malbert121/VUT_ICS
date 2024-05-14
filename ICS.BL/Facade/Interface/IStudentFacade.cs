@@ -5,4 +5,5 @@ namespace ICS.BL.Facade.Interface;
 
 public interface IStudentFacade : IFacade<StudentEntity, StudentListModel, StudentDetailModel>
 {
+
 }

@@ -17,7 +17,7 @@ namespace ICS.ViewModel.Student
         : ViewModelBase(messengerService), IRecipient<StudentEditMessage>
     {
         public Guid Id { get; set; }
-        public StudentDetailModel? Student { get; private set; }
+        public StudentDetailModel Student { get; private set; }
   
 
         [RelayCommand]
@@ -44,6 +44,14 @@ namespace ICS.ViewModel.Student
             await navigationService.GoToAsync("/edit",
             new Dictionary<string, object?> { [nameof(StudentEditViewModel.Student)] = Student });
         }
+        [RelayCommand]
+        public async Task GoToSubjectsAsync()
+        {
+            await navigationService.GoToAsync("/subjects",
+            new Dictionary<string, object?> { [nameof(StudentSubjectViewModel.Id)] = Student.Id });
+        }
+
+
 
         protected override async Task LoadDataAsync()
         {

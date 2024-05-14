@@ -6,13 +6,13 @@
                        x:Class="ICS.View.Rating.RatingDetailView"
                        x:Name="RatingDetailViewRoot"
                        x:DataType="vm:RatingDetailViewModel">
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Spacing="10">
         <Label 
             Text="Rating Detail."
             FontSize="24"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Delete"
             FontSize="20"
             VerticalOptions="Center" 
@@ -20,7 +20,6 @@
             HeightRequest="50"
             WidthRequest="200" 
             Command="{Binding DeleteCommand}" />
-        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Edit"
                 FontSize="20"
             VerticalOptions="Center" 

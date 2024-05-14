@@ -8,13 +8,13 @@
              x:DataType="vm:ActivityListViewModel"
              x:Name="ActivityListViewRoot">
 
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Spacing="10">
         <Label 
         Text="Activity List."
         VerticalOptions="Center" 
         FontSize="24"
         HorizontalOptions="Center" />
-        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Add Activity" 
             FontSize="20"
             HeightRequest="50"

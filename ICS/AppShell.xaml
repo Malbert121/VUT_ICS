@@ -23,10 +23,8 @@
                         Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToStudentsCommand}" />
         </MenuBarItem>
     </Shell.MenuBarItems>
-
-    <ShellContent ContentTemplate="{DataTemplate r:RatingListView}" Route="ratings" />
-    <ShellContent ContentTemplate="{DataTemplate a:ActivityListView}" Route="activities" />
     <ShellContent ContentTemplate="{DataTemplate s:SubjectListView}" Route="subjects" />
     <ShellContent ContentTemplate="{DataTemplate b:StudentListView}" Route="students" />
+
 
 </Shell>

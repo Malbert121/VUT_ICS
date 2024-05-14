@@ -67,4 +67,28 @@ public class StudentSubjectModelMapper : ModelMapperBase<StudentSubjectEntity, S
             Student = null!
         };
     }
+
+    public StudentSubjectEntity MapDetailModelToEntity(Guid studentId, StudentSubjectDetailModel model)
+    {
+        return new StudentSubjectEntity
+        {
+            Id = model.Id,
+            SubjectId = studentId,
+            StudentId = model.StudentId,
+            Subject = null!,
+            Student = null!
+        };
+    }
+
+    public StudentSubjectEntity MapDetailModelToEntity(Guid studentId, StudentSubjectListModel model)
+    {
+        return new StudentSubjectEntity
+        {
+            Id = model.Id,
+            SubjectId = studentId,
+            StudentId = model.StudentId,
+            Subject = null!,
+            Student = null!
+        };
+    }
 }

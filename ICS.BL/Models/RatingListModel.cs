@@ -9,7 +9,7 @@ public record RatingListModel : ModelBase
     public Guid studentId { get; set; }
     public static RatingListModel Empty => new()
     {
-        Id = Guid.Empty,
+        Id = Guid.NewGuid(),
         points = 0,
         studentId = Guid.Empty,
         activityId = Guid.Empty,

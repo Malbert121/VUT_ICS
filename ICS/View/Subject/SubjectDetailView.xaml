@@ -8,13 +8,13 @@
              xmlns:views="clr-namespace:ICS.View"
              >
 
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Spacing="10">
         <Label 
         Text="Subject Detail."
         FontSize="24"
         VerticalOptions="Center" 
         HorizontalOptions="Center" />
-        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Delete"
         FontSize="20"
         VerticalOptions="Center" 
@@ -22,7 +22,6 @@
         HeightRequest="50"
         WidthRequest="200"
         Command="{Binding DeleteCommand}" />
-        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Edit"
         FontSize="20"
         VerticalOptions="Center" 
@@ -30,6 +29,13 @@
         HeightRequest="50"
         WidthRequest="200" 
         Command="{Binding GoToEditCommand}" />
+        <Button Text="Activities"
+        FontSize="20"
+        VerticalOptions="Center" 
+        HorizontalOptions="Center" 
+        HeightRequest="50"
+        WidthRequest="200" 
+        Command="{Binding GoToActivityCommand}" />
         <Grid HorizontalOptions="Center" VerticalOptions="Start"
     RowDefinitions="170, *" ColumnDefinitions="*, Auto, Auto, *"
     RowSpacing="20" ColumnSpacing="20">

@@ -6,7 +6,7 @@ public record SubjectListModel : ModelBase
     public string abbreviation { get; set; } = string.Empty;
     public static SubjectListModel Empty => new()
     {
-        Id = Guid.Empty,
+        Id = Guid.NewGuid(),
         name = string.Empty,
         abbreviation = string.Empty
     };

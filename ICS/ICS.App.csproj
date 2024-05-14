@@ -105,6 +105,9 @@
 		<Compile Update="View\Rating\RatingListView.xaml.cs">
 			<DependentUpon>RatingListView.xaml</DependentUpon>
 		</Compile>
+		<Compile Update="View\Student\StudentSubjectListView.xaml.cs">
+		  <DependentUpon>StudentSubjectListView.xaml</DependentUpon>
+		</Compile>
 		<Compile Update="View\Subject\SubjectEditView.xaml.cs">
 		  <DependentUpon>SubjectEditView.xaml</DependentUpon>
 		</Compile>
@@ -137,6 +140,9 @@
 		</MauiXaml>
 		<MauiXaml Update="View\Rating\RatingListView.xaml">
 			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\Student\StudentSubjectListView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
     <MauiXaml Update="View\Subject\SubjectListView.xaml">
       <Generator>MSBuild:Compile</Generator>

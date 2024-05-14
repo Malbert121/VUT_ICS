@@ -14,7 +14,7 @@ using ICS.ViewModel.Activity;
 
 namespace ICS.ViewModel.Rating
 {
-
+    [QueryProperty(nameof(Activity), nameof(Activity))]
     public partial class RatingListViewModel(
         IRatingFacade ratingFacade,
         INavigationService navigationService,
@@ -22,18 +22,20 @@ namespace ICS.ViewModel.Rating
         : ViewModelBase(messengerService), IRecipient<RatingEditMessage>, IRecipient<RatingDeleteMessage>, IRecipient<RatingAddMessage>
     {
         public IEnumerable<RatingListModel> Ratings { get; set; } = null!;
+        public ActivityDetailModel Activity { get; set; }
 
         protected override async Task LoadDataAsync()
         {
             await base.LoadDataAsync();
 
-            Ratings = await ratingFacade.GetAsync();
+            Ratings = await ratingFacade.GetFromActivityAsync(Activity.Id);
         }
 
         [RelayCommand]
         private async Task GoToCreateAsync()
         {
-            await navigationService.GoToAsync("/edit");
+            await navigationService.GoToAsync("/edit",
+            new Dictionary<string, object?> { [nameof(RatingEditViewModel.Activity)] = Activity });
         }
 
         [RelayCommand]

@@ -7,13 +7,13 @@
              xmlns:m="clr-namespace:ICS.BL.Models;assembly=ICS.BL"
              xmlns:views="clr-namespace:ICS.View"
              x:Name="RatingListViewRoot">
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Spacing="10">
         <Label 
             Text="Rating List."
             VerticalOptions="Center" 
             FontSize="24"
             HorizontalOptions="Center" />
-        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Add Rating" 
                 FontSize="20"
                 HeightRequest="50"

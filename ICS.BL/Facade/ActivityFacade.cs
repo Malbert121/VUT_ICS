@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using ICS.BL.Mappers;
 using ICS.DAL.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
+using ICS.DAL.Repositories;
+using System.Collections;
+using System.Reflection;
 
 namespace ICS.BL.Facade;
 
@@ -29,6 +32,18 @@ public class ActivityFacade(
             .GetRepository<ActivityEntity, ActivityEntityMapper>()
             .Get()
             .Where(e => e.Name.Contains(search))
+            .ToListAsync();
+
+        return ModelMapper.MapToListModel(entities);
+    }
+
+    public async Task<IEnumerable<ActivityListModel>> GetFromSubjectAsync(Guid subjectId)
+    {
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+        List<ActivityEntity> entities = await uow
+            .GetRepository<ActivityEntity, ActivityEntityMapper>()
+            .Get()
+            .Where(e => e.SubjectId == subjectId)
             .ToListAsync();
 
         return ModelMapper.MapToListModel(entities);
@@ -108,6 +123,7 @@ public class ActivityFacade(
 
         return ModelMapper.MapToListModel(entities);
     }
+
 }
 
 

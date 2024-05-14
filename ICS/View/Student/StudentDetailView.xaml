@@ -8,13 +8,13 @@
                        x:Name="StudentDetailViewRoot"
                        x:DataType="vm:StudentDetailViewModel">
                         
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Spacing="10">
         <Label 
             Text="Student Detail."
             FontSize="24"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Delete"
                 FontSize="20"
                 VerticalOptions="Center" 
@@ -22,7 +22,6 @@
                 HeightRequest="50"
                 WidthRequest="200"
                 Command="{Binding DeleteCommand}" />
-        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Edit"
                 FontSize="20"
                 VerticalOptions="Center" 
@@ -30,6 +29,11 @@
                 HeightRequest="50"
                 WidthRequest="200"
                 Command="{Binding GoToEditCommand}" />
+        <Button Text="Subjects" 
+            FontSize="20"
+            HeightRequest="50"
+            WidthRequest="200" 
+            Command="{Binding GoToSubjectsCommand}" />
         <Grid HorizontalOptions="Center" VerticalOptions="Start"
               RowDefinitions="170, *, *"
               ColumnDefinitions="*, Auto, Auto, *"

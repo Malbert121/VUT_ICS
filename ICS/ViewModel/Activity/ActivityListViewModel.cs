@@ -1,12 +1,14 @@
-﻿ using ICS.Services;
+﻿using ICS.Services;
 using ICS.Messages;
 using ICS.BL.Models;
 using ICS.BL.Facade.Interface;
+using ICS.BL.Facade;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 
 namespace ICS.ViewModel.Activity;
 
+[QueryProperty(nameof(Subject), nameof(Subject))]
 public partial class ActivityListViewModel(
     IActivityFacade activityFacade,
     INavigationService navigationService,
@@ -15,17 +17,20 @@ public partial class ActivityListViewModel(
 {
     public IEnumerable<ActivityListModel> Activities { get; set; } = null!;
 
+    public SubjectDetailModel Subject { get; set; }
+
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
 
-        Activities = await activityFacade.GetAsync();
+        Activities = await activityFacade.GetFromSubjectAsync(Subject.Id);
     }
 
     [RelayCommand]
     private async Task GoToCreateAsync()
     {
-        await navigationService.GoToAsync("/edit");
+        await navigationService.GoToAsync("/edit", 
+            new Dictionary<string, object?> { [nameof(ActivityEditViewModel.Subject)] = Subject });
     }
 
     [RelayCommand]

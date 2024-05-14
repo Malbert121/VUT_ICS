@@ -9,7 +9,7 @@ public record StudentSubjectDetailModel : ModelBase
     public string SubjectAbbreviation { get; set; } = string.Empty;
     public static StudentSubjectDetailModel Empty => new()
     {
-        Id = Guid.Empty,
+        Id = Guid.NewGuid(),
         StudentId = Guid.Empty,
         SubjectId = Guid.Empty,
         StudentFirstName = string.Empty,

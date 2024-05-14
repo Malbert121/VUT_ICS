@@ -15,15 +15,15 @@ public class NavigationService : INavigationService
 {
     public IEnumerable<RouteModel> Routes { get; } = new List<RouteModel>
     {
-        new("//ratings", typeof(RatingListView), typeof(RatingListViewModel)),
-        new("//ratings/detail", typeof(RatingDetailView), typeof(RatingDetailViewModel)),
-        new("//ratings/edit", typeof(RatingEditView), typeof(RatingEditViewModel)),
-        new("//ratings/detail/edit", typeof(RatingEditView), typeof(RatingEditViewModel)),
+        new("//subjects/detail/activities/detail/ratings", typeof(RatingListView), typeof(RatingListViewModel)),
+        new("//subjects/detail/activities/detail/ratings/detail", typeof(RatingDetailView), typeof(RatingDetailViewModel)),
+        new("//subjects/detail/activities/detail/ratings/edit", typeof(RatingEditView), typeof(RatingEditViewModel)),
+        new("//subjects/detail/activities/detail/ratings/detail/edit", typeof(RatingEditView), typeof(RatingEditViewModel)),
 
-        new("//activities", typeof(ActivityListView), typeof(ActivityListViewModel)),
-        new("//activities/detail", typeof(ActivityDetailView), typeof(ActivityDetailViewModel)),
-        new("//activities/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
-        new("//activities/detail/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
+        new("//subjects/detail/activities", typeof(ActivityListView), typeof(ActivityListViewModel)),
+        new("//subjects/detail/activities/detail", typeof(ActivityDetailView), typeof(ActivityDetailViewModel)),
+        new("//subjects/detail/activities/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
+        new("//subjects/detail/activities/detail/edit", typeof(ActivityEditView), typeof(ActivityEditViewModel)),
 
         new("//subjects", typeof(SubjectListView), typeof(SubjectListViewModel)),
         new("//subjects/detail", typeof(SubjectDetailView), typeof(SubjectDetailViewModel)),
@@ -34,6 +34,7 @@ public class NavigationService : INavigationService
         new("//students/detail", typeof(StudentDetailView), typeof(StudentDetailViewModel)),
         new("//students/edit", typeof(StudentEditView), typeof(StudentEditViewModel)),
         new("//students/detail/edit", typeof(StudentEditView), typeof(StudentEditViewModel)),
+        new("//students/detail/subjects", typeof(StudentSubjectView), typeof(StudentSubjectViewModel)),
 
     };
 

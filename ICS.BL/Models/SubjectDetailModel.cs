@@ -11,7 +11,7 @@ public record SubjectDetailModel : ModelBase
     public ObservableCollection<StudentSubjectListModel> students { get; init; } = new();
     public static SubjectDetailModel Empty => new()
     {
-        Id = Guid.Empty,
+        Id = Guid.NewGuid(),
         name = string.Empty,
         abbreviation = string.Empty,
         activity = new(),

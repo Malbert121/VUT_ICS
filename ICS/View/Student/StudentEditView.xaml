@@ -6,13 +6,13 @@
                        x:DataType="vm:StudentEditViewModel"
                        xmlns:views="clr-namespace:ICS.View"
                        x:Name="StudentEditViewRoot">
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Spacing="10">
         <Label 
         Text="Student Edit."
         VerticalOptions="Center" 
         FontSize="24"
         HorizontalOptions="Center" />
-        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Save" 
             FontSize="24"
             HeightRequest="50"

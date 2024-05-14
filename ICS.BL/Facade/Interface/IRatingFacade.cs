@@ -6,4 +6,7 @@ namespace ICS.BL.Facade.Interface;
 
 public interface IRatingFacade : IFacade<RatingEntity, RatingListModel, RatingDetailModel>
 {
+    Task<IEnumerable<RatingListModel>> GetFromActivityAsync(Guid activityId);
+
+    Task<RatingDetailModel> SaveAsync(RatingDetailModel model, Guid activityId);
 }

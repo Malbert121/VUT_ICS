@@ -1,5 +1,6 @@
 ﻿using ICS.Services;
 using ICS.Messages;
+using ICS.ViewModel.Rating;
 using ICS.BL.Models;
 using ICS.BL.Facade.Interface;
 using CommunityToolkit.Mvvm.Input;
@@ -17,7 +18,7 @@ public partial class ActivityDetailViewModel(
     : ViewModelBase(messengerService), IRecipient<ActivityEditMessage>
 {
     public Guid Id { get; set; }
-    public ActivityDetailModel? Activity { get; private set; }
+    public ActivityDetailModel Activity { get; private set; }
 
     protected override async Task LoadDataAsync()
     {
@@ -49,6 +50,13 @@ public partial class ActivityDetailViewModel(
     {
         await navigationService.GoToAsync("/edit",
             new Dictionary<string, object?> { [nameof(ActivityEditViewModel.Activity)] = Activity });
+    }
+
+    [RelayCommand]
+    private async Task GoToRatingAsync()
+    {
+        await navigationService.GoToAsync("/ratings",
+        new Dictionary<string, object?> { [nameof(RatingListViewModel.Ratings)] = Activity.ratings, [nameof(RatingListViewModel.Activity)] = Activity });
     }
 
     public async void Receive(ActivityEditMessage message)

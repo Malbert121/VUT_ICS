@@ -5,4 +5,5 @@ namespace ICS.BL.Facade.Interface;
 
 public interface IActivityFacade : IFacade<ActivityEntity, ActivityListModel, ActivityDetailModel>
 {
+    Task<IEnumerable<ActivityListModel>> GetFromSubjectAsync(Guid subjectId);
 }

@@ -21,6 +21,20 @@ namespace ICS.DAL.Seeds
             Ratings = new List<RatingEntity>()
         };
 
+        public static ActivityEntity DefenceDarkArtsActivity = new ActivityEntity
+        {
+            Id = Guid.Parse("b1079d8c-26e7-49b5-bdd5-f63b1d3d8200"),
+            Name = "Learning some spells",
+            Start = new DateTime(2021, 10, 10, 10, 0, 0),
+            End = new DateTime(2021, 10, 10, 12, 0, 0),
+            Room = "A05",
+            ActivityTypeTag = "POT",
+            Description = "Learning some spells",
+            Subject = SubjectSeeds.DefenceDarkArts,
+            SubjectId = SubjectSeeds.DefenceDarkArts.Id,
+            Ratings = new List<RatingEntity>()
+        };
+
         static ActivitySeeds()
         {
             potionActivity.Ratings.Add(RatingSeeds.Rating1);
@@ -30,7 +44,9 @@ namespace ICS.DAL.Seeds
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ActivityEntity>().HasData(
-                potionActivity with { Subject = null!, Ratings = Array.Empty<RatingEntity>() });
+                potionActivity with { Subject = null!, Ratings = Array.Empty<RatingEntity>() },
+                DefenceDarkArtsActivity with { Subject = null!, Ratings = Array.Empty<RatingEntity>() }
+                );
         }
     }
 }

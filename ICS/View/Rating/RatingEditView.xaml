@@ -6,13 +6,13 @@
                        x:DataType="vm:RatingEditViewModel"
                        xmlns:views="clr-namespace:ICS.View"
                        x:Name="RatingEditViewRoot">
-    <VerticalStackLayout>
+    <VerticalStackLayout
+        Spacing="10">
         <Label 
         Text="Rating Edit."
         VerticalOptions="Center" 
         FontSize="24"
         HorizontalOptions="Center" />
-        <BoxView HeightRequest="10" Color="White"/>
         <Button Text="Save" 
         FontSize="24"
         HeightRequest="50"
@@ -23,7 +23,7 @@
            FontSize="20"/>
         <Entry HorizontalOptions="Fill"
            FontSize="20"  
-           Text="{Binding Rating.studentId}" />
+           Text="{Binding Rating.student}"/>
 
         <Label Text="Points."
            FontSize="20"/>

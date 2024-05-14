@@ -4,6 +4,7 @@ using ICS.BL.Models;
 using ICS.BL.Facade.Interface;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using ICS.ViewModel.Activity;
 
 
 namespace ICS.ViewModel.Subject;
@@ -16,8 +17,9 @@ public partial class SubjectDetailViewModel(
     IAlertService alertService)
     : ViewModelBase(messengerService), IRecipient<SubjectEditMessage>
 {
+
+    public SubjectDetailModel Subject { get; private set; }
     public Guid Id { get; set; }
-    public SubjectDetailModel? Subject { get; private set; }
 
     protected override async Task LoadDataAsync()
     {
@@ -49,6 +51,13 @@ public partial class SubjectDetailViewModel(
     {
         await navigationService.GoToAsync("/edit",
             new Dictionary<string, object?> { [nameof(SubjectEditViewModel.Subject)] = Subject });
+    }
+
+    [RelayCommand]
+    private async Task GoToActivityAsync()
+    {
+        await navigationService.GoToAsync("/activities",
+        new Dictionary<string, object?> { [nameof(ActivityListViewModel.Activities)] = Subject.activity, [nameof(ActivityListViewModel.Subject)] = Subject});
     }
 
     public async void Receive(SubjectEditMessage message)

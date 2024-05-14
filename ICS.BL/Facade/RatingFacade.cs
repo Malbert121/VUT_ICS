@@ -1,9 +1,12 @@
-﻿using ICS.BL.Facade.Interface;
+﻿using System.Reflection;
+using ICS.BL.Facade.Interface;
 using ICS.BL.Mappers;
 using ICS.BL.Models;
 using ICS.DAL.Entities;
 using ICS.DAL.Mappers;
+using ICS.DAL.Repositories;
 using ICS.DAL.UnitOfWork;
+using System.Collections;
 using Microsoft.EntityFrameworkCore;
 
 namespace ICS.BL.Facade;
@@ -24,6 +27,18 @@ public class RatingFacade(
             .GetRepository<RatingEntity, RatingEntityMapper>()
             .Get()
             .Where(e => e.Note.Contains(search))
+            .ToListAsync();
+
+        return ModelMapper.MapToListModel(entities);
+    }
+
+    public async Task<IEnumerable<RatingListModel>> GetFromActivityAsync(Guid activityId)
+    {
+        await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+        List<RatingEntity> entities = await uow
+            .GetRepository<RatingEntity, RatingEntityMapper>()
+            .Get()
+            .Where(e => e.ActivityId == activityId)
             .ToListAsync();
 
         return ModelMapper.MapToListModel(entities);
@@ -58,5 +73,51 @@ public class RatingFacade(
             _ => null!,
         };
         return ModelMapper.MapToListModel(entities);
+    }
+
+    public async Task<RatingDetailModel> SaveAsync(RatingDetailModel model, Guid activityId)
+    {
+        RatingDetailModel result;
+
+        GuardCollectionsAreNotSet(model);
+
+        RatingEntity entity = ModelMapper.MapDetailModelToEntity(model);
+
+        IUnitOfWork uow = UnitOfWorkFactory.Create();
+        IRepository<RatingEntity> repository = uow.GetRepository<RatingEntity, RatingEntityMapper>();
+
+        if (await repository.ExistsAsync(entity))
+        {
+            RatingEntity updatedEntity = await repository.UpdateAsync(entity);
+            result = ModelMapper.MapToDetailModel(updatedEntity);
+        }
+        else
+        {
+            entity.Id = Guid.NewGuid();
+            entity.ActivityId = activityId;
+            RatingEntity insertedEntity = repository.Insert(entity);
+            result = ModelMapper.MapToDetailModel(insertedEntity);
+        }
+
+        await uow.CommitAsync().ConfigureAwait(false);
+
+        return result;
+    }
+
+    private static void GuardCollectionsAreNotSet(RatingDetailModel model)
+    {
+        IEnumerable<PropertyInfo> collectionProperties = model
+            .GetType()
+            .GetProperties()
+            .Where(i => typeof(ICollection).IsAssignableFrom(i.PropertyType));
+
+        foreach (PropertyInfo collectionProperty in collectionProperties)
+        {
+            if (collectionProperty.GetValue(model) is ICollection { Count: > 0 })
+            {
+                throw new InvalidOperationException(
+                    "Current BL and DAL infrastructure disallows insert or update of models with adjacent collections.");
+            }
+        }
     }
 }
