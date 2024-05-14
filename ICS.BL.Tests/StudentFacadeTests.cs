@@ -16,7 +16,6 @@ using ICS.BL.Tests.TestingOptions;
 
 namespace ICS.BL.Tests;
 
-[Collection("SQLite Tests")]
 public sealed class StudentFacadeTests : FacadeTestsBase
 {
     private readonly IStudentFacade _studentFacadeSUT;
@@ -159,7 +158,7 @@ public sealed class StudentFacadeTests : FacadeTestsBase
     public async Task GetById_FromSeeded_EqualsSeeded()
     {
         //Arrange
-        var detailModel = StudentModelMapper.MapToDetailModel(StudentSeeds.StudentWithNoSubjects);
+        var detailModel = StudentModelMapper.MapToDetailModel(StudentSeeds.Harry);
 
         //Act
         var returnedModel = await _studentFacadeSUT.GetAsync(detailModel.Id);
@@ -301,27 +300,30 @@ public sealed class StudentFacadeTests : FacadeTestsBase
     public async Task Sort_ByDescendingId_DoesNotThrow()
     {
         var studentList = await _studentApliedFacadeSUT.GetSortedAsync("byDescendingId");
-        Assert.Equal(Guid.Parse("F3A3E3A3-7B1A-48C1-9796-D2BAC7F67868"), studentList.ToObservableCollection()[0].Id);
-        Assert.Equal(Guid.Parse("0953F3CE-7B1A-48C1-9796-D2BAC7F67868"), studentList.ToObservableCollection()[5].Id);
+        Assert.Equal(Guid.Parse("f6b5fcf8-1a45-4135-b826-f6d4f14743cf"), studentList.ToObservableCollection()[0].Id);
+        Assert.Equal(Guid.Parse("f6b5fcf8-1a45-4135-b826-f6d4f14703cf"), studentList.ToObservableCollection()[1].Id);
     }
 
     [Fact]
     public async Task Sort_ByLastName_DoesNotThrow()
     {
         var studentList = await _studentApliedFacadeSUT.GetSortedAsync("byLastName");
-        Assert.Equal(6, studentList.ToObservableCollection().Count);
+        Assert.Equal(9, studentList.ToObservableCollection().Count);
     }
 
     [Fact]
     public async Task Sort_ByDescendingLastName_DoesNotThrow()
     {
         var studentList = await _studentApliedFacadeSUT.GetSortedAsync("byDescendingLastName");
-        Assert.Equal("Potter", studentList.ToObservableCollection()[0].lastName);
+        Assert.Equal("Weasley", studentList.ToObservableCollection()[0].lastName);
         Assert.Equal("Potter", studentList.ToObservableCollection()[1].lastName);
         Assert.Equal("Potter", studentList.ToObservableCollection()[2].lastName);
         Assert.Equal("Potter", studentList.ToObservableCollection()[3].lastName);
-        Assert.Equal("Malfoy", studentList.ToObservableCollection()[4].lastName);
-        Assert.Equal("Granger", studentList.ToObservableCollection()[5].lastName);
+        Assert.Equal("Potter", studentList.ToObservableCollection()[4].lastName);
+        Assert.Equal("Malfoy", studentList.ToObservableCollection()[5].lastName);
+        Assert.Equal("Lovegood", studentList.ToObservableCollection()[6].lastName);
+        Assert.Equal("Longbottom", studentList.ToObservableCollection()[7].lastName);
+        Assert.Equal("Granger", studentList.ToObservableCollection()[8].lastName);
 
     }
 

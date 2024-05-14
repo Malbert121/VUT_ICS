@@ -66,15 +66,17 @@ namespace ICS.DAL.Seeds
             Id = Guid.Parse("6e6e0b29-20e6-4723-99d5-1140cba37334")
         };
 
-        public static void Seed(this ModelBuilder modelBuilder) =>
+        public static void Seed(this ModelBuilder modelBuilder)
+        {
             modelBuilder.Entity<StudentSubjectEntity>().HasData(
                 HarryPotions with { Student = null!, Subject = null! },
                 HermionePotions with { Student = null!, Subject = null! },
-                HarryDarkArts with { Student = null!, Subject = null!},
-                HermioneDarkArts with { Student = null!, Subject = null!},
-                RonaldDarkArts with { Student = null!, Subject = null!},
-                LunaDarkArts with { Student = null!, Subject = null!},
-                NevilleDarkArts with { Student = null!, Subject = null!}
-            );
+                HarryDarkArts with { Student = null!, Subject = null! },
+                HermioneDarkArts with { Student = null!, Subject = null! },
+                RonaldDarkArts with { Student = null!, Subject = null! },
+                LunaDarkArts with { Student = null!, Subject = null! },
+                NevilleDarkArts with { Student = null!, Subject = null! });
+        }
+
     }
 }

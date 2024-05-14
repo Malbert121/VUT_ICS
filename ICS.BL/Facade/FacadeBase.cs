@@ -74,7 +74,7 @@ public abstract class
             query = query.Include(pathDetail);
         }
 
-        TEntity? entity = await query.SingleOrDefaultAsync(e => e.Id == id).ConfigureAwait(false);
+        TEntity? entity = await query.SingleOrDefaultAsync(e => e.Id == id);
 
         return entity is null
             ? null

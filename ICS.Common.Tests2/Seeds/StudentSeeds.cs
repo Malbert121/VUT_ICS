@@ -13,6 +13,7 @@ namespace ICS.Common.Tests.Seeds
             FirstName = string.Empty,
             LastName = string.Empty,
             PhotoUrl = string.Empty,
+            Subjects = Array.Empty<StudentSubjectEntity>()
         };
 
         public static readonly StudentEntity Harry = new StudentEntity
@@ -64,7 +65,7 @@ namespace ICS.Common.Tests.Seeds
 
         public static readonly StudentEntity student3 = new StudentEntity
         {
-            Id = Guid.Parse("f6b5fcf8-1a45-4135-b826-f6d4f14703cf"),
+            Id = Guid.Parse("F3A3E3A3-7B1A-48C1-9796-B2BAC7F67868"),
             FirstName = "Ronald",
             LastName = "Weasley",
             PhotoUrl = @"https://static.wikia.nocookie.net/harrypotter/images/8/85/Ron_Weasley.jpg/revision/latest?cb=20101104210200",
@@ -80,7 +81,7 @@ namespace ICS.Common.Tests.Seeds
 
         public static readonly StudentEntity student5 = new StudentEntity
         {
-            Id = Guid.Parse("f6b5fcf8-1a45-4135-b826-f6d4f14703cf"),
+            Id = Guid.Parse("f6b5fcf8-1a45-4135-b826-f6d4f14743cf"),
             FirstName = "Neville",
             LastName = "Longbottom",
             PhotoUrl = @"https://static.wikia.nocookie.net/harrypotter/images/4/41/Normal_promo_neville_plant.jpg/revision/latest?cb=20071228151053",
@@ -89,9 +90,9 @@ namespace ICS.Common.Tests.Seeds
         static StudentSeeds()
         {
             Harry.Subjects.Add(StudentSubjectSeeds.HarryPotions);
+            Harry.Subjects.Add(StudentSubjectSeeds.HarryDarkArts);
             Harry.Subjects.Add(StudentSubjectSeeds.HarrySubjectWithTwoStudents);
             Hermione.Subjects.Add(StudentSubjectSeeds.HermionePotions);
-            Harry.Subjects.Add(StudentSubjectSeeds.HarryDarkArts);
             Hermione.Subjects.Add(StudentSubjectSeeds.HermioneDarkArts);
             student3.Subjects.Add(StudentSubjectSeeds.RonaldDarkArts);
             student4.Subjects.Add(StudentSubjectSeeds.LunaDarkArts);
@@ -107,7 +108,10 @@ namespace ICS.Common.Tests.Seeds
                 StudentWithNoSubjects with { Subjects = Array.Empty<StudentSubjectEntity>() },
                 StudentWithSubjects with { Subjects = Array.Empty<StudentSubjectEntity>() },
                 StudentUpdate with { Subjects = Array.Empty<StudentSubjectEntity>() },
-                StudentDelete with { Subjects = Array.Empty<StudentSubjectEntity>() }
+                StudentDelete with { Subjects = Array.Empty<StudentSubjectEntity>() },
+                student3 with { Subjects = Array.Empty<StudentSubjectEntity>() },
+                student4 with { Subjects = Array.Empty<StudentSubjectEntity>() },
+                student5 with { Subjects = Array.Empty<StudentSubjectEntity>() }
                 );
         }
     }

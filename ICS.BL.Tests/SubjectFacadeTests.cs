@@ -181,7 +181,7 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     public async Task GetById_FromSeeded_EqualsSeeded()
     {
         //Arrange
-        var detailModel = SubjectModelMapper.MapToDetailModel(SubjectSeeds.SubjectWithNoStudent);
+        var detailModel = SubjectModelMapper.MapToDetailModel(SubjectSeeds.potions);
 
         //Act
         var returnedModel = await _subjectFacadeSUT.GetAsync(detailModel.Id);
@@ -194,7 +194,7 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     public async Task GetAll_FromSeeded_ContainsSeeded()
     {
         //Arrange
-        var listModel = SubjectModelMapper.MapToListModel(SubjectSeeds.SubjectWithTwoStudents);
+        var listModel = SubjectModelMapper.MapToListModel(SubjectSeeds.potions);
     
         //Act
         var returnedModel = await _subjectFacadeSUT.GetAsync();
@@ -248,25 +248,7 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
         //Act && Assert
         await _subjectFacadeSUT.SaveAsync(model);
     }
-    
-    /*
-    [Fact]
-    public async Task Update_RemoveStudents_EqualsUpdated()
-    {
-        //Arrange
-        var model = SubjectModelMapper.MapToDetailModel(SubjectSeeds.SubjectWithTwoStudents);
-        model.students.Remove(model.students.First());
-        model.students.Remove(model.students.First());
 
-        //Act
-        var returnedModel = await _subjectFacadeSUT.SaveAsync(model);
-
-        //Assert
-        FixStudentIds(model, returnedModel);
-        DeepAssert.Equal(model, returnedModel);
-    }*/
-    
-    
     [Fact]
     public async Task DeleteById_FromSeeded_DoesNotThrow()
     {
@@ -306,7 +288,7 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     {
         var activityList = await _subjectApliedFacadeSUT.GetSortedAsync("byDescendingId");
 
-        Assert.Equal(8, activityList.ToObservableCollection().Count);
+        Assert.Equal(7, activityList.ToObservableCollection().Count);
     }
 
     

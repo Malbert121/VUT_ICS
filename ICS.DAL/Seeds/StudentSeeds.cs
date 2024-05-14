@@ -26,7 +26,7 @@ namespace ICS.DAL.Seeds
 
         public static readonly StudentEntity student3 = new StudentEntity
         {
-            Id = Guid.Parse("f6b5fcf8-1a45-4135-b826-f6d4f14703cf"),
+            Id = Guid.Parse("f6b5fcf8-1a45-4135-b825-f6d4f14703cf"),
             FirstName = "Ronald",
             LastName = "Weasley",
             PhotoUrl = @"https://static.wikia.nocookie.net/harrypotter/images/8/85/Ron_Weasley.jpg/revision/latest?cb=20101104210200",
@@ -34,7 +34,7 @@ namespace ICS.DAL.Seeds
 
         public static readonly StudentEntity student4 = new StudentEntity
         {
-            Id = Guid.Parse("f6b5fcf8-1a45-4135-b826-f6d4f14703cf"),
+            Id = Guid.Parse("f6b5fcf8-1a45-4135-b827-f6d4f14703cf"),
             FirstName = "Luna",
             LastName = "Lovegood",
             PhotoUrl = @"https://static.wikia.nocookie.net/harrypotter/images/e/ed/Luna_Lovegood.jpg/revision/latest/scale-to-width-down/1000?cb=20160902165706",
@@ -42,7 +42,7 @@ namespace ICS.DAL.Seeds
 
         public static readonly StudentEntity student5 = new StudentEntity
         {
-            Id = Guid.Parse("f6b5fcf8-1a45-4135-b826-f6d4f14703cf"),
+            Id = Guid.Parse("f6b5fcf8-1a45-4135-b828-f6d4f14703cf"),
             FirstName = "Neville",
             LastName = "Longbottom",
             PhotoUrl = @"https://static.wikia.nocookie.net/harrypotter/images/4/41/Normal_promo_neville_plant.jpg/revision/latest?cb=20071228151053",

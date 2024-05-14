@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ICS.DAL.Migrations
 {
     [DbContext(typeof(SchoolContext))]
-    [Migration("20240511133904_InitialCreate")]
+    [Migration("20240513232807_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -182,7 +182,7 @@ namespace ICS.DAL.Migrations
             modelBuilder.Entity("ICS.DAL.Entities.StudentSubjectEntity", b =>
                 {
                     b.HasOne("ICS.DAL.Entities.StudentEntity", "Student")
-                        .WithMany()
+                        .WithMany("Subjects")
                         .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -201,6 +201,11 @@ namespace ICS.DAL.Migrations
             modelBuilder.Entity("ICS.DAL.Entities.ActivityEntity", b =>
                 {
                     b.Navigation("Ratings");
+                });
+
+            modelBuilder.Entity("ICS.DAL.Entities.StudentEntity", b =>
+                {
+                    b.Navigation("Subjects");
                 });
 
             modelBuilder.Entity("ICS.DAL.Entities.SubjectEntity", b =>

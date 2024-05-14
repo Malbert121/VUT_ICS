@@ -87,11 +87,13 @@ namespace ICS.DAL.Context
 
             if (seedDemoData)
             {
-                StudentSeeds.Seed(modelBuilder);
+
                 SubjectSeeds.Seed(modelBuilder);
-                StudentSubjectSeeds.Seed(modelBuilder);
                 ActivitySeeds.Seed(modelBuilder);
+                StudentSeeds.Seed(modelBuilder);
                 RatingSeeds.Seed(modelBuilder);
+                StudentSubjectSeeds.Seed(modelBuilder);
+
             }
         }
 

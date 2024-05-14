@@ -18,6 +18,7 @@ public class StudentSubjectModelMapper : ModelMapperBase<StudentSubjectEntity, S
         ? StudentSubjectListModel.Empty
         : new StudentSubjectListModel
         {
+            Id = entity.Id,
             StudentId = entity.StudentId,
             SubjectId = entity.SubjectId,
             StudentFirstName = entity.Student.FirstName,
@@ -31,6 +32,7 @@ public class StudentSubjectModelMapper : ModelMapperBase<StudentSubjectEntity, S
         ? StudentSubjectDetailModel.Empty
         : new StudentSubjectDetailModel
         {
+            Id = entity.Id,
             StudentId = entity.StudentId,
             SubjectId = entity.SubjectId,
             StudentFirstName = entity.Student.FirstName,
