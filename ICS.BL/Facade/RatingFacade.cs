@@ -76,10 +76,10 @@ public class RatingFacade(
         {
             query = query.Include(pathDetail);
         }
-        //foreach (string pathDetail in IncludeStudentSubjectNavigationPathDetail)
-        //{
-        //    query = query.Include(pathDetail);
-        //}
+        foreach (string pathDetail in IncludeStudentSubjectNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
         List<RatingEntity> entities = await query.Where(e => e.ActivityId == activityId).ToListAsync();
 
         return ModelMapper.MapToListModel(entities);

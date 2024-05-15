@@ -17,18 +17,18 @@ IMessengerService messengerService)
 {
     public IEnumerable<StudentListModel> Students { get; set; } = null!;
 
-    private bool _isSearching;
+    private bool _wasModified;
 
-    public bool IsSearching
+    public bool wasModified
     {
-        get => _isSearching;
-        set => SetProperty(ref _isSearching, value);
+        get => _wasModified;
+        set => SetProperty(ref _wasModified, value);
     }
 
     [RelayCommand]
     private async Task CancelSearchAsync()
     {
-        IsSearching = false;
+        wasModified = false;
         await base.LoadDataAsync();
 
         Students = await studentFacade.GetAsync();
@@ -57,6 +57,7 @@ IMessengerService messengerService)
     [RelayCommand]
     private async Task SortStudentsAsync(string sortOption)
     {
+        wasModified = true;
         Students = await studentFacade.GetSortedAsync(sortOption);
     }
 
@@ -87,7 +88,7 @@ IMessengerService messengerService)
     [RelayCommand]
     private async Task LoadSearchResultsAsync(string search)
     {
-        IsSearching = true;
+        wasModified = true;
         Students = await studentFacade.GetSearchAsync(search);
     }
 

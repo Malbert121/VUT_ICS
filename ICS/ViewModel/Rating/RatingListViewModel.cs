@@ -25,18 +25,18 @@ namespace ICS.ViewModel.Rating
         public IEnumerable<RatingListModel> Ratings { get; set; } = null!;
         public ActivityDetailModel Activity { get; set; }
 
-        private bool _isSearching;
+        private bool _wasModified;
 
-        public bool IsSearching
+        public bool wasModified
         {
-            get => _isSearching;
-            set => SetProperty(ref _isSearching, value);
+            get => _wasModified;
+            set => SetProperty(ref _wasModified, value);
         }
 
         [RelayCommand]
         private async Task CancelSearchAsync()
         {
-            IsSearching = false;
+            wasModified = false;
             await base.LoadDataAsync();
 
             Ratings = await ratingFacade.GetFromActivityAsync(Activity.Id);
@@ -66,6 +66,7 @@ namespace ICS.ViewModel.Rating
         [RelayCommand]
         private async Task SortRatingsAsync(string sortOption)
         {
+            wasModified = true;
             Ratings = await ratingFacade.GetSortedAsync(sortOption, Activity.Id);
         }
 
@@ -96,7 +97,7 @@ namespace ICS.ViewModel.Rating
         [RelayCommand]
         private async Task LoadSearchResultsAsync(string search)
         {
-            IsSearching = true;
+            wasModified = true;
             Ratings = await ratingFacade.GetSearchAsync(search, Activity.Id);
         }
 

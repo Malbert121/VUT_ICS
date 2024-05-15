@@ -22,7 +22,7 @@
             FontSize="20"
             Grid.Column="1"
             HeightRequest="50"
-            WidthRequest="160" 
+            WidthRequest="170" 
             Command="{Binding GoToCreateCommand}" />
             <Button Text="Sort Subjects" 
             FontSize="20"
@@ -41,7 +41,8 @@
             Grid.Column="4"
             HeightRequest="50"
             WidthRequest="160" 
-            Command="{Binding CancelSearchCommand}"/>
+            Command="{Binding CancelSearchCommand}"
+            IsVisible="{Binding wasModified}" />
         </Grid>
         <Grid Padding="10">
             <Grid.ColumnDefinitions>

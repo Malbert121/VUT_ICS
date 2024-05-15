@@ -16,18 +16,19 @@ public partial class SubjectListViewModel(
 {
     public IEnumerable<SubjectListModel> Subjects { get; set; } = null!;
 
-    private bool _isSearching;
+    private bool _wasModified;
 
-    public bool IsSearching
+    public bool wasModified
     {
-        get => _isSearching;
-        set => SetProperty(ref _isSearching, value);
+        get => _wasModified;
+        set => SetProperty(ref _wasModified, value);
     }
+     
 
     [RelayCommand]
     private async Task CancelSearchAsync()
     {
-        IsSearching = false;
+        wasModified = false;
         await base.LoadDataAsync();
 
          Subjects = await subjectFacade.GetAsync();
@@ -56,6 +57,7 @@ public partial class SubjectListViewModel(
     [RelayCommand]
     private async Task SortSubjectsAsync(string sortOption)
     {
+        wasModified = true;
         Subjects = await subjectFacade.GetSortedAsync(sortOption);
     }
 
@@ -86,7 +88,7 @@ public partial class SubjectListViewModel(
     [RelayCommand]
     private async Task LoadSearchResultsAsync(string search)
     {
-        IsSearching = true;
+        wasModified = true;
         Subjects = await subjectFacade.GetSearchAsync(search);
     }
 
