@@ -18,7 +18,7 @@ namespace ICS.ViewModel.Student
         [RelayCommand]
         private async Task SaveAsync()
         {
-            await studentFacade.SaveAsync(Student);
+            await studentFacade.SaveAsync(Student with { subjects = default! });
 
             MessengerService.Send(new StudentEditMessage { StudentId = Student.Id });
 
