@@ -55,6 +55,23 @@ IMessengerService messengerService)
         }
     }
 
+    [RelayCommand]
+    private async Task ShowSearchOptionsAsync()
+    {
+        var search = await App.Current.MainPage.DisplayPromptAsync("Search", "Enter search term");
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            await LoadSearchResultsAsync(search);
+        }
+    }
+
+    [RelayCommand]
+    private async Task LoadSearchResultsAsync(string search)
+    {
+        Students = await studentFacade.GetSearchAsync(search);
+    }
+
     public async void Receive(StudentEditMessage message)
     {
         await LoadDataAsync();

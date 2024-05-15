@@ -75,6 +75,7 @@ namespace ICS.ViewModel.Rating
             }
         }
 
+        [RelayCommand]
         private async Task LoadSearchResultsAsync(string search)
         {
             Ratings = await ratingFacade.GetSearchAsync(search, Activity.Id);
