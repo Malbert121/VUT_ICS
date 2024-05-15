@@ -1,11 +1,11 @@
 using ICS.View.Subject;
-using ICS.ViewModel.Subject;
+using ICS.ViewModel.Student;
 
 namespace ICS.View.Student;
 
 public partial class StudentSubjectView
 {
-    public StudentSubjectView(SubjectListViewModel viewModel) : base(viewModel)
+    public StudentSubjectView(StudentSubjectViewModel viewModel) : base(viewModel)
     {
         InitializeComponent();
     }

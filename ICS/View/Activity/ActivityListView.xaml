@@ -23,18 +23,16 @@
 
         <Grid Padding="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="Subject ID" />
-            <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="Name" />
-            <Label Grid.Column="2" FontSize="20" HorizontalOptions="Center" Text="Start" />
-            <Label Grid.Column="3" FontSize="20" HorizontalOptions="Center" Text="End" />
-            <Label Grid.Column="4" FontSize="20" HorizontalOptions="Center" Text="Room" />
+            <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="Name" />
+            <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="Start" />
+            <Label Grid.Column="2" FontSize="20" HorizontalOptions="Center" Text="End" />
+            <Label Grid.Column="3" FontSize="20" HorizontalOptions="Center" Text="Room" />
         </Grid>
 
         <CollectionView ItemsSource="{Binding Activities}">
@@ -46,18 +44,16 @@
                 x:DataType="m:ActivityListModel">
                     <Grid Padding="10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="400" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="{Binding subjectId}" />
-                        <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="{Binding name}" />
-                        <Label Grid.Column="2" FontSize="20" HorizontalOptions="Center" Text="{Binding start}" />
-                        <Label Grid.Column="3" FontSize="20" HorizontalOptions="Center" Text="{Binding end}" />
-                        <Label Grid.Column="4" FontSize="20" HorizontalOptions="Center" Text="{Binding room}" />
+                        <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="{Binding name}" />
+                        <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="{Binding start}" />
+                        <Label Grid.Column="2" FontSize="20" HorizontalOptions="Center" Text="{Binding end}" />
+                        <Label Grid.Column="3" FontSize="20" HorizontalOptions="Center" Text="{Binding room}" />
                         <Button Grid.Column="5" FontSize="20" Text="Detail" HeightRequest="50" WidthRequest="150" Command="{Binding Source={x:Reference ActivityListViewRoot}, Path=BindingContext.GoToDetailCommand}" CommandParameter="{Binding Id}" />
                     </Grid>
                 </DataTemplate>

@@ -16,6 +16,8 @@ public class StudentSubjectFacade(
     : FacadeBase<StudentSubjectEntity, StudentSubjectListModel, StudentSubjectDetailModel, StudentSubjectEntityMapper>(unitOfWorkFactory, modelMapper),
         IStudentSubjectFacade
 {
+    protected override ICollection<string> IncludesStudentSubjectNavigationPathDetail =>
+    new[] { $"{nameof(StudentSubjectEntity.Subject)}", $"{nameof(StudentSubjectEntity.Student)}" };
     public async Task SaveAsync(StudentSubjectListModel model, Guid subjectId)
     {
         StudentSubjectEntity entity = modelMapper.MapDetailModelToEntity(model, subjectId);
@@ -85,11 +87,31 @@ public class StudentSubjectFacade(
     public async Task<IEnumerable<StudentSubjectListModel>> GetSubjectsAsync(Guid studentId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
-        List<StudentSubjectEntity> entities = await uow
+        IQueryable<StudentSubjectEntity> query = uow
             .GetRepository<StudentSubjectEntity, StudentSubjectEntityMapper>()
-            .Get()
-            .Where(e => e.StudentId == studentId)
-            .ToListAsync();
+            .Get();
+
+        foreach (string pathDetail in IncludesActivityNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesRatingNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesStudentNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesSubjectNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesStudentSubjectNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        List<StudentSubjectEntity> entities = await query.Where(e => e.StudentId == studentId).ToListAsync();
 
         return ModelMapper.MapToListModel(entities);
     }

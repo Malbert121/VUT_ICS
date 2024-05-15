@@ -14,27 +14,35 @@
             FontSize="24"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Button Text="Delete"
+        <Grid HorizontalOptions="Center" 
+              VerticalOptions="Start" 
+              ColumnDefinitions="*, *, *"
+              ColumnSpacing="20">
+            <Button Text="Delete"
             FontSize="20"
+            Grid.Column="0"
             VerticalOptions="Center" 
             HorizontalOptions="Center" 
             HeightRequest="50"
             WidthRequest="200" 
             Command="{Binding DeleteCommand}" />
-        <Button Text="Edit"
+            <Button Text="Edit"
                 FontSize="20"
+            Grid.Column="1"
             VerticalOptions="Center" 
             HorizontalOptions="Center"
             HeightRequest="50"
             WidthRequest="200"
             Command="{Binding GoToEditCommand}" />
-        <Button Text="Ratings"
-        FontSize="20"
-        VerticalOptions="Center" 
-        HorizontalOptions="Center" 
-        HeightRequest="50"
-        WidthRequest="200" 
-        Command="{Binding GoToRatingCommand}" />
+            <Button Text="Ratings"
+            FontSize="20"
+            Grid.Column="2"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            HeightRequest="50"
+            WidthRequest="200" 
+            Command="{Binding GoToRatingCommand}" />
+        </Grid>
         <Grid HorizontalOptions="Center" VerticalOptions="Start"
         RowDefinitions="170, *" ColumnDefinitions="*, Auto, Auto, *"
         RowSpacing="20" ColumnSpacing="20">

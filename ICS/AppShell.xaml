@@ -13,10 +13,6 @@
     Title="ICS">
     <Shell.MenuBarItems>
         <MenuBarItem Text="List">
-            <MenuFlyoutItem Text="Activities"
-                        Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToActivitiesCommand}" />
-            <MenuFlyoutItem Text="Ratings"
-                        Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToRatingsCommand}" />
             <MenuFlyoutItem Text="Subjects"
                         Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToSubjectsCommand}" />
             <MenuFlyoutItem Text="Students"

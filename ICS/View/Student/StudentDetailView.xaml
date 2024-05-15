@@ -15,25 +15,33 @@
             FontSize="24"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        <Button Text="Delete"
+        <Grid HorizontalOptions="Center" 
+              VerticalOptions="Start" 
+              ColumnDefinitions="*, *, *"
+              ColumnSpacing="20">
+            <Button Text="Delete"
                 FontSize="20"
+                Grid.Column="0"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center"
                 HeightRequest="50"
                 WidthRequest="200"
                 Command="{Binding DeleteCommand}" />
-        <Button Text="Edit"
+            <Button Text="Edit"
                 FontSize="20"
+                Grid.Column="1"
                 VerticalOptions="Center" 
                 HorizontalOptions="Center" 
                 HeightRequest="50"
                 WidthRequest="200"
                 Command="{Binding GoToEditCommand}" />
-        <Button Text="Subjects" 
-            FontSize="20"
-            HeightRequest="50"
-            WidthRequest="200" 
-            Command="{Binding GoToSubjectsCommand}" />
+            <Button Text="Subjects" 
+                    Grid.Column="2"
+                    FontSize="20"
+                    HeightRequest="50"
+                    WidthRequest="200" 
+                    Command="{Binding GoToSubjectsCommand}" />
+        </Grid>
         <Grid HorizontalOptions="Center" VerticalOptions="Start"
               RowDefinitions="170, *, *"
               ColumnDefinitions="*, Auto, Auto, *"
@@ -50,18 +58,9 @@
                     <Label Text="{Binding Student.lastName}" FontSize="20"/>
                 </HorizontalStackLayout>
                 <Image Source="{Binding Student.photoURL}" 
-                          HeightRequest="100" 
-                          WidthRequest="100"
+                          HeightRequest="300" 
+                          WidthRequest="300"
                           Aspect="AspectFill"/>
-                <Label Text="Subjects:" FontSize="20"/>
-                <CollectionView ItemsSource="{Binding Student.subjects}">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <Label Text="{Binding}" FontSize="20"/>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-
             </VerticalStackLayout>
         </Grid>
     </VerticalStackLayout>

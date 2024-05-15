@@ -89,8 +89,8 @@ namespace ICS.DAL.Context
             {
 
                 SubjectSeeds.Seed(modelBuilder);
-                ActivitySeeds.Seed(modelBuilder);
                 StudentSeeds.Seed(modelBuilder);
+                ActivitySeeds.Seed(modelBuilder);
                 RatingSeeds.Seed(modelBuilder);
                 StudentSubjectSeeds.Seed(modelBuilder);
 

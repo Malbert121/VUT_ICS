@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ICS.BL.Models;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace ICS.BL.Facade;
 
@@ -37,6 +38,8 @@ public abstract class
 
     protected virtual ICollection<string> IncludesRatingNavigationPathDetail => new List<string>();
 
+    protected virtual ICollection<string> IncludesStudentSubjectNavigationPathDetail => new List<string>();
+
 
     public async Task DeleteAsync(Guid id)
     {
@@ -55,7 +58,6 @@ public abstract class
     public virtual async Task<TDetailModel?> GetAsync(Guid id)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
-
         IQueryable<TEntity> query = uow.GetRepository<TEntity, TEntityMapper>().Get();
         foreach (string pathDetail in IncludesActivityNavigationPathDetail)
         {
@@ -73,6 +75,10 @@ public abstract class
         {
             query = query.Include(pathDetail);
         }
+        foreach (string pathDetail in IncludesStudentSubjectNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
 
         TEntity? entity = await query.SingleOrDefaultAsync(e => e.Id == id);
 
@@ -84,11 +90,31 @@ public abstract class
     public virtual async Task<IEnumerable<TListModel>> GetAsync()
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
-        List<TEntity> entities = await uow
+        IQueryable<TEntity> query = uow
             .GetRepository<TEntity, TEntityMapper>()
-            .Get()
-            .ToListAsync();
+            .Get();
 
+        foreach (string pathDetail in IncludesActivityNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesRatingNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesStudentNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesSubjectNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesStudentSubjectNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        List<TEntity> entities = await query.ToListAsync();
         return ModelMapper.MapToListModel(entities);
     }
 

@@ -5,4 +5,5 @@ namespace ICS.BL.Facade.Interface;
 
 public interface IStudentSubjectFacade : IFacade<StudentSubjectEntity, StudentSubjectListModel, StudentSubjectDetailModel>
 {
+    Task<IEnumerable<StudentSubjectListModel>> GetSubjectsAsync(Guid studentId);
 }
