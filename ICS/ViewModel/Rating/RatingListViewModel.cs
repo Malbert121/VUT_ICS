@@ -64,6 +64,23 @@ namespace ICS.ViewModel.Rating
                 await SortRatingsAsync(selectedOption);
             }
         }
+
+        [RelayCommand]
+        private async Task ShowSearchOptionsAsync()
+        {
+            var search = await App.Current.MainPage.DisplayPromptAsync("Search", "Enter search term");
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                await LoadSearchResultsAsync(search);
+            }
+        }
+
+        private async Task LoadSearchResultsAsync(string search)
+        {
+            Ratings = await ratingFacade.GetSearchAsync(search, Activity.Id);
+        }
+
         public async void Receive(RatingEditMessage message)
         {
             await LoadDataAsync();

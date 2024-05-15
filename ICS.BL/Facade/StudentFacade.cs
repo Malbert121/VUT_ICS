@@ -47,7 +47,7 @@ public class StudentFacade(
             "byDescendingLastName" => await uow
                             .GetRepository<StudentEntity, StudentEntityMapper>()
                             .Get()
-                            .OrderByDescending(entity => entity.LastName)
+                            .OrderByDescending(entity => entity.LastName)  
                             .ToListAsync(),
             "byLastName" => await uow
                             .GetRepository<StudentEntity, StudentEntityMapper>()

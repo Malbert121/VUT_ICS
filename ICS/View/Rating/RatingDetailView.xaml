@@ -45,7 +45,7 @@
                     <Label Text="{Binding Rating.points}" FontSize="20"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="20">
-                    <Label Text="Student ID:" FontSize="20"/>
+                    <Label Text="Student name:" FontSize="20"/>
                     <Label Text="{Binding Rating.Student}" FontSize="20"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="20">

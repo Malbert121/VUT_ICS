@@ -30,6 +30,12 @@
             HeightRequest="50"
             WidthRequest="200" 
             Command="{Binding ShowSortOptionsCommand}" />
+            <Button Text="Search Ratings"
+            FontSize="20"
+            Grid.Column="1"
+            HeightRequest="50"
+            WidthRequest="200"
+            Command="{Binding ShowSearchOptionsCommand}" />
         </Grid>
         <Grid Padding="10">
             <Grid.ColumnDefinitions>
@@ -37,7 +43,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="Student ID" />
+            <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="Student name" />
             <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="Points" />
         </Grid>
 

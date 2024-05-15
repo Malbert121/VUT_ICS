@@ -20,16 +20,30 @@ public class RatingFacade(
     protected override ICollection<string> IncludesRatingNavigationPathDetail =>
         new[] { $"{nameof(RatingEntity.Activity)}", $"{nameof(RatingEntity.Student)}" };
 
-    public async Task<IEnumerable<RatingListModel>> GetSearchAsync(string search)
+    public async Task<IEnumerable<RatingListModel>> GetSearchAsync(string search, Guid activityId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
         List<RatingEntity> entities = await uow
             .GetRepository<RatingEntity, RatingEntityMapper>()
             .Get()
-            .Where(e => e.Note.Contains(search))
+            .Where(e => e.Note.Contains(search) && e.ActivityId == activityId)
             .ToListAsync();
 
-        return ModelMapper.MapToListModel(entities);
+        //return ModelMapper.MapToListModel(entities);
+        var studentIds = entities.Select(e => e.StudentId).ToList();
+        var studentNames = await uow.GetRepository<StudentEntity, StudentEntityMapper>()
+                                    .Get()
+                                    .Where(s => studentIds.Contains(s.Id))
+                                    .ToDictionaryAsync(s => s.Id, s => s.FirstName);
+
+        var models = ModelMapper.MapToListModel(entities);
+        foreach (var model in models)
+        {
+            if (studentNames.TryGetValue(model.studentId, out var name))
+                model.StudentName = name;
+        }
+
+        return models;
     }
 
     public async Task<IEnumerable<RatingListModel>> GetFromActivityAsync(Guid activityId)
