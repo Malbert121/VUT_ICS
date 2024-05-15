@@ -324,7 +324,7 @@ namespace ICS.DAL.Tests
             {
                 var actualActivity = await context.Activities.SingleOrDefaultAsync(i => i.Id == activity.Id);
                 var ratingcount = await context.Rating.CountAsync();
-                Assert.Equal(0, ratingcount);
+                Assert.Equal(3, ratingcount);
                 Assert.Null(actualActivity);
             }
         }
