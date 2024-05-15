@@ -22,6 +22,7 @@ public partial class ActivityEditViewModel(
     private TimeSpan _startTime;
     private DateTime _endDate;
     private TimeSpan _endTime;
+
     public DateTime StartDate
     {
         get => _startDate;
@@ -29,7 +30,7 @@ public partial class ActivityEditViewModel(
         {
             if (SetProperty(ref _startDate, value))
             {
-                Activity.start = new DateTime(StartDate.Year, StartDate.Month, StartDate.Day, StartTime.Hours, StartTime.Minutes, 0);
+                UpdateStartDateTime();
             }
         }
     }
@@ -41,7 +42,7 @@ public partial class ActivityEditViewModel(
         {
             if (SetProperty(ref _startTime, value))
             {
-                Activity.start = new DateTime(StartDate.Year, StartDate.Month, StartDate.Day, StartTime.Hours, StartTime.Minutes, 0);
+                UpdateStartDateTime();
             }
         }
     }
@@ -53,7 +54,7 @@ public partial class ActivityEditViewModel(
         {
             if (SetProperty(ref _endDate, value))
             {
-                Activity.end = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, 0);
+                UpdateEndDateTime();
             }
         }
     }
@@ -65,9 +66,37 @@ public partial class ActivityEditViewModel(
         {
             if (SetProperty(ref _endTime, value))
             {
-                Activity.end = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, 0);
+                UpdateEndDateTime();
             }
         }
+    }
+
+    private void UpdateStartDateTime()
+    {
+        
+        Activity.start = new DateTime(StartDate.Year, StartDate.Month, StartDate.Day, StartTime.Hours, StartTime.Minutes, StartTime.Seconds);
+
+        if (Activity.end < Activity.start)
+        {
+            Activity.end = Activity.start.AddHours(1);
+            EndDate = Activity.end.Date;
+            EndTime = Activity.end.TimeOfDay;
+        }
+       
+    }
+
+    private void UpdateEndDateTime()
+    {
+        
+        Activity.end = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds);
+
+        if (Activity.end < Activity.start)
+        {
+            Activity.start = Activity.end.AddHours(-1);
+            StartDate = Activity.start.Date;
+            StartTime = Activity.start.TimeOfDay;
+        }
+       
     }
 
 
