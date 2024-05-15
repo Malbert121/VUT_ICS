@@ -266,7 +266,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     [Fact]
     public async Task SearchBySubstringNameOneResult_NotThrow()
     {
-        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Dark", SubjectSeeds.DefenceDarkArts.Id);
+        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("defence", SubjectSeeds.potions.Id);
 
         Assert.Single(activityList.ToObservableCollection());
     }

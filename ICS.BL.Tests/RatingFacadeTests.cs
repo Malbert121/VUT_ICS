@@ -178,9 +178,9 @@ public sealed class RatingFacadeTests : FacadeTestsBase
     }
 
     [Fact]
-    public async Task SearchBySubstringNote_DoesNotThrow()
+    public async Task SearchBySubstringName_DoesNotThrow()
     {
-        var ratingList = await _ratingAppliedFacadeSUT.GetSearchAsync("Good", ActivitySeeds.ActivityWithTwoRatings.Id);
+        var ratingList = await _ratingAppliedFacadeSUT.GetSearchAsync("Hermione", ActivitySeeds.ActivityWithTwoRatings.Id);
 
         Assert.Equal(2, ratingList.ToObservableCollection().Count);
     }
@@ -188,7 +188,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase
     [Fact]
     public async Task SearchBySubstringNote_NonExistent_DoesNotThrow()
     {
-        var ratingList = await _ratingAppliedFacadeSUT.GetSearchAsync("Bad", ActivitySeeds.ActivityWithTwoRatings.Id);
+        var ratingList = await _ratingAppliedFacadeSUT.GetSearchAsync("Harry", ActivitySeeds.ActivityWithTwoRatings.Id);
 
         Assert.Empty(ratingList.ToObservableCollection());
     }
