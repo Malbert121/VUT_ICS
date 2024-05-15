@@ -14,11 +14,23 @@
             VerticalOptions="Center" 
             FontSize="24"
             HorizontalOptions="Center" />
-        <Button Text="Add Subject" 
+        <Grid HorizontalOptions="Center" 
+            VerticalOptions="Start" 
+            ColumnDefinitions="*, *, *"
+            ColumnSpacing="20">
+            <Button Text="Add Add Subject" 
             FontSize="20"
+            Grid.Column="1"
             HeightRequest="50"
             WidthRequest="200" 
             Command="{Binding GoToCreateCommand}" />
+            <Button Text="Sort Subjects" 
+            FontSize="20"
+            Grid.Column="2"
+            HeightRequest="50"
+            WidthRequest="200" 
+            Command="{Binding ShowSortOptionsCommand}" />
+        </Grid>
         <Grid Padding="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />

@@ -4,6 +4,7 @@ using ICS.BL.Models;
 using ICS.BL.Facade.Interface;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using ICS.BL.Facade;
 
 namespace ICS.ViewModel.Subject;
 
@@ -33,6 +34,25 @@ public partial class SubjectListViewModel(
     {
         await navigationService.GoToAsync("/detail",
             new Dictionary<string, object?> { [nameof(SubjectDetailViewModel.Id)] = id });
+    }
+
+    [RelayCommand]
+    private async Task SortSubjectsAsync(string sortOption)
+    {
+        Subjects = await subjectFacade.GetSortedAsync(sortOption);
+    }
+
+    [RelayCommand]
+    private async Task ShowSortOptionsAsync()
+    {
+
+        var selectedOption = await App.Current.MainPage.DisplayActionSheet("Sort Subjects By", "Cancel", null,
+            "byId", "byDescendingId", "byDescendingName", "byName");
+
+        if (!string.IsNullOrEmpty(selectedOption) && selectedOption != "Cancel")
+        {
+            await SortSubjectsAsync(selectedOption);
+        }
     }
 
     public async void Receive(SubjectEditMessage message)
