@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using ICS.Messages;
 using ICS.BL.Facade;
+using System.Windows.Input;
 
 namespace ICS.ViewModel.Student;
 
@@ -15,6 +16,23 @@ IMessengerService messengerService)
     : ViewModelBase(messengerService), IRecipient<StudentEditMessage>, IRecipient<StudentDeleteMessage>, IRecipient<StudentAddMessage>
 {
     public IEnumerable<StudentListModel> Students { get; set; } = null!;
+
+    private bool _isSearching;
+
+    public bool IsSearching
+    {
+        get => _isSearching;
+        set => SetProperty(ref _isSearching, value);
+    }
+
+    [RelayCommand]
+    private async Task CancelSearchAsync()
+    {
+        IsSearching = false;
+        await base.LoadDataAsync();
+
+        Students = await studentFacade.GetAsync();
+    }
 
     protected override async Task LoadDataAsync()
     {
@@ -69,6 +87,7 @@ IMessengerService messengerService)
     [RelayCommand]
     private async Task LoadSearchResultsAsync(string search)
     {
+        IsSearching = true;
         Students = await studentFacade.GetSearchAsync(search);
     }
 
