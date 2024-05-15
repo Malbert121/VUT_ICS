@@ -282,18 +282,17 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     [Fact]
     public async Task FilterByTime_OnlyStart()
     {
-        var activityList = await _activityAppliedFacadeSUT.GetFilteredAsync(new DateTime(2021, 10, 11, 10, 0, 0));
+        var activityList = await _activityAppliedFacadeSUT.GetFilteredAsync(SubjectSeeds.potions.Id, new DateTime(2021, 10, 11, 10, 0, 0));
 
         Assert.Equal(2, activityList.ToObservableCollection().Count);
     }
     [Fact]
     public async Task FilterByTime_StartAndEnd()
     {
-        var activityList = await _activityAppliedFacadeSUT.GetFilteredAsync(new DateTime(2021, 10, 7, 10, 0, 0), new DateTime(2021, 10, 12, 10, 0, 0));
+        var activityList = await _activityAppliedFacadeSUT.GetFilteredAsync(SubjectSeeds.potions.Id, new DateTime(2021, 10, 7, 10, 0, 0), new DateTime(2021, 10, 12, 10, 0, 0));
 
         Assert.Equal(3, activityList.ToObservableCollection().Count);
     }
-
     [Fact]
     public async Task SortByDescendingId()
     {

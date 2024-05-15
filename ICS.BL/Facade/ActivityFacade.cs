@@ -106,12 +106,13 @@ public class ActivityFacade(
         return ModelMapper.MapToListModel(entities);
     }
 
-    public async Task<IEnumerable<ActivityListModel>> GetFilteredAsync(DateTime date)
+    public async Task<IEnumerable<ActivityListModel>> GetFilteredAsync(Guid subjectId, DateTime date)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
         List<ActivityEntity> entities = await uow
             .GetRepository<ActivityEntity, ActivityEntityMapper>()
             .Get()
+            .Where(e => e.SubjectId == subjectId)
             .Where(e => e.Start >= date)
             .OrderBy(e => e.Start)
             .ToListAsync();
@@ -119,12 +120,13 @@ public class ActivityFacade(
         return ModelMapper.MapToListModel(entities);
     }
 
-    public async Task<IEnumerable<ActivityListModel>> GetFilteredAsync(DateTime date, DateTime endDate)
+    public async Task<IEnumerable<ActivityListModel>> GetFilteredAsync(Guid subjectId, DateTime date, DateTime endDate)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
         List<ActivityEntity> entities = await uow
             .GetRepository<ActivityEntity, ActivityEntityMapper>()
             .Get()
+            .Where(e => e.SubjectId == subjectId)
             .Where(e => e.Start >= date && e.End <= endDate)
             .OrderBy(e => e.Start)
             .ToListAsync();

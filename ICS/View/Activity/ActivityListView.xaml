@@ -17,7 +17,7 @@
         HorizontalOptions="Center" />
         <Grid HorizontalOptions="Center" 
             VerticalOptions="Start" 
-            ColumnDefinitions="*, *, *, *"
+            ColumnDefinitions="*, *, *, *, *, *"
             ColumnSpacing="20">
             <Button Text="Add Activity" 
             FontSize="20"
@@ -37,13 +37,18 @@
             HeightRequest="50"
             WidthRequest="180" 
             Command="{Binding ShowSearchOptionsCommand}" />
-            <Button Text="Cancel Search" 
+            <Button Text="Filter Activities" 
+             FontSize="20"
+             Grid.Column="4"
+             HeightRequest="50"
+             WidthRequest="200" 
+             Command="{Binding ShowFilteringOptionsCommand}" />
+            <Button Text="Reset" 
             FontSize="20"
-            Grid.Column="4"
+            Grid.Column="5"
             HeightRequest="50"
             WidthRequest="160" 
-            Command="{Binding CancelSearchCommand}" 
-            IsVisible="{Binding IsSearching}" />
+            Command="{Binding CancelSearchCommand}" />
         </Grid>
         <Grid Padding="10">
             <Grid.ColumnDefinitions>
