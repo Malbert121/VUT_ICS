@@ -19,14 +19,13 @@ public class SubjectFacade(
     protected override ICollection<string> IncludesStudentNavigationPathDetail =>
        new[] { $"{nameof(SubjectEntity.Students)}.{nameof(StudentSubjectEntity.Student)}", $"{nameof(SubjectEntity.Activity)}" };
 
-
     public async Task<IEnumerable<SubjectListModel>> GetSearchAsync(string search)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
         List<SubjectEntity> entities = await uow
             .GetRepository<SubjectEntity, SubjectEntityMapper>()
             .Get()
-            .Where(e => e.Name.Contains(search))
+            .Where(e => e.Name.ToLower().Contains(search.ToLower()))
             .ToListAsync();
 
         return ModelMapper.MapToListModel(entities);

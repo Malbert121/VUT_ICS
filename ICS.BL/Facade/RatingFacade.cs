@@ -20,17 +20,38 @@ public class RatingFacade(
     protected override ICollection<string> IncludesRatingNavigationPathDetail =>
         new[] { $"{nameof(RatingEntity.Activity)}", $"{nameof(RatingEntity.Student)}" };
 
-    public async Task<IEnumerable<RatingListModel>> GetSearchAsync(string search)
+    public async Task<IEnumerable<RatingListModel>> GetSearchAsync(string search, Guid activityId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+
+        // Split the search input into separate terms
+        string[] searchTerms = search.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
         List<RatingEntity> entities = await uow
             .GetRepository<RatingEntity, RatingEntityMapper>()
             .Get()
-            .Where(e => e.Note.Contains(search))
+            .Where(e => searchTerms.All(term =>
+                    e.Student.FirstName.ToLower().Contains(term) ||
+                    e.Student.LastName.ToLower().Contains(term)) &&
+                e.ActivityId == activityId)
             .ToListAsync();
 
-        return ModelMapper.MapToListModel(entities);
+        var studentIds = entities.Select(e => e.StudentId).ToList();
+        var studentNames = await uow.GetRepository<StudentEntity, StudentEntityMapper>()
+                                    .Get()
+                                    .Where(s => studentIds.Contains(s.Id))
+                                    .ToDictionaryAsync(s => s.Id, s => s.FirstName);
+
+        var models = ModelMapper.MapToListModel(entities);
+        foreach (var model in models)
+        {
+            if (studentNames.TryGetValue(model.studentId, out var name))
+                model.StudentName = name;
+        }
+
+        return models;
     }
+
 
     public async Task<IEnumerable<RatingListModel>> GetFromActivityAsync(Guid activityId)
     {
@@ -55,7 +76,7 @@ public class RatingFacade(
         {
             query = query.Include(pathDetail);
         }
-        foreach (string pathDetail in IncludesStudentSubjectNavigationPathDetail)
+        foreach (string pathDetail in IncludeStudentSubjectNavigationPathDetail)
         {
             query = query.Include(pathDetail);
         }
@@ -65,35 +86,52 @@ public class RatingFacade(
         return ModelMapper.MapToListModel(entities);
     }
 
-
-    public async Task<IEnumerable<RatingListModel>> GetSortedAsync(string sortOptions)
+    public async Task<IEnumerable<RatingListModel>> GetSortedAsync(string sortOptions, Guid activityId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+
         List<RatingEntity> entities = sortOptions switch
         {
             "byDescendingId" => await uow
                             .GetRepository<RatingEntity, RatingEntityMapper>()
                             .Get()
+                            .Where(e => e.ActivityId == activityId)
                             .OrderByDescending(entity => entity.Id)
                             .ToListAsync(),
             "byId" => await uow
                             .GetRepository<RatingEntity, RatingEntityMapper>()
                             .Get()
+                            .Where(e => e.ActivityId == activityId)
                             .OrderBy(entity => entity.Id)
                             .ToListAsync(),
             "byDescendingPoints" => await uow
                             .GetRepository<RatingEntity, RatingEntityMapper>()
                             .Get()
+                            .Where(e => e.ActivityId == activityId)
                             .OrderByDescending(entity => entity.Points)
                             .ToListAsync(),
             "byPoints" => await uow
                             .GetRepository<RatingEntity, RatingEntityMapper>()
                             .Get()
+                            .Where(e => e.ActivityId == activityId)
                             .OrderBy(entity => entity.Points)
                             .ToListAsync(),
             _ => null!,
         };
-        return ModelMapper.MapToListModel(entities);
+        var studentIds = entities.Select(e => e.StudentId).ToList();
+        var studentNames = await uow.GetRepository<StudentEntity, StudentEntityMapper>()
+                                    .Get()
+                                    .Where(s => studentIds.Contains(s.Id))
+                                    .ToDictionaryAsync(s => s.Id, s => s.FirstName);
+
+        var models = ModelMapper.MapToListModel(entities);
+        foreach (var model in models)
+        {
+            if (studentNames.TryGetValue(model.studentId, out var name))
+                model.StudentName = name;
+        }
+
+        return models;
     }
 
     private static void GuardCollectionsAreNotSet(RatingDetailModel model)

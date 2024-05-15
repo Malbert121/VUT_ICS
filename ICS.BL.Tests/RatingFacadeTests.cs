@@ -99,7 +99,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase
             points = 20,
             note = "note",
             Student = "Harry Potter",
-            studentId = Guid.Parse("d9963767-91a2-4b3f-81f7-dc5d0aaecf7d"),
+            studentId = Guid.Parse("82d5fd80-2f63-40b6-b3a1-05609bde2a68"),
             activityId = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f485"),
         };
 
@@ -180,15 +180,15 @@ public sealed class RatingFacadeTests : FacadeTestsBase
     [Fact]
     public async Task SearchBySubstringNote_DoesNotThrow()
     {
-        var ratingList = await _ratingAppliedFacadeSUT.GetSearchAsync("Good");
+        var ratingList = await _ratingAppliedFacadeSUT.GetSearchAsync("Good", ActivitySeeds.ActivityWithTwoRatings.Id);
 
-        Assert.Equal(3, ratingList.ToObservableCollection().Count);
+        Assert.Equal(2, ratingList.ToObservableCollection().Count);
     }
 
     [Fact]
     public async Task SearchBySubstringNote_NonExistent_DoesNotThrow()
     {
-        var ratingList = await _ratingAppliedFacadeSUT.GetSearchAsync("Bad");
+        var ratingList = await _ratingAppliedFacadeSUT.GetSearchAsync("Bad", ActivitySeeds.ActivityWithTwoRatings.Id);
 
         Assert.Empty(ratingList.ToObservableCollection());
     }
@@ -196,44 +196,33 @@ public sealed class RatingFacadeTests : FacadeTestsBase
     [Fact]
     public async Task SortByDescendingId_Correct()
     {
-        var activityList = await _ratingAppliedFacadeSUT.GetSortedAsync("byDescendingId");
-
-        Assert.Equal(Guid.Parse("f3a3e3a3-7b1a-48c1-9796-d2bac7f67868"), activityList.ToObservableCollection()[0].Id);
-        Assert.Equal(Guid.Parse("a2e6849d-a158-4436-980c-7fc26b60c674"), activityList.ToObservableCollection()[1].Id);
-        Assert.Equal(Guid.Parse("87833e66-05ba-4d6b-900b-fe5ace88dbd8"), activityList.ToObservableCollection()[2].Id);
-        Assert.Equal(Guid.Parse("0d4fa150-ad80-4d46-a511-4c666166ec5e"), activityList.ToObservableCollection()[3].Id);
+        var ratingList = await _ratingAppliedFacadeSUT.GetSortedAsync("byDescendingId", ActivitySeeds.ActivityWithTwoRatings.Id);
+        Assert.Equal(Guid.Parse("f3a3e3a3-7b1a-48c1-9796-d2bac7f67868"), ratingList.ToObservableCollection()[0].Id);
+        Assert.Equal(Guid.Parse("a2e6849d-a158-4436-980c-7fc26b60c674"), ratingList.ToObservableCollection()[1].Id);
     }
 
     [Fact]
     public async Task SortById_Correct()
     {
-        var activityList = await _ratingAppliedFacadeSUT.GetSortedAsync("byId");
+        var ratingList = await _ratingAppliedFacadeSUT.GetSortedAsync("byId", ActivitySeeds.ActivityWithTwoRatings.Id);
 
-        Assert.Equal(Guid.Parse("f3a3e3a3-7b1a-48c1-9796-d2bac7f67868"), activityList.ToObservableCollection()[3].Id);
-        Assert.Equal(Guid.Parse("a2e6849d-a158-4436-980c-7fc26b60c674"), activityList.ToObservableCollection()[2].Id);
-        Assert.Equal(Guid.Parse("87833e66-05ba-4d6b-900b-fe5ace88dbd8"), activityList.ToObservableCollection()[1].Id);
-        Assert.Equal(Guid.Parse("0d4fa150-ad80-4d46-a511-4c666166ec5e"), activityList.ToObservableCollection()[0].Id);
+        Assert.Equal(Guid.Parse("f3a3e3a3-7b1a-48c1-9796-d2bac7f67868"), ratingList.ToObservableCollection()[1].Id);
+        Assert.Equal(Guid.Parse("a2e6849d-a158-4436-980c-7fc26b60c674"), ratingList.ToObservableCollection()[0].Id);
     }
 
     [Fact]
     public async Task SortByDescendingPoints_Correct()
     {
-        var activityList = await _ratingAppliedFacadeSUT.GetSortedAsync("byDescendingPoints");
-
-        Assert.Equal(10, activityList.ToObservableCollection()[0].points);
-        Assert.Equal(5, activityList.ToObservableCollection()[1].points);
-        Assert.Equal(5, activityList.ToObservableCollection()[2].points);
-        Assert.Equal(4, activityList.ToObservableCollection()[3].points);
+        var ratingList = await _ratingAppliedFacadeSUT.GetSortedAsync("byDescendingPoints", ActivitySeeds.ActivityWithTwoRatings.Id);
+        Assert.Equal(Guid.Parse("f3a3e3a3-7b1a-48c1-9796-d2bac7f67868"), ratingList.ToObservableCollection()[0].Id);
+        Assert.Equal(Guid.Parse("a2e6849d-a158-4436-980c-7fc26b60c674"), ratingList.ToObservableCollection()[1].Id);
     }
 
     [Fact]
     public async Task SortByPoints_Correct()
     {
-        var activityList = await _ratingAppliedFacadeSUT.GetSortedAsync("byPoints");
-
-        Assert.Equal(10, activityList.ToObservableCollection()[3].points);
-        Assert.Equal(5, activityList.ToObservableCollection()[2].points);
-        Assert.Equal(5, activityList.ToObservableCollection()[1].points);
-        Assert.Equal(4, activityList.ToObservableCollection()[0].points);
+        var ratingList = await _ratingAppliedFacadeSUT.GetSortedAsync("byPoints", ActivitySeeds.ActivityWithTwoRatings.Id);
+        Assert.Equal(Guid.Parse("f3a3e3a3-7b1a-48c1-9796-d2bac7f67868"), ratingList.ToObservableCollection()[1].Id);
+        Assert.Equal(Guid.Parse("a2e6849d-a158-4436-980c-7fc26b60c674"), ratingList.ToObservableCollection()[0].Id);
     }
 }

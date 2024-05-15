@@ -4,6 +4,7 @@ using ICS.BL.Models;
 using ICS.BL.Facade.Interface;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using ICS.BL.Facade;
 
 namespace ICS.ViewModel.Subject;
 
@@ -14,6 +15,24 @@ public partial class SubjectListViewModel(
     : ViewModelBase(messengerService), IRecipient<SubjectEditMessage>, IRecipient<SubjectDeleteMessage>, IRecipient<SubjectAddMessage>
 {
     public IEnumerable<SubjectListModel> Subjects { get; set; } = null!;
+
+    private bool _wasModified;
+
+    public bool wasModified
+    {
+        get => _wasModified;
+        set => SetProperty(ref _wasModified, value);
+    }
+     
+
+    [RelayCommand]
+    private async Task CancelSearchAsync()
+    {
+        wasModified = false;
+        await base.LoadDataAsync();
+
+         Subjects = await subjectFacade.GetAsync();
+    }
 
     protected override async Task LoadDataAsync()
     {
@@ -33,6 +52,44 @@ public partial class SubjectListViewModel(
     {
         await navigationService.GoToAsync("/detail",
             new Dictionary<string, object?> { [nameof(SubjectDetailViewModel.Id)] = id });
+    }
+
+    [RelayCommand]
+    private async Task SortSubjectsAsync(string sortOption)
+    {
+        wasModified = true;
+        Subjects = await subjectFacade.GetSortedAsync(sortOption);
+    }
+
+    [RelayCommand]
+    private async Task ShowSortOptionsAsync()
+    {
+
+        var selectedOption = await App.Current.MainPage.DisplayActionSheet("Sort Subjects By", "Cancel", null,
+            "byId", "byDescendingId", "byDescendingName", "byName");
+
+        if (!string.IsNullOrEmpty(selectedOption) && selectedOption != "Cancel")
+        {
+            await SortSubjectsAsync(selectedOption);
+        }
+    }
+
+    [RelayCommand]
+    private async Task ShowSearchOptionsAsync()
+    {
+        var search = await App.Current.MainPage.DisplayPromptAsync("Search", "Enter search term");
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            await LoadSearchResultsAsync(search);
+        }
+    }
+
+    [RelayCommand]
+    private async Task LoadSearchResultsAsync(string search)
+    {
+        wasModified = true;
+        Subjects = await subjectFacade.GetSearchAsync(search);
     }
 
     public async void Receive(SubjectEditMessage message)

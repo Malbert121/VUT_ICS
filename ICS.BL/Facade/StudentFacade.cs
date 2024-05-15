@@ -23,7 +23,7 @@ public class StudentFacade(
         List<StudentEntity> entities = await uow
             .GetRepository<StudentEntity, StudentEntityMapper>()
             .Get()
-            .Where(e => (e.FirstName + " " + e.LastName).Contains(search))
+            .Where(e => (e.FirstName + " " + e.LastName).ToLower().Contains(search.ToLower()))
             .ToListAsync();
 
         return ModelMapper.MapToListModel(entities);
@@ -47,7 +47,7 @@ public class StudentFacade(
             "byDescendingLastName" => await uow
                             .GetRepository<StudentEntity, StudentEntityMapper>()
                             .Get()
-                            .OrderByDescending(entity => entity.LastName)
+                            .OrderByDescending(entity => entity.LastName)  
                             .ToListAsync(),
             "byLastName" => await uow
                             .GetRepository<StudentEntity, StudentEntityMapper>()

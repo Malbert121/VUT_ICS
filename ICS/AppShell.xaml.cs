@@ -19,17 +19,6 @@ namespace ICS
         }
 
         [RelayCommand]
-        private async Task GoToRatingsAsync()
-        => await _navigationService.GoToAsync<RatingListViewModel>();
-
-        [RelayCommand]
-        private async Task GoToActivitiesAsync()
-        {
-            
-            await _navigationService.GoToAsync<ActivityListViewModel>();
-        }
-
-        [RelayCommand]
         private async Task GoToStudentsAsync()
         {
             await _navigationService.GoToAsync<StudentListViewModel>();

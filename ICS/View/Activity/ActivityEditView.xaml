@@ -1,53 +1,60 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ICS.View.Activity.ActivityEditView"
-             xmlns:views="clr-namespace:ICS.View"
-             xmlns:vm="clr-namespace:ICS.ViewModel.Activity"
-             x:DataType="vm:ActivityEditViewModel"
-             x:Name="ActivityEditViewRoot">
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       x:Class="ICS.View.Activity.ActivityEditView"
+                       xmlns:views="clr-namespace:ICS.View"
+                       xmlns:vm="clr-namespace:ICS.ViewModel.Activity"
+                       x:DataType="vm:ActivityEditViewModel"
+                       x:Name="ActivityEditViewRoot">
+    <ScrollView>
+        <VerticalStackLayout
+            Spacing="10">
+            <Label 
+                Text="Activity Edit."
+                VerticalOptions="Center" 
+                FontSize="24"
+                HorizontalOptions="Center" />
+            <Button Text="Save" 
+                FontSize="24"
+                HeightRequest="50"
+                WidthRequest="200" 
+                Command="{Binding SaveCommand}" />
 
-    <VerticalStackLayout
-        Spacing="10">
-        <Label 
-        Text="Activity Edit."
-        VerticalOptions="Center" 
-        FontSize="24"
-        HorizontalOptions="Center" />
-        <Button Text="Save" 
-        FontSize="24"
-        HeightRequest="50"
-        WidthRequest="200" 
-        Command="{Binding SaveCommand}" />
+            <Label Text="Subject ID."
+                FontSize="20"/>
+            <Entry HorizontalOptions="Fill"
+                FontSize="20"  
+                Text="{Binding Activity.subjectId}" />
 
-        <Label Text="Subjectt ID."
-           FontSize="20"/>
-        <Entry HorizontalOptions="Fill"
-           FontSize="20"  
-           Text="{Binding Activity.subjectId}" />
+            <Label Text="Name."
+                FontSize="20"/>
+            <Entry HorizontalOptions="Fill"
+                FontSize="20"
+                Text="{Binding Activity.name}" />
 
-        <Label Text="Name."
-           FontSize="20"/>
-        <Entry HorizontalOptions="Fill"
-           FontSize="20"
-           Text="{Binding Activity.name}" />
+            <Label Text="Start Date."
+                FontSize="20"/>
+            <DatePicker Date="{Binding StartDate, Mode=TwoWay}" />
 
-        <Label Text="Start."
-            FontSize="20"/>
-        <Entry HorizontalOptions="Fill"
-            FontSize="20"
-            Text="{Binding Activity.start}" />
+            <Label Text="Start Time."
+                FontSize="20"/>
+            <TimePicker Time="{Binding StartTime, Mode=TwoWay}" />
 
-        <Label Text="End."
-            FontSize="20"/>
-        <Entry HorizontalOptions="Fill"
-            FontSize="20"
-            Text="{Binding Activity.end}" />
-        
-        <Label Text="Room."
-            FontSize="20"/>
-        <Entry HorizontalOptions="Fill"
-           FontSize="20"
-           Text="{Binding Activity.room}" />
-    </VerticalStackLayout>
+            <Label Text="End Date."
+                FontSize="20"/>
+            <DatePicker Date="{Binding EndDate, Mode=TwoWay}" />
+
+            <Label Text="End Time."
+                FontSize="20"/>
+            <TimePicker Time="{Binding EndTime, Mode=TwoWay}" />
+
+            <Label Text="Room."
+                FontSize="20"/>
+            <Entry HorizontalOptions="Fill"
+                FontSize="20"
+                Text="{Binding Activity.room}" />
+        </VerticalStackLayout>
+    </ScrollView>
 </views:ContentPageBase>
+
+
