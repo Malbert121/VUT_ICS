@@ -80,14 +80,26 @@ public class StudentSubjectFacade(
         await uow.CommitAsync();
     }
 
-    public async Task<IEnumerable<StudentSubjectListModel>> GetSearchAsync(string search)
+    public async Task<IEnumerable<StudentSubjectListModel>> GetSearchAsync(string search, Guid subjectId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
-        List<StudentSubjectEntity> entities = await uow
+        IQueryable<StudentSubjectEntity> query = uow
             .GetRepository<StudentSubjectEntity, StudentSubjectEntityMapper>()
-        .Get()
-            .Where(e => (e.Student.FirstName + " " + e.Student.LastName).Contains(search))
-            .ToListAsync();
+            .Get()
+            .Where(e => e.Subject.Id == subjectId);
+
+        foreach (string pathDetail in IncludesActivityNavigationPathDetail
+            .Concat(IncludesRatingNavigationPathDetail)
+            .Concat(IncludesStudentNavigationPathDetail)
+            .Concat(IncludesSubjectNavigationPathDetail)
+            .Concat(IncludesStudentSubjectNavigationPathDetail))
+        {
+            query = query.Include(pathDetail);
+        }
+
+        List<StudentSubjectEntity> entities = await query
+        .Where(e => (e.Student.FirstName.ToLower() + " " + e.Student.LastName.ToLower()).Contains(search.ToLower()) && e.Subject.Id == subjectId)
+        .ToListAsync();
 
         return ModelMapper.MapToListModel(entities);
     }

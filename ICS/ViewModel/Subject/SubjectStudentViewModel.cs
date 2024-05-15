@@ -105,6 +105,31 @@ public partial class SubjectStudentViewModel(
         }
     }
 
+    [RelayCommand]
+    private async Task ShowSearchOptionsAsync()
+    {
+        var search = await App.Current.MainPage.DisplayPromptAsync("Search", "Enter search term");
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            await LoadSearchResultsAsync(search);
+        }
+    }
+
+    [RelayCommand]
+    private async Task LoadSearchResultsAsync(string search)
+    {
+        try
+        {
+            wasModified = true;
+            Students = await studentSubjectFacade.GetSearchAsync(search, SubjectId);
+        }
+        catch (Exception ex)
+        {
+            await App.Current.MainPage.DisplayAlert("Error", $"An error occurred while searching students: {ex.Message}", "OK");
+        }
+    }
+
     public async void Receive(SubjectStudentAddMessage message)
     {
        await LoadDataAsync();

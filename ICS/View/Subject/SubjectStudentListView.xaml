@@ -30,10 +30,16 @@
             HeightRequest="50"
             WidthRequest="160" 
             Command="{Binding ShowSortOptionsCommand}" />
+            <Button Text="Search Students" 
+            FontSize="20"
+            Grid.Column="3"
+            HeightRequest="50"
+            WidthRequest="170" 
+            Command="{Binding ShowSearchOptionsCommand}" />
 
             <Button Text="Reset" 
             FontSize="20"
-            Grid.Column="3"
+            Grid.Column="4"
             HeightRequest="50"
             WidthRequest="160" 
             Command="{Binding CancelSearchCommand}"
