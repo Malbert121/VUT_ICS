@@ -180,15 +180,15 @@ public sealed class RatingFacadeTests : FacadeTestsBase
     [Fact]
     public async Task SearchBySubstringNote_DoesNotThrow()
     {
-        var ratingList = await _ratingAppliedFacadeSUT.GetSearchAsync("Good");
+        var ratingList = await _ratingAppliedFacadeSUT.GetSearchAsync("Good", ActivitySeeds.ActivityWithTwoRatings.Id);
 
-        Assert.Equal(3, ratingList.ToObservableCollection().Count);
+        Assert.Equal(2, ratingList.ToObservableCollection().Count);
     }
 
     [Fact]
     public async Task SearchBySubstringNote_NonExistent_DoesNotThrow()
     {
-        var ratingList = await _ratingAppliedFacadeSUT.GetSearchAsync("Bad");
+        var ratingList = await _ratingAppliedFacadeSUT.GetSearchAsync("Bad", ActivitySeeds.ActivityWithTwoRatings.Id);
 
         Assert.Empty(ratingList.ToObservableCollection());
     }
