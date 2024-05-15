@@ -18,24 +18,31 @@
             VerticalOptions="Start" 
             ColumnDefinitions="*, *, *, *"
             ColumnSpacing="20">
-            <Button Text="Add Add Subject" 
+            <Button Text="Add Subject" 
             FontSize="20"
             Grid.Column="1"
             HeightRequest="50"
-            WidthRequest="200" 
+            WidthRequest="160" 
             Command="{Binding GoToCreateCommand}" />
             <Button Text="Sort Subjects" 
             FontSize="20"
             Grid.Column="2"
             HeightRequest="50"
-            WidthRequest="200" 
+            WidthRequest="160" 
             Command="{Binding ShowSortOptionsCommand}" />
             <Button Text="Search Subjects" 
             FontSize="20"
             Grid.Column="3"
             HeightRequest="50"
-            WidthRequest="200" 
+            WidthRequest="180" 
             Command="{Binding ShowSearchOptionsCommand}" />
+            <Button Text="Cancel Search" 
+            FontSize="20"
+            Grid.Column="4"
+            HeightRequest="50"
+            WidthRequest="160" 
+            Command="{Binding CancelSearchCommand}" 
+            IsVisible="{Binding IsSearching}" />
         </Grid>
         <Grid Padding="10">
             <Grid.ColumnDefinitions>

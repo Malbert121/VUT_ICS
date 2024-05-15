@@ -19,6 +19,23 @@ public partial class ActivityListViewModel(
 
     public SubjectDetailModel Subject { get; set; }
 
+    private bool _isSearching;
+
+    public bool IsSearching
+    {
+        get => _isSearching;
+        set => SetProperty(ref _isSearching, value);
+    }
+
+    [RelayCommand]
+    private async Task CancelSearchAsync()
+    {
+        IsSearching = false;
+        await base.LoadDataAsync();
+
+        Activities = await activityFacade.GetFromSubjectAsync(Subject.Id);
+    }
+
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
@@ -73,6 +90,7 @@ public partial class ActivityListViewModel(
     [RelayCommand]
     private async Task LoadSearchResultsAsync(string search)
     {
+        IsSearching = true;
         Activities = await activityFacade.GetSearchAsync(search, Subject.Id);
     }
 

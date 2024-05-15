@@ -16,6 +16,23 @@ public partial class SubjectListViewModel(
 {
     public IEnumerable<SubjectListModel> Subjects { get; set; } = null!;
 
+    private bool _isSearching;
+
+    public bool IsSearching
+    {
+        get => _isSearching;
+        set => SetProperty(ref _isSearching, value);
+    }
+
+    [RelayCommand]
+    private async Task CancelSearchAsync()
+    {
+        IsSearching = false;
+        await base.LoadDataAsync();
+
+         Subjects = await subjectFacade.GetAsync();
+    }
+
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
@@ -69,6 +86,7 @@ public partial class SubjectListViewModel(
     [RelayCommand]
     private async Task LoadSearchResultsAsync(string search)
     {
+        IsSearching = true;
         Subjects = await subjectFacade.GetSearchAsync(search);
     }
 

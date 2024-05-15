@@ -10,6 +10,7 @@ using ICS.Services;
 using ICS.BL.Models;
 using ICS.BL.Facade.Interface;
 using ICS.ViewModel.Activity;
+using ICS.BL.Facade;
 
 
 namespace ICS.ViewModel.Rating
@@ -23,6 +24,23 @@ namespace ICS.ViewModel.Rating
     {
         public IEnumerable<RatingListModel> Ratings { get; set; } = null!;
         public ActivityDetailModel Activity { get; set; }
+
+        private bool _isSearching;
+
+        public bool IsSearching
+        {
+            get => _isSearching;
+            set => SetProperty(ref _isSearching, value);
+        }
+
+        [RelayCommand]
+        private async Task CancelSearchAsync()
+        {
+            IsSearching = false;
+            await base.LoadDataAsync();
+
+            Ratings = await ratingFacade.GetFromActivityAsync(Activity.Id);
+        }
 
         protected override async Task LoadDataAsync()
         {
@@ -78,6 +96,7 @@ namespace ICS.ViewModel.Rating
         [RelayCommand]
         private async Task LoadSearchResultsAsync(string search)
         {
+            IsSearching = true;
             Ratings = await ratingFacade.GetSearchAsync(search, Activity.Id);
         }
 
