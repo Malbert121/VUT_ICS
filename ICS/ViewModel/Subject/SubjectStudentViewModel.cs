@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Windows.Devices.AllJoyn;
 using ICS.Messages.SubjectMessages;
 using CommunityToolkit.Mvvm.Messaging;
+using ICS.BL.Facade;
 
 namespace ICS.ViewModel.Subject;
 
@@ -29,6 +30,13 @@ public partial class SubjectStudentViewModel(
     public Guid SubjectId { get; set; }
     public IEnumerable<StudentSubjectListModel> Students { get; set; } = null!;
 
+    private bool _wasModified;
+
+    public bool wasModified
+    {
+        get => _wasModified;
+        set => SetProperty(ref _wasModified, value);
+    }
 
     protected override async Task LoadDataAsync()
     {
@@ -58,7 +66,43 @@ public partial class SubjectStudentViewModel(
         {
             await alertService.DisplayAsync("ERROR", "ERROR");
         }
+    }
 
+    [RelayCommand]
+    private async Task CancelSearchAsync()
+    {
+        wasModified = false;
+        await base.LoadDataAsync();
+
+        Students = await studentSubjectFacade.GetAsync();
+    }
+
+    [RelayCommand]
+    private async Task SortStudentsAsync(string sortOption)
+    {
+        try
+        {
+            wasModified = true;
+            Students = await studentSubjectFacade.GetSortedAsync(sortOption, SubjectId);
+        }
+        catch (Exception ex)
+        {
+            await App.Current.MainPage.DisplayAlert("Error", $"An error occurred while sorting students: {ex.Message}", "OK");
+        }
+    }
+
+
+    [RelayCommand]
+    private async Task ShowSortOptionsAsync()
+    {
+
+        var selectedOption = await App.Current.MainPage.DisplayActionSheet("Sort Students By", "Cancel", null,
+            "byId", "byDescendingId", "byDescendingLastName", "byLastName");
+
+        if (!string.IsNullOrEmpty(selectedOption) && selectedOption != "Cancel")
+        {
+            await SortStudentsAsync(selectedOption);
+        }
     }
 
     public async void Receive(SubjectStudentAddMessage message)

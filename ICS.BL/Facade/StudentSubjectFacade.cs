@@ -156,7 +156,7 @@ public class StudentSubjectFacade(
         return ModelMapper.MapToListModel(entities);
     }
 
-    public async Task<IEnumerable<StudentSubjectListModel>> GetSortedAsync(string sortOptions)
+    public async Task<IEnumerable<StudentSubjectListModel>> GetSortedAsync(string sortOptions, Guid subjectId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
         List<StudentSubjectEntity> entities = sortOptions switch
@@ -164,21 +164,25 @@ public class StudentSubjectFacade(
             "byDescendingId" => await uow
                             .GetRepository<StudentSubjectEntity, StudentSubjectEntityMapper>()
                             .Get()
-                            .OrderByDescending(entity => entity.Id)
+                            .Where(e => e.Subject.Id == subjectId)
+                            .OrderByDescending(entity => entity.Student.Id)
                             .ToListAsync(),
             "byId" => await uow
                             .GetRepository<StudentSubjectEntity, StudentSubjectEntityMapper>()
                             .Get()
-                            .OrderBy(entity => entity.Id)
+                            .Where(e => e.Subject.Id == subjectId)
+                            .OrderBy(entity => entity.Student.Id)
                             .ToListAsync(),
             "byDescendingLastName" => await uow
                             .GetRepository<StudentSubjectEntity, StudentSubjectEntityMapper>()
                             .Get()
+                            .Where(e => e.Subject.Id == subjectId)
                             .OrderByDescending(entity => entity.Student.LastName)
                             .ToListAsync(),
             "byLastName" => await uow
                             .GetRepository<StudentSubjectEntity, StudentSubjectEntityMapper>()
                             .Get()
+                            .Where(e => e.Subject.Id == subjectId)
                             .OrderBy(entity => entity.Student.LastName)
                             .ToListAsync(),
             _ => null!,
