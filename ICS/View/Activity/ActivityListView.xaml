@@ -43,7 +43,7 @@
              HeightRequest="50"
              WidthRequest="200" 
              Command="{Binding ShowFilteringOptionsCommand}" />
-            <Button Text="Cancel changes" 
+            <Button Text="Reset" 
             FontSize="20"
             Grid.Column="5"
             HeightRequest="50"

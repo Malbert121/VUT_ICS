@@ -36,7 +36,7 @@
             HeightRequest="50"
             WidthRequest="180"
             Command="{Binding ShowSearchOptionsCommand}" />
-            <Button Text="Cancel changes" 
+            <Button Text="Reset" 
             FontSize="20"
             Grid.Column="4"
             HeightRequest="50"
