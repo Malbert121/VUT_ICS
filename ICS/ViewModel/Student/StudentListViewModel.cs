@@ -4,6 +4,7 @@ using ICS.BL.Models;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using ICS.Messages;
+using ICS.BL.Facade;
 
 namespace ICS.ViewModel.Student;
 
@@ -33,6 +34,25 @@ IMessengerService messengerService)
     {
         await navigationService.GoToAsync("/detail",
         new Dictionary<string, object?> { [nameof(StudentDetailViewModel.Id)] = id });
+    }
+
+    [RelayCommand]
+    private async Task SortStudentsAsync(string sortOption)
+    {
+        Students = await studentFacade.GetSortedAsync(sortOption);
+    }
+
+    [RelayCommand]
+    private async Task ShowSortOptionsAsync()
+    {
+
+        var selectedOption = await App.Current.MainPage.DisplayActionSheet("Sort Students By", "Cancel", null,
+            "byId", "byDescendingId", "byDescendingLastName", "byLastName");
+
+        if (!string.IsNullOrEmpty(selectedOption) && selectedOption != "Cancel")
+        {
+            await SortStudentsAsync(selectedOption);
+        }
     }
 
     public async void Receive(StudentEditMessage message)

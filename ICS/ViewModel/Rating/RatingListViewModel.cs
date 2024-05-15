@@ -45,7 +45,6 @@ namespace ICS.ViewModel.Rating
               new Dictionary<string, object?> { [nameof(RatingDetailViewModel.Id)] = id, [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity.subjectId });
         }
 
-
         [RelayCommand]
         private async Task SortRatingsAsync(string sortOption)
         {

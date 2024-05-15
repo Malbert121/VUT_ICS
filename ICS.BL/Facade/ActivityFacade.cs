@@ -48,7 +48,7 @@ public class ActivityFacade(
 
         return ModelMapper.MapToListModel(entities);
     }
-    public async Task<IEnumerable<ActivityListModel>> GetSortedAsync(string sortOptions)
+    public async Task<IEnumerable<ActivityListModel>> GetSortedAsync(string sortOptions, Guid subjectId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
         List<ActivityEntity> entities = sortOptions switch
@@ -56,41 +56,49 @@ public class ActivityFacade(
             "byDescendingId" => await uow
                             .GetRepository<ActivityEntity, ActivityEntityMapper>()
                             .Get()
+                            .Where(e => e.SubjectId == subjectId)
                             .OrderByDescending(entity => entity.Id)
                             .ToListAsync(),
             "byId" => await uow
                             .GetRepository<ActivityEntity, ActivityEntityMapper>()
                             .Get()
+                            .Where(e => e.SubjectId == subjectId)
                             .OrderBy(entity => entity.Id)
                             .ToListAsync(),
             "byDescendingDate" => await uow
                             .GetRepository<ActivityEntity, ActivityEntityMapper>()
                             .Get()
+                            .Where(e => e.SubjectId == subjectId)
                             .OrderByDescending(entity => entity.Start)
                             .ToListAsync(),
             "byDate" => await uow
                             .GetRepository<ActivityEntity, ActivityEntityMapper>()
                             .Get()
+                            .Where(e => e.SubjectId == subjectId)
                             .OrderBy(entity => entity.Start)
                             .ToListAsync(),
             "byDescendingName" => await uow
                             .GetRepository<ActivityEntity, ActivityEntityMapper>()
                             .Get()
+                            .Where(e => e.SubjectId == subjectId)
                             .OrderByDescending(entity => entity.Name)
                             .ToListAsync(),
             "byName" => await uow
                             .GetRepository<ActivityEntity, ActivityEntityMapper>()
                             .Get()
+                            .Where(e => e.SubjectId == subjectId)
                             .OrderBy(entity => entity.Name)
                             .ToListAsync(),
             "byDescendingRoom" => await uow
                             .GetRepository<ActivityEntity, ActivityEntityMapper>()
                             .Get()
+                            .Where(e => e.SubjectId == subjectId)
                             .OrderByDescending(entity => entity.Start)
                             .ToListAsync(),
             "byRoom" => await uow
                             .GetRepository<ActivityEntity, ActivityEntityMapper>()
                             .Get()
+                            .Where(e => e.SubjectId == subjectId)
                             .OrderBy(entity => entity.Start)
                             .ToListAsync(),
             _ => null!,

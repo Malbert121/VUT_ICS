@@ -296,8 +296,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     [Fact]
     public async Task SortByDescendingId()
     {
-        var activityList = await _activityAppliedFacadeSUT.GetSortedAsync("byDescendingId");
-        //TODO give normal assert
+        var activityList = await _activityAppliedFacadeSUT.GetSortedAsync("byDescendingId", SubjectSeeds.potions.Id);
 
         Assert.Equal(6, activityList.ToObservableCollection().Count);
     }
