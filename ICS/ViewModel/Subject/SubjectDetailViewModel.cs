@@ -56,8 +56,30 @@ public partial class SubjectDetailViewModel(
     [RelayCommand]
     private async Task GoToActivityAsync()
     {
-        await navigationService.GoToAsync("/activities",
-        new Dictionary<string, object?> { [nameof(ActivityListViewModel.Activities)] = Subject.activity, [nameof(ActivityListViewModel.Subject)] = Subject});
+        if(Subject is not null)
+        {
+            await navigationService.GoToAsync("/activities",
+        new Dictionary<string, object?> { [nameof(ActivityListViewModel.Activities)] = Subject.activity, [nameof(ActivityListViewModel.Subject)] = Subject });
+        }
+        else
+        {
+            await alertService.DisplayAsync("ERROR", "No Subject was found");
+        }
+        
+    }
+
+    [RelayCommand]
+    private async Task GoToStudentsAsync()
+    {
+        if(Subject is not null)
+        {
+            await navigationService.GoToAsync("/students",
+            new Dictionary<string, object?> { [nameof(SubjectStudentViewModel.Id)] = Id, [nameof(SubjectStudentViewModel.SubjectId)] = Subject.Id });
+        }
+        else
+        {
+            await alertService.DisplayAsync("ERROR", "No Subject was found");
+        }
     }
 
     public async void Receive(SubjectEditMessage message)

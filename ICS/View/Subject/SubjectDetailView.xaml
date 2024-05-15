@@ -17,7 +17,7 @@
         HorizontalOptions="Center" />
         <Grid HorizontalOptions="Center" 
               VerticalOptions="Start" 
-              ColumnDefinitions="*, *, *"
+              ColumnDefinitions="*, *, *, *"
               ColumnSpacing="20">
             <Button Text="Delete"
             FontSize="20"
@@ -43,6 +43,14 @@
             HeightRequest="50"
             WidthRequest="200" 
             Command="{Binding GoToActivityCommand}" />
+            <Button Text="Students"
+            FontSize="20"
+            Grid.Column="3"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" 
+            HeightRequest="50"
+            WidthRequest="200" 
+            Command="{Binding GoToStudentsCommand}" />
         </Grid>
         <Grid HorizontalOptions="Center" VerticalOptions="Start"
     RowDefinitions="170, *" ColumnDefinitions="*, Auto, Auto, *"

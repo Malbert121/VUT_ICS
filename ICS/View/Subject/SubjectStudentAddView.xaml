@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ICS.View.Subject.SubjectStudentsAddView"
+             xmlns:vm="clr-namespace:ICS.ViewModel.Subject"
+             x:DataType="vm:SubjectStudentViewModel"
+             xmlns:m="clr-namespace:ICS.BL.Models;assembly=ICS.BL"
+             xmlns:views="clr-namespace:ICS.View"
+             x:Name="SubjectStudentAddViewRoot">
+    <VerticalStackLayout
+        Spacing="10">
+        <Label
+            Text="Student List."
+            VerticalOptions="Center"
+            FontSize="24"
+            HorizontalOptions="Center" />
+        <Grid Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="First name" />
+            <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="Last name" />
+        </Grid>
+        <CollectionView ItemsSource="{Binding Students}">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate
+                x:DataType="m:StudentListModel">
+                    <Grid Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="{Binding firstName}" />
+                        <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="{Binding lastName}" />
+                        <Button Grid.Column="2" HorizontalOptions="Center" FontSize="20" Text="Select"  HeightRequest="50" WidthRequest="200" Command="{Binding Source={x:Reference SubjectStudentAddViewRoot}, Path=BindingContext.SelectCommand}" CommandParameter="{Binding Id}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</views:ContentPageBase>

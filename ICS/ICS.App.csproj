@@ -111,6 +111,12 @@
 		<Compile Update="View\Student\StudentSubjectListView.xaml.cs">
 		  <DependentUpon>StudentSubjectListView.xaml</DependentUpon>
 		</Compile>
+		<Compile Update="View\Subject\SubjectStudentAddView.xaml.cs">
+		  <DependentUpon>SubjectStudentAddView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="View\Subject\SubjectStudentListView.xaml.cs">
+		  <DependentUpon>SubjectStudentListView.xaml</DependentUpon>
+		</Compile>
 		<Compile Update="View\Subject\SubjectEditView.xaml.cs">
 		  <DependentUpon>SubjectEditView.xaml</DependentUpon>
 		</Compile>
@@ -148,6 +154,12 @@
 			<Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
 		<MauiXaml Update="View\Student\StudentSubjectListView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\Subject\SubjectStudentAddView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="View\Subject\SubjectStudentListView.xaml">
 		  <Generator>MSBuild:Compile</Generator>
 		</MauiXaml>
     <MauiXaml Update="View\Subject\SubjectListView.xaml">
