@@ -45,6 +45,25 @@ namespace ICS.ViewModel.Rating
               new Dictionary<string, object?> { [nameof(RatingDetailViewModel.Id)] = id, [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity.subjectId });
         }
 
+
+        [RelayCommand]
+        private async Task SortRatingsAsync(string sortOption)
+        {
+            Ratings = await ratingFacade.GetSortedAsync(sortOption, Activity.Id);
+        }
+
+        [RelayCommand]
+        private async Task ShowSortOptionsAsync()
+        {
+
+            var selectedOption = await App.Current.MainPage.DisplayActionSheet("Sort Ratings By", "Cancel", null,
+                "byId", "byDescendingId", "byDescendingPoints", "byPoints");
+
+            if (!string.IsNullOrEmpty(selectedOption) && selectedOption != "Cancel")
+            {
+                await SortRatingsAsync(selectedOption);
+            }
+        }
         public async void Receive(RatingEditMessage message)
         {
             await LoadDataAsync();
