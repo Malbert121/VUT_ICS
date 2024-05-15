@@ -99,7 +99,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase
             points = 20,
             note = "note",
             Student = "Harry Potter",
-            studentId = Guid.Parse("d9963767-91a2-4b3f-81f7-dc5d0aaecf7d"),
+            studentId = Guid.Parse("82d5fd80-2f63-40b6-b3a1-05609bde2a68"),
             activityId = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f485"),
         };
 

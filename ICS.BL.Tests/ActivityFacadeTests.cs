@@ -258,7 +258,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     [Fact]
     public async Task SearchBySubstringName_NotThrow()
     {
-        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Potions");
+        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Potions", SubjectSeeds.potions.Id);
 
         Assert.Equal(4, activityList.ToObservableCollection().Count);
     }
@@ -266,14 +266,15 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     [Fact]
     public async Task SearchBySubstringNameOneResult_NotThrow()
     {
-        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Dark");
+        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Dark", SubjectSeeds.DefenceDarkArts.Id);
 
         Assert.Single(activityList.ToObservableCollection());
     }
     [Fact]
     public async Task SearchNonExistingActivity_ReturnEmptyCollection()
     {
-        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Super Puper Lecture");
+        var newGuid = Guid.NewGuid();
+        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Super Puper Lecture", newGuid);
 
         Assert.Equal(activityList.ToObservableCollection(), []);
     }

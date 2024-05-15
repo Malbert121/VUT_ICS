@@ -76,7 +76,7 @@ public class RatingFacade(
         {
             query = query.Include(pathDetail);
         }
-        foreach (string pathDetail in IncludesStudentSubjectNavigationPathDetail)
+        foreach (string pathDetail in IncludeStudentSubjectNavigationPathDetail)
         {
             query = query.Include(pathDetail);
         }
