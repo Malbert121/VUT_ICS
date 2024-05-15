@@ -31,7 +31,7 @@ IMessengerService messengerService)
     [RelayCommand]
     private async Task GoToDetailAsync(Guid id)
     {
-        await navigationService.GoToAsync<StudentDetailViewModel>(
+        await navigationService.GoToAsync("/detail",
         new Dictionary<string, object?> { [nameof(StudentDetailViewModel.Id)] = id });
     }
 

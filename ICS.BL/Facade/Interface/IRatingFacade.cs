@@ -8,5 +8,4 @@ public interface IRatingFacade : IFacade<RatingEntity, RatingListModel, RatingDe
 {
     Task<IEnumerable<RatingListModel>> GetFromActivityAsync(Guid activityId);
 
-    Task<RatingDetailModel> SaveAsync(RatingDetailModel model, Guid activityId);
 }

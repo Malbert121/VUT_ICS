@@ -1,51 +1,44 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ICS.View.Rating.RatingListView"
+             x:Class="ICS.View.Rating.RatingStudentSelectListView"
              xmlns:vm="clr-namespace:ICS.ViewModel.Rating"
-             x:DataType="vm:RatingListViewModel"
+             x:DataType="vm:RatingStudentSelectViewModel"
              xmlns:m="clr-namespace:ICS.BL.Models;assembly=ICS.BL"
              xmlns:views="clr-namespace:ICS.View"
-             x:Name="RatingListViewRoot">
+             x:Name="RatingStudentSelectListViewRoot">
     <VerticalStackLayout
         Spacing="10">
         <Label 
-            Text="Rating List."
+            Text="Student List."
             VerticalOptions="Center" 
             FontSize="24"
             HorizontalOptions="Center" />
-        <Button Text="Add Rating" 
-                FontSize="20"
-                HeightRequest="50"
-                WidthRequest="200" 
-                Command="{Binding GoToCreateCommand}" />
-        
         <Grid Padding="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="575" />
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="Student ID" />
-            <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="Points" />
+            <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="First name" />
+            <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="Last name" />
         </Grid>
-
-        <CollectionView ItemsSource="{Binding Ratings}">
+        <CollectionView ItemsSource="{Binding Students}">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Vertical"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate 
-                    x:DataType="m:RatingListModel">
+                x:DataType="m:StudentSubjectListModel">
                     <Grid Padding="10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="575" />
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="{Binding StudentName}" />
-                        <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="{Binding points}" />
-                        <Button Grid.Column="4" FontSize="20" Text="Detail" HeightRequest="50" WidthRequest="200" Command="{Binding Source={x:Reference RatingListViewRoot}, Path=BindingContext.GoToDetailCommand}" CommandParameter="{Binding Id}" />
+                        <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="{Binding StudentFirstName}" />
+                        <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="{Binding StudentLastName}" />
+                        <Button Grid.Column="2" FontSize="20" Text="Select" HeightRequest="50" WidthRequest="200" Command="{Binding Source={x:Reference RatingStudentSelectListViewRoot}, Path=BindingContext.SelectCommand}" CommandParameter="{Binding StudentId}" />
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

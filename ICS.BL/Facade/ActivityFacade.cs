@@ -23,7 +23,7 @@ public class ActivityFacade(
         unitOfWorkFactory, modelMapper), IActivityFacade
 {
     protected override ICollection<string> IncludesActivityNavigationPathDetail =>
-        new[] {$"{nameof(ActivityEntity.Subject)}", $"{nameof(ActivityEntity.Ratings)}" };
+        new[] {$"{nameof(ActivityEntity.Subject)}", $"{nameof(ActivityEntity.Ratings)}", $"{nameof(ActivityEntity.Ratings)}.{nameof(RatingEntity.Student)}" };
 
     public async Task<IEnumerable<ActivityListModel>> GetSearchAsync(string search)
     {

@@ -7,6 +7,10 @@ using CommunityToolkit.Mvvm.Messaging;
 
 namespace ICS.ViewModel.Rating;
 
+[QueryProperty(nameof(SubjectId), nameof(SubjectId))]
+[QueryProperty(nameof(StudentId), nameof(StudentId))]
+[QueryProperty(nameof(Rating), nameof(Rating))]
+[QueryProperty(nameof(Activity), nameof(Activity))]
 [QueryProperty(nameof(Id), nameof(Id))]
 public partial class RatingDetailViewModel(
     IRatingFacade ratingFacade,
@@ -17,6 +21,10 @@ public partial class RatingDetailViewModel(
 {
     public Guid Id { get; set; }
     public RatingDetailModel? Rating { get; private set; }
+    public ActivityDetailModel Activity { get; set; }
+    public StudentDetailModel? Student { get; set; }
+    public Guid StudentId { get; set; } = Guid.Empty;
+    public Guid SubjectId { get; set; } = Guid.Empty;
 
     protected override async Task LoadDataAsync()
     {
@@ -47,7 +55,7 @@ public partial class RatingDetailViewModel(
     private async Task GoToEditAsync()
     {
         await navigationService.GoToAsync("/edit",
-            new Dictionary<string, object?> { [nameof(RatingEditViewModel.Rating)] = Rating });
+            new Dictionary<string, object?> { [nameof(RatingEditViewModel.Rating)] = Rating, [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity.subjectId });
     }
 
     public async void Receive(RatingEditMessage message)

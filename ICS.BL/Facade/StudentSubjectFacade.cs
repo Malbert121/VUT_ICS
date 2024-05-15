@@ -119,11 +119,31 @@ public class StudentSubjectFacade(
     public async Task<IEnumerable<StudentSubjectListModel>> GetStudentsAsync(Guid subjectId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
-        List<StudentSubjectEntity> entities = await uow
+        IQueryable<StudentSubjectEntity> query = uow
             .GetRepository<StudentSubjectEntity, StudentSubjectEntityMapper>()
-            .Get()
-            .Where(e => e.SubjectId == subjectId)
-            .ToListAsync();
+            .Get();
+
+        foreach (string pathDetail in IncludesActivityNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesRatingNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesStudentNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesSubjectNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesStudentSubjectNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        List<StudentSubjectEntity> entities = await query.Where(e => e.SubjectId == subjectId).ToListAsync();
 
         return ModelMapper.MapToListModel(entities);
     }

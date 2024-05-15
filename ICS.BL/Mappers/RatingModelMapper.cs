@@ -13,6 +13,7 @@ public class RatingModelMapper() : ModelMapperBase<RatingEntity, RatingListModel
             Id = entity.Id,
             points = entity.Points,
             studentId = entity.StudentId,
+            StudentName = entity.Student is not null ? entity.Student.FirstName + " " + entity.Student.LastName : string.Empty,
             activityId = entity.ActivityId,
         };
 
@@ -25,6 +26,7 @@ public class RatingModelMapper() : ModelMapperBase<RatingEntity, RatingListModel
             points = entity.Points,
             note = entity.Note,
             studentId = entity.StudentId,
+            Student = entity.Student is not null ? entity.Student.FirstName + " " + entity.Student.LastName : string.Empty,
             activityId = entity.ActivityId
         };
 

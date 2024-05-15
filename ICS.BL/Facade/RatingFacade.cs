@@ -35,11 +35,31 @@ public class RatingFacade(
     public async Task<IEnumerable<RatingListModel>> GetFromActivityAsync(Guid activityId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
-        List<RatingEntity> entities = await uow
+        IQueryable<RatingEntity> query = uow
             .GetRepository<RatingEntity, RatingEntityMapper>()
-            .Get()
-            .Where(e => e.ActivityId == activityId)
-            .ToListAsync();
+            .Get();
+
+        foreach (string pathDetail in IncludesActivityNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesRatingNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesStudentNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesSubjectNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        foreach (string pathDetail in IncludesStudentSubjectNavigationPathDetail)
+        {
+            query = query.Include(pathDetail);
+        }
+        List<RatingEntity> entities = await query.Where(e => e.ActivityId == activityId).ToListAsync();
 
         return ModelMapper.MapToListModel(entities);
     }
@@ -73,35 +93,6 @@ public class RatingFacade(
             _ => null!,
         };
         return ModelMapper.MapToListModel(entities);
-    }
-
-    public async Task<RatingDetailModel> SaveAsync(RatingDetailModel model, Guid activityId)
-    {
-        RatingDetailModel result;
-
-        GuardCollectionsAreNotSet(model);
-
-        RatingEntity entity = ModelMapper.MapDetailModelToEntity(model);
-
-        IUnitOfWork uow = UnitOfWorkFactory.Create();
-        IRepository<RatingEntity> repository = uow.GetRepository<RatingEntity, RatingEntityMapper>();
-
-        if (await repository.ExistsAsync(entity))
-        {
-            RatingEntity updatedEntity = await repository.UpdateAsync(entity);
-            result = ModelMapper.MapToDetailModel(updatedEntity);
-        }
-        else
-        {
-            entity.Id = Guid.NewGuid();
-            entity.ActivityId = activityId;
-            RatingEntity insertedEntity = repository.Insert(entity);
-            result = ModelMapper.MapToDetailModel(insertedEntity);
-        }
-
-        await uow.CommitAsync().ConfigureAwait(false);
-
-        return result;
     }
 
     private static void GuardCollectionsAreNotSet(RatingDetailModel model)

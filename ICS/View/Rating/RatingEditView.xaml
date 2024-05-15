@@ -18,13 +18,27 @@
         HeightRequest="50"
         WidthRequest="200" 
         Command="{Binding SaveCommand}" />
-
-        <Label Text="Student ID."
+        <Button Text="SelectStudent" 
+        FontSize="24"
+        HeightRequest="50"
+        WidthRequest="200" 
+        Command="{Binding GoToStudentsCommand}" />
+        <Grid ColumnDefinitions="*, *, 400,*"
+              VerticalOptions="Start"
+              HorizontalOptions="StartAndExpand"
+              ColumnSpacing="20">
+            <Label Text="Selected student:"
+               Grid.Column="0"
            FontSize="20"/>
-        <Entry HorizontalOptions="Fill"
-           FontSize="20"  
-           Text="{Binding Rating.student}"/>
-
+            <Label HorizontalOptions="StartAndExpand"
+                   Grid.Column="1"
+           FontSize="20"
+           Text="{Binding Rating.Student}" />
+            <Label HorizontalOptions="Fill"
+                   Grid.Column="2"
+           FontSize="20"
+           Text="{Binding Rating.studentId}" />
+        </Grid>
         <Label Text="Points."
            FontSize="20"/>
         <Entry HorizontalOptions="Fill"

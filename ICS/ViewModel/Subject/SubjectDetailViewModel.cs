@@ -18,7 +18,7 @@ public partial class SubjectDetailViewModel(
     : ViewModelBase(messengerService), IRecipient<SubjectEditMessage>
 {
 
-    public SubjectDetailModel Subject { get; private set; }
+    public SubjectDetailModel? Subject { get; private set; }
     public Guid Id { get; set; }
 
     protected override async Task LoadDataAsync()

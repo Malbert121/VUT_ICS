@@ -19,6 +19,8 @@ public class NavigationService : INavigationService
         new("//subjects/detail/activities/detail/ratings/detail", typeof(RatingDetailView), typeof(RatingDetailViewModel)),
         new("//subjects/detail/activities/detail/ratings/edit", typeof(RatingEditView), typeof(RatingEditViewModel)),
         new("//subjects/detail/activities/detail/ratings/detail/edit", typeof(RatingEditView), typeof(RatingEditViewModel)),
+        new("//subjects/detail/activities/detail/ratings/detail/edit/students", typeof(RatingStudentSelectListView), typeof(RatingStudentSelectViewModel)),
+        new("//subjects/detail/activities/detail/ratings/edit/students", typeof(RatingStudentSelectListView), typeof(RatingStudentSelectViewModel)),
 
         new("//subjects/detail/activities", typeof(ActivityListView), typeof(ActivityListViewModel)),
         new("//subjects/detail/activities/detail", typeof(ActivityDetailView), typeof(ActivityDetailViewModel)),

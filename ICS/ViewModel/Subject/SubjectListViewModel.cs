@@ -31,7 +31,7 @@ public partial class SubjectListViewModel(
     [RelayCommand]
     private async Task GoToDetailAsync(Guid id)
     {
-        await navigationService.GoToAsync<SubjectDetailViewModel>(
+        await navigationService.GoToAsync("/detail",
             new Dictionary<string, object?> { [nameof(SubjectDetailViewModel.Id)] = id });
     }
 
