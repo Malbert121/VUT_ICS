@@ -11,4 +11,5 @@ public interface IStudentSubjectFacade : IFacade<StudentSubjectEntity, StudentSu
 
     Task SaveAsync(StudentSubjectDetailModel model, Guid subjectId);
     Task<IEnumerable<StudentSubjectListModel>> GetSortedAsync(string sortOptions, Guid subjectId);
+    Task<IEnumerable<StudentSubjectListModel>> GetSearchAsync(string search, Guid subjectId);
 }
