@@ -64,7 +64,7 @@ public class RatingFacade(
         return ModelMapper.MapToListModel(entities);
     }
 
-    public async Task<IEnumerable<RatingListModel>> GetSortedAsync(string sortOptions, Guid? activityId = null)
+    public async Task<IEnumerable<RatingListModel>> GetSortedAsync(string sortOptions, Guid activityId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
 

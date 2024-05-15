@@ -40,6 +40,25 @@ public partial class ActivityListViewModel(
             new Dictionary<string, object?> { [nameof(ActivityDetailViewModel.Id)] = id });
     }
 
+    [RelayCommand]
+    private async Task SortActivitiesAsync(string sortOption)
+    {
+        Activities = await activityFacade.GetSortedAsync(sortOption, Subject.Id);
+    }
+
+    [RelayCommand]
+    private async Task ShowSortOptionsAsync()
+    {
+
+        var selectedOption = await App.Current.MainPage.DisplayActionSheet("Sort Activities By", "Cancel", null,
+            "byId", "byDescendingId", "byDescendingDate", "byDate", "byDescendingName", "byName", "byDescendingRoom", "byRoom");
+
+        if (!string.IsNullOrEmpty(selectedOption) && selectedOption != "Cancel")
+        {
+            await SortActivitiesAsync(selectedOption);
+        }
+    }
+
     public async void Receive(ActivityEditMessage message)
     {
         await LoadDataAsync();

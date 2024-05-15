@@ -8,6 +8,6 @@ public interface IRatingFacade : IFacade<RatingEntity, RatingListModel, RatingDe
 {
     Task<IEnumerable<RatingListModel>> GetFromActivityAsync(Guid activityId);
     Task<IEnumerable<RatingListModel>> GetSearchAsync(string search);
-    Task<IEnumerable<RatingListModel>> GetSortedAsync(string sortOptions, Guid? activityId = null);
+    Task<IEnumerable<RatingListModel>> GetSortedAsync(string sortOptions, Guid activityId);
 
 }
