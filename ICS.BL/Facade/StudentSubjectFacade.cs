@@ -159,33 +159,39 @@ public class StudentSubjectFacade(
     public async Task<IEnumerable<StudentSubjectListModel>> GetSortedAsync(string sortOptions, Guid subjectId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+        IQueryable<StudentSubjectEntity> query = uow
+            .GetRepository<StudentSubjectEntity, StudentSubjectEntityMapper>()
+            .Get()
+            .Where(e => e.Subject.Id == subjectId);
+
+        foreach (string pathDetail in IncludesActivityNavigationPathDetail
+            .Concat(IncludesRatingNavigationPathDetail)
+            .Concat(IncludesStudentNavigationPathDetail)
+            .Concat(IncludesSubjectNavigationPathDetail)
+            .Concat(IncludesStudentSubjectNavigationPathDetail))
+        {
+            query = query.Include(pathDetail);
+        }
+
         List<StudentSubjectEntity> entities = sortOptions switch
         {
-            "byDescendingId" => await uow
-                            .GetRepository<StudentSubjectEntity, StudentSubjectEntityMapper>()
-                            .Get()
-                            .Where(e => e.Subject.Id == subjectId)
-                            .OrderByDescending(entity => entity.Student.Id)
-                            .ToListAsync(),
-            "byId" => await uow
-                            .GetRepository<StudentSubjectEntity, StudentSubjectEntityMapper>()
-                            .Get()
-                            .Where(e => e.Subject.Id == subjectId)
-                            .OrderBy(entity => entity.Student.Id)
-                            .ToListAsync(),
-            "byDescendingLastName" => await uow
-                            .GetRepository<StudentSubjectEntity, StudentSubjectEntityMapper>()
-                            .Get()
-                            .Where(e => e.Subject.Id == subjectId)
-                            .OrderByDescending(entity => entity.Student.LastName)
-                            .ToListAsync(),
-            "byLastName" => await uow
-                            .GetRepository<StudentSubjectEntity, StudentSubjectEntityMapper>()
-                            .Get()
-                            .Where(e => e.Subject.Id == subjectId)
-                            .OrderBy(entity => entity.Student.LastName)
-                            .ToListAsync(),
-            _ => null!,
+            "byDescendingId" => await query
+                .OrderByDescending(entity => entity.Student.Id)
+                .ToListAsync(),
+
+            "byId" => await query
+                .OrderBy(entity => entity.Student.Id)
+                .ToListAsync(),
+
+            "byDescendingLastName" => await query
+                .OrderByDescending(entity => entity.Student.LastName)
+                .ToListAsync(),
+
+            "byLastName" => await query
+                .OrderBy(entity => entity.Student.LastName)
+                .ToListAsync(),
+
+            _ => throw new ArgumentException("Invalid sort option", nameof(sortOptions))
         };
 
         return ModelMapper.MapToListModel(entities);
