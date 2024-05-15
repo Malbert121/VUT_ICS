@@ -59,6 +59,23 @@ public partial class ActivityListViewModel(
         }
     }
 
+    [RelayCommand]
+    private async Task ShowSearchOptionsAsync()
+    {
+        var search = await App.Current.MainPage.DisplayPromptAsync("Search", "Enter search term");
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            await LoadSearchResultsAsync(search);
+        }
+    }
+
+    [RelayCommand]
+    private async Task LoadSearchResultsAsync(string search)
+    {
+        Activities = await activityFacade.GetSearchAsync(search, Subject.Id);
+    }
+
     public async void Receive(ActivityEditMessage message)
     {
         await LoadDataAsync();

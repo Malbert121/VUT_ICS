@@ -25,13 +25,13 @@ public class ActivityFacade(
     protected override ICollection<string> IncludesActivityNavigationPathDetail =>
         new[] {$"{nameof(ActivityEntity.Subject)}", $"{nameof(ActivityEntity.Ratings)}", $"{nameof(ActivityEntity.Ratings)}.{nameof(RatingEntity.Student)}" };
 
-    public async Task<IEnumerable<ActivityListModel>> GetSearchAsync(string search)
+    public async Task<IEnumerable<ActivityListModel>> GetSearchAsync(string search, Guid subjectId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
         List<ActivityEntity> entities = await uow
             .GetRepository<ActivityEntity, ActivityEntityMapper>()
             .Get()
-            .Where(e => e.Name.Contains(search))
+            .Where(e => e.Name.ToLower().Contains(search.ToLower()) && e.SubjectId == subjectId)
             .ToListAsync();
 
         return ModelMapper.MapToListModel(entities);

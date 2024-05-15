@@ -55,6 +55,23 @@ public partial class SubjectListViewModel(
         }
     }
 
+    [RelayCommand]
+    private async Task ShowSearchOptionsAsync()
+    {
+        var search = await App.Current.MainPage.DisplayPromptAsync("Search", "Enter search term");
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            await LoadSearchResultsAsync(search);
+        }
+    }
+
+    [RelayCommand]
+    private async Task LoadSearchResultsAsync(string search)
+    {
+        Subjects = await subjectFacade.GetSearchAsync(search);
+    }
+
     public async void Receive(SubjectEditMessage message)
     {
         await LoadDataAsync();

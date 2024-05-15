@@ -17,7 +17,7 @@
         HorizontalOptions="Center" />
         <Grid HorizontalOptions="Center" 
             VerticalOptions="Start" 
-            ColumnDefinitions="*, *, *"
+            ColumnDefinitions="*, *, *, *"
             ColumnSpacing="20">
             <Button Text="Add Activity" 
             FontSize="20"
@@ -31,6 +31,12 @@
             HeightRequest="50"
             WidthRequest="200" 
             Command="{Binding ShowSortOptionsCommand}" />
+            <Button Text="Search Activities" 
+            FontSize="20"
+            Grid.Column="3"
+            HeightRequest="50"
+            WidthRequest="200" 
+            Command="{Binding ShowSearchOptionsCommand}" />
         </Grid>
         <Grid Padding="10">
             <Grid.ColumnDefinitions>
