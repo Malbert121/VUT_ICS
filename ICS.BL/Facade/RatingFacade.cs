@@ -23,13 +23,19 @@ public class RatingFacade(
     public async Task<IEnumerable<RatingListModel>> GetSearchAsync(string search, Guid activityId)
     {
         await using IUnitOfWork uow = UnitOfWorkFactory.Create();
+
+        // Split the search input into separate terms
+        string[] searchTerms = search.ToLower().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
         List<RatingEntity> entities = await uow
             .GetRepository<RatingEntity, RatingEntityMapper>()
             .Get()
-            .Where(e => e.Note.Contains(search) && e.ActivityId == activityId)
+            .Where(e => searchTerms.All(term =>
+                    e.Student.FirstName.ToLower().Contains(term) ||
+                    e.Student.LastName.ToLower().Contains(term)) &&
+                e.ActivityId == activityId)
             .ToListAsync();
 
-        //return ModelMapper.MapToListModel(entities);
         var studentIds = entities.Select(e => e.StudentId).ToList();
         var studentNames = await uow.GetRepository<StudentEntity, StudentEntityMapper>()
                                     .Get()
@@ -45,6 +51,7 @@ public class RatingFacade(
 
         return models;
     }
+
 
     public async Task<IEnumerable<RatingListModel>> GetFromActivityAsync(Guid activityId)
     {
