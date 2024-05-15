@@ -20,6 +20,7 @@ namespace ICS.ViewModel.Rating;
 public partial class RatingStudentSelectViewModel(
     IStudentSubjectFacade studentSubjectFacade,
     IStudentFacade studentFacade,
+    IRatingFacade ratingFacade,
     INavigationService navigationService,
     IMessengerService messengerService)
     : ViewModelBase(messengerService)
@@ -41,6 +42,13 @@ public partial class RatingStudentSelectViewModel(
     [RelayCommand]
     private async Task SelectAsync(Guid id)
     {
+        var existingRatings = await ratingFacade.GetFromActivityAsync(Activity.Id);
+        if (existingRatings.Any(r => r.studentId == id))
+        {
+            await App.Current.MainPage.DisplayAlert("Error", "This student already marked for this activity.", "OK");
+            return;
+        }
+
         Student = await studentFacade.GetAsync(id);
         await navigationService.GoToAsync("//subjects/detail/activities/detail/ratings/edit",
             new Dictionary<string, object?>
