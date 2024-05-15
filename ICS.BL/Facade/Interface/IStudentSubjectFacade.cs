@@ -8,4 +8,6 @@ public interface IStudentSubjectFacade : IFacade<StudentSubjectEntity, StudentSu
     Task<IEnumerable<StudentSubjectListModel>> GetSubjectsAsync(Guid studentId);
 
     Task<IEnumerable<StudentSubjectListModel>> GetStudentsAsync(Guid subjectId);
+
+    Task SaveAsync(StudentSubjectDetailModel model, Guid subjectId);
 }

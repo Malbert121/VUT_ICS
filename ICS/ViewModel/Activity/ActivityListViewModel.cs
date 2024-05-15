@@ -19,18 +19,18 @@ public partial class ActivityListViewModel(
 
     public SubjectDetailModel Subject { get; set; }
 
-    private bool _isSearching;
+    private bool _wasModified;
 
-    public bool IsSearching
+    public bool wasModified
     {
-        get => _isSearching;
-        set => SetProperty(ref _isSearching, value);
+        get => _wasModified;
+        set => SetProperty(ref _wasModified, value);
     }
 
     [RelayCommand]
     private async Task CancelSearchAsync()
     {
-        IsSearching = false;
+        wasModified = false;
         await base.LoadDataAsync();
 
         Activities = await activityFacade.GetFromSubjectAsync(Subject.Id);
@@ -60,6 +60,7 @@ public partial class ActivityListViewModel(
     [RelayCommand]
     private async Task SortActivitiesAsync(string sortOption)
     {
+        wasModified = true;
         Activities = await activityFacade.GetSortedAsync(sortOption, Subject.Id);
     }
 
@@ -90,7 +91,7 @@ public partial class ActivityListViewModel(
     [RelayCommand]
     private async Task LoadSearchResultsAsync(string search)
     {
-        IsSearching = true;
+        wasModified = true;
         Activities = await activityFacade.GetSearchAsync(search, Subject.Id);
     }
 
@@ -110,6 +111,7 @@ public partial class ActivityListViewModel(
                 {
                     if (DateTime.TryParse(startDate, out DateTime start))
                     {
+                        wasModified = true;
                         Activities = await activityFacade.GetFilteredAsync(Subject.Id, start);
                     }
                     else
@@ -126,6 +128,7 @@ public partial class ActivityListViewModel(
                 {
                     if (DateTime.TryParse(startDate, out DateTime start) && DateTime.TryParse(endDate, out DateTime end))
                     {
+                        wasModified = true;
                         Activities = await activityFacade.GetFilteredAsync(Subject.Id, start, end);
                     }
                     else
