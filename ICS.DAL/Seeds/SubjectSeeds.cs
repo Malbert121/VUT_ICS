@@ -26,6 +26,15 @@ namespace ICS.DAL.Seeds
             Students = new List<StudentSubjectEntity>()
         };
 
+        public static SubjectEntity Herbology = new SubjectEntity
+        {
+            Id = Guid.Parse("fa7944c0-0d67-45af-b151-91f388fd8305"),
+            Name = "Herbology",
+            Abbreviation = "HER",
+            Activity = new List<ActivityEntity>(),
+            Students = new List<StudentSubjectEntity>()
+        };
+
         static SubjectSeeds()
         {
             potions.Students.Add(StudentSubjectSeeds.HarryPotions);
@@ -35,13 +44,16 @@ namespace ICS.DAL.Seeds
             DefenceDarkArts.Students.Add(StudentSubjectSeeds.RonaldDarkArts);
             DefenceDarkArts.Students.Add(StudentSubjectSeeds.LunaDarkArts);
             DefenceDarkArts.Students.Add(StudentSubjectSeeds.NevilleDarkArts);
+            Herbology.Students.Add(StudentSubjectSeeds.NevilHerbology);
+            Herbology.Students.Add(StudentSubjectSeeds.LunaHerbology);
         }
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<SubjectEntity>().HasData(
-                SubjectSeeds.potions with { Activity = Array.Empty<ActivityEntity>(), Students = Array.Empty<StudentSubjectEntity>() },
-                SubjectSeeds.DefenceDarkArts with { Activity = Array.Empty<ActivityEntity>(), Students = Array.Empty<StudentSubjectEntity>() });
+                potions with { Activity = Array.Empty<ActivityEntity>(), Students = Array.Empty<StudentSubjectEntity>() },
+                DefenceDarkArts with { Activity = Array.Empty<ActivityEntity>(), Students = Array.Empty<StudentSubjectEntity>() },
+                Herbology with { Activity = Array.Empty<ActivityEntity>(), Students = Array.Empty<StudentSubjectEntity>() });
         }
     }
 }
