@@ -258,7 +258,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     [Fact]
     public async Task SearchBySubstringName_NotThrow()
     {
-        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Potions");
+        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Potions", SubjectSeeds.potions.Id);
 
         Assert.Equal(4, activityList.ToObservableCollection().Count);
     }
@@ -266,14 +266,14 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     [Fact]
     public async Task SearchBySubstringNameOneResult_NotThrow()
     {
-        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Dark");
+        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Dark", SubjectSeeds.potions.Id);
 
         Assert.Single(activityList.ToObservableCollection());
     }
     [Fact]
     public async Task SearchNonExistingActivity_ReturnEmptyCollection()
     {
-        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Super Puper Lecture");
+        var activityList = await _activityAppliedFacadeSUT.GetSearchAsync("Super Puper Lecture", SubjectSeeds.potions.Id);
 
         Assert.Equal(activityList.ToObservableCollection(), []);
     }
@@ -281,18 +281,17 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     [Fact]
     public async Task FilterByTime_OnlyStart()
     {
-        var activityList = await _activityAppliedFacadeSUT.GetFilteredAsync(new DateTime(2021, 10, 11, 10, 0, 0));
+        var activityList = await _activityAppliedFacadeSUT.GetFilteredAsync(SubjectSeeds.potions.Id, new DateTime(2021, 10, 11, 10, 0, 0));
 
         Assert.Equal(2, activityList.ToObservableCollection().Count);
     }
     [Fact]
     public async Task FilterByTime_StartAndEnd()
     {
-        var activityList = await _activityAppliedFacadeSUT.GetFilteredAsync(new DateTime(2021, 10, 7, 10, 0, 0), new DateTime(2021, 10, 12, 10, 0, 0));
+        var activityList = await _activityAppliedFacadeSUT.GetFilteredAsync(SubjectSeeds.potions.Id, new DateTime(2021, 10, 7, 10, 0, 0), new DateTime(2021, 10, 12, 10, 0, 0));
 
         Assert.Equal(3, activityList.ToObservableCollection().Count);
     }
-
     [Fact]
     public async Task SortByDescendingId()
     {
