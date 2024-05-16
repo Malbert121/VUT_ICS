@@ -16,7 +16,7 @@
             HorizontalOptions="Center" />
         <Grid HorizontalOptions="Center" 
             VerticalOptions="Start" 
-            ColumnDefinitions="*, *, *, *, *"
+            ColumnDefinitions="*, *, *, *, *, *"
             ColumnSpacing="20">
             <Button Text="Add Student" 
             FontSize="20"
@@ -36,9 +36,15 @@
             HeightRequest="50"
             WidthRequest="180" 
             Command="{Binding ShowSearchOptionsCommand}" />
-            <Button Text="Reset" 
+            <Button Text="Refresh" 
             FontSize="20"
             Grid.Column="4"
+            HeightRequest="50"
+            WidthRequest="160" 
+            Command="{Binding CancelSearchCommand}"/>
+            <Button Text="Reset" 
+            FontSize="20"
+            Grid.Column="5"
             HeightRequest="50"
             WidthRequest="160" 
             Command="{Binding CancelSearchCommand}"
