@@ -93,18 +93,10 @@ public sealed class RatingFacadeTests : FacadeTestsBase
     public async Task NewRating_Insert_RatingAdded()
     {
         //Arrange
-        var rating = new RatingDetailModel()
-        {
-            Id = Guid.Parse("d9963767-91a2-4b3f-81f7-dc5d0aae4f7d"),
-            points = 20,
-            note = "note",
-            Student = "Harry Potter",
-            studentId = Guid.Parse("82d5fd80-2f63-40b6-b3a1-05609bde2a68"),
-            activityId = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f485"),
-        };
+        var rating = RatingModelMapper.MapToDetailModel(RatingSeeds.Rating1);
 
         //Act
-        rating = await _ratingFacadeSUT.SaveAsync(rating);
+        await _ratingFacadeSUT.SaveAsync(rating);
 
         //Assert
         var returnedModel = await _ratingFacadeSUT.GetAsync(rating.Id);
