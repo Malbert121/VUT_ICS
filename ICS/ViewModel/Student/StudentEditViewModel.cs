@@ -10,6 +10,7 @@ namespace ICS.ViewModel.Student
     public partial class StudentEditViewModel(
         IStudentFacade studentFacade,
         INavigationService navigationService,
+        IAlertService alertService,
         IMessengerService messengerService)
         : ViewModelBase(messengerService)
     {
@@ -18,6 +19,12 @@ namespace ICS.ViewModel.Student
         [RelayCommand]
         private async Task SaveAsync()
         {
+            if(Student.firstName == string.Empty || Student.lastName == string.Empty)
+            {
+                await alertService.DisplayAsync("Error", "Some boxes are empty");
+                return;
+            }
+
             await studentFacade.SaveAsync(Student with { subjects = default! });
 
             MessengerService.Send(new StudentEditMessage { StudentId = Student.Id });

@@ -56,7 +56,7 @@ public partial class SubjectStudentViewModel(
         }
         catch (InvalidOperationException)
         {
-            await alertService.DisplayAsync("ERROR", "ERROR");
+            await alertService.DisplayAsync("ERROR", "No Subject or Student was found");
         }
 
     }

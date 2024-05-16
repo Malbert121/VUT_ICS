@@ -12,11 +12,12 @@ namespace ICS.ViewModel.Activity;
 public partial class ActivityEditViewModel(
     IActivityFacade activityFacade,
     INavigationService navigationService,
+    IAlertService alertService,
     IMessengerService messengerService)
     : ViewModelBase(messengerService)
 {
     public ActivityDetailModel Activity { get; init; } = ActivityDetailModel.Empty;
-    public SubjectDetailModel Subject { get; init; }
+    public SubjectDetailModel? Subject { get; init; }
 
     private DateTime _startDate;
     private TimeSpan _startTime;
@@ -73,7 +74,7 @@ public partial class ActivityEditViewModel(
 
     private void UpdateStartDateTime()
     {
-        
+
         Activity.start = new DateTime(StartDate.Year, StartDate.Month, StartDate.Day, StartTime.Hours, StartTime.Minutes, StartTime.Seconds);
 
         if (Activity.end < Activity.start)
@@ -82,12 +83,12 @@ public partial class ActivityEditViewModel(
             EndDate = Activity.end.Date;
             EndTime = Activity.end.TimeOfDay;
         }
-       
+
     }
 
     private void UpdateEndDateTime()
     {
-        
+
         Activity.end = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds);
 
         if (Activity.end < Activity.start)
@@ -96,13 +97,30 @@ public partial class ActivityEditViewModel(
             StartDate = Activity.start.Date;
             StartTime = Activity.start.TimeOfDay;
         }
-       
+
     }
 
 
     [RelayCommand]
     private async Task SaveAsync()
     {
+        if (Activity.name == string.Empty)
+        {
+            await alertService.DisplayAsync("Error", "Name is empty");
+            return;
+        }
+        if (!(Activity.start == DateTime.MinValue && Activity.end == DateTime.MinValue)
+            || Activity.start > Activity.end
+            || Activity.start < DateTime.Now)
+        {
+            await alertService.DisplayAsync("Error", "Start or end time are invalid");
+            return;
+        }
+        if (Activity.room == string.Empty)
+        {
+            await alertService.DisplayAsync("Error", "Room is empty");
+            return;
+        }
         if (Subject is not null)
         {
             await activityFacade.SaveAsync(Activity with { subjectId = Subject.Id, ratings = default! });

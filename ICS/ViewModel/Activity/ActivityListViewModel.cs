@@ -17,7 +17,7 @@ public partial class ActivityListViewModel(
 {
     public IEnumerable<ActivityListModel> Activities { get; set; } = null!;
 
-    public SubjectDetailModel Subject { get; set; }
+    public SubjectDetailModel? Subject { get; set; }
 
     private bool _wasModified;
 
@@ -33,14 +33,14 @@ public partial class ActivityListViewModel(
         wasModified = false;
         await base.LoadDataAsync();
 
-        Activities = await activityFacade.GetFromSubjectAsync(Subject.Id);
+        Activities = await activityFacade.GetFromSubjectAsync(Subject!.Id);
     }
 
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
 
-        Activities = await activityFacade.GetFromSubjectAsync(Subject.Id);
+        Activities = await activityFacade.GetFromSubjectAsync(Subject!.Id);
     }
 
     [RelayCommand]
@@ -61,14 +61,14 @@ public partial class ActivityListViewModel(
     private async Task SortActivitiesAsync(string sortOption)
     {
         wasModified = true;
-        Activities = await activityFacade.GetSortedAsync(sortOption, Subject.Id);
+        Activities = await activityFacade.GetSortedAsync(sortOption, Subject!.Id);
     }
 
     [RelayCommand]
     private async Task ShowSortOptionsAsync()
     {
 
-        var selectedOption = await App.Current.MainPage.DisplayActionSheet("Sort Activities By", "Cancel", null,
+        var selectedOption = await Application.Current!.MainPage!.DisplayActionSheet("Sort Activities By", "Cancel", null,
             "byId", "byDescendingId", "byDescendingDate", "byDate", "byDescendingName", "byName", "byDescendingRoom", "byRoom");
 
         if (!string.IsNullOrEmpty(selectedOption) && selectedOption != "Cancel")
@@ -80,7 +80,7 @@ public partial class ActivityListViewModel(
     [RelayCommand]
     private async Task ShowSearchOptionsAsync()
     {
-        var search = await App.Current.MainPage.DisplayPromptAsync("Search", "Enter search term");
+        var search = await Application.Current!.MainPage!.DisplayPromptAsync("Search", "Enter search term");
 
         if (!string.IsNullOrEmpty(search))
         {
@@ -92,48 +92,48 @@ public partial class ActivityListViewModel(
     private async Task LoadSearchResultsAsync(string search)
     {
         wasModified = true;
-        Activities = await activityFacade.GetSearchAsync(search, Subject.Id);
+        Activities = await activityFacade.GetSearchAsync(search, Subject!.Id);
     }
 
 
     [RelayCommand]
     private async Task ShowFilteringOptionsAsync()
     {
-        var selectedOption = await App.Current.MainPage.DisplayActionSheet("Filter Activities by", "Cancel", null,
+        var selectedOption = await Application.Current!.MainPage!.DisplayActionSheet("Filter Activities by", "Cancel", null,
                 "by Start Date", "by Start and End Date");
 
         if (!string.IsNullOrEmpty(selectedOption) && selectedOption != "Cancel")
         {
             if (selectedOption == "by Start Date")
             {
-                var startDate = await App.Current.MainPage.DisplayPromptAsync("Filter by Start Date", "Enter start date (DD-MM-YYYY hh:mm:ss tt)");
+                var startDate = await Application.Current!.MainPage!.DisplayPromptAsync("Filter by Start Date", "Enter start date (DD-MM-YYYY hh:mm:ss tt)");
                 if (startDate != null)
                 {
                     if (DateTime.TryParse(startDate, out DateTime start))
                     {
                         wasModified = true;
-                        Activities = await activityFacade.GetFilteredAsync(Subject.Id, start);
+                        Activities = await activityFacade.GetFilteredAsync(Subject!.Id, start);
                     }
                     else
                     {
-                        await App.Current.MainPage.DisplayAlert("Error", "Invalid date format entered.", "OK");
+                        await Application.Current!.MainPage!.DisplayAlert("Error", "Invalid date format entered.", "OK");
                     }
                 }
             }
             else if (selectedOption == "by Start and End Date")
             {
-                var startDate = await App.Current.MainPage.DisplayPromptAsync("Filter by Start Date", "Enter start date (DD-MM-YYYY)");
-                var endDate = await App.Current.MainPage.DisplayPromptAsync("Filter by Start and End Date", "Enter end date (DD-MM-YYYY)");
+                var startDate = await Application.Current!.MainPage!.DisplayPromptAsync("Filter by Start Date", "Enter start date (DD-MM-YYYY)");
+                var endDate = await Application.Current!.MainPage!.DisplayPromptAsync("Filter by Start and End Date", "Enter end date (DD-MM-YYYY)");
                 if (startDate != null && endDate != null)
                 {
                     if (DateTime.TryParse(startDate, out DateTime start) && DateTime.TryParse(endDate, out DateTime end))
                     {
                         wasModified = true;
-                        Activities = await activityFacade.GetFilteredAsync(Subject.Id, start, end);
+                        Activities = await activityFacade.GetFilteredAsync(Subject!.Id, start, end);
                     }
                     else
                     {
-                        await App.Current.MainPage.DisplayAlert("Error", "Invalid date format entered.", "OK");
+                        await Application.Current!.MainPage!.DisplayAlert("Error", "Invalid date format entered.", "OK");
                     }
                 }
             }

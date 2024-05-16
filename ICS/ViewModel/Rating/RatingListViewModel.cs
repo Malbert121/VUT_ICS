@@ -23,7 +23,7 @@ namespace ICS.ViewModel.Rating
         : ViewModelBase(messengerService), IRecipient<RatingEditMessage>, IRecipient<RatingDeleteMessage>, IRecipient<RatingAddMessage>
     {
         public IEnumerable<RatingListModel> Ratings { get; set; } = null!;
-        public ActivityDetailModel Activity { get; set; }
+        public ActivityDetailModel? Activity { get; set; }
 
         private bool _wasModified;
 
@@ -39,42 +39,42 @@ namespace ICS.ViewModel.Rating
             wasModified = false;
             await base.LoadDataAsync();
 
-            Ratings = await ratingFacade.GetFromActivityAsync(Activity.Id);
+            Ratings = await ratingFacade.GetFromActivityAsync(Activity!.Id);
         }
 
         protected override async Task LoadDataAsync()
         {
             await base.LoadDataAsync();
 
-            Ratings = await ratingFacade.GetFromActivityAsync(Activity.Id);
+            Ratings = await ratingFacade.GetFromActivityAsync(Activity!.Id);
         }
 
         [RelayCommand]
         private async Task GoToCreateAsync()
         {
             await navigationService.GoToAsync("/edit",
-            new Dictionary<string, object?> { [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity.subjectId });
+            new Dictionary<string, object?> { [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity!.subjectId });
         }
 
         [RelayCommand]
         private async Task GoToDetailAsync(Guid id)
         {
             await navigationService.GoToAsync("/detail",
-              new Dictionary<string, object?> { [nameof(RatingDetailViewModel.Id)] = id, [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity.subjectId });
+              new Dictionary<string, object?> { [nameof(RatingDetailViewModel.Id)] = id, [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity!.subjectId });
         }
 
         [RelayCommand]
         private async Task SortRatingsAsync(string sortOption)
         {
             wasModified = true;
-            Ratings = await ratingFacade.GetSortedAsync(sortOption, Activity.Id);
+            Ratings = await ratingFacade.GetSortedAsync(sortOption, Activity!.Id);
         }
 
         [RelayCommand]
         private async Task ShowSortOptionsAsync()
         {
 
-            var selectedOption = await App.Current.MainPage.DisplayActionSheet("Sort Ratings By", "Cancel", null,
+            var selectedOption = await Application.Current!.MainPage!.DisplayActionSheet("Sort Ratings By", "Cancel", null,
                 "byId", "byDescendingId", "byDescendingPoints", "byPoints");
 
             if (!string.IsNullOrEmpty(selectedOption) && selectedOption != "Cancel")
@@ -86,7 +86,7 @@ namespace ICS.ViewModel.Rating
         [RelayCommand]
         private async Task ShowSearchOptionsAsync()
         {
-            var search = await App.Current.MainPage.DisplayPromptAsync("Search", "Enter search term");
+            var search = await Application.Current!.MainPage!.DisplayPromptAsync("Search", "Enter search term");
 
             if (!string.IsNullOrEmpty(search))
             {
@@ -98,7 +98,7 @@ namespace ICS.ViewModel.Rating
         private async Task LoadSearchResultsAsync(string search)
         {
             wasModified = true;
-            Ratings = await ratingFacade.GetSearchAsync(search, Activity.Id);
+            Ratings = await ratingFacade.GetSearchAsync(search, Activity!.Id);
         }
 
         public async void Receive(RatingEditMessage message)

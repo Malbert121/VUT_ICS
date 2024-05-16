@@ -12,7 +12,6 @@ namespace ICS.ViewModel.Student;
 [QueryProperty(nameof(Id), nameof(Id))]
 public partial class StudentSubjectViewModel(
     IStudentSubjectFacade studentSubjectFacade,
-    INavigationService navigationService,
     IMessengerService messengerService)
     : ViewModelBase(messengerService)
 {
