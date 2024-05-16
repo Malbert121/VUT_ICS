@@ -13,11 +13,11 @@ public class ActivityModelMapper(RatingModelMapper ratingModelMapper) : ModelMap
         : new ActivityListModel
         {
             Id = entity.Id,
-            name = entity.Name,
-            start = entity.Start,
-            end = entity.End,
-            room = entity.Room,
-            subjectId = entity.SubjectId
+            Name = entity.Name,
+            Start = entity.Start,
+            End = entity.End,
+            Room = entity.Room,
+            SubjectId = entity.SubjectId
         };
 
     public override ActivityDetailModel MapToDetailModel(ActivityEntity? entity)
@@ -26,14 +26,14 @@ public class ActivityModelMapper(RatingModelMapper ratingModelMapper) : ModelMap
         : new ActivityDetailModel
         {
             Id = entity.Id,
-            name = entity.Name,
-            start = entity.Start,
-            end = entity.End,
-            room = entity.Room,
-            activityTypeTag = entity.ActivityTypeTag,
-            description = entity.Description,
-            subjectId = entity.SubjectId,
-            ratings = ratingModelMapper.MapToListModel(entity.Ratings).ToObservableCollection()
+            Name = entity.Name,
+            Start = entity.Start,
+            End = entity.End,
+            Room = entity.Room,
+            ActivityTypeTag = entity.ActivityTypeTag,
+            Description = entity.Description,
+            SubjectId = entity.SubjectId,
+            Ratings = ratingModelMapper.MapToListModel(entity.Ratings).ToObservableCollection()
         };
 
     public override ActivityEntity MapDetailModelToEntity(ActivityDetailModel model)
@@ -41,13 +41,13 @@ public class ActivityModelMapper(RatingModelMapper ratingModelMapper) : ModelMap
         return new ActivityEntity
         {
             Id = model.Id,
-            Name = model.name,
-            Start = model.start,
-            End = model.end,
-            Room = model.room,
-            ActivityTypeTag = model.activityTypeTag,
-            Description = model.description,
-            SubjectId = model.subjectId
+            Name = model.Name,
+            Start = model.Start,
+            End = model.End,
+            Room = model.Room,
+            ActivityTypeTag = model.ActivityTypeTag,
+            Description = model.Description,
+            SubjectId = model.SubjectId
 
         };
     }

@@ -309,7 +309,7 @@ namespace ICS.DAL.Tests
 
                 foreach (var subject in subjectsOfStudent)
                 {
-                    Assert.True(subject.Students.Any(s => s.StudentId == student.Id));
+                    Assert.Contains(subject.Students, s => s.StudentId == student.Id);
                 }
             }
         }

@@ -62,8 +62,8 @@ public partial class ActivityDetailViewModel(
     [RelayCommand]
     private async Task GoToRatingAsync()
     {
-        await navigationService.GoToAsync("/ratings",
-        new Dictionary<string, object?> { [nameof(RatingListViewModel.Ratings)] = Activity!.ratings, [nameof(RatingListViewModel.Activity)] = Activity });
+        await navigationService.GoToAsync("/Ratings",
+        new Dictionary<string, object?> { [nameof(RatingListViewModel.Ratings)] = Activity!.Ratings, [nameof(RatingListViewModel.Activity)] = Activity });
     }
 
     public async void Receive(ActivityEditMessage message)

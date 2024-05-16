@@ -36,13 +36,13 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
         //Arrange
         var model = new ActivityDetailModel()
         {
-            name = "name",
-            start = DateTime.MinValue,
-            end = DateTime.MinValue,
-            room = "room",
-            activityTypeTag = "Tag",
-            subjectId = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56238"),
-            description = "description",
+            Name = "Name",
+            Start = DateTime.MinValue,
+            End = DateTime.MinValue,
+            Room = "Room",
+            ActivityTypeTag = "Tag",
+            SubjectId = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56238"),
+            Description = "Description",
         };
 
         //Act
@@ -59,21 +59,21 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
         var model = new ActivityDetailModel()
         {
             Id = Guid.Empty,
-            name = "name",
-            start = DateTime.MinValue,
-            end = DateTime.MinValue,
-            room = "room",
-            activityTypeTag = "Tag",
-            subjectId = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56238"),
-            description = "description",
-            ratings = new ObservableCollection<RatingListModel>()
+            Name = "Name",
+            Start = DateTime.MinValue,
+            End = DateTime.MinValue,
+            Room = "Room",
+            ActivityTypeTag = "Tag",
+            SubjectId = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56238"),
+            Description = "Description",
+            Ratings = new ObservableCollection<RatingListModel>()
             {
                 new RatingListModel
                 {
                     Id = Guid.Empty,
-                    points = 0,
-                    studentId = Guid.Empty,
-                    activityId = Guid.Empty
+                    Points = 0,
+                    StudentId = Guid.Empty,
+                    ActivityId = Guid.Empty
                 }
             }
         };
@@ -86,21 +86,21 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
         var model = new ActivityDetailModel()
         {
             Id = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f486"),
-            name = "Potions lecture",
-            start = new DateTime(2021, 10, 10, 10, 0, 0),
-            end = new DateTime(2021, 10, 10, 12, 0, 0),
-            room = "A03",
-            activityTypeTag = "POT",
-            description = "Brewing a potion",
-            subjectId = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56238"),
-            ratings =
+            Name = "Potions lecture",
+            Start = new DateTime(2021, 10, 10, 10, 0, 0),
+            End = new DateTime(2021, 10, 10, 12, 0, 0),
+            Room = "A03",
+            ActivityTypeTag = "POT",
+            Description = "Brewing a potion",
+            SubjectId = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56238"),
+            Ratings =
             [
                 new RatingListModel
                 {
                     Id = Guid.Empty,
-                    points = 0,
-                    studentId = Guid.Empty,
-                    activityId = Guid.Empty
+                    Points = 0,
+                    StudentId = Guid.Empty,
+                    ActivityId = Guid.Empty
                 }
                 ,
 
@@ -118,14 +118,14 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
         var model = new ActivityDetailModel()
         {
             Id = Guid.Empty,
-            name = "name",
-            start = DateTime.MinValue,
-            end = DateTime.MinValue,
-            room = "room",
-            activityTypeTag = "Tag",
-            subjectId = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56238"),
-            description = "description",
-            ratings = new ObservableCollection<RatingListModel>()
+            Name = "Name",
+            Start = DateTime.MinValue,
+            End = DateTime.MinValue,
+            Room = "Room",
+            ActivityTypeTag = "Tag",
+            SubjectId = Guid.Parse("23b3902d-7d4f-4213-9cf0-112348f56238"),
+            Description = "Description",
+            Ratings = new ObservableCollection<RatingListModel>()
         };
 
         await _activityFacadeSUT.SaveAsync(model);
@@ -165,10 +165,10 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     {
         //Arrange
         var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.PotionsActivity);
-        detailModel.name = "Changed activity name";
+        detailModel.Name = "Changed activity Name";
 
         //Act & Assert
-        await _activityFacadeSUT.SaveAsync(detailModel with { ratings = default! });
+        await _activityFacadeSUT.SaveAsync(detailModel with { Ratings = default! });
     }
 
     [Fact]
@@ -176,10 +176,10 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     {
         //Arrange
         var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.PotionsActivity);
-        detailModel.name = "Changed activity name 1";
+        detailModel.Name = "Changed activity Name 1";
 
         //Act
-        await _activityFacadeSUT.SaveAsync(detailModel with { ratings = default! });
+        await _activityFacadeSUT.SaveAsync(detailModel with { Ratings = default! });
 
         //Assert
         var returnedModel = await _activityFacadeSUT.GetAsync(detailModel.Id);
@@ -191,10 +191,10 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     {
         //Arrange
         var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.PotionsActivity);
-        detailModel.ratings.Clear();
+        detailModel.Ratings.Clear();
 
         //Act
-        await _activityFacadeSUT.SaveAsync(detailModel with { ratings = default! });
+        await _activityFacadeSUT.SaveAsync(detailModel with { Ratings = default! });
 
         //Assert
         var returnedModel = await _activityFacadeSUT.GetAsync(detailModel.Id);
@@ -206,7 +206,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     {
         //Arrange
         var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.ActivityWithTwoRatings);
-        detailModel.ratings.Remove(detailModel.ratings.First());
+        detailModel.Ratings.Remove(detailModel.Ratings.First());
 
         //Act & Assert
         await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _activityFacadeSUT.SaveAsync(detailModel));
@@ -219,7 +219,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     {
         //Arrange
         var detailModel = ActivityModelMapper.MapToDetailModel(ActivitySeeds.PotionsActivity);
-        detailModel.ratings.Remove(detailModel.ratings.First());
+        detailModel.Ratings.Remove(detailModel.Ratings.First());
 
         //Act
         await Assert.ThrowsAnyAsync<InvalidOperationException>(() => _activityFacadeSUT.SaveAsync(detailModel));
@@ -249,7 +249,7 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     {
         //Arrange & Act
         var activityList = await _activityFacadeSUT.GetAsync();
-        var returnedList = SubjectModelMapper.MapToDetailModel(SubjectSeeds.potions).activity;
+        var returnedList = SubjectModelMapper.MapToDetailModel(SubjectSeeds.potions).Activity;
 
         //Assert
         Assert.Equal(activityList.ToObservableCollection().Count, returnedList.Count);
@@ -304,16 +304,16 @@ public sealed class ActivityFacadeTests : FacadeTestsBase
     {
         returnedModel.Id = expectedModel.Id;
 
-        foreach (var ratingModel in returnedModel.ratings)
+        foreach (var ratingModel in returnedModel.Ratings)
         {
-            var ratingDetailModel = expectedModel.ratings.FirstOrDefault(i =>
-                Math.Abs(i.points - ratingModel.points) <= 0);
+            var ratingDetailModel = expectedModel.Ratings.FirstOrDefault(i =>
+                Math.Abs(i.Points - ratingModel.Points) <= 0);
 
             if (ratingDetailModel != null)
             {
                 ratingModel.Id = ratingDetailModel.Id;
-                ratingModel.studentId = ratingDetailModel.studentId;
-                ratingModel.activityId = ratingModel.activityId;
+                ratingModel.StudentId = ratingDetailModel.StudentId;
+                ratingModel.ActivityId = ratingModel.ActivityId;
             }
         }
     }

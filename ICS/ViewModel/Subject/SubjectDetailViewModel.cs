@@ -66,7 +66,7 @@ public partial class SubjectDetailViewModel(
         if(Subject is not null)
         {
             await navigationService.GoToAsync("/activities",
-        new Dictionary<string, object?> { [nameof(ActivityListViewModel.Activities)] = Subject.activity, [nameof(ActivityListViewModel.Subject)] = Subject });
+        new Dictionary<string, object?> { [nameof(ActivityListViewModel.Activities)] = Subject.Activity, [nameof(ActivityListViewModel.Subject)] = Subject });
         }
         else
         {

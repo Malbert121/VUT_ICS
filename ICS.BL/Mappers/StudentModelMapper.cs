@@ -14,8 +14,8 @@ public class StudentModelMapper(StudentSubjectModelMapper studentSubjectModelMap
         : new StudentListModel 
         {
             Id = entity.Id,
-            firstName = entity.FirstName, 
-            lastName = entity.LastName
+            FirstName = entity.FirstName, 
+            LastName = entity.LastName
         };
 
     public override StudentDetailModel MapToDetailModel(StudentEntity? entity)
@@ -26,18 +26,18 @@ public class StudentModelMapper(StudentSubjectModelMapper studentSubjectModelMap
         var detailModel = new StudentDetailModel
         {
             Id = entity.Id,
-            firstName = entity.FirstName,
-            lastName = entity.LastName,
-            photoURL = entity.PhotoUrl
+            FirstName = entity.FirstName,
+            LastName = entity.LastName,
+            PhotoURL = entity.PhotoUrl
         };
 
         if (studentSubjectModelMapper != null)
         {              
-            detailModel.subjects = studentSubjectModelMapper.MapToListModel(entity.Subjects).ToObservableCollection();
+            detailModel.Subjects = studentSubjectModelMapper.MapToListModel(entity.Subjects).ToObservableCollection();
         }
         else
         {               
-            detailModel.subjects = new ObservableCollection<StudentSubjectListModel>();
+            detailModel.Subjects = new ObservableCollection<StudentSubjectListModel>();
         }
 
         return detailModel;
@@ -51,9 +51,9 @@ public class StudentModelMapper(StudentSubjectModelMapper studentSubjectModelMap
         return new StudentEntity
         {
             Id = model.Id,
-            FirstName = model.firstName,
-            LastName = model.lastName,
-            PhotoUrl = model.photoURL
+            FirstName = model.FirstName,
+            LastName = model.LastName,
+            PhotoUrl = model.PhotoURL
         };
     }
 

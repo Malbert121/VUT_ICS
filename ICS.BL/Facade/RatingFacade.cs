@@ -45,7 +45,7 @@ public class RatingFacade(
         var models = ModelMapper.MapToListModel(entities);
         foreach (var model in models)
         {
-            if (studentNames.TryGetValue(model.studentId, out var name))
+            if (studentNames.TryGetValue(model.StudentId, out var name))
                 model.StudentName = name;
         }
 
@@ -127,7 +127,7 @@ public class RatingFacade(
         var models = ModelMapper.MapToListModel(entities);
         foreach (var model in models)
         {
-            if (studentNames.TryGetValue(model.studentId, out var name))
+            if (studentNames.TryGetValue(model.StudentId, out var name))
                 model.StudentName = name;
         }
 

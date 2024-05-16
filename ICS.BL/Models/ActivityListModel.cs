@@ -2,19 +2,19 @@ namespace ICS.BL.Models;
 
 public record ActivityListModel : ModelBase
 {
-    public string name { get; set; } = string.Empty;
-    public DateTime start { get; set; }
-    public DateTime end { get; set; }
-    public string room { get; set; } = string.Empty;
-    public Guid subjectId { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public DateTime Start { get; set; }
+    public DateTime End { get; set; }
+    public string Room { get; set; } = string.Empty;
+    public Guid SubjectId { get; set; }
 
     public static ActivityListModel Empty => new()
     {
         Id = Guid.NewGuid(),
-        name = string.Empty,
-        start = DateTime.MinValue,
-        end = DateTime.MinValue,
-        room = string.Empty,
-        subjectId = Guid.Empty
+        Name = string.Empty,
+        Start = DateTime.Now,
+        End = DateTime.Now,
+        Room = string.Empty,
+        SubjectId = Guid.Empty
     };
 }

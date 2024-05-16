@@ -10,7 +10,7 @@
     <VerticalStackLayout
         Spacing="10">
         <Label 
-            Text="Student List."
+            Text="Select student for rating."
             VerticalOptions="Center" 
             FontSize="24"
             HorizontalOptions="Center" />

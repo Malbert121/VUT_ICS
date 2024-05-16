@@ -19,13 +19,13 @@ namespace ICS.ViewModel.Student
         [RelayCommand]
         private async Task SaveAsync()
         {
-            if(Student.firstName == string.Empty || Student.lastName == string.Empty)
+            if(Student.FirstName == string.Empty || Student.LastName == string.Empty)
             {
                 await alertService.DisplayAsync("Error", "Some boxes are empty");
                 return;
             }
 
-            await studentFacade.SaveAsync(Student with { subjects = default! });
+            await studentFacade.SaveAsync(Student with { Subjects = default! });
 
             MessengerService.Send(new StudentEditMessage { StudentId = Student.Id });
 

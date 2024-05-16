@@ -10,7 +10,7 @@
 	<VerticalStackLayout
         Spacing="10">
 		<Label
-            Text="Student List."
+            Text="Registrated students."
             VerticalOptions="Center"
             FontSize="24"
             HorizontalOptions="Center" />

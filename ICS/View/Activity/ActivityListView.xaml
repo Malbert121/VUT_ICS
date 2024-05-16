@@ -80,10 +80,10 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="{Binding name}" />
-                        <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="{Binding start}" />
-                        <Label Grid.Column="2" FontSize="20" HorizontalOptions="Center" Text="{Binding end}" />
-                        <Label Grid.Column="3" FontSize="20" HorizontalOptions="Center" Text="{Binding room}" />
+                        <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="{Binding Name}" />
+                        <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="{Binding Start}" />
+                        <Label Grid.Column="2" FontSize="20" HorizontalOptions="Center" Text="{Binding End}" />
+                        <Label Grid.Column="3" FontSize="20" HorizontalOptions="Center" Text="{Binding Room}" />
                         <Button Grid.Column="5" FontSize="20" Text="Detail" HeightRequest="50" WidthRequest="150" Command="{Binding Source={x:Reference ActivityListViewRoot}, Path=BindingContext.GoToDetailCommand}" CommandParameter="{Binding Id}" />
                     </Grid>
                 </DataTemplate>

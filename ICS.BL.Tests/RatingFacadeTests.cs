@@ -38,10 +38,10 @@ public sealed class RatingFacadeTests : FacadeTestsBase
         var model = new RatingDetailModel()
         {
             Id = Guid.Parse("5ef12a97-24de-4df2-8c33-bef54679f333"),
-            points = 20,
-            note = "note",
-            studentId = Guid.Parse("d9963767-91a2-4b3f-81f7-dc5d0aaecf7d"),
-            activityId = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f485")
+            Points = 20,
+            Note = "Note",
+            StudentId = Guid.Parse("d9963767-91a2-4b3f-81f7-dc5d0aaecf7d"),
+            ActivityId = Guid.Parse("12b98f97-30de-4df2-8c33-bef54679f485")
         };
         //Act & Assert
         var _ = await _ratingFacadeSUT.SaveAsync(model);
@@ -109,8 +109,8 @@ public sealed class RatingFacadeTests : FacadeTestsBase
     {
         //Arrange
         var rating = RatingModelMapper.MapToDetailModel(RatingSeeds.Rating1);
-        rating.points = 20;
-        rating.note += "Your evaluation was updated.";
+        rating.Points = 20;
+        rating.Note += "Your evaluation was updated.";
 
         //Act
         await _ratingFacadeSUT.SaveAsync(rating);
@@ -126,7 +126,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase
         //Arrange
         var model = RatingModelMapper.MapToDetailModel(RatingSeeds.Rating1);
         //Act
-        model.points = 10;
+        model.Points = 10;
         //Assert
         await _ratingFacadeSUT.SaveAsync(model);
     }
@@ -136,7 +136,7 @@ public sealed class RatingFacadeTests : FacadeTestsBase
     {
         //Arrange
         var detailModel = RatingModelMapper.MapToDetailModel(RatingSeeds.Rating1);
-        detailModel.points = 100;
+        detailModel.Points = 100;
         //Act
         await _ratingFacadeSUT.SaveAsync(detailModel);
         //Assert

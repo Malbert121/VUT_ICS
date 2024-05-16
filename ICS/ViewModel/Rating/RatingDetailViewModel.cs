@@ -61,7 +61,7 @@ public partial class RatingDetailViewModel(
     private async Task GoToEditAsync()
     {
         await navigationService.GoToAsync("/edit",
-            new Dictionary<string, object?> { [nameof(RatingEditViewModel.Rating)] = Rating, [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity!.subjectId });
+            new Dictionary<string, object?> { [nameof(RatingEditViewModel.Rating)] = Rating, [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity!.SubjectId });
     }
 
     public async void Receive(RatingEditMessage message)

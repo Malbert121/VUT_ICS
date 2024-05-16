@@ -36,10 +36,10 @@ public sealed class StudentFacadeTests : FacadeTestsBase
         var model = new StudentDetailModel()
         {
             Id = Guid.Empty,
-            firstName = "Anna",
-            lastName = "Tomson",
-            photoURL = "http://www.example.com/index.html",
-            subjects = new ObservableCollection<StudentSubjectListModel>()
+            FirstName = "Anna",
+            LastName = "Tomson",
+            PhotoURL = "http://www.example.com/index.html",
+            Subjects = new ObservableCollection<StudentSubjectListModel>()
             {
                 new()
                 {
@@ -62,10 +62,10 @@ public sealed class StudentFacadeTests : FacadeTestsBase
         var model = new StudentDetailModel()
         {
             Id = Guid.Empty,
-            firstName = "Barak",
-            lastName = "Obama",
-            photoURL = "http://www.example.com/index.html",
-            subjects = new ObservableCollection<StudentSubjectListModel>()
+            FirstName = "Barak",
+            LastName = "Obama",
+            PhotoURL = "http://www.example.com/index.html",
+            Subjects = new ObservableCollection<StudentSubjectListModel>()
             
         };
 
@@ -84,10 +84,10 @@ public sealed class StudentFacadeTests : FacadeTestsBase
         var model = new StudentDetailModel()
         {
             Id = Guid.Empty,
-            firstName = "Barak",
-            lastName = "Obama",
-            photoURL = "http://www.example.com/index.html",
-            subjects = new ObservableCollection<StudentSubjectListModel>()
+            FirstName = "Barak",
+            LastName = "Obama",
+            PhotoURL = "http://www.example.com/index.html",
+            Subjects = new ObservableCollection<StudentSubjectListModel>()
            {
                 new()
                 {
@@ -112,10 +112,10 @@ public sealed class StudentFacadeTests : FacadeTestsBase
         var model = new StudentDetailModel()
         {
             Id = Guid.Empty,
-            firstName = "Barak",
-            lastName = "Obama",
-            photoURL = "http://www.example.com/index.html",
-            subjects = new ObservableCollection<StudentSubjectListModel>()
+            FirstName = "Barak",
+            LastName = "Obama",
+            PhotoURL = "http://www.example.com/index.html",
+            Subjects = new ObservableCollection<StudentSubjectListModel>()
             {
                 new()
                 {
@@ -173,10 +173,10 @@ public sealed class StudentFacadeTests : FacadeTestsBase
     {
         //Arrange
         var model = StudentModelMapper.MapToDetailModel(StudentSeeds.Harry);
-        model.firstName = "Harry";
-        model.lastName = "Potter";
-        model.photoURL = "http://www.example.com/index.html";
-        model.subjects = new ObservableCollection<StudentSubjectListModel>();
+        model.FirstName = "Harry";
+        model.LastName = "Potter";
+        model.PhotoURL = "http://www.example.com/index.html";
+        model.Subjects = new ObservableCollection<StudentSubjectListModel>();
 
         //Act
         var returnedModel = await _studentFacadeSUT.SaveAsync(model);
@@ -192,7 +192,7 @@ public sealed class StudentFacadeTests : FacadeTestsBase
     {
         //Arrange
         var model = StudentModelMapper.MapToDetailModel(StudentSeeds.StudentUpdate);
-        model.firstName = "Updated";
+        model.FirstName = "Updated";
 
         //Act
         var returnedModel = await _studentFacadeSUT.SaveAsync(model);
@@ -207,7 +207,7 @@ public sealed class StudentFacadeTests : FacadeTestsBase
     {
         //Arrange
         var model = StudentModelMapper.MapToDetailModel(StudentSeeds.StudentWithNoSubjects);
-        model.firstName = "Updated";
+        model.FirstName = "Updated";
 
         //Act & Assert
         await _studentFacadeSUT.SaveAsync(model);
@@ -218,7 +218,7 @@ public sealed class StudentFacadeTests : FacadeTestsBase
     {
         //Arrange
         var model = StudentModelMapper.MapToDetailModel(StudentSeeds.StudentWithSubjects);
-        model.subjects = new ObservableCollection<StudentSubjectListModel>();
+        model.Subjects = new ObservableCollection<StudentSubjectListModel>();
 
         //Act
         var returnedModel = await _studentFacadeSUT.SaveAsync(model);
@@ -315,15 +315,15 @@ public sealed class StudentFacadeTests : FacadeTestsBase
     public async Task Sort_ByDescendingLastName_DoesNotThrow()
     {
         var studentList = await _studentApliedFacadeSUT.GetSortedAsync("byDescendingLastName");
-        Assert.Equal("Weasley", studentList.ToObservableCollection()[0].lastName);
-        Assert.Equal("Potter", studentList.ToObservableCollection()[1].lastName);
-        Assert.Equal("Potter", studentList.ToObservableCollection()[2].lastName);
-        Assert.Equal("Potter", studentList.ToObservableCollection()[3].lastName);
-        Assert.Equal("Potter", studentList.ToObservableCollection()[4].lastName);
-        Assert.Equal("Malfoy", studentList.ToObservableCollection()[5].lastName);
-        Assert.Equal("Lovegood", studentList.ToObservableCollection()[6].lastName);
-        Assert.Equal("Longbottom", studentList.ToObservableCollection()[7].lastName);
-        Assert.Equal("Granger", studentList.ToObservableCollection()[8].lastName);
+        Assert.Equal("Weasley", studentList.ToObservableCollection()[0].LastName);
+        Assert.Equal("Potter", studentList.ToObservableCollection()[1].LastName);
+        Assert.Equal("Potter", studentList.ToObservableCollection()[2].LastName);
+        Assert.Equal("Potter", studentList.ToObservableCollection()[3].LastName);
+        Assert.Equal("Potter", studentList.ToObservableCollection()[4].LastName);
+        Assert.Equal("Malfoy", studentList.ToObservableCollection()[5].LastName);
+        Assert.Equal("Lovegood", studentList.ToObservableCollection()[6].LastName);
+        Assert.Equal("Longbottom", studentList.ToObservableCollection()[7].LastName);
+        Assert.Equal("Granger", studentList.ToObservableCollection()[8].LastName);
 
     }
 
@@ -332,9 +332,9 @@ public sealed class StudentFacadeTests : FacadeTestsBase
     {
         returnedModel.Id = expectedModel.Id;
 
-        foreach (var studentSubjectModel in returnedModel.subjects)
+        foreach (var studentSubjectModel in returnedModel.Subjects)
         {
-            var StudentSubjectDetailModel = expectedModel.subjects.FirstOrDefault(i =>
+            var StudentSubjectDetailModel = expectedModel.Subjects.FirstOrDefault(i =>
                 i.SubjectName == studentSubjectModel.SubjectName && i.SubjectAbbreviation == studentSubjectModel.SubjectAbbreviation);
 
 

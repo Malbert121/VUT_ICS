@@ -75,13 +75,13 @@ public partial class ActivityEditViewModel(
     private void UpdateStartDateTime()
     {
 
-        Activity.start = new DateTime(StartDate.Year, StartDate.Month, StartDate.Day, StartTime.Hours, StartTime.Minutes, StartTime.Seconds);
+        Activity.Start = new DateTime(StartDate.Year, StartDate.Month, StartDate.Day, StartTime.Hours, StartTime.Minutes, StartTime.Seconds);
 
-        if (Activity.end < Activity.start)
+        if (Activity.End < Activity.Start)
         {
-            Activity.end = Activity.start.AddHours(1);
-            EndDate = Activity.end.Date;
-            EndTime = Activity.end.TimeOfDay;
+            Activity.End = Activity.Start.AddHours(1);
+            EndDate = Activity.End.Date;
+            EndTime = Activity.End.TimeOfDay;
         }
 
     }
@@ -89,13 +89,13 @@ public partial class ActivityEditViewModel(
     private void UpdateEndDateTime()
     {
 
-        Activity.end = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds);
+        Activity.End = new DateTime(EndDate.Year, EndDate.Month, EndDate.Day, EndTime.Hours, EndTime.Minutes, EndTime.Seconds);
 
-        if (Activity.end < Activity.start)
+        if (Activity.End < Activity.Start)
         {
-            Activity.start = Activity.end.AddHours(-1);
-            StartDate = Activity.start.Date;
-            StartTime = Activity.start.TimeOfDay;
+            Activity.Start = Activity.End.AddHours(-1);
+            StartDate = Activity.Start.Date;
+            StartTime = Activity.Start.TimeOfDay;
         }
 
     }
@@ -104,30 +104,30 @@ public partial class ActivityEditViewModel(
     [RelayCommand]
     private async Task SaveAsync()
     {
-        if (Activity.name == string.Empty)
+        if (Activity.Name == string.Empty)
         {
             await alertService.DisplayAsync("Error", "Name is empty");
             return;
         }
-        if (!(Activity.start == DateTime.MinValue && Activity.end == DateTime.MinValue)
-            || Activity.start > Activity.end
-            || Activity.start < DateTime.Now)
+        if (!(Activity.Start == DateTime.MinValue && Activity.End == DateTime.MinValue)
+            || Activity.Start > Activity.End
+            || Activity.Start < DateTime.Now)
         {
-            await alertService.DisplayAsync("Error", "Start or end time are invalid");
+            await alertService.DisplayAsync("Error", "Start or End time are invalid");
             return;
         }
-        if (Activity.room == string.Empty)
+        if (Activity.Room == string.Empty)
         {
             await alertService.DisplayAsync("Error", "Room is empty");
             return;
         }
         if (Subject is not null)
         {
-            await activityFacade.SaveAsync(Activity with { subjectId = Subject.Id, ratings = default! });
+            await activityFacade.SaveAsync(Activity with { SubjectId = Subject.Id, Ratings = default! });
         }
         else
         {
-            await activityFacade.SaveAsync(Activity with { ratings = default! });
+            await activityFacade.SaveAsync(Activity with { Ratings = default! });
         }
         MessengerService.Send(new ActivityEditMessage { ActivityId = Activity.Id });
 

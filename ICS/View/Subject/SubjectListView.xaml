@@ -63,7 +63,7 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" HorizontalOptions="Center" FontSize="20" Text="{Binding name}" />
+                        <Label Grid.Column="0" HorizontalOptions="Center" FontSize="20" Text="{Binding Name}" />
 
                         <Button Grid.Column="1" HorizontalOptions="Center" FontSize="20" Text="Detail"  HeightRequest="50" WidthRequest="200" Command="{Binding Source={x:Reference SubjectListViewRoot}, Path=BindingContext.GoToDetailCommand}" CommandParameter="{Binding Id}" />
                     </Grid>

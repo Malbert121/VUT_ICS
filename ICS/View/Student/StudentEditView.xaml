@@ -23,23 +23,23 @@
            FontSize="20"/>
         <Entry HorizontalOptions="Fill"
            FontSize="20"  
-           Text="{Binding Student.firstName}" />
+           Text="{Binding Student.FirstName}" />
 
         <Label Text="Last Name."
            FontSize="20"/>
         <Entry HorizontalOptions="Fill"
            FontSize="20"
-           Text="{Binding Student.lastName}" />
+           Text="{Binding Student.LastName}" />
 
         <Label Text="Photo."
                FontSize="20"/>
-        <Image Source="{Binding Student.photoURL}"
+        <Image Source="{Binding Student.PhotoURL}"
                 HeightRequest="100"
                 WidthRequest="100"
                 Aspect="AspectFill"
                 HorizontalOptions="Center" />
         <Entry HorizontalOptions="Fill"
                FontSize="20"
-               Text="{Binding Student.photoURL}" />
+               Text="{Binding Student.PhotoURL}" />
     </VerticalStackLayout>
 </views:ContentPageBase>

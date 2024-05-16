@@ -42,7 +42,7 @@
                          Spacing="20">
                 <HorizontalStackLayout Spacing="20">
                     <Label Text="Points:" FontSize="20"/>
-                    <Label Text="{Binding Rating.points}" FontSize="20"/>
+                    <Label Text="{Binding Rating.Points}" FontSize="20"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="20">
                     <Label Text="Student name:" FontSize="20"/>
@@ -50,7 +50,7 @@
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="20">
                     <Label Text="Note:" FontSize="20"/>
-                    <Label Text="{Binding Rating.note}" FontSize="20"/>
+                    <Label Text="{Binding Rating.Note}" FontSize="20"/>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
         </Grid>

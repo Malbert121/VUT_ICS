@@ -5,23 +5,23 @@ namespace ICS.BL.Models;
 
 public record ActivityDetailModel : ModelBase
 {
-    public string name { get; set; } = string.Empty;
-    public DateTime start { get; set; }
-    public DateTime end { get; set; }
-    public string room { get; set; } = string.Empty;
-    public string activityTypeTag { get; set; } = string.Empty;
-    public string description { get; set; } = string.Empty;
-    public Guid subjectId { get; set; }
-    public ObservableCollection<RatingListModel> ratings { get; set; } = new ();
+    public string Name { get; set; } = string.Empty;
+    public DateTime Start { get; set; }
+    public DateTime End { get; set; }
+    public string Room { get; set; } = string.Empty;
+    public string ActivityTypeTag { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public Guid SubjectId { get; set; }
+    public ObservableCollection<RatingListModel> Ratings { get; set; } = new ();
     public static ActivityDetailModel Empty => new()
     {
         Id = Guid.NewGuid(),
-        name = string.Empty,
-        start = DateTime.MinValue,
-        end = DateTime.MinValue,
-        room = string.Empty,
-        activityTypeTag = string.Empty,
-        subjectId = Guid.Empty,
-        description = string.Empty
+        Name = string.Empty,
+        Start = DateTime.Now,
+        End = DateTime.Now,
+        Room = string.Empty,
+        ActivityTypeTag = string.Empty,
+        SubjectId = Guid.Empty,
+        Description = string.Empty
     };
 }        

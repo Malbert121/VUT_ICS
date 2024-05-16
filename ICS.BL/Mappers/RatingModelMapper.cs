@@ -11,10 +11,10 @@ public class RatingModelMapper() : ModelMapperBase<RatingEntity, RatingListModel
         : new RatingListModel
         {
             Id = entity.Id,
-            points = entity.Points,
-            studentId = entity.StudentId,
+            Points = entity.Points,
+            StudentId = entity.StudentId,
             StudentName = entity.Student is not null ? entity.Student.FirstName + " " + entity.Student.LastName : string.Empty,
-            activityId = entity.ActivityId,
+            ActivityId = entity.ActivityId,
         };
 
     public override RatingDetailModel MapToDetailModel(RatingEntity? entity)
@@ -23,11 +23,11 @@ public class RatingModelMapper() : ModelMapperBase<RatingEntity, RatingListModel
         : new RatingDetailModel
         {
             Id = entity.Id,
-            points = entity.Points,
-            note = entity.Note,
-            studentId = entity.StudentId,
+            Points = entity.Points,
+            Note = entity.Note,
+            StudentId = entity.StudentId,
             Student = entity.Student is not null ? entity.Student.FirstName + " " + entity.Student.LastName : string.Empty,
-            activityId = entity.ActivityId
+            ActivityId = entity.ActivityId
         };
 
     public override RatingEntity MapDetailModelToEntity(RatingDetailModel model)
@@ -35,10 +35,10 @@ public class RatingModelMapper() : ModelMapperBase<RatingEntity, RatingListModel
         return new RatingEntity
         {
             Id = model.Id,
-            Points = model.points,
-            Note = model.note,
-            StudentId = model.studentId,
-            ActivityId = model.activityId
+            Points = model.Points,
+            Note = model.Note,
+            StudentId = model.StudentId,
+            ActivityId = model.ActivityId
         };
     }
 }

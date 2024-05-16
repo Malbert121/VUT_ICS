@@ -30,12 +30,12 @@
        FontSize="20"/>
         <Entry HorizontalOptions="Fill"
        FontSize="20"
-       Text="{Binding Subject.name}" />
+       Text="{Binding Subject.Name}" />
         <Label Text="Description."
        FontSize="20"/>
         <Editor HorizontalOptions="Fill"
         FontSize="20"
         AutoSize="TextChanges"
-        Text="{Binding Subject.abbreviation}" />
+        Text="{Binding Subject.Abbreviation}" />
     </VerticalStackLayout>
 </views:ContentPageBase>

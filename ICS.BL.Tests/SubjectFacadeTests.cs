@@ -38,9 +38,9 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
         var model = new SubjectDetailModel()
         {
             Id = Guid.Empty,
-            name = "Database Systems",
-            abbreviation = "IDS",
-            students = new ObservableCollection<StudentSubjectListModel>()
+            Name = "Database Systems",
+            Abbreviation = "IDS",
+            Students = new ObservableCollection<StudentSubjectListModel>()
             {
                 new StudentSubjectListModel
                 {
@@ -62,17 +62,17 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
         var model = new SubjectDetailModel()
         {
             Id = Guid.Empty,
-            name = "Database Systems",
-            abbreviation = "IDS",
-            activity = new ObservableCollection<ActivityListModel>()
+            Name = "Database Systems",
+            Abbreviation = "IDS",
+            Activity = new ObservableCollection<ActivityListModel>()
             {
                 new ActivityListModel
                 {
                     Id = Guid.NewGuid(),
-                    name = "TESTACT",
-                    start = new DateTime(2021, 10, 10, 10, 0, 0),
-                    end = new DateTime(2021, 10, 10, 10, 0, 0),
-                    room = "A03",
+                    Name = "TESTACT",
+                    Start = new DateTime(2021, 10, 10, 10, 0, 0),
+                    End = new DateTime(2021, 10, 10, 10, 0, 0),
+                    Room = "A03",
                 }
             }
         };
@@ -86,20 +86,20 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
         var model = new SubjectDetailModel()
         {
             Id = Guid.Empty,
-            name = "Database Systems",
-            abbreviation = "IDS",
-            activity = new ObservableCollection<ActivityListModel>()
+            Name = "Database Systems",
+            Abbreviation = "IDS",
+            Activity = new ObservableCollection<ActivityListModel>()
             {
                 new ActivityListModel
                 {
                     Id = Guid.NewGuid(),
-                    name = "TESTACT",
-                    start = new DateTime(2021, 10, 10, 10, 0, 0),
-                    end = new DateTime(2021, 10, 10, 10, 0, 0),
-                    room = "A03",
+                    Name = "TESTACT",
+                    Start = new DateTime(2021, 10, 10, 10, 0, 0),
+                    End = new DateTime(2021, 10, 10, 10, 0, 0),
+                    Room = "A03",
                 }
             },
-            students = new ObservableCollection<StudentSubjectListModel>()
+            Students = new ObservableCollection<StudentSubjectListModel>()
             {
                 new StudentSubjectListModel
                 {
@@ -122,8 +122,8 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
         var model = new SubjectDetailModel()
         {
             Id = Guid.Empty,
-            name = "IMA3",
-            abbreviation = "Here you can study differential equations graciously."
+            Name = "IMA3",
+            Abbreviation = "Here you can study differential equations graciously."
         };
 
         await _subjectFacadeSUT.SaveAsync(model);
@@ -135,17 +135,17 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
         var model = new SubjectDetailModel()
         {
             Id = Guid.Empty,
-            name = "Database Systems",
-            abbreviation = "IDS",
-            activity = new ObservableCollection<ActivityListModel>()
+            Name = "Database Systems",
+            Abbreviation = "IDS",
+            Activity = new ObservableCollection<ActivityListModel>()
             {
                 new ActivityListModel
                 {
                     Id = ActivitySeeds.PotionsActivity.Id,
-                    name = ActivitySeeds.PotionsActivity.Name,
-                    start = ActivitySeeds.PotionsActivity.Start,
-                    end = ActivitySeeds.PotionsActivity.End,
-                    room = ActivitySeeds.PotionsActivity.Room,
+                    Name = ActivitySeeds.PotionsActivity.Name,
+                    Start = ActivitySeeds.PotionsActivity.Start,
+                    End = ActivitySeeds.PotionsActivity.End,
+                    Room = ActivitySeeds.PotionsActivity.Room,
                 }
             }
         };
@@ -159,9 +159,9 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
         var model = new SubjectDetailModel()
         {
             Id = Guid.Empty,
-            name = "Database Systems",
-            abbreviation = "IDS",
-            students = new ObservableCollection<StudentSubjectListModel>()
+            Name = "Database Systems",
+            Abbreviation = "IDS",
+            Students = new ObservableCollection<StudentSubjectListModel>()
             {
                 new StudentSubjectListModel
                 {
@@ -208,8 +208,8 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     {
         //Arrange
         var model = SubjectModelMapper.MapToDetailModel(SubjectSeeds.SubjectWithNoStudent);
-        model.name = "IMA5";
-        model.abbreviation = "Machine Learning prerequisites";
+        model.Name = "IMA5";
+        model.Abbreviation = "Machine Learning prerequisites";
 
         //Act
         var returnedModel = await _subjectFacadeSUT.SaveAsync(model);
@@ -223,10 +223,10 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     public async Task Update_ExistingSubject_UpdatesSuccessfully()
     {
         // Arrange
-        var subject = new SubjectDetailModel { name = "Initial Subject", abbreviation = "INIT" };
+        var subject = new SubjectDetailModel { Name = "Initial Subject", Abbreviation = "INIT" };
         var createdSubject = await _subjectFacadeSUT.SaveAsync(subject);
-        createdSubject.name = "Updated Subject";
-        createdSubject.abbreviation = "UPDT";
+        createdSubject.Name = "Updated Subject";
+        createdSubject.Abbreviation = "UPDT";
 
         // Act
         var updatedSubject = await _subjectFacadeSUT.SaveAsync(createdSubject);
@@ -243,7 +243,7 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     {
         //Arrange
         var model = SubjectModelMapper.MapToDetailModel(SubjectSeeds.SubjectWithNoStudent);
-        model.name = "IMA4";
+        model.Name = "IMA4";
 
         //Act && Assert
         await _subjectFacadeSUT.SaveAsync(model);
@@ -297,19 +297,19 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     {
         returnedModel.Id = expectedModel.Id;
 
-        foreach (var activityModel in returnedModel.activity)
+        foreach (var activityModel in returnedModel.Activity)
         {
-            var activityDetailModel = expectedModel.activity.FirstOrDefault(i =>
-                i.name == activityModel.name);
+            var activityDetailModel = expectedModel.Activity.FirstOrDefault(i =>
+                i.Name == activityModel.Name);
 
 
             if (activityDetailModel != null)
             {
                 activityModel.Id = activityDetailModel.Id;
-                activityModel.name = activityDetailModel.name;
-                activityModel.start = activityDetailModel.start;
-                activityModel.end = activityDetailModel.end;
-                activityModel.room = activityDetailModel.room;
+                activityModel.Name = activityDetailModel.Name;
+                activityModel.Start = activityDetailModel.Start;
+                activityModel.End = activityDetailModel.End;
+                activityModel.Room = activityDetailModel.Room;
             }
         }
     }
@@ -319,9 +319,9 @@ public sealed class SubjectFacadeTests : FacadeTestsBase
     {
         returnedModel.Id = expectedModel.Id;
 
-        foreach (var studentModel in returnedModel.students)
+        foreach (var studentModel in returnedModel.Students)
         {
-            var studentDetailModel = expectedModel.students.FirstOrDefault(i =>
+            var studentDetailModel = expectedModel.Students.FirstOrDefault(i =>
                 i.StudentFirstName == studentModel.StudentFirstName && i.StudentLastName == studentModel.StudentLastName);
 
 

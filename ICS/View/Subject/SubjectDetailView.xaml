@@ -60,11 +60,11 @@
                      Spacing="20">
                 <HorizontalStackLayout Spacing="20">
                     <Label Text="Name:" FontSize="20"/>
-                    <Label Text="{Binding Subject.name}" FontSize="20"/>
+                    <Label Text="{Binding Subject.Name}" FontSize="20"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="20">
                     <Label Text="Description:" FontSize="20"/>
-                    <Label Text="{Binding Subject.abbreviation}" FontSize="20"/>
+                    <Label Text="{Binding Subject.Abbreviation}" FontSize="20"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="20">
                     <Label Text="Id:" FontSize="20"/>

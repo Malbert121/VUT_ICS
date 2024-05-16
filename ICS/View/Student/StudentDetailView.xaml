@@ -51,13 +51,13 @@
                                  Spacing="20">
                 <HorizontalStackLayout Spacing="20">
                     <Label Text="First Name:" FontSize="20"/>
-                    <Label Text="{Binding Student.firstName}" FontSize="20"/>
+                    <Label Text="{Binding Student.FirstName}" FontSize="20"/>
                 </HorizontalStackLayout>
                 <HorizontalStackLayout Spacing="20">
                     <Label Text="Last Name:" FontSize="20"/>
-                    <Label Text="{Binding Student.lastName}" FontSize="20"/>
+                    <Label Text="{Binding Student.LastName}" FontSize="20"/>
                 </HorizontalStackLayout>
-                <Image Source="{Binding Student.photoURL}" 
+                <Image Source="{Binding Student.PhotoURL}" 
                           HeightRequest="300" 
                           WidthRequest="300"
                           Aspect="AspectFill"/>

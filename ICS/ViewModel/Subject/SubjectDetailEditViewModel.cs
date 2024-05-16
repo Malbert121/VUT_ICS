@@ -20,12 +20,12 @@ public partial class SubjectEditViewModel(
     [RelayCommand]
     private async Task SaveAsync()
     {
-        if (Subject.name == string.Empty)
+        if (Subject.Name == string.Empty)
         {
             await alertService.DisplayAsync("Error", "Some boxes are empty");
             return;
         }
-        await subjectFacade.SaveAsync(Subject with { activity = default!, students = default! });
+        await subjectFacade.SaveAsync(Subject with { Activity = default!, Students = default! });
        
         MessengerService.Send(new SubjectEditMessage { SubjectId = Subject.Id });
 

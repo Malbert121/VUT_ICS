@@ -43,20 +43,20 @@ public partial class RatingStudentSelectViewModel(
     private async Task SelectAsync(Guid id)
     {
         var existingRatings = await ratingFacade.GetFromActivityAsync(Activity!.Id);
-        if (existingRatings.Any(r => r.studentId == id))
+        if (existingRatings.Any(r => r.StudentId == id))
         {
             await Application.Current!.MainPage!.DisplayAlert("Error", "This student already marked for this activity.", "OK");
             return;
         }
 
         Student = await studentFacade.GetAsync(id);
-        await navigationService.GoToAsync("//subjects/detail/activities/detail/ratings/edit",
+        await navigationService.GoToAsync("//subjects/detail/activities/detail/Ratings/edit",
             new Dictionary<string, object?>
             {
                 [nameof(RatingEditViewModel.StudentId)] = id,
                 [nameof(RatingEditViewModel.Activity)] = Activity,
-                [nameof(RatingEditViewModel.SubjectId)] = Activity.subjectId,
-                [nameof(RatingEditViewModel.Rating)] = Rating with { Student = Student!.firstName + " " + Student.lastName, studentId = id }
+                [nameof(RatingEditViewModel.SubjectId)] = Activity.SubjectId,
+                [nameof(RatingEditViewModel.Rating)] = Rating with { Student = Student!.FirstName + " " + Student.LastName, StudentId = id }
             }
                 );
     }

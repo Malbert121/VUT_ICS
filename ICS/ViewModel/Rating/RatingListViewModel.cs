@@ -53,14 +53,14 @@ namespace ICS.ViewModel.Rating
         private async Task GoToCreateAsync()
         {
             await navigationService.GoToAsync("/edit",
-            new Dictionary<string, object?> { [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity!.subjectId });
+            new Dictionary<string, object?> { [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity!.SubjectId });
         }
 
         [RelayCommand]
         private async Task GoToDetailAsync(Guid id)
         {
             await navigationService.GoToAsync("/detail",
-              new Dictionary<string, object?> { [nameof(RatingDetailViewModel.Id)] = id, [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity!.subjectId });
+              new Dictionary<string, object?> { [nameof(RatingDetailViewModel.Id)] = id, [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity!.SubjectId });
         }
 
         [RelayCommand]

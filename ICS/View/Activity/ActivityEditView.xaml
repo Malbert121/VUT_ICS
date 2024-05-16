@@ -24,13 +24,13 @@
                 FontSize="20"/>
             <Entry HorizontalOptions="Fill"
                 FontSize="20"  
-                Text="{Binding Activity.subjectId}" />
+                Text="{Binding Activity.SubjectId}" />
 
             <Label Text="Name."
                 FontSize="20"/>
             <Entry HorizontalOptions="Fill"
                 FontSize="20"
-                Text="{Binding Activity.name}" />
+                Text="{Binding Activity.Name}" />
 
             <Label Text="Start Date."
                 FontSize="20"/>
@@ -52,7 +52,7 @@
                 FontSize="20"/>
             <Entry HorizontalOptions="Fill"
                 FontSize="20"
-                Text="{Binding Activity.room}" />
+                Text="{Binding Activity.Room}" />
         </VerticalStackLayout>
     </ScrollView>
 </views:ContentPageBase>

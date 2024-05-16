@@ -33,13 +33,13 @@ public partial class RatingEditViewModel(
 
         if (StudentId != Guid.Empty)
         {
-            Rating.studentId = StudentId;
+            Rating.StudentId = StudentId;
             Student = await studentFacade.GetAsync(StudentId);
-            await ratingFacade.SaveAsync(Rating with { activityId = Activity!.Id, Student = Student!.firstName + " " + Student.lastName });
+            await ratingFacade.SaveAsync(Rating with { ActivityId = Activity!.Id, Student = Student!.FirstName + " " + Student.LastName });
             MessengerService.Send(new RatingEditMessage { RatingId = Rating.Id });
             navigationService.SendBackButtonPressed();
         }
-        else if (Rating.studentId != Guid.Empty)
+        else if (Rating.StudentId != Guid.Empty)
         {
             await ratingFacade.SaveAsync(Rating);
             MessengerService.Send(new RatingEditMessage { RatingId = Rating.Id });
@@ -62,7 +62,7 @@ public partial class RatingEditViewModel(
         new Dictionary<string, object?> { 
             [nameof(RatingStudentSelectViewModel.SubjectId)] = SubjectId, 
             [nameof(RatingStudentSelectViewModel.Activity)] = Activity, 
-            [nameof(RatingStudentSelectViewModel.SubjectId)] = Activity!.subjectId, 
+            [nameof(RatingStudentSelectViewModel.SubjectId)] = Activity!.SubjectId, 
             [nameof(RatingStudentSelectViewModel.Rating)] = Rating });
     }
 

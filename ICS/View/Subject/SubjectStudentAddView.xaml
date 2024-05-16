@@ -10,7 +10,7 @@
     <VerticalStackLayout
         Spacing="10">
         <Label
-            Text="Student List."
+            Text="Select students to subject"
             VerticalOptions="Center"
             FontSize="24"
             HorizontalOptions="Center" />
@@ -36,8 +36,8 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="{Binding firstName}" />
-                        <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="{Binding lastName}" />
+                        <Label Grid.Column="0" FontSize="20" HorizontalOptions="Center" Text="{Binding FirstName}" />
+                        <Label Grid.Column="1" FontSize="20" HorizontalOptions="Center" Text="{Binding LastName}" />
                         <Button Grid.Column="2" HorizontalOptions="Center" FontSize="20" Text="Select"  HeightRequest="50" WidthRequest="200" Command="{Binding Source={x:Reference SubjectStudentAddViewRoot}, Path=BindingContext.SelectCommand}" CommandParameter="{Binding Id}" />
                     </Grid>
                 </DataTemplate>

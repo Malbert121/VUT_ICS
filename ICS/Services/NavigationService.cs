@@ -15,12 +15,12 @@ public class NavigationService : INavigationService
 {
     public IEnumerable<RouteModel> Routes { get; } = new List<RouteModel>
     {
-        new("//subjects/detail/activities/detail/ratings", typeof(RatingListView), typeof(RatingListViewModel)),
-        new("//subjects/detail/activities/detail/ratings/detail", typeof(RatingDetailView), typeof(RatingDetailViewModel)),
-        new("//subjects/detail/activities/detail/ratings/edit", typeof(RatingEditView), typeof(RatingEditViewModel)),
-        new("//subjects/detail/activities/detail/ratings/detail/edit", typeof(RatingEditView), typeof(RatingEditViewModel)),
-        new("//subjects/detail/activities/detail/ratings/detail/edit/students", typeof(RatingStudentSelectListView), typeof(RatingStudentSelectViewModel)),
-        new("//subjects/detail/activities/detail/ratings/edit/students", typeof(RatingStudentSelectListView), typeof(RatingStudentSelectViewModel)),
+        new("//subjects/detail/activities/detail/Ratings", typeof(RatingListView), typeof(RatingListViewModel)),
+        new("//subjects/detail/activities/detail/Ratings/detail", typeof(RatingDetailView), typeof(RatingDetailViewModel)),
+        new("//subjects/detail/activities/detail/Ratings/edit", typeof(RatingEditView), typeof(RatingEditViewModel)),
+        new("//subjects/detail/activities/detail/Ratings/detail/edit", typeof(RatingEditView), typeof(RatingEditViewModel)),
+        new("//subjects/detail/activities/detail/Ratings/detail/edit/students", typeof(RatingStudentSelectListView), typeof(RatingStudentSelectViewModel)),
+        new("//subjects/detail/activities/detail/Ratings/edit/students", typeof(RatingStudentSelectListView), typeof(RatingStudentSelectViewModel)),
 
         new("//subjects/detail/activities", typeof(ActivityListView), typeof(ActivityListViewModel)),
         new("//subjects/detail/activities/detail", typeof(ActivityDetailView), typeof(ActivityDetailViewModel)),

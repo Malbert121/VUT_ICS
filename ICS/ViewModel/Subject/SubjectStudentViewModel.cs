@@ -79,7 +79,7 @@ public partial class SubjectStudentViewModel(
         }
         catch (Exception ex)
         {
-            await App.Current.MainPage.DisplayAlert("Error", $"An error occurred while sorting students: {ex.Message}", "OK");
+            await Application.Current!.MainPage!.DisplayAlert("Error", $"An error occurred while sorting students: {ex.Message}", "OK");
         }
     }
 
@@ -88,7 +88,7 @@ public partial class SubjectStudentViewModel(
     private async Task ShowSortOptionsAsync()
     {
 
-        var selectedOption = await App.Current.MainPage.DisplayActionSheet("Sort Students By", "Cancel", null,
+        var selectedOption = await Application.Current!.MainPage!.DisplayActionSheet("Sort Students By", "Cancel", null,
             "byId", "byDescendingId", "byDescendingLastName", "byLastName");
 
         if (!string.IsNullOrEmpty(selectedOption) && selectedOption != "Cancel")
@@ -100,7 +100,7 @@ public partial class SubjectStudentViewModel(
     [RelayCommand]
     private async Task ShowSearchOptionsAsync()
     {
-        var search = await App.Current.MainPage.DisplayPromptAsync("Search", "Enter search term");
+        var search = await Application.Current!.MainPage!.DisplayPromptAsync("Search", "Enter search term");
         if (!string.IsNullOrEmpty(search))
         {
             await LoadSearchResultsAsync(search);
@@ -116,7 +116,7 @@ public partial class SubjectStudentViewModel(
         }
         catch (Exception ex)
         {
-            await App.Current.MainPage.DisplayAlert("Error", $"An error occurred while searching students: {ex.Message}", "OK");
+            await Application.Current!.MainPage!.DisplayAlert("Error", $"An error occurred while searching students: {ex.Message}", "OK");
         }
     }
 

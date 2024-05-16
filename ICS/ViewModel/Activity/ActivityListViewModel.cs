@@ -106,7 +106,7 @@ public partial class ActivityListViewModel(
         {
             if (selectedOption == "by Start Date")
             {
-                var startDate = await Application.Current!.MainPage!.DisplayPromptAsync("Filter by Start Date", "Enter start date (DD-MM-YYYY hh:mm:ss tt)");
+                var startDate = await Application.Current!.MainPage!.DisplayPromptAsync("Filter by Start Date", "Enter Start date (DD-MM-YYYY hh:mm:ss tt)");
                 if (startDate != null)
                 {
                     if (DateTime.TryParse(startDate, out DateTime start))
@@ -122,8 +122,8 @@ public partial class ActivityListViewModel(
             }
             else if (selectedOption == "by Start and End Date")
             {
-                var startDate = await Application.Current!.MainPage!.DisplayPromptAsync("Filter by Start Date", "Enter start date (DD-MM-YYYY)");
-                var endDate = await Application.Current!.MainPage!.DisplayPromptAsync("Filter by Start and End Date", "Enter end date (DD-MM-YYYY)");
+                var startDate = await Application.Current!.MainPage!.DisplayPromptAsync("Filter by Start Date", "Enter Start date (DD-MM-YYYY)");
+                var endDate = await Application.Current!.MainPage!.DisplayPromptAsync("Filter by Start and End Date", "Enter End date (DD-MM-YYYY)");
                 if (startDate != null && endDate != null)
                 {
                     if (DateTime.TryParse(startDate, out DateTime start) && DateTime.TryParse(endDate, out DateTime end))

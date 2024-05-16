@@ -37,18 +37,18 @@
             <Label HorizontalOptions="Fill"
                    Grid.Column="2"
            FontSize="20"
-           Text="{Binding Rating.studentId}" />
+           Text="{Binding Rating.StudentId}" />
         </Grid>
         <Label Text="Points."
            FontSize="20"/>
         <Entry HorizontalOptions="Fill"
            FontSize="20"
-           Text="{Binding Rating.points}" />
+           Text="{Binding Rating.Points}" />
         <Label Text="Note."
            FontSize="20"/>
         <Editor HorizontalOptions="Fill"
             FontSize="20"
             AutoSize="TextChanges"
-            Text="{Binding Rating.note}" />
+            Text="{Binding Rating.Note}" />
     </VerticalStackLayout>
 </views:ContentPageBase>
