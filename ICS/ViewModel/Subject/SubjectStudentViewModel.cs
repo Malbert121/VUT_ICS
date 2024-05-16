@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Windows.Devices.AllJoyn;
 using ICS.Messages.SubjectMessages;
 using CommunityToolkit.Mvvm.Messaging;
+using ICS.BL.Facade;
 
 namespace ICS.ViewModel.Subject;
 
@@ -29,6 +30,13 @@ public partial class SubjectStudentViewModel(
     public Guid SubjectId { get; set; }
     public IEnumerable<StudentSubjectListModel> Students { get; set; } = null!;
 
+    private bool _wasModified;
+
+    public bool wasModified
+    {
+        get => _wasModified;
+        set => SetProperty(ref _wasModified, value);
+    }
 
     protected override async Task LoadDataAsync()
     {
@@ -58,8 +66,68 @@ public partial class SubjectStudentViewModel(
         {
             await alertService.DisplayAsync("ERROR", "No Subject or Student was found");
         }
-
     }
+
+    [RelayCommand]
+    private async Task CancelSearchAsync()
+    {
+        wasModified = false;
+        await base.LoadDataAsync();
+
+        Students = await studentSubjectFacade.GetAsync();
+    }
+
+    [RelayCommand]
+    private async Task SortStudentsAsync(string sortOption)
+    {
+        try
+        {
+            wasModified = true;
+            Students = await studentSubjectFacade.GetSortedAsync(sortOption, SubjectId);
+        }
+        catch (Exception ex)
+        {
+            await App.Current.MainPage.DisplayAlert("Error", $"An error occurred while sorting students: {ex.Message}", "OK");
+        }
+    }
+
+
+    [RelayCommand]
+    private async Task ShowSortOptionsAsync()
+    {
+
+        var selectedOption = await App.Current.MainPage.DisplayActionSheet("Sort Students By", "Cancel", null,
+            "byId", "byDescendingId", "byDescendingLastName", "byLastName");
+
+        if (!string.IsNullOrEmpty(selectedOption) && selectedOption != "Cancel")
+        {
+            await SortStudentsAsync(selectedOption);
+        }
+    }
+
+    [RelayCommand]
+    private async Task ShowSearchOptionsAsync()
+    {
+        var search = await App.Current.MainPage.DisplayPromptAsync("Search", "Enter search term");
+        if (!string.IsNullOrEmpty(search))
+        {
+            await LoadSearchResultsAsync(search);
+        }
+    }
+    [RelayCommand]
+    private async Task LoadSearchResultsAsync(string search)
+    {
+        try
+        {
+            wasModified = true;
+            Students = await studentSubjectFacade.GetSearchAsync(search, SubjectId);
+        }
+        catch (Exception ex)
+        {
+            await App.Current.MainPage.DisplayAlert("Error", $"An error occurred while searching students: {ex.Message}", "OK");
+        }
+    }
+
 
     public async void Receive(SubjectStudentAddMessage message)
     {
