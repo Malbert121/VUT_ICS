@@ -3,16 +3,8 @@ using ICS.BL.Facade.Interface;
 using ICS.BL.Models;
 using ICS.Services;
 using ICS.Messages;
-using ICS.ViewModel.Student;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Devices.AllJoyn;
 using ICS.Messages.SubjectMessages;
 using CommunityToolkit.Mvvm.Messaging;
-using ICS.BL.Facade;
 
 namespace ICS.ViewModel.Subject;
 
