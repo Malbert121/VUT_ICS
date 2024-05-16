@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using ICS.BL.Facade.Interface;
 using ICS.BL.Models;
 using ICS.Messages;
+using ICS.Messages.SubjectMessages;
 using ICS.Services;
 
 
@@ -17,7 +18,7 @@ namespace ICS.ViewModel.Student
         : ViewModelBase(messengerService), IRecipient<StudentEditMessage>
     {
         public Guid Id { get; set; }
-        public StudentDetailModel Student { get; private set; }
+        public StudentDetailModel? Student { get; private set; }
   
 
         [RelayCommand]
@@ -48,7 +49,7 @@ namespace ICS.ViewModel.Student
         public async Task GoToSubjectsAsync()
         {
             await navigationService.GoToAsync("/subjects",
-            new Dictionary<string, object?> { [nameof(StudentSubjectViewModel.Id)] = Student.Id });
+            new Dictionary<string, object?> { [nameof(StudentSubjectViewModel.Id)] = Student!.Id });
         }
 
 
@@ -58,6 +59,13 @@ namespace ICS.ViewModel.Student
             await base.LoadDataAsync();
 
             Student = await studentFacade.GetAsync(Id);
+
+            if (Student is null)
+            {
+                await alertService.DisplayAsync("Error", "Student was not found or deleted");
+                MessengerService.Send(new StudentDeleteMessage());
+                navigationService.SendBackButtonPressed();
+            }
         }
 
         public async void Receive(StudentEditMessage message)

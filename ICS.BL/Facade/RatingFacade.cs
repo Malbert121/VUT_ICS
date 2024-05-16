@@ -31,8 +31,8 @@ public class RatingFacade(
             .GetRepository<RatingEntity, RatingEntityMapper>()
             .Get()
             .Where(e => searchTerms.All(term =>
-                    e.Student.FirstName.ToLower().Contains(term) ||
-                    e.Student.LastName.ToLower().Contains(term)) &&
+                    e.Student!.FirstName.ToLower().Contains(term) ||
+                    e.Student!.LastName.ToLower().Contains(term)) &&
                 e.ActivityId == activityId)
             .ToListAsync();
 
@@ -76,7 +76,7 @@ public class RatingFacade(
         {
             query = query.Include(pathDetail);
         }
-        foreach (string pathDetail in IncludeStudentSubjectNavigationPathDetail)
+        foreach (string pathDetail in IncludesStudentSubjectNavigationPathDetail)
         {
             query = query.Include(pathDetail);
         }

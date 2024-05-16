@@ -65,7 +65,7 @@ public partial class SubjectListViewModel(
     private async Task ShowSortOptionsAsync()
     {
 
-        var selectedOption = await App.Current.MainPage.DisplayActionSheet("Sort Subjects By", "Cancel", null,
+        var selectedOption = await Application.Current!.MainPage!.DisplayActionSheet("Sort Subjects By", "Cancel", null,
             "byId", "byDescendingId", "byDescendingName", "byName");
 
         if (!string.IsNullOrEmpty(selectedOption) && selectedOption != "Cancel")
@@ -77,7 +77,7 @@ public partial class SubjectListViewModel(
     [RelayCommand]
     private async Task ShowSearchOptionsAsync()
     {
-        var search = await App.Current.MainPage.DisplayPromptAsync("Search", "Enter search term");
+        var search = await Application.Current!.MainPage!.DisplayPromptAsync("Search", "Enter search term");
 
         if (!string.IsNullOrEmpty(search))
         {

@@ -18,13 +18,20 @@ public partial class ActivityDetailViewModel(
     : ViewModelBase(messengerService), IRecipient<ActivityEditMessage>
 {
     public Guid Id { get; set; }
-    public ActivityDetailModel Activity { get; private set; }
+    public ActivityDetailModel? Activity { get; private set; }
 
     protected override async Task LoadDataAsync()
     {
         await base.LoadDataAsync();
 
         Activity = await activityFacade.GetAsync(Id);
+
+        if (Activity is null)
+        {
+            await alertService.DisplayAsync("Error", "Subject was not found or deleted");
+            MessengerService.Send(new StudentDeleteMessage());
+            navigationService.SendBackButtonPressed();
+        }
     }
 
     [RelayCommand]
@@ -40,7 +47,7 @@ public partial class ActivityDetailViewModel(
             }
             catch (InvalidOperationException)
             {
-                await alertService.DisplayAsync("PlaceHolder", "PlaceHoder");
+                await alertService.DisplayAsync("Error", "Activity already is deleted");
             }
         }
     }
@@ -49,14 +56,14 @@ public partial class ActivityDetailViewModel(
     private async Task GoToEditAsync()
     {
         await navigationService.GoToAsync("/edit",
-            new Dictionary<string, object?> { [nameof(ActivityEditViewModel.Activity)] = Activity });
+            new Dictionary<string, object?> { [nameof(ActivityEditViewModel.Activity)] = Activity! });
     }
 
     [RelayCommand]
     private async Task GoToRatingAsync()
     {
         await navigationService.GoToAsync("/ratings",
-        new Dictionary<string, object?> { [nameof(RatingListViewModel.Ratings)] = Activity.ratings, [nameof(RatingListViewModel.Activity)] = Activity });
+        new Dictionary<string, object?> { [nameof(RatingListViewModel.Ratings)] = Activity!.ratings, [nameof(RatingListViewModel.Activity)] = Activity });
     }
 
     public async void Receive(ActivityEditMessage message)

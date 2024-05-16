@@ -26,6 +26,13 @@ public partial class SubjectDetailViewModel(
         await base.LoadDataAsync();
 
         Subject = await subjectFacade.GetAsync(Id);
+
+        if (Subject is null)
+        {
+            await alertService.DisplayAsync("Error", "Subject was not found or deleted");
+            MessengerService.Send(new SubjectDeleteMessage());
+            navigationService.SendBackButtonPressed();
+        }
     }
 
     [RelayCommand]

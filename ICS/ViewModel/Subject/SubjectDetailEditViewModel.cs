@@ -11,6 +11,7 @@ namespace ICS.ViewModel.Subject;
 public partial class SubjectEditViewModel(
     ISubjectFacade subjectFacade,
     INavigationService navigationService,
+    IAlertService alertService,
     IMessengerService messengerService)
     : ViewModelBase(messengerService)
 {
@@ -19,7 +20,11 @@ public partial class SubjectEditViewModel(
     [RelayCommand]
     private async Task SaveAsync()
     {
-        
+        if (Subject.name == string.Empty)
+        {
+            await alertService.DisplayAsync("Error", "Some boxes are empty");
+            return;
+        }
         await subjectFacade.SaveAsync(Subject with { activity = default!, students = default! });
        
         MessengerService.Send(new SubjectEditMessage { SubjectId = Subject.Id });

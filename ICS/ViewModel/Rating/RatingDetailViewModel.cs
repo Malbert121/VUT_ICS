@@ -21,7 +21,7 @@ public partial class RatingDetailViewModel(
 {
     public Guid Id { get; set; }
     public RatingDetailModel? Rating { get; private set; }
-    public ActivityDetailModel Activity { get; set; }
+    public ActivityDetailModel? Activity { get; set; }
     public StudentDetailModel? Student { get; set; }
     public Guid StudentId { get; set; } = Guid.Empty;
     public Guid SubjectId { get; set; } = Guid.Empty;
@@ -31,6 +31,12 @@ public partial class RatingDetailViewModel(
         await base.LoadDataAsync();
 
         Rating = await ratingFacade.GetAsync(Id);
+        if (Rating is null)
+        {
+            await alertService.DisplayAsync("Error", "Rating was not found or deleted");
+            MessengerService.Send(new StudentDeleteMessage());
+            navigationService.SendBackButtonPressed();
+        }
     }
 
     [RelayCommand]
@@ -55,7 +61,7 @@ public partial class RatingDetailViewModel(
     private async Task GoToEditAsync()
     {
         await navigationService.GoToAsync("/edit",
-            new Dictionary<string, object?> { [nameof(RatingEditViewModel.Rating)] = Rating, [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity.subjectId });
+            new Dictionary<string, object?> { [nameof(RatingEditViewModel.Rating)] = Rating, [nameof(RatingEditViewModel.Activity)] = Activity, [nameof(RatingEditViewModel.SubjectId)] = Activity!.subjectId });
     }
 
     public async void Receive(RatingEditMessage message)

@@ -27,7 +27,7 @@ public partial class RatingStudentSelectViewModel(
 {
     public IEnumerable<StudentSubjectListModel> Students { get; set; } = null!;
     public StudentDetailModel? Student { get; set; }
-    public ActivityDetailModel Activity { get; set; }
+    public ActivityDetailModel? Activity { get; set; }
     public RatingDetailModel Rating { get; init; } = RatingDetailModel.Empty;
     public Guid StudentId { get; set; } = Guid.Empty;
     public Guid SubjectId { get; set; } = Guid.Empty;
@@ -42,10 +42,10 @@ public partial class RatingStudentSelectViewModel(
     [RelayCommand]
     private async Task SelectAsync(Guid id)
     {
-        var existingRatings = await ratingFacade.GetFromActivityAsync(Activity.Id);
+        var existingRatings = await ratingFacade.GetFromActivityAsync(Activity!.Id);
         if (existingRatings.Any(r => r.studentId == id))
         {
-            await App.Current.MainPage.DisplayAlert("Error", "This student already marked for this activity.", "OK");
+            await Application.Current!.MainPage!.DisplayAlert("Error", "This student already marked for this activity.", "OK");
             return;
         }
 
@@ -56,7 +56,7 @@ public partial class RatingStudentSelectViewModel(
                 [nameof(RatingEditViewModel.StudentId)] = id,
                 [nameof(RatingEditViewModel.Activity)] = Activity,
                 [nameof(RatingEditViewModel.SubjectId)] = Activity.subjectId,
-                [nameof(RatingEditViewModel.Rating)] = Rating with { Student = Student.firstName + " " + Student.lastName, studentId = id }
+                [nameof(RatingEditViewModel.Rating)] = Rating with { Student = Student!.firstName + " " + Student.lastName, studentId = id }
             }
                 );
     }

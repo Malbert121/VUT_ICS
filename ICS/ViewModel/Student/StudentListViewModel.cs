@@ -65,7 +65,7 @@ IMessengerService messengerService)
     private async Task ShowSortOptionsAsync()
     {
 
-        var selectedOption = await App.Current.MainPage.DisplayActionSheet("Sort Students By", "Cancel", null,
+        var selectedOption = await Application.Current!.MainPage!.DisplayActionSheet("Sort Students By", "Cancel", null,
             "byId", "byDescendingId", "byDescendingLastName", "byLastName");
 
         if (!string.IsNullOrEmpty(selectedOption) && selectedOption != "Cancel")
@@ -77,7 +77,7 @@ IMessengerService messengerService)
     [RelayCommand]
     private async Task ShowSearchOptionsAsync()
     {
-        var search = await App.Current.MainPage.DisplayPromptAsync("Search", "Enter search term");
+        var search = await Application.Current!.MainPage!.DisplayPromptAsync("Search", "Enter search term");
 
         if (!string.IsNullOrEmpty(search))
         {

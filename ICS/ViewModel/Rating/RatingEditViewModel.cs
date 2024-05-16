@@ -21,7 +21,7 @@ public partial class RatingEditViewModel(
     : ViewModelBase(messengerService)
 {
     public RatingDetailModel Rating { get; init; } = RatingDetailModel.Empty;
-    public ActivityDetailModel Activity { get; set; }
+    public ActivityDetailModel? Activity { get; set; }
     public StudentDetailModel? Student { get; set; }
     public Guid StudentId { get; set; } = Guid.Empty;
     public Guid SubjectId { get; set; } = Guid.Empty;
@@ -35,7 +35,7 @@ public partial class RatingEditViewModel(
         {
             Rating.studentId = StudentId;
             Student = await studentFacade.GetAsync(StudentId);
-            await ratingFacade.SaveAsync(Rating with { activityId = Activity.Id, Student = Student.firstName + " " + Student.lastName });
+            await ratingFacade.SaveAsync(Rating with { activityId = Activity!.Id, Student = Student!.firstName + " " + Student.lastName });
             MessengerService.Send(new RatingEditMessage { RatingId = Rating.Id });
             navigationService.SendBackButtonPressed();
         }
@@ -62,7 +62,7 @@ public partial class RatingEditViewModel(
         new Dictionary<string, object?> { 
             [nameof(RatingStudentSelectViewModel.SubjectId)] = SubjectId, 
             [nameof(RatingStudentSelectViewModel.Activity)] = Activity, 
-            [nameof(RatingStudentSelectViewModel.SubjectId)] = Activity.subjectId, 
+            [nameof(RatingStudentSelectViewModel.SubjectId)] = Activity!.subjectId, 
             [nameof(RatingStudentSelectViewModel.Rating)] = Rating });
     }
 
